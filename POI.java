@@ -1,4 +1,4 @@
-public class PointOfInterest {
+public class POI {
 
     // POI Discovery,
     // Built-In POIs,
