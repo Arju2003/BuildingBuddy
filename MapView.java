@@ -10,6 +10,6 @@ public class MapView {
     // User Help,
     // Editing Mode.
 
-    // build these and display in GUI.
+    // build these and display in Container.
 
 }

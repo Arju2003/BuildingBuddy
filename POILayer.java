@@ -1,5 +1,5 @@
 public class POILayer {
 
-    // display POIs in GUI.
+    // display POIs in Container.
 
 }
