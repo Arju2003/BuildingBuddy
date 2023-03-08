@@ -1,2 +1,2 @@
-public class DevData {
+public class DevData extends Data {
 }
