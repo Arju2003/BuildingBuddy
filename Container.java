@@ -1,13 +1,22 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Container extends JPanel {
-
     private BufferedImage img;
     private BufferedImage scaled;
+    private GridBagConstraints gbc;
 
-    public Container() {
+    public Container(String backgroundImg) throws IOException {
+        gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(0, 0, 20 , 0);
+        this.setBackground(ImageIO.read(new File(backgroundImg)));
+        GUI.frame.setContentPane(this);
+        this.setLayout(new GridBagLayout());
     }
 
     @Override
@@ -208,5 +217,9 @@ public class Container extends JPanel {
 
         } while (w != targetWidth || h != targetHeight);
         return ret;
+    }
+
+    public void load(JComponent comp) {
+        this.add(comp, gbc);
     }
 }
