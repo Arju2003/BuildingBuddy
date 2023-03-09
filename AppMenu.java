@@ -27,8 +27,11 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         JMenuItem developerTool = new JMenuItem("" +
                 "Developer Tool        CTRL+X");
 
-
-        // add ActionListener to menuItems
+        // add ActionListener to menu buttons and menu items
+        start.addActionListener(this);
+        help.addActionListener(this);
+        about.addActionListener(this);
+        exit.addActionListener(this);
         bookmarks.addActionListener(this);
         myLocations.addActionListener(this);
         checkForUpdates.addActionListener(this);
@@ -57,6 +60,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
     }
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
+
     }
 
     public JMenuBar load() {
