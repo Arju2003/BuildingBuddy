@@ -6,11 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class Container extends JPanel {
-
     private BufferedImage img;
     private BufferedImage scaled;
-
-    GridBagConstraints gbc;
+    private GridBagConstraints gbc;
 
     public Container(String backgroundImg) throws IOException {
         gbc = new GridBagConstraints();
