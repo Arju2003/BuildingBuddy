@@ -1,7 +1,10 @@
 import java.io.IOException;
 
 public class BuildingBuddy {
+
+    protected static GUI mainWindow;
     public static void main(String[] args) throws IOException {
-        GUI mainWindow = new GUI();
+        mainWindow = new GUI();
+
     }
 }
