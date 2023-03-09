@@ -1,31 +1,61 @@
-import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class GUI {
-    public static void main(String[] args) { 
-        JFrame frame =new JFrame();  // creating instance of JFrame
+    JFrame frame = new JFrame("Building Buddy (Beta)");
+    private final AppMenu appMenu = new AppMenu();
 
-        JLabel welcomeText =new JLabel("Welcome to BuildingBuddy!");
-        welcomeText.setFont(welcomeText.getFont().deriveFont(24f));  // set font size
-        welcomeText.setBounds(450,100, 400,30);
-        frame.add(welcomeText);
+    public GUI() {
+        EventQueue.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                throw new RuntimeException(ex);
+            }
 
-        JLabel guideText =new JLabel("Choose a building from the dropdown.");
-        guideText.setFont(guideText.getFont().deriveFont(18f));  // set font size
-        guideText.setBounds(440,150, 400,30);
-        frame.add(guideText);
+            try {
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setJMenuBar(appMenu.load());
+                Container primary = new Container();
+                primary.setBackground(ImageIO.read(new File("./images/mc_hero.jpg")));
 
-        String maps[]={"Middlesex College","Kresge Building","Physics & Astronomy"};
-        JComboBox dropdown = new JComboBox(maps);
-        dropdown.setBounds(450, 300,200,30);
-        frame.add(dropdown);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setContentPane(primary);
+                frame.setLayout(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridwidth = GridBagConstraints.REMAINDER;
+                gbc.insets = new Insets(0, 0, 20 , 0);
 
-        JButton confirmButton =new JButton("Go To Map");
-        confirmButton.setBounds(650,300,95,30);
-        frame.add(confirmButton);
+                ImageIcon icon = new ImageIcon("./images/bb_icon.png");
+                Image image = icon.getImage(); // transform it
+                Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
+                icon = new ImageIcon(newimg);  // transform it back
+                JLabel logo = new JLabel();
+                logo.setIcon(icon);
+                frame.add(logo, gbc);
 
-        frame.setSize(1200,700);  // 400 width and 500 height
-        frame.setLayout(null);  // using no layout managers
-        frame.setVisible(true);  // making the frame visible
+                String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
+
+                JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
+                buildingSelector.setBounds(450, 300, 200, 30);
+                frame.add(buildingSelector, gbc);
+
+
+                JButton exploreButton = new JButton("Explore");
+                frame.add(exploreButton, gbc);
+
+                frame.pack();
+                frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
+                frame.setVisible(true);
+
+
+            } catch (IOException exp) {
+                exp.printStackTrace();
+            }
+        });
     }
 }

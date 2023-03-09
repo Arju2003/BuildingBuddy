@@ -1,2 +1,2 @@
-public class UserData {
+public class UserData extends Data {
 }
