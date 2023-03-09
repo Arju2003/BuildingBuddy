@@ -1,5 +1,14 @@
 public class POILayer {
 
-    // display POIs in Container.
+    private int poiLayerID;
+    private FloorMap belongsTo;
+    private String category;
 
+    public void loadPoiLayer(MapView map) {
+
+    }
+
+    public void removePoiLayer(int poiLayerID) {
+
+    }
 }
