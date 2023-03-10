@@ -17,29 +17,30 @@ public class GUI {
             try {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setJMenuBar(appMenu.load());
-                Container splashScreen = new Container("./images/mc_hero.jpg");
+                Container splashScreen = new Container("./images/mc_hero.jpg", 2);
                 ImageIcon icon = new ImageIcon("./images/bb_icon.png");
                 Image image = icon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
                 icon = new ImageIcon(newimg);  // transform it back
                 JLabel logo = new JLabel();
                 logo.setIcon(icon);
-                splashScreen.load(logo);
+                splashScreen.load(logo, 'L');
                 String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
 
                 JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
                 buildingSelector.setBounds(450, 300, 200, 30);
-                splashScreen.load(buildingSelector);
+                splashScreen.load(buildingSelector, 'L');
 
                 JButton exploreButton = new JButton("Explore");
-                splashScreen.load(exploreButton);
+                splashScreen.load(exploreButton,'L');
 
-                String[] POIList = { "ROOM 001","ROOM 002","ROOM 003",
-                        "ROOM 004","ROOM 005","ROOM 006","ROOM 007"};
+                String[] POIList = {"🏫 ROOM 001","🧪 ROOM 002","🏊 ROOM 003",
+                        "🚽 ROOM 004","🍴 ROOM 005","🏫 ROOM 006","💻 ROOM 007"};
 
-                DataView myLocations = new DataView("My Locations", POIList);
-                frame.add(myLocations.load());
+                DataView myLocations = new DataView("\uD83D\uDCCD My Locations", POIList);
+                splashScreen.load(myLocations.load(),'R');
 
+                frame.setContentPane(splashScreen);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);

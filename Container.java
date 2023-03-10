@@ -4,19 +4,38 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Container extends JPanel {
     private BufferedImage img;
     private BufferedImage scaled;
-    private GridBagConstraints gbc;
+    protected final int ONE_COLUMN = 1;
+    protected final int TWO_COLUMNS = 2;
+    private JPanel leftPanel;
+    private JPanel rightPanel;
+    protected GridBagConstraints everythingCentered;
 
-    public Container(String backgroundImg) throws IOException {
-        gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(0, 0, 20 , 0);
+
+    public Container(String backgroundImg, int style) throws IOException {
         this.setBackground(ImageIO.read(new File(backgroundImg)));
-        GUI.frame.setContentPane(this);
-        this.setLayout(new GridBagLayout());
+
+        if (style == ONE_COLUMN) {
+            centerEverything();
+            this.setLayout(new GridBagLayout());
+        }
+
+        if (style == TWO_COLUMNS) {
+            this.setLayout(new GridLayout(1,2));
+            leftPanel = new JPanel();
+            leftPanel.setOpaque(false);
+            rightPanel = new JPanel();
+            rightPanel.setOpaque(false);
+            this.add(leftPanel);
+            this.add(rightPanel);
+            centerEverything();
+            leftPanel.setLayout(new GridBagLayout());
+            rightPanel.setLayout(new GridBagLayout());
+        }
     }
 
     @Override
@@ -219,7 +238,22 @@ public class Container extends JPanel {
         return ret;
     }
 
-    public void load(JComponent comp) {
-        this.add(comp, gbc);
+    private void centerEverything() {
+        everythingCentered = new GridBagConstraints();
+        everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
+        everythingCentered.insets = new Insets(0, 0, 20, 0);
+    }
+    public void load(JComponent comp, char position) {
+        if (position == 'C') {
+            this.add(comp, everythingCentered);
+        }
+
+        else if (position == 'L') {
+            leftPanel.add(comp, everythingCentered);
+        }
+
+        else if (position == 'R') {
+            rightPanel.add(comp, everythingCentered);
+        }
     }
 }
