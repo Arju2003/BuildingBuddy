@@ -8,7 +8,7 @@ public class DataView  extends JPanel {
 
     //main class
     public DataView(String label, String[] dataString) {
-        
+
         //create a new label
         JLabel listLabel = new JLabel(label);
 
