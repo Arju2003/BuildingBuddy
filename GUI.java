@@ -34,6 +34,12 @@ public class GUI {
                 JButton exploreButton = new JButton("Explore");
                 splashScreen.load(exploreButton);
 
+                String[] POIList = { "ROOM 001","ROOM 002","ROOM 003",
+                        "ROOM 004","ROOM 005","ROOM 006","ROOM 007"};
+
+                DataView myLocations = new DataView("My Locations", POIList);
+                frame.add(myLocations.load());
+
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
