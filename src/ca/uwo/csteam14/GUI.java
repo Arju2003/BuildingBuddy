@@ -18,30 +18,30 @@ public class GUI {
             try {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setJMenuBar(appMenu.load());
-                ca.uwo.csteam14.Container splashScreen = new Container("./images/mc_hero.jpg", 2);
+                Splash startScreen = new Splash("./images/mc_hero.jpg");
                 ImageIcon icon = new ImageIcon("./images/bb_icon.png");
                 Image image = icon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
                 icon = new ImageIcon(newimg);  // transform it back
                 JLabel logo = new JLabel();
                 logo.setIcon(icon);
-                splashScreen.load(logo, 'L');
+                startScreen.load(logo);
                 String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
 
                 JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
                 buildingSelector.setBounds(450, 300, 200, 30);
-                splashScreen.load(buildingSelector, 'L');
+                startScreen.load(buildingSelector);
 
                 JButton exploreButton = new JButton("Explore");
-                splashScreen.load(exploreButton,'L');
+                startScreen.load(exploreButton);
 
                 String[] POIList = {"🏫 ROOM 001","🧪 ROOM 002","🏊 ROOM 003",
                         "🚽 ROOM 004","🍴 ROOM 005","🏫 ROOM 006","💻 ROOM 007"};
 
                 DataView myLocations = new DataView("\uD83D\uDCCD My Locations", POIList);
-                splashScreen.load(myLocations.load(),'R');
+                startScreen.load(myLocations.load());
 
-                frame.setContentPane(splashScreen);
+                frame.setContentPane(startScreen);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
@@ -49,7 +49,6 @@ public class GUI {
             } catch (IOException exp) {
                 exp.printStackTrace();
             }
-
 
         });
 

@@ -7,26 +7,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Container extends JPanel {
+public class Splash extends JPanel {
     private BufferedImage img;
     private BufferedImage scaled;
-    private JPanel leftPanel;
-    private JPanel rightPanel;
     protected GridBagConstraints everythingCentered;
 
 
-    public Container(String backgroundImg) throws IOException {
+    public Splash(String backgroundImg) throws IOException {
         this.setBackground(ImageIO.read(new File(backgroundImg)));
-            this.setLayout(new GridLayout(1,2));
-            leftPanel = new JPanel();
-            leftPanel.setOpaque(false);
-            rightPanel = new JPanel();
-            rightPanel.setOpaque(false);
-            this.add(leftPanel);
-            this.add(rightPanel);
-            centerEverything();
-            leftPanel.setLayout(new GridBagLayout());
-            rightPanel.setLayout(new GridBagLayout());
+        centerEverything();
+        this.setLayout(new GridBagLayout());
+
+
     }
 
     @Override
@@ -234,17 +226,8 @@ public class Container extends JPanel {
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
         everythingCentered.insets = new Insets(0, 0, 20, 0);
     }
-    public void load(JComponent comp, char position) {
-        if (position == 'C') {
+    public void load(JComponent comp) {
             this.add(comp, everythingCentered);
-        }
 
-        else if (position == 'L') {
-            leftPanel.add(comp, everythingCentered);
-        }
-
-        else if (position == 'R') {
-            rightPanel.add(comp, everythingCentered);
-        }
     }
 }
