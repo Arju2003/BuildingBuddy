@@ -3,9 +3,14 @@ package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Splash extends JPanel {
     private BufferedImage img;
@@ -13,7 +18,7 @@ public class Splash extends JPanel {
     protected GridBagConstraints everythingCentered;
 
 
-    public Splash(String backgroundImg) throws IOException {
+    public Splash(String backgroundImg) throws IOException{
         this.setBackground(ImageIO.read(new File(backgroundImg)));
         centerEverything();
         this.setLayout(new GridBagLayout());
@@ -222,7 +227,7 @@ public class Splash extends JPanel {
     private void centerEverything() {
         everythingCentered = new GridBagConstraints();
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
-        everythingCentered.insets = new Insets(0, 0, 20, 0);
+        everythingCentered.insets = new Insets(0, 0, 60, 0);
     }
     public void load(JComponent comp) {
             this.add(comp, everythingCentered);
@@ -232,20 +237,74 @@ public class Splash extends JPanel {
     public void build() throws IOException {
         ImageIcon icon = new ImageIcon("./images/bb_icon.png");
         Image image = icon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
+        Image newimg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
         icon = new ImageIcon(newimg);  // transform it back
         JLabel logo = new JLabel();
         logo.setIcon(icon);
         this.load(logo);
         String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
         JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
-        buildingSelector.setBounds(450, 300, 200, 30);
+        buildingSelector.setBounds(450, 300, 200, 100);
+        Font font = new Font("Arial", Font.PLAIN, 18);
+        buildingSelector.setFont(font);
         this.load(buildingSelector);
+
+        buildingSelector.addItemListener(e -> {
+            String selectedItem = (String) buildingSelector.getSelectedItem();
+            setVisible(false);
+            switch (Objects.requireNonNull(selectedItem)) {
+                case "Middlesex College":
+                    try {
+                        setBackground(ImageIO.read(new File("./images/mc_hero.png")));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                case "Kresge Building":
+                    try {
+                        setBackground(ImageIO.read(new File("./images/kb_hero.png")));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                case "Physics & Astronomy":
+                    try {
+
+                        setBackground(ImageIO.read(new File("./images/pab_hero.png")));
+
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+            setVisible(true);
+        });
+
         JButton exploreButton = new JButton("Explore");
+
+        exploreButton.setFont(font);
+        exploreButton.addActionListener(e -> {
+            // Get the selected item in the dropdown list
+            String selectedItem = (String) buildingSelector.getSelectedItem();
+
+            // Navigate to the corresponding Java class
+            switch (Objects.requireNonNull(selectedItem)) {
+                case "Middlesex College" -> new GUI("MC");
+                case "Kresge Building" -> new GUI("KB");
+                case "Physics & Astronomy" -> new GUI("PAB");
+                default -> {
+                }
+            }
+        });
         this.load(exploreButton);
         GUI.frame.setContentPane(this);
         GUI.frame.pack();
         GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
         GUI.frame.setVisible(true);
+
+
     }
 }

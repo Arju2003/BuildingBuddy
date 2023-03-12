@@ -8,7 +8,7 @@ public class GUI {
     private final AppMenu appMenu = new AppMenu();
     protected static Container primary;
 
-    public GUI() {
+    public GUI(String buildingCode) {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -19,14 +19,31 @@ public class GUI {
             try {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setJMenuBar(appMenu.load());
-                Splash startScreen = new Splash("./images/mc_hero.png");
-                startScreen.build();
+                JLabel buildingName = new JLabel();
+                MapView map;
 
                 /* A split screen to show map and layer filter */
+                switch (buildingCode) {
+                    case "KB" -> {
+                        primary = new Container("./images/kb_hero.png");
+                        buildingName.setText("Kresge Building (KB)");
+                        map = new MapView("./maps/KB0F.png", new Point(3200, 350));
+                        primary.load(map.loadMapViewer(), 'R');
+                    }
+                    case "MC" -> {
+                        primary = new Container("./images/mc_hero.png");
+                        buildingName.setText("Middlesex College (MC)");
+                        map = new MapView("./maps/MC0F.png", new Point(1300, 350));
+                        primary.load(map.loadMapViewer(), 'R');
+                    }
+                    case "PAB" -> {
+                        primary = new Container("./images/pab_hero.png");
+                        buildingName.setText("Physics & Astronomy Building (PAB)");
+                        map = new MapView("./maps/PAB0F.png", new Point(900, 800));
+                        primary.load(map.loadMapViewer(), 'R');
+                    }
+                }
 
-                primary = new Container("./images/kb_hero.png");
-                /* Shows building name */
-                JLabel buildingName = new JLabel("Kresge Building (KB)");
                 JLabel floorName = new JLabel("Ground Floor");
                 // Set the font size and style
                 Font font = new Font("Arial", Font.BOLD, 24);
@@ -49,8 +66,7 @@ public class GUI {
                 primary.load(floorSelector, 'L');
                 JButton goToButton = new JButton("Take Me There");
                 primary.load(goToButton, 'L');
-                MapView map = new MapView("./maps/KB0F.png", new Point(3200,350));
-                primary.load(map.loadMapViewer(),'R');
+
 
                 frame.setContentPane(primary);
                 frame.pack();

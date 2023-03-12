@@ -4,9 +4,8 @@ import java.io.IOException;
 
 public class BuildingBuddy {
 
-    protected static GUI mainWindow;
-    public static void main(String[] args) throws IOException {
-        mainWindow = new GUI();
 
+    public static void main(String[] args) throws IOException {
+        new Splash("./images/mc_hero.png").build();
     }
 }

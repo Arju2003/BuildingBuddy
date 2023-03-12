@@ -43,18 +43,5 @@ public class MapView extends JPanel {
         scrollPane.setViewport(viewport);
         return scrollPane;
     }
-
-
-        public static void main(String[] args) {
-
-            GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            MapView panel = new MapView("./maps/MC0F.png", new Point(2900, 900));
-            panel.loadMapViewer();
-
-            GUI.frame.getContentPane().add(panel.loadMapViewer());
-            GUI.frame.pack();
-            GUI.frame.setLocationRelativeTo(null);
-            GUI.frame.setVisible(true);
-        }
-    }
+}
 
