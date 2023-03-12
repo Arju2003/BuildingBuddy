@@ -1,6 +1,7 @@
 package ca.uwo.csteam14;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 
@@ -16,7 +17,16 @@ public class PopupView extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
+        setSize(600,800); // Set the size of the dialog
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+// Calculate the center position
+        int dialogX = (screenSize.width - getWidth()) / 2;
+        int dialogY = (screenSize.height - getHeight()) / 2;
+
+// Set the position of the dialog to the center of the screen
+        setLocation(dialogX, dialogY);
 
         if (Objects.equals(type, "Help")) {
             title.setText("HELP");
@@ -85,23 +95,12 @@ public class PopupView extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        // add code here
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        // add code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        PopupView popup = new PopupView("About");
-        popup.pack();
-        popup.setVisible(true);
-
-        popup = new PopupView("Help");
-        popup.pack();
-        popup.setVisible(true);
-        System.exit(0);
     }
 }

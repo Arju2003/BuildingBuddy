@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class AppMenu extends JFrame implements ActionListener, KeyListener {
-    private final JMenuBar mb = new JMenuBar(); // create a menubar
+    protected final JMenuBar mb = new JMenuBar(); // create a menubar
 
 
     public AppMenu() {        // create an object of the class
@@ -31,6 +31,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         JMenuItem help = new JMenuItem("Help");
         JMenuItem about = new JMenuItem("About");
         JMenuItem exit = new JMenuItem("Exit");
+        JMenuItem weather = new JMenuItem("Weather");
 
         // add ActionListener to menu buttons and menu items
         start.addActionListener(e -> {
@@ -54,13 +55,19 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             popupView.setVisible(true);
         });;
         about.addActionListener(e -> {
-            // instantiate an object of the other class
             PopupView popupView = new PopupView("About");
             popupView.pack();
             popupView.setVisible(true);
         });
         exit.addActionListener(e -> {
             System.exit(0); // exit the program with status code 0
+        });
+        weather.addActionListener(e -> {
+            try {
+                new WeatherInfo();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         bookmarks.addActionListener(this);
         myLocations.addActionListener(this);
@@ -86,6 +93,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(help);
         mb.add(more);
         mb.add(about);
+        mb.add(weather);
         mb.add(exit);
     }
     public void actionPerformed(ActionEvent e) {
