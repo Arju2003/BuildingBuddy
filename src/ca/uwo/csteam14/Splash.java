@@ -17,8 +17,6 @@ public class Splash extends JPanel {
         this.setBackground(ImageIO.read(new File(backgroundImg)));
         centerEverything();
         this.setLayout(new GridBagLayout());
-
-
     }
 
     @Override
@@ -229,5 +227,25 @@ public class Splash extends JPanel {
     public void load(JComponent comp) {
             this.add(comp, everythingCentered);
 
+    }
+
+    public void build() throws IOException {
+        ImageIcon icon = new ImageIcon("./images/bb_icon.png");
+        Image image = icon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
+        icon = new ImageIcon(newimg);  // transform it back
+        JLabel logo = new JLabel();
+        logo.setIcon(icon);
+        this.load(logo);
+        String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
+        JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
+        buildingSelector.setBounds(450, 300, 200, 30);
+        this.load(buildingSelector);
+        JButton exploreButton = new JButton("Explore");
+        this.load(exploreButton);
+        GUI.frame.setContentPane(this);
+        GUI.frame.pack();
+        GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
+        GUI.frame.setVisible(true);
     }
 }

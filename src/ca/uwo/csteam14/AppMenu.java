@@ -2,7 +2,10 @@ package ca.uwo.csteam14;// Java program  to add a menubar
 // and add menu items, submenu items and also add
 // ActionListener and KeyListener to menu items
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 public class AppMenu extends JFrame implements ActionListener, KeyListener {
     private final JMenuBar mb = new JMenuBar(); // create a menubar
 
@@ -10,14 +13,13 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
     public AppMenu() {        // create an object of the class
 
         // create menu buttons
-        JMenu start = new JMenu("Start");
+        mb.setLayout(new FlowLayout());
+
         JMenu view = new JMenu("View");
-        JMenu help = new JMenu("Help");
-        JMenu about = new JMenu("About");
         JMenu more = new JMenu("More");
-        JMenu exit = new JMenu("Exit");
 
         // create menu items
+        JMenuItem start = new JMenuItem("Start");
         JMenuItem bookmarks = new JMenuItem("" +
                 "Bookmarks      CTRL+B");
         JMenuItem myLocations = new JMenuItem("" +
@@ -26,12 +28,40 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                 "Check for Updates   CTRL+U");
         JMenuItem developerTool = new JMenuItem("" +
                 "Developer Tool        CTRL+X");
+        JMenuItem help = new JMenuItem("Help");
+        JMenuItem about = new JMenuItem("About");
+        JMenuItem exit = new JMenuItem("Exit");
 
         // add ActionListener to menu buttons and menu items
-        start.addActionListener(this);
-        help.addActionListener(this);
-        about.addActionListener(this);
-        exit.addActionListener(this);
+        start.addActionListener(e -> {
+            // instantiate an object of the other class
+            Splash startAgain = null;
+            try {
+                startAgain = new Splash("./images/mc_hero.png");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            try {
+                startAgain.build();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        help.addActionListener(e -> {
+            // instantiate an object of the other class
+            PopupView popupView = new PopupView("Help");
+            popupView.pack();
+            popupView.setVisible(true);
+        });;
+        about.addActionListener(e -> {
+            // instantiate an object of the other class
+            PopupView popupView = new PopupView("About");
+            popupView.pack();
+            popupView.setVisible(true);
+        });
+        exit.addActionListener(e -> {
+            System.exit(0); // exit the program with status code 0
+        });
         bookmarks.addActionListener(this);
         myLocations.addActionListener(this);
         checkForUpdates.addActionListener(this);

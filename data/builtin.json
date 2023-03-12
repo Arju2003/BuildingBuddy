@@ -1,0 +1,72 @@
+{
+  "BuiltInPOIs": [
+    {
+      "POIid": 8103,
+      "POIName": "KB 103",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 103,
+      "type": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/KB1F.png",
+      "mapX": 2850,
+      "mapY": 900,
+      "built-in": true
+    },
+    {
+      "POIid": 8106,
+      "POIName": "KB 106",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 106,
+      "type": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/KB1F.png",
+      "mapX": 2800,
+      "mapY": 650,
+      "built-in": true
+    },
+    {
+      "POIid": 8203,
+      "POIName": "KB 203",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Second Floor",
+      "roomNumber": 203,
+      "type": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/KB2F.png",
+      "mapX": 2900,
+      "mapY": 900,
+      "built-in": true
+    },
+    {
+      "POIid": 8208,
+      "POIName": "KB 208",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Second Floor",
+      "roomNumber": 208,
+      "type": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/KB2F.png",
+      "mapX": 2800,
+      "mapY": 700,
+      "built-in": true
+    },
+    {
+      "POIid": 8209,
+      "POIName": "KB 209",
+      "building": "Kresge Building",
+      "roomNumber": 209,
+      "type": "Washroom",
+      "Description": "For women only. Non-accessible.",
+      "map": "./maps/KB2F.png",
+      "mapX": 2800,
+      "mapY": 700,
+      "built-in": true
+    }
+  ]
+}

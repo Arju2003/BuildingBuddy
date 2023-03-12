@@ -19,42 +19,40 @@ public class GUI {
             try {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setJMenuBar(appMenu.load());
-                Splash startScreen = new Splash("./images/mc_hero.jpg");
-                ImageIcon icon = new ImageIcon("./images/bb_icon.png");
-                Image image = icon.getImage(); // transform it
-                Image newimg = image.getScaledInstance(200, 200,  Image.SCALE_SMOOTH); // scale it the smooth way
-                icon = new ImageIcon(newimg);  // transform it back
-                JLabel logo = new JLabel();
-                logo.setIcon(icon);
-                startScreen.load(logo);
-                String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
+                Splash startScreen = new Splash("./images/mc_hero.png");
+                startScreen.build();
 
-                JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
-                buildingSelector.setBounds(450, 300, 200, 30);
-                startScreen.load(buildingSelector);
+                /* A split screen to show map and layer filter */
 
-                JButton exploreButton = new JButton("Explore");
-                startScreen.load(exploreButton);
+                primary = new Container("./images/kb_hero.png");
+                /* Shows building name */
+                JLabel buildingName = new JLabel("Kresge Building (KB)");
+                JLabel floorName = new JLabel("Ground Floor");
+                // Set the font size and style
+                Font font = new Font("Arial", Font.BOLD, 24);
+                buildingName.setFont(font);
+                floorName.setFont(font);
+                // Set the foreground color
+                Color color = new Color(255, 255, 0);
+                buildingName.setForeground(color);
+                floorName.setForeground(color);
+                primary.load(buildingName,'L');
+                primary.load(floorName,'L');
 
-                /* A split screen to show map and map layers */
-
-                primary = new Container("./images/mc_hero.jpg");
-                String[] POIList = {"🏊 Bookmarks", "🏫 Classrooms","🧪 Labs",
+                String[] layerList = {"🏊 Bookmarks", "🏫 Classrooms","🧪 Labs",
                         "🍴 Restaurants","🚽 Washrooms","💻 Accessibility", "\uD83D\uDCCD My Locations"};
-
-                DataView myLocations = new DataView("Layer Selector", POIList);
-
-                myLocations.setPreferredSize(new Dimension(500, 500));
-                myLocations.setFont(new Font("Arial", Font.PLAIN, 36)); // Set font to a large size
-                myLocations.setBounds(100, 100, 300, 50); // Set bounds to a larger size
-
-                MapView map = new MapView("./maps/middlesex/MC-BF-1.png");
-                map.setPreferredSize(new Dimension(500, 500));
-                primary.load(myLocations.load(), 'L');
+                LayerFilter filter = new LayerFilter("", layerList);
+                primary.load(filter.load(), 'L');
+                String[] floors = {"Ground Floor", "First Floor", "Second Floor", "Third Floor"};
+                JComboBox<? extends String> floorSelector = new JComboBox<>(floors);
+                floorSelector.setBounds(450, 300, 200, 30);
+                primary.load(floorSelector, 'L');
+                JButton goToButton = new JButton("Take Me There");
+                primary.load(goToButton, 'L');
+                MapView map = new MapView("./maps/KB0F.png", new Point(3200,350));
                 primary.load(map.loadMapViewer(),'R');
 
                 frame.setContentPane(primary);
-
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
