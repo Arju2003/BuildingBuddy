@@ -25,8 +25,8 @@ public class Container extends JPanel {
             this.add(leftPanel);
             this.add(rightPanel);
             centerEverything();
-            leftPanel.setLayout(new GridBagLayout());
-            rightPanel.setLayout(new GridBagLayout());
+            leftPanel.setLayout(new GridLayout());
+            rightPanel.setLayout(new GridLayout());
     }
 
     @Override

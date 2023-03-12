@@ -6,6 +6,7 @@ import javax.swing.*;
 public class GUI {
     protected static JFrame frame = new JFrame("BuildingBuddy (Beta)");
     private final AppMenu appMenu = new AppMenu();
+    protected static Container primary;
 
     public GUI() {
         EventQueue.invokeLater(() -> {
@@ -35,13 +36,25 @@ public class GUI {
                 JButton exploreButton = new JButton("Explore");
                 startScreen.load(exploreButton);
 
-                String[] POIList = {"🏫 ROOM 001","🧪 ROOM 002","🏊 ROOM 003",
-                        "🚽 ROOM 004","🍴 ROOM 005","🏫 ROOM 006","💻 ROOM 007"};
+                /* A split screen to show map and map layers */
 
-                DataView myLocations = new DataView("\uD83D\uDCCD My Locations", POIList);
-                startScreen.load(myLocations.load());
+                primary = new Container("./images/mc_hero.jpg");
+                String[] POIList = {"🏊 Bookmarks", "🏫 Classrooms","🧪 Labs",
+                        "🍴 Restaurants","🚽 Washrooms","💻 Accessibility", "\uD83D\uDCCD My Locations"};
 
-                frame.setContentPane(startScreen);
+                DataView myLocations = new DataView("Layer Selector", POIList);
+
+                myLocations.setPreferredSize(new Dimension(500, 500));
+                myLocations.setFont(new Font("Arial", Font.PLAIN, 36)); // Set font to a large size
+                myLocations.setBounds(100, 100, 300, 50); // Set bounds to a larger size
+
+                MapView map = new MapView("./maps/middlesex/MC-BF-1.png");
+                map.setPreferredSize(new Dimension(500, 500));
+                primary.load(myLocations.load(), 'L');
+                primary.load(map.loadMapViewer(),'R');
+
+                frame.setContentPane(primary);
+
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
@@ -51,6 +64,7 @@ public class GUI {
             }
 
         });
-
     }
+
+
 }
