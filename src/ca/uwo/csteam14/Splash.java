@@ -1,12 +1,7 @@
 package ca.uwo.csteam14;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +14,9 @@ public class Splash extends JPanel {
 
 
     public Splash(String backgroundImg) throws IOException{
+        GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        AppMenu appMenu = new AppMenu();
+        GUI.frame.setJMenuBar(appMenu.load());
         this.setBackground(ImageIO.read(new File(backgroundImg)));
         centerEverything();
         this.setLayout(new GridBagLayout());

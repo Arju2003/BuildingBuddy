@@ -36,7 +36,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         // add ActionListener to menu buttons and menu items
         start.addActionListener(e -> {
             // instantiate an object of the other class
-            Splash startAgain = null;
+            Splash startAgain;
             try {
                 startAgain = new Splash("./images/mc_hero.png");
             } catch (IOException ex) {
@@ -49,12 +49,14 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             }
         });
         help.addActionListener(e -> {
+            clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
             // instantiate an object of the other class
             PopupView popupView = new PopupView("Help");
             popupView.pack();
             popupView.setVisible(true);
-        });;
+        });
         about.addActionListener(e -> {
+            clearWindows();
             PopupView popupView = new PopupView("About");
             popupView.pack();
             popupView.setVisible(true);
@@ -96,6 +98,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(weather);
         mb.add(exit);
     }
+
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
@@ -118,5 +121,16 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void clearWindows() {
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window instanceof JWindow) {
+                // JWindow object found on screen
+                window.setVisible(false);
+                // Take appropriate action here, such as hiding or closing the window
+            }
+        }
     }
 }
