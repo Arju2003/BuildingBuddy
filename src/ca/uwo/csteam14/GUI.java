@@ -56,9 +56,10 @@ public class GUI {
                 primary.load(buildingName,'L');
                 primary.load(floorName,'L');
 
-                String[] layerList = {"🏊 Bookmarks", "🏫 Classrooms","🧪 Labs",
-                        "🍴 Restaurants","🚽 Washrooms","💻 Accessibility", "\uD83D\uDCCD My Locations"};
+                String[] layerList = {"🏊 Bookmarks", "🏫 Classrooms","🧪 Labs","💻 CompSci Spots",
+                        "🍴 Restaurants", "🛗 Stairwell / Elevators","🚪 Entrances / Exits", "\uD83D\uDCCD My Locations","🚽 Washrooms","💻 Accessibility"};
                 LayerFilter filter = new LayerFilter("", layerList);
+                if (!buildingCode.contains("MC")) filter.hideCheckbox("CompSci Spots");
                 primary.load(filter.load(), 'L');
                 String[] floors = {"Ground Floor", "First Floor", "Second Floor", "Third Floor"};
                 JComboBox<? extends String> floorSelector = new JComboBox<>(floors);

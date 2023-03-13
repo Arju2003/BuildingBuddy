@@ -1,39 +1,41 @@
 package ca.uwo.csteam14;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class LayerFilter  extends JPanel {
 
-    private JPanel viewer = new JPanel();
+    private final JPanel viewer = new JPanel();
+
+    private final JCheckBox[] checkboxes;
 
     //main class
-    public LayerFilter(String label, String[] dataString) {
+    public LayerFilter(String title, String[] dataString) {
 
         //create a new label
-        JLabel listLabel = new JLabel(label);
+        JLabel layerTitle = new JLabel(title);
 
-
-        viewer.add(listLabel);
-
-        JList<? extends String> dataList = new JList<>(dataString);
-
+        viewer.add(layerTitle);
 
         JPanel checkboxPanel = new JPanel();
         checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.Y_AXIS));
-        Font font = new Font("Arial", Font.ROMAN_BASELINE, 18);
+        Font font = new Font("Arial", Font.PLAIN, 18);
 
-        JCheckBox[] checkboxes = new JCheckBox[dataString.length];
+        checkboxes = new JCheckBox[dataString.length];
 
 
         for (int i = 0; i < checkboxes.length; ++i) {
             JCheckBox checkbox = new JCheckBox(dataString[i]);
+            if (dataString[i].contains("Washrooms") || dataString[i].contains("Accessibility")) {
+                checkbox.setEnabled(false);
+                checkbox.setSelected(true);
+                checkbox.setFocusable(false);
+            }
             checkboxes[i] = checkbox;
         }
 
-        for (int j = 0; j < checkboxes.length; ++j) {
-            checkboxes[j].setFont(font);
-            checkboxPanel.add(checkboxes[j]);
+        for (JCheckBox checkbox : checkboxes) {
+            checkbox.setFont(font);
+            checkboxPanel.add(checkbox);
         }
 
         viewer.add(checkboxPanel, BorderLayout.CENTER);
@@ -42,5 +44,11 @@ public class LayerFilter  extends JPanel {
 
     public JPanel load() {
         return viewer;
+    }
+
+    public void hideCheckbox(String label) {
+        for (JCheckBox c : checkboxes) {
+            if (c.getText().contains(label)) c.setVisible(false);
+        }
     }
 }
