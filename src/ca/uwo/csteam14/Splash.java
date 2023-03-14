@@ -2,6 +2,7 @@ package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -229,19 +230,25 @@ public class Splash extends JPanel {
     }
     public void load(JComponent comp) {
             this.add(comp, everythingCentered);
-
     }
 
     public void build() throws IOException {
-        ImageIcon icon = new ImageIcon("./images/bb_icon.png");
+        ImageIcon icon = new ImageIcon("./images/BB_icon.png");
         Image image = icon.getImage(); // transform it
         Image newimg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
         icon = new ImageIcon(newimg);  // transform it back
         JLabel logo = new JLabel();
         logo.setIcon(icon);
         this.load(logo);
-        String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy"};
+        String[] buildings = {"Middlesex College", "Kresge Building", "Physics & Astronomy Building"};
         JComboBox<? extends String> buildingSelector = new JComboBox<>(buildings);
+
+        buildingSelector.setRenderer(BuildingBuddy.centerRenderer);
+        switch (BuildingBuddy.currentBuildingCode) {
+            case ("MC") -> buildingSelector.setSelectedItem("Middlesex College");
+            case ("KB") -> buildingSelector.setSelectedItem("Kresge Building");
+            case ("PAB") -> buildingSelector.setSelectedItem("Physics & Astronomy Building");
+        }
         buildingSelector.setBounds(450, 300, 200, 100);
         Font font = new Font("Arial", Font.PLAIN, 18);
         buildingSelector.setFont(font);
@@ -253,22 +260,22 @@ public class Splash extends JPanel {
             switch (Objects.requireNonNull(selectedItem)) {
                 case "Middlesex College":
                     try {
-                        setBackground(ImageIO.read(new File("./images/mc_hero.png")));
+                        setBackground(ImageIO.read(new File("./images/MC_hero.png")));
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                     break;
                 case "Kresge Building":
                     try {
-                        setBackground(ImageIO.read(new File("./images/kb_hero.png")));
+                        setBackground(ImageIO.read(new File("./images/KB_hero.png")));
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                     break;
-                case "Physics & Astronomy":
+                case "Physics & Astronomy Building":
                     try {
 
-                        setBackground(ImageIO.read(new File("./images/pab_hero.png")));
+                        setBackground(ImageIO.read(new File("./images/PAB_hero.png")));
 
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
@@ -288,11 +295,20 @@ public class Splash extends JPanel {
             // Get the selected item in the dropdown list
             String selectedItem = (String) buildingSelector.getSelectedItem();
 
-            // Navigate to the corresponding Java class
+            // Navigate to the corresponding building
             switch (Objects.requireNonNull(selectedItem)) {
-                case "Middlesex College" -> new GUI("MC");
-                case "Kresge Building" -> new GUI("KB");
-                case "Physics & Astronomy" -> new GUI("PAB");
+                case "Middlesex College" -> {
+                    new GUI("MC");
+                    BuildingBuddy.currentBuildingCode = "MC";
+                }
+                case "Kresge Building" -> {
+                    new GUI("KB");
+                    BuildingBuddy.currentBuildingCode = "KB";
+                }
+                case "Physics & Astronomy Building" -> {
+                    new GUI("PAB");
+                    BuildingBuddy.currentBuildingCode = "PAB";
+                }
                 default -> {
                 }
             }

@@ -234,17 +234,47 @@ public class Container extends JPanel {
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
         everythingCentered.insets = new Insets(0, 0, 20, 0);
     }
-    public void load(JComponent comp, char position) {
-        if (position == 'C') {
-            this.add(comp, everythingCentered);
-        }
 
-        else if (position == 'L') {
+    public void replaceWith(JComponent comp, char position) {
+        JPanel panel = rightPanel;
+        if (position == 'L') {
+            panel = leftPanel;
+        }
+        removeComponent(comp, panel);
+        panel.add(comp, everythingCentered);
+    }
+
+    private void removeComponent(JComponent comp, JPanel panel) {
+        Component[] components = panel.getComponents();
+        for (Component component : components) {
+            if (component.getClass() == comp.getClass()) {
+                panel.remove(component);
+            }
+        }
+        panel.revalidate(); // Revalidate the panel after removing components
+        panel.repaint(); // Repaint the panel after removing components
+    }
+
+    public void removeAll(char position) {
+        switch (position) {
+            case 'L' -> leftPanel.removeAll();
+            case 'R' -> rightPanel.removeAll();
+        }
+    }
+
+    public void load(JComponent comp, char position) {
+        if (position == 'L') {
             leftPanel.add(comp, everythingCentered);
         }
-
         else if (position == 'R') {
             rightPanel.add(comp, everythingCentered);
+        }
+    }
+
+    public void repaint(char position) {
+        switch (position) {
+            case 'L' -> leftPanel.repaint();
+            case 'R' -> rightPanel.repaint();
         }
     }
 }

@@ -38,7 +38,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             // instantiate an object of the other class
             Splash startAgain;
             try {
-                startAgain = new Splash("./images/mc_hero.png");
+                startAgain = new Splash("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
