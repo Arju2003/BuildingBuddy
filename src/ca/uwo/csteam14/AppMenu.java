@@ -137,10 +137,10 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         // add menu to menu bar
         mb.add(start);
         mb.add(view);
-        mb.add(help);
-        mb.add(more);
-        mb.add(about);
         mb.add(weather);
+        mb.add(help);
+        mb.add(about);
+        mb.add(more);
         mb.add(exit);
     }
 
