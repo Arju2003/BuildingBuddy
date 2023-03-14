@@ -1,5 +1,6 @@
 {
   "BuiltInPOIs": [
+
     {
       "POIid": 8103,
       "POIName": "KB 103",
@@ -69,6 +70,92 @@
       "mapX": 2800,
       "mapY": 700,
       "built-in": true
+    },
+
+    {
+      "POIid": 934,
+      "POIName": "PAB 34",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 34,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB0F.png",
+      "mapX": 1955,
+      "mapY": 1696,
+      "built-in": true
+    },
+    {
+      "POIid": 936,
+      "POIName": "PAB 36",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 36,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB0F.png",
+      "mapX": 1620,
+      "mapY": 1602,
+      "built-in": true
+    },
+    {
+      "POIid": 9106,
+      "POIName": "PAB 106",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 106,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB1F.png",
+      "mapX": 1620,
+      "mapY": 1602,
+      "built-in": true
+    },
+    {
+      "POIid": 9117,
+      "POIName": "PAB 117",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 117,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB1F.png",
+      "mapX": 1032,
+      "mapY": 891,
+      "built-in": true
+    },
+    {
+      "POIid": 9148,
+      "POIName": "PAB 148",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 148,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB1F.png",
+      "mapX": 1940,
+      "mapY": 1747,
+      "built-in": true
+    },
+    {
+      "POIid": 9150,
+      "POIName": "PAB 150",
+      "building": "Physics and Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 150,
+      "category": "Classroom",
+      "Description": "Listed in the Western Classroom Directory",
+      "map": "./maps/PAB1F.png",
+      "mapX": 1603,
+      "mapY": 1675,
+      "built-in": true
     }
+
   ]
 }
