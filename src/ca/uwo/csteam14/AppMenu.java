@@ -53,13 +53,12 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
             // instantiate an object of the other class
             String iconURL = "https://cdn-icons-png.flaticon.com/512/868/868681.png";
-
             PopupView popupView = new PopupView("Help", """
-                    
-                   <div style="text-align:right"><img src="
+                   <div style="font-family: Arial">
+                   <p style="text-align:right"><img src="
                     """ + iconURL + """
-                    " width="150"></div>
-                    <div style="font-family: Arial">
+                    " width="150"></p>
+                    
                     <h2>What is a POI?</h2>
                     A POI is a point of interest, namely a location on the map.
 
