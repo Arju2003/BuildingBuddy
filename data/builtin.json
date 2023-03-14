@@ -9,7 +9,7 @@
       "roomNumber": 103,
       "category": "Classroom",
       "Description": "Listed in the Western Classroom Directory",
-      "map": "./maps/KB1F.png",
+      "map": "KB1F.png",
       "mapX": 2850,
       "mapY": 900,
       "built-in": true
@@ -23,7 +23,7 @@
       "roomNumber": 106,
       "category": "Classroom",
       "Description": "Listed in the Western Classroom Directory",
-      "map": "./maps/KB1F.png",
+      "map": "KB1F.png",
       "mapX": 2800,
       "mapY": 650,
       "built-in": true
@@ -37,7 +37,7 @@
       "roomNumber": 203,
       "category": "Classroom",
       "Description": "Listed in the Western Classroom Directory",
-      "map": "./maps/KB2F.png",
+      "map": "KB2F.png",
       "mapX": 2900,
       "mapY": 900,
       "built-in": true
@@ -51,7 +51,7 @@
       "roomNumber": 208,
       "category": "Classroom",
       "Description": "Listed in the Western Classroom Directory",
-      "map": "./maps/KB2F.png",
+      "map": "KB2F.png",
       "mapX": 2800,
       "mapY": 700,
       "built-in": true
@@ -65,7 +65,7 @@
       "roomNumber": 209,
       "category": "Washroom",
       "Description": "For women only. Non-accessible.",
-      "map": "./maps/KB2F.png",
+      "map": "KB2F.png",
       "mapX": 2800,
       "mapY": 700,
       "built-in": true
