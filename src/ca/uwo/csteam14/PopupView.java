@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class PopupView extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton button;
     private JLabel title;
 
     private JScrollPane sp;
@@ -16,7 +16,7 @@ public class PopupView extends JDialog {
     public PopupView(String type) {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(button);
         setSize(600,800); // Set the size of the dialog
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -32,15 +32,15 @@ public class PopupView extends JDialog {
             title.setText("HELP");
             content.setText("What is a POI?\n" +
                     "\n" +
-                    "A POI is a point of interest, .... \n" +
+                    "A POI is a point of interest, namely a location on the map.\n" +
                     "\n" +
                     "What is a bookmark?\n" +
                     "\n" +
-                    "A bookmark is a .....\n" +
+                    "A bookmark is one of your favourite POIs\n" +
                     "\n" +
                     "What is My Location?\n" +
                     "\n" +
-                    "My Location is a user-defined POI ...\n" +
+                    "My Location is a POI you defined, not a built-in POI.\n" +
                     "\n" +
                     "How to view or edit bookmarks?\n" +
                     "\n" +
@@ -50,12 +50,15 @@ public class PopupView extends JDialog {
                     "\n" +
                     "Enter View – My Locations, or press CTRL + L. \n" +
                     "\n" +
+                    "How to choose another building?\n" +
+                    "\n" +
+                    "Click Start in the menu on top.\n"+
                     "How to quit the application safely?\n" +
                     "\n" +
                     "Choose Exit from the main menu, or just click [X] on top of the window.\n" +
                     "\n" +
                     "I still need help!\n" +
-                    "Feel free to write us: abc@123.com");
+                    "Feel free to write us: jason@shew.cc");
         }
         else if (Objects.equals(type, "About")) {
             title.setText("ABOUT");
@@ -71,7 +74,8 @@ public class PopupView extends JDialog {
         }
 
 
-        buttonOK.addActionListener(new ActionListener() {
+        button.setText("Close");
+        button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }

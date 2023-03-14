@@ -2,7 +2,6 @@ package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -254,6 +253,7 @@ public class Splash extends JPanel {
         buildingSelector.setFont(font);
         this.load(buildingSelector);
 
+
         buildingSelector.addItemListener(e -> {
             String selectedItem = (String) buildingSelector.getSelectedItem();
             setVisible(false);
@@ -289,9 +289,12 @@ public class Splash extends JPanel {
         });
 
         JButton exploreButton = new JButton("Explore");
-
         exploreButton.setFont(font);
         exploreButton.addActionListener(e -> {
+            GUI.frame.setMinimumSize(GUI.frame.getSize());
+            GUI.frame.setMaximumSize(GUI.frame.getSize());
+            GUI.frame.setPreferredSize(GUI.frame.getSize());
+            GUI.frame.setResizable(false);
             // Get the selected item in the dropdown list
             String selectedItem = (String) buildingSelector.getSelectedItem();
 

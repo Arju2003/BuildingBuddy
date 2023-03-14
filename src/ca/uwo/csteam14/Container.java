@@ -1,5 +1,4 @@
 package ca.uwo.csteam14;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +9,8 @@ import java.io.IOException;
 public class Container extends JPanel {
     private BufferedImage img;
     private BufferedImage scaled;
-    private JPanel leftPanel;
-    private JPanel rightPanel;
+    private final JPanel leftPanel;
+    private final JPanel rightPanel;
     protected GridBagConstraints everythingCentered;
 
 

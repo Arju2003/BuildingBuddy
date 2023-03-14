@@ -80,6 +80,7 @@ public class GUI {
                         "🍴 Restaurants", "🛗 Stairwell / Elevators","🚪 Entrances / Exits", "\uD83D\uDCCD My Locations","🚽 Washrooms","♿️ Accessibility"};
                 LayerFilter layerFilter = new LayerFilter("", layerList);
                 if (!buildingCode.contains("MC")) layerFilter.hideCheckbox("CompSci Spots");
+                layerFilter.setFont(new Font("Arial", Font.PLAIN, 24));
                 primary.load(layerFilter.load(), 'L');
 
                 /* make a floor selector and add a button */
@@ -91,7 +92,8 @@ public class GUI {
                 if (buildingCode.contains("MC")) floorSet.add("Fourth Floor");
                 String[] floors = floorSet.toArray(new String[0]);
                 JComboBox<? extends String> floorSelector = new JComboBox<>(floors);
-                floorSelector.setBounds(450, 300, 200, 30);
+                floorSelector.setBounds(450, 300, 250, 50);
+                floorSelector.setFont(new Font("Arial", Font.PLAIN, 18));
 
                 switch (buildingCode) {
                     case "MC" -> floorSelector.setSelectedItem(getFloorName(BuildingBuddy.currentFloor_MC));
@@ -100,8 +102,7 @@ public class GUI {
                 }
 
                 primary.load(floorSelector, 'L');
-                JButton goToButton = new JButton("Take Me There");
-                goToButton.addActionListener(e -> {
+                floorSelector.addActionListener(e -> {
                     // Get the selected item in the dropdown list
                     String selectedItem = (String) floorSelector.getSelectedItem();
 
@@ -198,7 +199,6 @@ public class GUI {
                     primary.replaceWith(map.loadMapViewer(), 'R');
                     primary.setVisible(true);
                 });
-                primary.load(goToButton, 'L');
                 frame.setContentPane(primary);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
@@ -236,7 +236,7 @@ public class GUI {
     }
 
     public void padding(JLabel label) {
-        label.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 70));
+        label.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
         // Set the preferred size of the JLabel to include the padding
         Dimension size = label.getPreferredSize();
         size.width += 10;

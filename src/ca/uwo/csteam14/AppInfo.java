@@ -1,13 +1,22 @@
 package ca.uwo.csteam14;
 
-public class AppInfo {
-    private String message;
+import javax.swing.*;
 
-    public String getMessage() {
-        return message;
+public class AppInfo extends JLabel {
+    private JLabel title = new JLabel();
+    private JLabel content = new JLabel();
+
+
+
+    public AppInfo(String title, String content) {
+        this.title.setText(title);
+        this.content.setText(content);
     }
 
-    public void setMessage(String newMessage) {
-        message = newMessage;
+    public void setTitle(String newTitle) {
+        title.setText(newTitle);
+    }
+    public void setContent(String newContent) {
+        content.setText(newContent);
     }
 }
