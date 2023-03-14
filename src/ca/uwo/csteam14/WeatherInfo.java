@@ -29,7 +29,7 @@ public class WeatherInfo {
         JLabel humidityLabel = new JLabel();
         panel.add(humidityLabel);
 
-        JButton hideButton = new JButton("Show");
+        JButton hideButton = new JButton("Hide");
 
         String API_URL = "https://api.weatherapi.com/v1/current.json?key=4d6a2621f6f84a82a79121544231203&q=43.005753,-81.266085&aqi=yes";
         URL url = new URL(API_URL + "London,Ontario");
@@ -57,7 +57,6 @@ public class WeatherInfo {
         weatherIcon.setVisible(true);
         temperatureLabel.setText("Temperature: " + temp + "°C\n");
         humidityLabel.setText("Humidity: " + humidity + "%\n");
-        hideButton.setText("Hide");
         window.setVisible(true);
         hideButton.addActionListener(e -> window.setVisible(false));
         panel.add(hideButton);
@@ -67,6 +66,7 @@ public class WeatherInfo {
         humidityLabel.setFont(font);
         hideButton.setFont(font);
         window.pack();
+        AppMenu.clearWindows();
         window.setVisible(true);
     }
 }

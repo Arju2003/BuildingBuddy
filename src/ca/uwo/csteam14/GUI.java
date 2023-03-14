@@ -6,7 +6,7 @@ import java.util.Objects;
 import javax.swing.*;
 
 public class GUI {
-    protected static JFrame frame = new JFrame("BuildingBuddy (Beta)");
+    protected static JFrame frame = new JFrame("BuildingBuddy – Ver 1.0 –");
     private final AppMenu appMenu = new AppMenu();
     protected static Container primary;
 

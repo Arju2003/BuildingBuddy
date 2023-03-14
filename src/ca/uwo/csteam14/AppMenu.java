@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.URL;
 
 public class AppMenu extends JFrame implements ActionListener, KeyListener {
     protected final JMenuBar mb = new JMenuBar(); // create a menubar
@@ -51,15 +52,60 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         help.addActionListener(e -> {
             clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
             // instantiate an object of the other class
-            PopupView popupView = new PopupView("Help");
-            popupView.pack();
-            popupView.setVisible(true);
+            String iconURL = "https://cdn-icons-png.flaticon.com/512/868/868681.png";
+
+            PopupView popupView = new PopupView("Help", """
+                    
+                   <div style="text-align:right"><img src="
+                    """ + iconURL + """
+                    " width="150"></div>
+                    <div style="font-family: Arial">
+                    <h2>What is a POI?</h2>
+                    A POI is a point of interest, namely a location on the map.
+
+                    <h2>What is a bookmark?</h2>
+                    A bookmark is one of your favourite POIs.
+
+                    <h2>What is My Location?</h2>
+                    My Location is a POI you defined, not a built-in POI.
+
+                    <h2>How to view or edit bookmarks?</h2>
+                    Enter View – Bookmarks, or press CTRL + B.
+
+                    <h2>How to view or edit My Locations?</h2>
+                    Enter View – My Locations, or press CTRL + L.
+
+                    <h2>How to choose another building?</h2>
+                    Click Start in the menu on top.
+                    
+                    <h2>How to quit the application safely?</h2>
+                    Choose Exit from the main menu, or just click [X] on top of the window.
+
+                    <h2>I still need help!</h2>
+                    Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.
+                    </div>
+                    """);
+
         });
         about.addActionListener(e -> {
             clearWindows();
-            PopupView popupView = new PopupView("About");
-            popupView.pack();
-            popupView.setVisible(true);
+            String logoURL = "https://blotcdn.com/blog_708cbe8290984c03aff9e7a84d617b68/_image_cache/5aa729fb-9ca1-455c-9697-91e24575fca9.png";
+            PopupView popupView = new PopupView("About", """
+                    <div style="font-family: Arial; text-align: center;">
+                    <img src="
+                    """ + logoURL + """
+                    " width="150">
+                    <h2><i>BuildingBuddy</i></h2>
+
+                    <h3>Version: 1.0</h3>
+
+                    <h4>Developed by <span style="color:red;">Team 14</span> at <span style="color:#6600cc;">UWO</span></h4>
+
+                    <h4>Developers: Daniel, Robert, Joshua, Arjuna, Jason</h4>
+
+                    <a href="https://wiki.csd.uwo.ca/display/COMPSCI2212W2023GROUP14/COMPSCI+2212+-+Winter+2023+-+Group+14+Home">Project Website</a> | <a href="https://github.com/dan1el5/BuildingBuddy">GitHub</a><br>
+                    </div>""");
+
         });
         exit.addActionListener(e -> {
             System.exit(0); // exit the program with status code 0
@@ -123,13 +169,17 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
     }
 
-    public void clearWindows() {
+    public static void clearWindows() {
         Window[] windows = Window.getWindows();
         for (Window window : windows) {
             if (window instanceof JWindow) {
                 // JWindow object found on screen
                 window.setVisible(false);
                 // Take appropriate action here, such as hiding or closing the window
+            }
+
+            if (window instanceof JDialog) {
+                window.dispose();
             }
         }
     }
