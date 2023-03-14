@@ -1,18 +1,18 @@
 {
   "UserPOIs": [
     {
-      "POIid": 8103,
+      "POIId": 48103,
       "POIName": "KB 103",
       "building": "Kresge Building",
       "buildingCode": "KB",
       "floor": "First Floor",
       "roomNumber": 103,
       "category": "Classroom",
-      "Description": "Listed in the Western Classroom Directory",
-      "map": "./maps/KB1F.png",
+      "description": "Listed in the Western Classroom Directory",
+      "map": "KB1F.png",
       "mapX": 2850,
       "mapY": 900,
-      "built-in": true
+      "built-in": false
     }
   ]
 }
