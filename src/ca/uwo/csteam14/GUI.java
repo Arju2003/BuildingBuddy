@@ -57,17 +57,17 @@ public class GUI {
                 buildingName = new JLabel(getBuildingName((buildingCode)));
                 floorName = new JLabel(getFloorName(BuildingBuddy.getCurrentFloor(buildingCode)) + " ➔");
                 // Set the font size and style
-                Font title = new Font("Arial", Font.BOLD, 48);
+                Font title = new Font("Arial", Font.BOLD, 36);
                 buildingName.setFont(title);
-                Font subtitle = new Font("Arial", Font.BOLD, 32);
+                Font subtitle = new Font("Arial", Font.BOLD, 24);
                 floorName.setFont(subtitle);
                 // Set the foreground color
                 Color yellow = new Color(255, 255, 0);
-                Color red = new Color(0, 200 ,180);
-                Color background = new Color(0,0,0, 0.25f);
+                Color green = new Color(75, 250 ,0);
+                Color background = new Color(0,0,0, 0.3f);
                 padding(buildingName);
                 padding(floorName);
-                buildingName.setForeground(red);
+                buildingName.setForeground(green);
                 floorName.setForeground(yellow);
                 buildingName.setOpaque(true);
                 floorName.setOpaque(true);
