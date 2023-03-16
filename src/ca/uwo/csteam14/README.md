@@ -4,22 +4,22 @@ Graphic Elements:
 
 == Icons ==
 
-Bookmark – by icons8.com
+Bookmark – from icons8.com
 Classroom – by Google Classroom
-Lab – by freesvg.org
+Lab – from freesvg.org
 CompSci Spot – by 3Majors
-Restaurant – by flaticon.com
+Restaurant – from flaticon.com
 Stairwell / Elevator – from emojipedia.org
 Entrance / Exit – by freepik.com
-My Location – by pngwing.com
-Washroom – by flaticon.com
-Accessibility – by pngitem.com
+My Location – from pngkit.com
+Washroom – from flaticon.com
+Accessibility – from pngitem.com
 BuddyBuilding Icon – by Jason Shew
 
 == Background Images ==
 
 Middlesex College – from Media Relations at UWO 
-Kresge Building – from tpirie on flickr.com
+Kresge Building – by Flickr user tpirie
 Physics & Astronomy Building – from Wikipedia
 
 
