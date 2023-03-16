@@ -2,7 +2,6 @@ package ca.uwo.csteam14;
 
 import java.util.LinkedList;
 
-import org.json.simple.parser.JSONParser;
 
 public class UserData extends Data {
 
