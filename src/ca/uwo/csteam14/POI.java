@@ -1,5 +1,14 @@
 package ca.uwo.csteam14;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.LinkedList;
 
 public class POI {
@@ -99,8 +108,36 @@ public class POI {
     public void setCreator(boolean creator) {
         this.creator = creator;
     }
+    public void getNodeData() {
+        JSONParser parser = new JSONParser();
+
+        try {
+
+            Object obj = parser.parse(new FileReader("builtin.json"));
+            JSONObject jObject = (JSONObject) obj;
+
+            belongsTo = (FloorMap) jObject.get("building");
+            code = (String) jObject.get("buildingCode");
+            floor = (String) jObject.get("floor");
+            roomNum = (String) jObject.get("roomNumber");
+            category = (String) jObject.get("category");
+            description = (String) jObject.get("description");
+            positionX = (Integer) jObject.get("mapX");
+            positionY = (Integer) jObject.get("mapY");
+            creator = (Boolean)  jObject.get("builtIn");
+
+
+
+        }
+        catch (FileNotFoundException e) { e.printStackTrace(); }
+        catch (IOException e) { e.printStackTrace(); }
+        catch (ParseException e) { e.printStackTrace(); }
+        catch (Exception e) { e.printStackTrace(); }
+    }
 
     public POI(int id) {
+        this.id = id;
+
         // get data from json file based in ID, attach it to a variable for the node
 
     }
