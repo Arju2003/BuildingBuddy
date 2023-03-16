@@ -887,6 +887,50 @@
       "mapX": 1600,
       "mapY": 700,
       "built-in": true
+    },
+
+    {
+      "POIid": 7566,
+      "POIName": "Men's Washroom",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Ground Floor",
+      "roomNumber": 5,
+      "category": "Washroom",
+      "Description": "Only for men",
+      "map": "MC0F.png",
+      "mapX": 1475,
+      "mapY": 1061,
+      "built-in": true
+    },
+
+    {
+      "POIid": 7466,
+      "POIName": "Women's Washroom",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Ground Floor",
+      "roomNumber": 4,
+      "category": "Washroom",
+      "Description": "Only for women",
+      "map": "MC0F.png",
+      "mapX": 1600,
+      "mapY": 700,
+      "built-in": true
+    },
+    {
+      "POIid": 7467,
+      "POIName": "Gender",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "First Floor",
+      "roomNumber": 110,
+      "category": "Classroom",
+      "Description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Moveable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
+      "map": "MC1F.png",
+      "mapX": 1600,
+      "mapY": 700,
+      "built-in": true
     }
 
   ]
