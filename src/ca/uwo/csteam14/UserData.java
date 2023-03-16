@@ -8,6 +8,8 @@ public class UserData extends Data {
 
     public UserData() {
 
+
+
     }
     public void addBookmark(int poiData) {
 
