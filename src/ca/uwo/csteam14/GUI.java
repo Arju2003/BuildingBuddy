@@ -14,6 +14,8 @@ public class GUI {
 
     protected static MapView map;
 
+    protected static int layerFilterWidth;
+
     public GUI(String buildingCode) {
         EventQueue.invokeLater(() -> {
             try {
@@ -65,7 +67,10 @@ public class GUI {
 
                 new FloorSelector();
 
-                new LayerFilter();
+                layerFilterWidth = new LayerFilter().getWidth();
+
+
+                new Search();
 
                 frame.setContentPane(primary);
                 frame.pack();
