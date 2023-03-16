@@ -1337,6 +1337,20 @@
       "Description": "For all genders",
       "map": "MC2F.png",
       "mapX": 2850,
+      "mapY": 1420,
+      "built-in": true
+    },
+    {
+      "POIid": 7205,
+      "POIName": "Women's Washroom",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Second Floor",
+      "roomNumber": 205,
+      "category": "Washroom",
+      "Description": "For women only",
+      "map": "MC2F.png",
+      "mapX": 1470,
       "mapY": 1070,
       "built-in": true
     }
