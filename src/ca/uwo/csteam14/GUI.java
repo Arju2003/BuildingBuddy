@@ -49,17 +49,16 @@ public class GUI {
                     }
                 }
 
-                buildingName = new JLabel(getBuildingName(buildingCode) + " ►");
+                buildingName = new JLabel("<html><div style=\"text-align:center;\">" +getBuildingName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
                 // Set the font size and style
                 Font title = new Font("Arial", Font.BOLD, 36);
                 buildingName.setFont(title);
 
                 // Set the foreground color
-                Color yellow = new Color(255, 255, 0);
-                Color green = new Color(75, 250 ,0);
+                Color foregroundColour = new Color(75, 250 ,0);
                 Color background = new Color(0,0,0, 0.3f);
                 padding(buildingName);
-                buildingName.setForeground(green);
+                buildingName.setForeground(foregroundColour);
                 buildingName.setOpaque(true);
                 buildingName.setBackground(background);
                 primary.load(buildingName,'L');
