@@ -920,7 +920,22 @@
     },
     {
       "POIid": 7467,
-      "POIName": "Gender",
+      "POIName": "Gender-neutral washroom",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Ground Floor",
+      "roomNumber": 4,
+      "category": "Washroom",
+      "Description": "For all genders",
+      "map": "MC0F.png",
+      "mapX": 1600,
+      "mapY": 700,
+      "built-in": true
+    },
+
+    {
+      "POIid": 7110,
+      "POIName": "MC 110",
       "building": "Middlesex College",
       "buildingCode": "MC",
       "floor": "First Floor",
