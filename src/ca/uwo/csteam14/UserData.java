@@ -10,7 +10,6 @@ public class UserData extends Data {
 
     public UserData() {
 
-        JSONParser parser
 
     }
     public void addBookmark(int poiData) {
