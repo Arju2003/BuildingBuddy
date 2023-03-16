@@ -231,7 +231,7 @@ public class Container extends JPanel {
     private void centerEverything() {
         everythingCentered = new GridBagConstraints();
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
-        everythingCentered.insets = new Insets(0, 0, 20, 0);
+        everythingCentered.insets = new Insets(0, 0, 30, 0);
     }
 
     public void replaceWith(JComponent comp, char position) {

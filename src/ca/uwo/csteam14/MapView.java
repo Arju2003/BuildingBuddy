@@ -6,27 +6,38 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class MapView extends JPanel {
-    private BufferedImage image;
+    private BufferedImage mapImage;
     private int imageWidth, imageHeight;
+    private final Point focalPoint;
 
-    private Point centerPixel;
 
-    public MapView(String imagePath, Point centerPixel) {
+    public MapView(String mapName, Point focalPoint) {
         try {
-            this.image = ImageIO.read(new File(imagePath));
-            this.imageWidth = image.getWidth();
-            this.imageHeight = image.getHeight();
+            mapImage = ImageIO.read(new File(mapName));
+            imageWidth = mapImage.getWidth();
+            imageHeight = mapImage.getHeight();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.centerPixel = centerPixel;
+        this.focalPoint = focalPoint;
+    }
+
+    public MapView(BufferedImage bufferedMap, Point focalPoint) {
+        mapImage = bufferedMap;
+        try {
+            imageWidth = mapImage.getWidth();
+            imageHeight = mapImage.getHeight();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.focalPoint = focalPoint;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        if (image != null) {
-            g2d.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+        if (mapImage != null) {
+            g2d.drawImage(mapImage, 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
 
@@ -39,9 +50,19 @@ public class MapView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
         viewport.setView(this);
-        viewport.setViewPosition(centerPixel);
+        // Get the size of the viewport
+        Dimension viewportSize = viewport.getExtentSize();
+        // Calculate the position to display in the center of the viewport
+        int x = (focalPoint.x-viewportSize.width) / 2; // horizontal position
+        int y = (focalPoint.y-viewportSize.height) / 2; // vertical position
+        viewport.setViewPosition(new Point(Math.abs(x), Math.abs(y)));
         scrollPane.setViewport(viewport);
         return scrollPane;
     }
+
+    public BufferedImage getMapImage() {
+        return mapImage;
+    }
+
 }
 

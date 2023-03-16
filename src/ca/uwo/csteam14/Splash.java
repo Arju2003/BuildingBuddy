@@ -12,7 +12,6 @@ public class Splash extends JPanel {
     private BufferedImage scaled;
     protected GridBagConstraints everythingCentered;
 
-
     public Splash(String backgroundImg) throws IOException{
         GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         AppMenu appMenu = new AppMenu();
@@ -251,8 +250,7 @@ public class Splash extends JPanel {
         buildingSelector.setBounds(450, 300, 200, 100);
         Font font = new Font("Arial", Font.PLAIN, 18);
         buildingSelector.setFont(font);
-        this.load(buildingSelector);
-
+        load(buildingSelector);
 
         buildingSelector.addItemListener(e -> {
             String selectedItem = (String) buildingSelector.getSelectedItem();
@@ -303,14 +301,17 @@ public class Splash extends JPanel {
                 case "Middlesex College" -> {
                     new GUI("MC");
                     BuildingBuddy.currentBuildingCode = "MC";
+                    BuildingBuddy.currentFloor = BuildingBuddy.currentFloor_MC;
                 }
                 case "Kresge Building" -> {
                     new GUI("KB");
                     BuildingBuddy.currentBuildingCode = "KB";
+                    BuildingBuddy.currentFloor = BuildingBuddy.currentFloor_KB;
                 }
                 case "Physics & Astronomy Building" -> {
                     new GUI("PAB");
                     BuildingBuddy.currentBuildingCode = "PAB";
+                    BuildingBuddy.currentFloor = BuildingBuddy.currentFloor_PAB;
                 }
                 default -> {
                 }

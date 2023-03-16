@@ -11,16 +11,17 @@ public class BuildingBuddy {
     protected static String currentFloor_MC;
     protected static String currentFloor_KB;
     protected static String currentFloor_PAB;
+    protected static String version = "You're running the latest version (Ver 1.0) of BuildingBuddy!";
 
     public static ListCellRenderer<? super String> centerRenderer;
 
     public static Point getOptimumPoint(String buildingCode) {
         switch (buildingCode){
             case ("MC") -> {
-                return new Point(1300,350);
+                return new Point(1700,350);
             }
             case ("KB") -> {
-                return new Point(3200, 350);
+                return new Point(5000, 700);
             }
             case ("PAB") -> {
                 return new Point(900,800);

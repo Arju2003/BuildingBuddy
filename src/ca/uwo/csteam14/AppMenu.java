@@ -53,7 +53,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
             // instantiate an object of the other class
             String iconURL = "https://cdn-icons-png.flaticon.com/512/868/868681.png";
-            PopupView popupView = new PopupView("Help", """
+            new PopupView("Help", """
                    <div style="font-family: Arial">
                    <p style="text-align:right"><img src="
                     """ + iconURL + """
@@ -89,7 +89,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         about.addActionListener(e -> {
             clearWindows();
             String logoURL = "https://blotcdn.com/blog_708cbe8290984c03aff9e7a84d617b68/_image_cache/5aa729fb-9ca1-455c-9697-91e24575fca9.png";
-            PopupView popupView = new PopupView("About", """
+            new PopupView("About", """
                     <div style="font-family: Arial; text-align: center;">
                     <img src="
                     """ + logoURL + """
@@ -118,7 +118,14 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         });
         bookmarks.addActionListener(this);
         myLocations.addActionListener(this);
-        checkForUpdates.addActionListener(this);
+        checkForUpdates.addActionListener(e -> {
+            clearWindows();
+            new PopupView("Software Update", """
+                   <div style="font-family: Arial; font-size: 16px; text-align: center; color: green">""" +
+                   BuildingBuddy.version + """
+                    </div>
+                    """);
+        });
         developerTool.addActionListener(this);
 
         // add KeyListener to menuItems
