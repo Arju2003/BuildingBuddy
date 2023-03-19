@@ -67,6 +67,8 @@ public class GUI {
 
                 new LayerFilter();
 
+                new Search();
+
                 frame.setContentPane(primary);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
