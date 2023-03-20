@@ -11,9 +11,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Data extends LinkedList<POI>{
-    private LinkedList<POI> builtInPOIs;
-    private LinkedList<POI> userCreatedPOIs;
-    private LinkedList<POI> bookmarks;
+    protected LinkedList<POI> builtInPOIs;
+    protected LinkedList<POI> userCreatedPOIs;
+    protected LinkedList<POI> bookmarks;
 
     public Data() {
         JSONParser parser = new JSONParser();
@@ -22,13 +22,15 @@ public class Data extends LinkedList<POI>{
         this.bookmarks = new LinkedList();
 
         try {
-            Object obj = parser.parse(new FileReader("./data/builtin.json"));
-            Object objUsr = parser.parse(new FileReader("./data/user.json"));
-            JSONObject jObject = (JSONObject)obj;
-            JSONObject jObject2 = (JSONObject)objUsr;
-            JSONArray POIs = (JSONArray)jObject.get("BuiltInPOIs");
-            JSONArray createdPOIs = (JSONArray)jObject2.get("UserPOIs");
-
+            Object obj1 = parser.parse(new FileReader("./data/builtin.json"));
+            Object obj2 = parser.parse(new FileReader("./data/user.json"));
+            Object obj3 = parser.parse(new FileReader("./data/bookmarks.json"));
+            JSONObject jObject1 = (JSONObject)obj1;
+            JSONObject jObject2 = (JSONObject)obj2;
+            JSONObject jObject3 = (JSONObject)obj3;
+            JSONArray builinPOIs = (JSONArray)jObject1.get("BuiltInPOIs");
+            JSONArray userCreatedPOIs = (JSONArray)jObject2.get("UserPOIs");
+            JSONArray bookmarks = (JSONArray)jObject3.get("Bookmarks");
             Iterator var8;
             Object o;
             JSONObject point;
@@ -47,7 +49,7 @@ public class Data extends LinkedList<POI>{
             int mapy;
             boolean builtIn;
             POI newPoint;
-            for(var8 = POIs.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
+            for(var8 = builinPOIs.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
@@ -87,7 +89,7 @@ public class Data extends LinkedList<POI>{
                 }
             }
 
-            for(var8 = createdPOIs.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
+            for(var8 = bookmarks.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
