@@ -88,7 +88,7 @@
 
 
     {
-      "POIid": 934,
+      "POIId": 934,
       "POIName": "PAB 34",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -102,7 +102,7 @@
       "built-in": true
     },
     {
-      "POIid": 936,
+      "POIId": 936,
       "POIName": "PAB 36",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -116,7 +116,7 @@
       "built-in": true
     },
     {
-      "POIid": 918,
+      "POIId": 918,
       "POIName": "PAB 18",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -130,7 +130,7 @@
       "built-in": true
     },
     {
-      "POIid": 920,
+      "POIId": 920,
       "POIName": "PAB 20",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -144,7 +144,7 @@
       "built-in": true
     },
     {
-      "POIid": 9131,
+      "POIId": 9131,
       "POIName": "PAB 131",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -158,7 +158,7 @@
       "built-in": true
     },
     {
-      "POIid": 9133,
+      "POIId": 9133,
       "POIName": "PAB 133",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -172,7 +172,7 @@
       "built-in": true
     },
     {
-      "POIid": 9153,
+      "POIId": 9153,
       "POIName": "PAB 153",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -186,7 +186,7 @@
       "built-in": true
     },
     {
-      "POIid": 9154,
+      "POIId": 9154,
       "POIName": "PAB 154",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",

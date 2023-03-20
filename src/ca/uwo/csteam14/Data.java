@@ -158,14 +158,11 @@ public class Data {
         return bookmarks;
     }
 
+    public static void main(String[] args) {
+        Data test = new Data();
+        System.out.println("Hello");
 
-
-    public void lockFile() {
-        canWrite = false;
     }
 
-    public void unlockFile() {
-        canWrite = true;
-    }
 
 }
