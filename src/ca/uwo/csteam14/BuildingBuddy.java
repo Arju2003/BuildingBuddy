@@ -6,6 +6,11 @@ import java.io.IOException;
 
 public class BuildingBuddy {
 
+    protected static Data userData;
+
+    protected static Data builtinData;
+
+    protected static Data bookmarksData;
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;

@@ -9,30 +9,30 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class Data {
+public class Data extends LinkedList<POI>{
 
-    private String dataFile;
-    private boolean canRead;
-    private boolean canWrite;
-    private LinkedList createdPOIs;
-    private String POIId;
-    private String building;
-    private String buildingCode;
-    private String floor;
-    private int roomNumber;
-    private String category;
-    private String description;
-    private int mapx;
-    private int mapy;
-    private boolean builtIn;
+    protected String dataFile;
+    protected boolean canRead;
+    protected boolean canWrite;
+    protected LinkedList createdPOIs;
+    protected String POIId;
+    protected String building;
+    protected String buildingCode;
+    protected String floor;
+    protected int roomNumber;
+    protected String category;
+    protected String description;
+    protected int mapX;
+    protected int mapY;
+    protected boolean builtIn;
 
-    public Data () {
+    public Data (String JSONFile) {
 
             JSONParser parser = new JSONParser();
 
             try {
 
-                Object obj = parser.parse(new FileReader("user.json"));
+                Object obj = parser.parse(new FileReader(JSONFile));
                 JSONObject jObject = (JSONObject) obj;
 
                 POIId = (String) jObject.get("POIId");
@@ -42,17 +42,13 @@ public class Data {
                 roomNumber = (Integer) jObject.get("roomNumber");
                 category = (String) jObject.get("category");
                 description = (String) jObject.get("description");
-                mapx = (Integer) jObject.get("mapX");
-                mapy = (Integer) jObject.get("mapY");
+                mapX = (Integer) jObject.get("mapX");
+                mapY = (Integer) jObject.get("mapY");
                 builtIn = (Boolean)  jObject.get("builtIn");
 
 
 
-            }
-            catch (FileNotFoundException e) { e.printStackTrace(); }
-            catch (IOException e) { e.printStackTrace(); }
-            catch (ParseException e) { e.printStackTrace(); }
-            catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) { e.printStackTrace(); }
     }
 
 
