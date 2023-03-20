@@ -71,6 +71,21 @@
       "mapY": 700,
       "built-in": true
     },
+    {
+      "POIId": 8307,
+      "POIName": "KB 307",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Third Floor",
+      "roomNumber": 307,
+      "category": "Classroom",
+      "description": "Listed in Western Classroom Directory",
+      "map": "KB3F.png",
+      "mapX": 2800,
+      "mapY": 700,
+      "built-in": true
+    },
+
 
     {
       "POIid": 934,

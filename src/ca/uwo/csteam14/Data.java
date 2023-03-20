@@ -12,24 +12,18 @@ import java.util.LinkedList;
 
 public class Data {
 
-    private String dataFile;
-    private boolean canRead;
-    private boolean canWrite;
-    private LinkedList createdPOIs;
-    private String POIId;
-    private String building;
-    private String buildingCode;
-    private String floor;
-    private int roomNumber;
-    private String category;
-    private String description;
-    private int mapx;
-    private int mapy;
-    private boolean builtIn;
+    private LinkedList<POI> builtInPOIs;
+    private LinkedList<POI> userCreatedPOIs;
+    private LinkedList<POI> bookmarks;
+
 
     public Data () {
 
             JSONParser parser = new JSONParser();
+            builtInPOIs = new LinkedList<POI>();
+            userCreatedPOIs = new LinkedList<POI>();
+            bookmarks = new LinkedList<POI>();
+
 
             try {
 
