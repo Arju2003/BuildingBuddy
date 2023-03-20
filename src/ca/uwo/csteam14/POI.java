@@ -2,22 +2,22 @@ package ca.uwo.csteam14;
 
 public class POI {
 
-    private int id;
-    private String name;
-    private FloorMap belongsTo;
-    private String code;
-    private String floor;
-    private String roomNum;
-    private String category;
-    private String description;
-    private String pathName;
-    private int positionX;
-    private int positionY;
-    private boolean creator;
+    protected int id;
+    protected String name;
+    protected FloorMap belongsTo;
+    protected String code;
+    protected String floor;
+    protected String roomNum;
+    protected String category;
+    protected String description;
+    protected String pathName;
+    protected int positionX;
+    protected int positionY;
+    protected boolean creator;
 
     // node construction
-    private POI current;
-    private POI next;
+    protected POI current;
+    protected POI next;
 
 
     public int getId() {

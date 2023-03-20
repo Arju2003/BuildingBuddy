@@ -2,8 +2,6 @@ package ca.uwo.csteam14;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
 import javax.swing.*;
 
 public class GUI {
