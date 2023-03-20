@@ -7,7 +7,7 @@ public class UserData extends Data {
     protected LinkedList<Data> myLocations = new LinkedList<Data>();
 
     public UserData(String JSONFile) {
-        super(JSONFile);
+        //super(JSONFile);
     }
 
 
