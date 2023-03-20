@@ -71,9 +71,24 @@
       "mapY": 700,
       "built-in": true
     },
+    {
+      "POIId": 8307,
+      "POIName": "KB 307",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Third Floor",
+      "roomNumber": 307,
+      "category": "Classroom",
+      "description": "Listed in Western Classroom Directory",
+      "map": "KB3F.png",
+      "mapX": 2800,
+      "mapY": 700,
+      "built-in": true
+    },
+
 
     {
-      "POIid": 934,
+      "POIId": 934,
       "POIName": "PAB 34",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -87,7 +102,7 @@
       "built-in": true
     },
     {
-      "POIid": 936,
+      "POIId": 936,
       "POIName": "PAB 36",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -101,7 +116,7 @@
       "built-in": true
     },
     {
-      "POIid": 918,
+      "POIId": 918,
       "POIName": "PAB 18",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -115,7 +130,7 @@
       "built-in": true
     },
     {
-      "POIid": 920,
+      "POIId": 920,
       "POIName": "PAB 20",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -129,7 +144,7 @@
       "built-in": true
     },
     {
-      "POIid": 9131,
+      "POIId": 9131,
       "POIName": "PAB 131",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -143,7 +158,7 @@
       "built-in": true
     },
     {
-      "POIid": 9133,
+      "POIId": 9133,
       "POIName": "PAB 133",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -157,7 +172,7 @@
       "built-in": true
     },
     {
-      "POIid": 9153,
+      "POIId": 9153,
       "POIName": "PAB 153",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -171,7 +186,7 @@
       "built-in": true
     },
     {
-      "POIid": 9154,
+      "POIId": 9154,
       "POIName": "PAB 154",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -185,7 +200,7 @@
       "built-in": true
     },
     {
-      "POIid": 3901,
+      "POIId": 3901,
       "POIName": "PAB ElevatorB",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -199,7 +214,7 @@
       "built-in": true
     },
     {
-      "POIid": 3902,
+      "POIId": 3902,
       "POIName": "PAB ElevatorA",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -213,7 +228,7 @@
       "built-in": true
     },
     {
-      "POIid": 3913,
+      "POIId": 3913,
       "POIName": "PAB ElevatorB",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -227,7 +242,7 @@
       "built-in": true
     },
     {
-      "POIid": 3914,
+      "POIId": 3914,
       "POIName": "PAB ElevatorA",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -241,7 +256,7 @@
       "built-in": true
     },
     {
-      "POIid": 3915,
+      "POIId": 3915,
       "POIName": "PAB ElevatorB",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -255,7 +270,7 @@
       "built-in": true
     },
     {
-      "POIid": 3916,
+      "POIId": 3916,
       "POIName": "PAB ElevatorA",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -269,7 +284,7 @@
       "built-in": true
     },
     {
-      "POIid": 3917,
+      "POIId": 3917,
       "POIName": "PAB ElevatorA",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -283,7 +298,7 @@
       "built-in": true
     },
     {
-      "POIid": 3903,
+      "POIId": 3903,
       "POIName": "PAB Stairwell1",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -297,7 +312,7 @@
       "built-in": true
     },
     {
-      "POIid": 3904,
+      "POIId": 3904,
       "POIName": "PAB Stairwell2",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -311,7 +326,7 @@
       "built-in": true
     },
     {
-      "POIid": 3905,
+      "POIId": 3905,
       "POIName": "PAB Stairwell5",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -325,7 +340,7 @@
       "built-in": true
     },
     {
-      "POIid": 3906,
+      "POIId": 3906,
       "POIName": "PAB Stairwell6",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -339,7 +354,7 @@
       "built-in": true
     },
     {
-      "POIid": 3918,
+      "POIId": 3918,
       "POIName": "PAB Stairwell1",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -353,7 +368,7 @@
       "built-in": true
     },
     {
-      "POIid": 3919,
+      "POIId": 3919,
       "POIName": "PAB Stairwell2",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -367,7 +382,7 @@
       "built-in": true
     },
     {
-      "POIid": 3920,
+      "POIId": 3920,
       "POIName": "PAB Stairwell5",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -381,7 +396,7 @@
       "built-in": true
     },
     {
-      "POIid": 3921,
+      "POIId": 3921,
       "POIName": "PAB Stairwell6",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -395,7 +410,7 @@
       "built-in": true
     },
     {
-      "POIid": 3922,
+      "POIId": 3922,
       "POIName": "PAB Stairwell2",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -409,7 +424,7 @@
       "built-in": true
     },
     {
-      "POIid": 3923,
+      "POIId": 3923,
       "POIName": "PAB Stairwell5",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -423,7 +438,7 @@
       "built-in": true
     },
     {
-      "POIid": 3924,
+      "POIId": 3924,
       "POIName": "PAB Stairwell6",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -437,7 +452,7 @@
       "built-in": true
     },
     {
-      "POIid": 3925,
+      "POIId": 3925,
       "POIName": "PAB Stairwell8",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -451,7 +466,7 @@
       "built-in": true
     },
     {
-      "POIid": 3926,
+      "POIId": 3926,
       "POIName": "PAB Stairwell8",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -465,7 +480,7 @@
       "built-in": true
     },
     {
-      "POIid": 3927,
+      "POIId": 3927,
       "POIName": "PAB Stairwell9",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -479,7 +494,7 @@
       "built-in": true
     },
     {
-      "POIid": 3928,
+      "POIId": 3928,
       "POIName": "PAB Stairwell9",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -493,7 +508,7 @@
       "built-in": true
     },
     {
-      "POIid": 3929,
+      "POIId": 3929,
       "POIName": "PAB Stairwell10",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -507,7 +522,7 @@
       "built-in": true
     },
     {
-      "POIid": 3907,
+      "POIId": 3907,
       "POIName": "PAB Exit2",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -521,7 +536,7 @@
       "built-in": true
     },
     {
-      "POIid": 3908,
+      "POIId": 3908,
       "POIName": "PAB Exit3",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -535,7 +550,7 @@
       "built-in": true
     },
     {
-      "POIid": 3909,
+      "POIId": 3909,
       "POIName": "PAB Exit5",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -549,7 +564,7 @@
       "built-in": true
     },
     {
-      "POIid": 3910,
+      "POIId": 3910,
       "POIName": "PAB Exit6",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -563,7 +578,7 @@
       "built-in": true
     },
     {
-      "POIid": 3911,
+      "POIId": 3911,
       "POIName": "PAB Exit4",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -577,7 +592,7 @@
       "built-in": true
     },
     {
-      "POIid": 3912,
+      "POIId": 3912,
       "POIName": "PAB Exit1",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -591,7 +606,7 @@
       "built-in": true
     },
     {
-      "POIid": 9100,
+      "POIId": 9100,
       "POIName": "PAB 100",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -605,7 +620,7 @@
       "built-in": true
     },
     {
-      "POIid": 9106,
+      "POIId": 9106,
       "POIName": "PAB 106",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -619,7 +634,7 @@
       "built-in": true
     },
     {
-      "POIid": 9117,
+      "POIId": 9117,
       "POIName": "PAB 117",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -633,7 +648,7 @@
       "built-in": true
     },
     {
-      "POIid": 9148,
+      "POIId": 9148,
       "POIName": "PAB 148",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -647,7 +662,7 @@
       "built-in": true
     },
     {
-      "POIid": 9150,
+      "POIId": 9150,
       "POIName": "PAB 150",
       "building": "Physics and Astronomy Building",
       "buildingCode": "PAB",
@@ -662,7 +677,7 @@
     },
 
     {
-      "POIid": 7220,
+      "POIId": 7220,
       "POIName": "MC 220",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -676,7 +691,7 @@
       "built-in": true
     },
     {
-      "POIid": 7239,
+      "POIId": 7239,
       "POIName": "MC 239",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -690,7 +705,7 @@
       "built-in": true
     },
     {
-      "POIid": 7325,
+      "POIId": 7325,
       "POIName": "MC 325",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -704,7 +719,7 @@
       "built-in": true
     },
     {
-      "POIid": 7300,
+      "POIId": 7300,
       "POIName": "MC 300",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -718,7 +733,7 @@
       "built-in": true
     },
     {
-      "POIid": 7316,
+      "POIId": 7316,
       "POIName": "MC 316",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -732,7 +747,7 @@
       "built-in": true
     },
     {
-      "POIid": 7320,
+      "POIId": 7320,
       "POIName": "MC 320",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -746,7 +761,7 @@
       "built-in": true
     },
     {
-      "POIid": 7230,
+      "POIId": 7230,
       "POIName": "MC 230",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -760,7 +775,7 @@
       "built-in": true
     },
     {
-      "POIid": 7235,
+      "POIId": 7235,
       "POIName": "MC 235",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -774,7 +789,7 @@
       "built-in": true
     },
     {
-      "POIid": 7240,
+      "POIId": 7240,
       "POIName": "MC 240",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -788,7 +803,7 @@
       "built-in": true
     },
     {
-      "POIid": 7244,
+      "POIId": 7244,
       "POIName": "MC 244",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -802,7 +817,7 @@
       "built-in": true
     },
     {
-      "POIid": 7342,
+      "POIId": 7342,
       "POIName": "MC 342",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -816,7 +831,7 @@
       "built-in": true
     },
     {
-      "POIid": 717,
+      "POIId": 717,
       "POIName": "MC 17",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -830,7 +845,7 @@
       "built-in": true
     },
     {
-      "POIid": 710566,
+      "POIId": 710566,
       "POIName": "MC 105B",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -845,7 +860,7 @@
     },
 
     {
-      "POIid": 7110,
+      "POIId": 7110,
       "POIName": "MC 110",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -860,7 +875,7 @@
     },
 
     {
-      "POIid": 719,
+      "POIId": 719,
       "POIName": "Grad Club",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -875,7 +890,7 @@
     },
 
     {
-      "POIid": 7566,
+      "POIId": 7566,
       "POIName": "Men's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -890,7 +905,7 @@
     },
 
     {
-      "POIid": 7466,
+      "POIId": 7466,
       "POIName": "Women's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -904,7 +919,7 @@
       "built-in": true
     },
     {
-      "POIid": 7467,
+      "POIId": 7467,
       "POIName": "Gender-neutral washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -919,7 +934,7 @@
     },
 
     {
-      "POIid": 72869,
+      "POIId": 72869,
       "POIName": "Men's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -934,7 +949,7 @@
     },
 
     {
-      "POIid": 3701,
+      "POIId": 3701,
       "POIName": "Elevator A",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -949,7 +964,7 @@
     },
 
     {
-      "POIid": 3702,
+      "POIId": 3702,
       "POIName": "Elevator C",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -963,7 +978,7 @@
       "built-in": true
     },
     {
-      "POIid": 3703,
+      "POIId": 3703,
       "POIName": "Stairwell 1",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -977,7 +992,7 @@
       "built-in": true
     },
     {
-      "POIid": 3704,
+      "POIId": 3704,
       "POIName": "Stairwell 2",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -991,7 +1006,7 @@
       "built-in": true
     },
     {
-      "POIid": 3705,
+      "POIId": 3705,
       "POIName": "Stairwell 6",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1005,7 +1020,7 @@
       "built-in": true
     },
     {
-      "POIid": 3706,
+      "POIId": 3706,
       "POIName": "Stairwell 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1019,7 +1034,7 @@
       "built-in": true
     },
     {
-      "POIid": 3707,
+      "POIId": 3707,
       "POIName": "Stairwell 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1033,7 +1048,7 @@
       "built-in": true
     },
     {
-      "POIid": 3708,
+      "POIId": 3708,
       "POIName": "Exit 4",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1047,7 +1062,7 @@
       "built-in": true
     },
     {
-      "POIid": 3709,
+      "POIId": 3709,
       "POIName": "Exit 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1061,7 +1076,7 @@
       "built-in": true
     },
     {
-      "POIid": 3710,
+      "POIId": 3710,
       "POIName": "Exit 6",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1075,7 +1090,7 @@
       "built-in": true
     },
     {
-      "POIid": 3711,
+      "POIId": 3711,
       "POIName": "Exit 7",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1089,7 +1104,7 @@
       "built-in": true
     },
     {
-      "POIid": 3712,
+      "POIId": 3712,
       "POIName": "Exit 8",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1103,7 +1118,7 @@
       "built-in": true
     },
     {
-      "POIid": 7100,
+      "POIId": 7100,
       "POIName": "Men's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1117,7 +1132,7 @@
       "built-in": true
     },
     {
-      "POIid": 7139,
+      "POIId": 7139,
       "POIName": "Women's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1131,7 +1146,7 @@
       "built-in": true
     },
     {
-      "POIid": 3713,
+      "POIId": 3713,
       "POIName": "Elevator A",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1145,7 +1160,7 @@
       "built-in": true
     },
     {
-      "POIid": 3714,
+      "POIId": 3714,
       "POIName": "Elevator C",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1159,7 +1174,7 @@
       "built-in": true
     },
     {
-      "POIid": 3715,
+      "POIId": 3715,
       "POIName": "Stairwell 1",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1173,7 +1188,7 @@
       "built-in": true
     },
     {
-      "POIid": 3716,
+      "POIId": 3716,
       "POIName": "Stairwell 2",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1187,7 +1202,7 @@
       "built-in": true
     },
     {
-      "POIid": 3717,
+      "POIId": 3717,
       "POIName": "Stairwell 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1201,7 +1216,7 @@
       "built-in": true
     },
     {
-      "POIid": 3718,
+      "POIId": 3718,
       "POIName": "Stairwell 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1215,7 +1230,7 @@
       "built-in": true
     },
     {
-      "POIid": 3719,
+      "POIId": 3719,
       "POIName": "Exit 1",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1229,7 +1244,7 @@
       "built-in": true
     },
     {
-      "POIid": 3720,
+      "POIId": 3720,
       "POIName": "Exit 2",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1243,7 +1258,7 @@
       "built-in": true
     },
     {
-      "POIid": 3721,
+      "POIId": 3721,
       "POIName": "Exit 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1257,7 +1272,7 @@
       "built-in": true
     },
     {
-      "POIid": 3722,
+      "POIId": 3722,
       "POIName": "Exit 9",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1271,7 +1286,7 @@
       "built-in": true
     },
     {
-      "POIid": 3723,
+      "POIId": 3723,
       "POIName": "Exit 10",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1285,7 +1300,7 @@
       "built-in": true
     },
     {
-      "POIid": 3724,
+      "POIId": 3724,
       "POIName": "Exit 11",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1299,7 +1314,7 @@
       "built-in": true
     },
     {
-      "POIid": 3725,
+      "POIId": 3725,
       "POIName": "Exit 12",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1313,7 +1328,7 @@
       "built-in": true
     },
     {
-      "POIid": 7205,
+      "POIId": 7205,
       "POIName": "Women's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1327,7 +1342,7 @@
       "built-in": true
     },
     {
-      "POIid": 7278,
+      "POIId": 7278,
       "POIName": "Gender-neutral Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1341,7 +1356,7 @@
       "built-in": true
     },
     {
-      "POIid": 3726,
+      "POIId": 3726,
       "POIName": "Elevator A",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1355,7 +1370,7 @@
       "built-in": true
     },
     {
-      "POIid": 3727,
+      "POIId": 3727,
       "POIName": "Elevator C",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1369,7 +1384,7 @@
       "built-in": true
     },
     {
-      "POIid": 3728,
+      "POIId": 3728,
       "POIName": "Stairwell 1",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1383,7 +1398,7 @@
       "built-in": true
     },
     {
-      "POIid": 3729,
+      "POIId": 3729,
       "POIName": "Stairwell 2",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1397,7 +1412,7 @@
       "built-in": true
     },
     {
-      "POIid": 3730,
+      "POIId": 3730,
       "POIName": "Stairwell 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1411,7 +1426,7 @@
       "built-in": true
     },
     {
-      "POIid": 3731,
+      "POIId": 3731,
       "POIName": "Stairwell 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1425,7 +1440,7 @@
       "built-in": true
     },
     {
-      "POIid": 7311,
+      "POIId": 7311,
       "POIName": "Men's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1439,7 +1454,7 @@
       "built-in": true
     },
     {
-      "POIid": 7388,
+      "POIId": 7388,
       "POIName": "Women's Washroom",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1453,7 +1468,7 @@
       "built-in": true
     },
     {
-      "POIid": 3732,
+      "POIId": 3732,
       "POIName": "Elevator A",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1467,7 +1482,7 @@
       "built-in": true
     },
     {
-      "POIid": 3733,
+      "POIId": 3733,
       "POIName": "Elevator C",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1481,7 +1496,7 @@
       "built-in": true
     },
     {
-      "POIid": 3734,
+      "POIId": 3734,
       "POIName": "Stairwell 1",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1495,7 +1510,7 @@
       "built-in": true
     },
     {
-      "POIid": 3735,
+      "POIId": 3735,
       "POIName": "Stairwell 2",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1509,7 +1524,7 @@
       "built-in": true
     },
     {
-      "POIid": 3736,
+      "POIId": 3736,
       "POIName": "Stairwell 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1523,7 +1538,7 @@
       "built-in": true
     },
     {
-      "POIid": 3737,
+      "POIId": 3737,
       "POIName": "Stairwell 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1537,7 +1552,7 @@
       "built-in": true
     },
     {
-      "POIid": 3738,
+      "POIId": 3738,
       "POIName": "Elevator C",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1551,7 +1566,7 @@
       "built-in": true
     },
     {
-      "POIid": 3739,
+      "POIId": 3739,
       "POIName": "Stairwell 3",
       "building": "Middlesex College",
       "buildingCode": "MC",
@@ -1565,7 +1580,7 @@
       "built-in": true
     },
     {
-      "POIid": 3740,
+      "POIId": 3740,
       "POIName": "Stairwell 5",
       "building": "Middlesex College",
       "buildingCode": "MC",
