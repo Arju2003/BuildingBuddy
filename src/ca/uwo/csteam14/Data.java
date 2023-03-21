@@ -11,15 +11,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Data extends LinkedList<POI>{
-    protected LinkedList<POI> builtInPOIs;
-    protected LinkedList<POI> userCreatedPOIs;
-    protected LinkedList<POI> bookmarks;
+    protected static LinkedList<POI> builtInPOIs;
+    protected static LinkedList<POI> userCreatedPOIs;
+    protected static LinkedList<POI> bookmarks;
 
     public Data() {
         JSONParser parser = new JSONParser();
-        this.builtInPOIs = new LinkedList();
-        this.userCreatedPOIs = new LinkedList();
-        this.bookmarks = new LinkedList();
+        builtInPOIs = new LinkedList<POI>();
+        userCreatedPOIs = new LinkedList<POI>();
+        bookmarks = new LinkedList<POI>();
 
         try {
             Object obj1 = parser.parse(new FileReader("./data/builtin.json"));
@@ -28,15 +28,16 @@ public class Data extends LinkedList<POI>{
             JSONObject jObject1 = (JSONObject)obj1;
             JSONObject jObject2 = (JSONObject)obj2;
             JSONObject jObject3 = (JSONObject)obj3;
-            JSONArray builinPOIs = (JSONArray)jObject1.get("BuiltInPOIs");
-            JSONArray userCreatedPOIs = (JSONArray)jObject2.get("UserPOIs");
-            JSONArray bookmarks = (JSONArray)jObject3.get("Bookmarks");
+            JSONArray POIArray1 = (JSONArray)jObject1.get("BuiltInPOIs");
+            JSONArray POIArray2 = (JSONArray)jObject2.get("UserPOIs");
+            JSONArray POIArray3 = (JSONArray)jObject3.get("Bookmarks");
             Iterator var8;
             Object o;
             JSONObject point;
             long POIId;
             int id;
             String name;
+            String building;
             String buildingCode;
             String floor;
             long roomNum;
@@ -44,17 +45,18 @@ public class Data extends LinkedList<POI>{
             String category;
             String description;
             long x;
-            int mapx;
+            int mapX;
             long y;
-            int mapy;
+            int mapY;
             boolean builtIn;
             POI newPoint;
-            for(var8 = builinPOIs.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
+            for(var8 = POIArray1.iterator(); var8.hasNext(); builtInPOIs.add(newPoint)) {
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
                 id = (int)POIId;
                 name = (String)point.get("POIName");
+                building = (String)point.get("building");
                 buildingCode = (String)point.get("buildingCode");
                 floor = (String)point.get("floor");
                 roomNum = (Long)point.get("roomNumber");
@@ -62,15 +64,16 @@ public class Data extends LinkedList<POI>{
                 category = (String)point.get("category");
                 description = (String)point.get("description");
                 x = (Long)point.get("mapX");
-                mapx = (int)x;
+                mapX = (int)x;
                 y = (Long)point.get("mapY");
-                mapy = (int)y;
+                mapY = (int)y;
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
-                newPoint.setX(mapx);
-                newPoint.setY(mapy);
+                newPoint.setX(mapX);
+                newPoint.setY(mapY);
                 newPoint.setName(name);
+                newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
                 newPoint.setRoomNum(roomNumber);
@@ -89,12 +92,13 @@ public class Data extends LinkedList<POI>{
                 }
             }
 
-            for(var8 = bookmarks.iterator(); var8.hasNext(); this.builtInPOIs.add(newPoint)) {
+            for(var8 = POIArray2.iterator(); var8.hasNext(); userCreatedPOIs.add(newPoint)) {
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
                 id = (int)POIId;
                 name = (String)point.get("POIName");
+                building = (String)point.get("building");
                 buildingCode = (String)point.get("buildingCode");
                 floor = (String)point.get("floor");
                 roomNum = (Long)point.get("roomNumber");
@@ -102,15 +106,16 @@ public class Data extends LinkedList<POI>{
                 category = (String)point.get("category");
                 description = (String)point.get("description");
                 x = (Long)point.get("mapX");
-                mapx = (int)x;
+                mapX = (int)x;
                 y = (Long)point.get("mapY");
-                mapy = (int)y;
+                mapY = (int)y;
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
-                newPoint.setX(mapx);
-                newPoint.setY(mapy);
+                newPoint.setX(mapX);
+                newPoint.setY(mapY);
                 newPoint.setName(name);
+                newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
                 newPoint.setRoomNum(roomNumber);

@@ -3,14 +3,13 @@ package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class BuildingBuddy {
 
-    protected static Data userData;
-
-    protected static Data builtinData;
-
-    protected static Data bookmarksData;
+    protected static LinkedList<POI> userData;
+    protected static LinkedList<POI> builtinData;
+    protected static LinkedList<POI> bookmarksData;
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -51,6 +50,10 @@ public class BuildingBuddy {
     }
 
     public static void main(String[] args) throws IOException {
+        new Data();
+        userData = Data.userCreatedPOIs;
+        builtinData = Data.builtInPOIs;
+        bookmarksData = Data.bookmarks;
         currentBuildingCode = "MC";
         currentFloor_MC = "MC0F";
         currentFloor_KB = "KB0F";

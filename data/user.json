@@ -13,6 +13,20 @@
       "mapX": 2850,
       "mapY": 900,
       "built-in": false
+    },
+    {
+      "POIId": 48104,
+      "POIName": "KB 104",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 103,
+      "category": "Classroom",
+      "description": "Listed in the Western Classroom Directory",
+      "map": "KB1F.png",
+      "mapX": 2850,
+      "mapY": 900,
+      "built-in": false
     }
   ]
 }

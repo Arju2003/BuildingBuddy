@@ -1,19 +1,23 @@
 package ca.uwo.csteam14;
+import org.w3c.dom.html.HTMLImageElement;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
 import javax.swing.*;
 
 public class GUIForPOIs {
-    protected static JFrame frame = new JFrame("BuildingBuddy *POI Editors* – Ver 1.0 –");
-    private final AppMenu appMenu = new AppMenu();
+   
+    protected final AppMenu appMenu = new AppMenu();
     protected static Container secondary;
-    protected static JLabel buildingName = new JLabel();
+    protected static JLabel title = new JLabel();
 
     protected static MapView map;
 
-    public GUIForPOIs(Data collection) {
+    public GUIForPOIs(LinkedList<POI> collection, String category) {
         EventQueue.invokeLater(() -> {
+
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -21,43 +25,41 @@ public class GUIForPOIs {
             }
 
             try {
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setJMenuBar(appMenu.load());
+                GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                GUI.frame.setJMenuBar(appMenu.load());
                 /* A split screen to show map and layer filter on the left side*/
                 /* Show the correct background picture and building name */
 
-                secondary = new Container("./images/KB_hero.png");
-                buildingName.setText("Kresge Building (KB)");
-                map = new MapView("./maps/"+BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint("KB"));
+                secondary = new Container("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png");
+                title.setText(category);
+                map = new MapView("./maps/"+BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint("KB"));
                 secondary.load(map.loadMapViewer(), 'R');
 
                 } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            buildingName = new JLabel("<html><div style=\"text-align:center;\">" + "" +
-                    "POI Editor" + "<br />(" + "MC" + ") ►</div></html>");
+            title = new JLabel("<html><div style=\"text-align:center;\">" + "" +
+                    category + "<br /></div></html>");
                 // Set the font size and style
             Font title = new Font("Arial", Font.BOLD, 36);
-            buildingName.setFont(title);
+            GUIForPOIs.title.setFont(title);
 
             // Set the foreground color
             Color foregroundColour = new Color(75, 250 ,0);
             Color background = new Color(0,0,0, 0.3f);
-            padding(buildingName);
-            buildingName.setForeground(foregroundColour);
-            buildingName.setOpaque(true);
-            buildingName.setBackground(background);
-            secondary.load(buildingName,'L');
+            padding(GUIForPOIs.title);
+            GUIForPOIs.title.setForeground(foregroundColour);
+            GUIForPOIs.title.setOpaque(true);
+            GUIForPOIs.title.setBackground(background);
+            secondary.load(GUIForPOIs.title,'L');
 
             new POISelector(collection);
 
-            new Search();
-
-            frame.setContentPane(secondary);
-            frame.pack();
-            frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
-            frame.setVisible(true);
+            GUI.frame.setContentPane(secondary);
+            GUI.frame.pack();
+            GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
+            GUI.frame.setVisible(true);
 
         });
     }

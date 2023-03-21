@@ -4,7 +4,8 @@ public class POI {
 
     protected int id;
     protected String name;
-    protected FloorMap belongsTo;
+    protected String building;
+    protected FloorMap map;
     protected String code;
     protected String floor;
     protected String roomNum;
@@ -29,7 +30,7 @@ public class POI {
     }
 
     public FloorMap getMap() {
-        return belongsTo;
+        return map;
     }
     public String getCode() {return code;}
     public String getFloor() {return floor;}
@@ -67,8 +68,10 @@ public class POI {
         this.name = name;
     }
 
+    public void setBuilding(String building) {this.building = building;}
+
     public void setMap(FloorMap map) {
-        belongsTo = map;
+        this.map = map;
     }
     public void setCode(String code) { this.code = code;}
     public void setFloor(String floor) {this.floor = floor;}
