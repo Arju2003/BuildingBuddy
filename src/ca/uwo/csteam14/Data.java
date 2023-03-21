@@ -32,6 +32,7 @@ public class Data extends LinkedList<POI>{
             JSONArray POIArray1 = (JSONArray)jObject1.get("BuiltInPOIs");
             JSONArray POIArray2 = (JSONArray)jObject2.get("UserPOIs");
             JSONArray POIArray3 = (JSONArray)jObject3.get("Bookmarks");
+
             Iterator var8;
             Object o;
             JSONObject point;
