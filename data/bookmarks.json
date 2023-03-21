@@ -17,7 +17,7 @@
     {
       "POIId": 920,
       "POIName": "PAB 20",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 20,
@@ -31,7 +31,7 @@
     {
       "POIId": 3902,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3902,
@@ -45,7 +45,7 @@
     {
       "POIId": 3916,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3916,

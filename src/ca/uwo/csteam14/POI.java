@@ -2,9 +2,15 @@ package ca.uwo.csteam14;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
 public class POI {
 
@@ -85,33 +91,6 @@ public class POI {
         // get data from json file based in ID
     }
 
-    public BufferedImage highlight() throws IOException {
-
-        System.out.println(this.map);
-
-        BufferedImage basemap = ImageIO.read(new File("./maps/" + this.map));
-
-        // create a new image with the same dimensions as the original basemap
-        BufferedImage highlightedImage = new BufferedImage(basemap.getWidth(), basemap.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-        // create a Graphics2D object for drawing on the new map
-        Graphics2D g2d = highlightedImage.createGraphics();
-
-        // draw the original basemap on the new map
-        g2d.drawImage(basemap, 0, 0, null);
-
-        // set the rendering hints for smooth antialiasing
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // create a cicle with a transparent fill and a solid border
-        g2d.setColor(new Color(255, 0, 0, 90));
-
-        g2d.fillOval(this.positionX, this.positionY, 80, 80);
-
-        // dispose of the Graphics2D object to free up resources
-        g2d.dispose();
-        return highlightedImage;
-    }
 
 
 }

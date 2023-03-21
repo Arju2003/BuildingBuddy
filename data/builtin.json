@@ -67,8 +67,8 @@
       "category": "Washroom",
       "description": "For women only. Non-accessible.",
       "map": "KB2F.png",
-      "mapX": 2800,
-      "mapY": 700,
+      "mapX": 3000,
+      "mapY": 550,
       "built-in": true
     },
     {
@@ -90,7 +90,7 @@
     {
       "POIId": 934,
       "POIName": "PAB 34",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 34,
@@ -104,7 +104,7 @@
     {
       "POIId": 936,
       "POIName": "PAB 36",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 36,
@@ -118,7 +118,7 @@
     {
       "POIId": 918,
       "POIName": "PAB 18",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 18,
@@ -132,7 +132,7 @@
     {
       "POIId": 920,
       "POIName": "PAB 20",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 20,
@@ -146,7 +146,7 @@
     {
       "POIId": 9131,
       "POIName": "PAB 131",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 131,
@@ -160,7 +160,7 @@
     {
       "POIId": 9133,
       "POIName": "PAB 133",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 133,
@@ -174,7 +174,7 @@
     {
       "POIId": 9153,
       "POIName": "PAB 153",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 153,
@@ -188,7 +188,7 @@
     {
       "POIId": 9154,
       "POIName": "PAB 154",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 154,
@@ -202,7 +202,7 @@
     {
       "POIId": 3901,
       "POIName": "PAB ElevatorB",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3901,
@@ -216,7 +216,7 @@
     {
       "POIId": 3902,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3902,
@@ -230,7 +230,7 @@
     {
       "POIId": 3913,
       "POIName": "PAB ElevatorB",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3913,
@@ -244,7 +244,7 @@
     {
       "POIId": 3914,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3914,
@@ -258,7 +258,7 @@
     {
       "POIId": 3915,
       "POIName": "PAB ElevatorB",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3915,
@@ -272,7 +272,7 @@
     {
       "POIId": 3916,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3916,
@@ -286,7 +286,7 @@
     {
       "POIId": 3917,
       "POIName": "PAB ElevatorA",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Third Floor",
       "roomNumber": 3917,
@@ -300,7 +300,7 @@
     {
       "POIId": 3903,
       "POIName": "PAB Stairwell1",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3903,
@@ -314,7 +314,7 @@
     {
       "POIId": 3904,
       "POIName": "PAB Stairwell2",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3904,
@@ -328,7 +328,7 @@
     {
       "POIId": 3905,
       "POIName": "PAB Stairwell5",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3905,
@@ -342,7 +342,7 @@
     {
       "POIId": 3906,
       "POIName": "PAB Stairwell6",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3906,
@@ -356,7 +356,7 @@
     {
       "POIId": 3918,
       "POIName": "PAB Stairwell1",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3918,
@@ -370,7 +370,7 @@
     {
       "POIId": 3919,
       "POIName": "PAB Stairwell2",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3919,
@@ -384,7 +384,7 @@
     {
       "POIId": 3920,
       "POIName": "PAB Stairwell5",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3920,
@@ -398,7 +398,7 @@
     {
       "POIId": 3921,
       "POIName": "PAB Stairwell6",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3921,
@@ -412,7 +412,7 @@
     {
       "POIId": 3922,
       "POIName": "PAB Stairwell2",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3922,
@@ -426,7 +426,7 @@
     {
       "POIId": 3923,
       "POIName": "PAB Stairwell5",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3923,
@@ -440,7 +440,7 @@
     {
       "POIId": 3924,
       "POIName": "PAB Stairwell6",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3924,
@@ -454,7 +454,7 @@
     {
       "POIId": 3925,
       "POIName": "PAB Stairwell8",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3925,
@@ -468,7 +468,7 @@
     {
       "POIId": 3926,
       "POIName": "PAB Stairwell8",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3926,
@@ -482,7 +482,7 @@
     {
       "POIId": 3927,
       "POIName": "PAB Stairwell9",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 3927,
@@ -496,7 +496,7 @@
     {
       "POIId": 3928,
       "POIName": "PAB Stairwell9",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3928,
@@ -510,7 +510,7 @@
     {
       "POIId": 3929,
       "POIName": "PAB Stairwell10",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Second Floor",
       "roomNumber": 3929,
@@ -524,7 +524,7 @@
     {
       "POIId": 3907,
       "POIName": "PAB Exit2",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3907,
@@ -538,7 +538,7 @@
     {
       "POIId": 3908,
       "POIName": "PAB Exit3",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3908,
@@ -552,7 +552,7 @@
     {
       "POIId": 3909,
       "POIName": "PAB Exit5",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3909,
@@ -566,7 +566,7 @@
     {
       "POIId": 3910,
       "POIName": "PAB Exit6",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3910,
@@ -580,7 +580,7 @@
     {
       "POIId": 3911,
       "POIName": "PAB Exit4",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3911,
@@ -594,7 +594,7 @@
     {
       "POIId": 3912,
       "POIName": "PAB Exit1",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "Ground Floor",
       "roomNumber": 3912,
@@ -608,7 +608,7 @@
     {
       "POIId": 9100,
       "POIName": "PAB 100",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 100,
@@ -622,7 +622,7 @@
     {
       "POIId": 9106,
       "POIName": "PAB 106",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 106,
@@ -636,7 +636,7 @@
     {
       "POIId": 9117,
       "POIName": "PAB 117",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 117,
@@ -650,7 +650,7 @@
     {
       "POIId": 9148,
       "POIName": "PAB 148",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 148,
@@ -664,7 +664,7 @@
     {
       "POIId": 9150,
       "POIName": "PAB 150",
-      "building": "Physics and Astronomy Building",
+      "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
       "floor": "First Floor",
       "roomNumber": 150,
@@ -740,7 +740,7 @@
       "floor": "Third Floor",
       "roomNumber": 300,
       "category": "Computer Science Classroom",
-      "description": "Capacity: 16, projector with HDMI and VGA connectivity, integrated computer, contains whiteboard",
+      "description": "Capacity: 16, projector with HDMI & VGA connectivity, integrated computer, contains whiteboard",
       "map": "MC3F.png",
       "mapX": 1801,
       "mapY": 1159,
@@ -754,7 +754,7 @@
       "floor": "Third Floor",
       "roomNumber": 316,
       "category": "Computer Science Classroom",
-      "description": "Capacity: 30, projector with HDMI and VGA connectivity, integrated computer, contains whiteboard",
+      "description": "Capacity: 30, projector with HDMI & VGA connectivity, integrated computer, contains whiteboard",
       "map": "MC3F.png",
       "mapX": 1132,
       "mapY": 1121,
@@ -768,7 +768,7 @@
       "floor": "Third Floor",
       "roomNumber": 320,
       "category": "Computer Science Classroom",
-      "description": "Capacity: 40, projector with HDMI and VGA connectivity, integrated computer, contains whiteboard",
+      "description": "Capacity: 40, projector with HDMI & VGA connectivity, integrated computer, contains whiteboard",
       "map": "MC3F.png",
       "mapX": 944,
       "mapY": 1329,
@@ -782,7 +782,7 @@
       "floor": "Second Floor",
       "roomNumber": 230,
       "category": "CompSci Spot",
-      "description": "Computer lab. Capacity: 24, projector with HDMI and VGA connectivity, integrated computer, 24 Windows 10 PCs, contains whiteboard",
+      "description": "Computer lab. Capacity: 24, projector with HDMI & VGA connectivity, integrated computer, 24 Windows 10 PCs, contains whiteboard",
       "map": "MC2F.png",
       "mapX": 330,
       "mapY": 1258,
@@ -796,7 +796,7 @@
       "floor": "Second Floor",
       "roomNumber": 235,
       "category": "CompSci Spot",
-      "description": "Computer lab. Capacity: 24, projector with HDMI and VGA connectivity, integrated computer, 24 Windows 10 PCs, contains whiteboard",
+      "description": "Computer lab. Capacity: 24, projector with HDMI & VGA connectivity, integrated computer, 24 Windows 10 PCs, contains whiteboard",
       "map": "MC2F.png",
       "mapX": 490,
       "mapY": 1158,
@@ -824,7 +824,7 @@
       "floor": "Second Floor",
       "roomNumber": 244,
       "category": "CompSci Spot",
-      "description": "Computer lab. Capacity: 30, projector with HDMI and wireless connectivity, integrated computer, 28 Fedora 28 PCs, 2 Fedora 28 GPU workstations, contains whiteboard",
+      "description": "Computer lab. Capacity: 30, projector with HDMI & wireless connectivity, integrated computer, 28 Fedora 28 PCs, 2 Fedora 28 GPU workstations, contains whiteboard",
       "map": "MC2F.png",
       "mapX": 1218,
       "mapY": 888,
@@ -896,7 +896,7 @@
       "floor": "Ground Floor",
       "roomNumber": 19,
       "category": "Restaurant",
-      "description": "The Grad Club is a non-profit graduate student pub and eatery.",
+      "description": "The Grad Club is a non-profit graduate student pub & eatery.",
       "map": "MC0F.png",
       "mapX": 1717,
       "mapY": 628,

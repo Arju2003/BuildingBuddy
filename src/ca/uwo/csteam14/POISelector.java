@@ -1,9 +1,11 @@
 package ca.uwo.csteam14;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,14 +25,17 @@ public class POISelector extends JPanel {
         JList<String> itemList = new JList<>(items.toArray(new String[items.size()]));
 
         DefaultListCellRenderer renderer = new CustomListCellRenderer();
-        renderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+        renderer.setHorizontalAlignment(DefaultListCellRenderer.LEFT);
         itemList.setCellRenderer(renderer);
         itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         itemList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 try {
                     POI focus = currentCollection.get(itemList.getSelectedIndex());
-                    BufferedImage newMap = focus.highlight();
+                    BuildingBuddy.currentFloor = focus.pathName.replace(".png","").replace("./maps/","");
+                    BuildingBuddy.currentBuildingCode = BuildingBuddy.currentFloor.replaceAll("\\dF", "");
+                    GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png")));
+                    BufferedImage newMap = GUIForPOIs.map.highlight(focus);
                     GUIForPOIs.map = new MapView(newMap, new Point(focus.positionX, focus.positionY));
                     GUIForPOIs.secondary.setVisible(false);
                     GUIForPOIs.secondary.replaceWith(GUIForPOIs.map.loadMapViewer(), 'R');
@@ -42,7 +47,7 @@ public class POISelector extends JPanel {
         });
         scrollPane = new JScrollPane(itemList);
         scrollPane.setLayout(new ScrollPaneLayout());
-        scrollPane.setPreferredSize(new Dimension(400,400));
+        scrollPane.setPreferredSize(new Dimension(450,450));
         GUIForPOIs.secondary.load(scrollPane, 'L');
     }
 
@@ -69,7 +74,7 @@ public class POISelector extends JPanel {
             }
 
             c.setFont(new Font("Arial", Font.PLAIN, 18));
-            Insets insets = new Insets(10, 20, 5, 20);
+            Insets insets = new Insets(20, 20, 20, 20);
             ((JComponent) c).setBorder(new EmptyBorder(insets));
 
             // Return the customized cell

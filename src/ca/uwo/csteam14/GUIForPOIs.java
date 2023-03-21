@@ -32,7 +32,7 @@ public class GUIForPOIs {
 
                 secondary = new Container("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png");
                 title.setText(category);
-                map = new MapView("./maps/"+BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint("KB"));
+                map = new MapView("./maps/"+BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode));
                 secondary.load(map.loadMapViewer(), 'R');
 
                 } catch (IOException e) {
