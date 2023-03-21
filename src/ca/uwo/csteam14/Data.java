@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Data extends LinkedList<POI>{
+public class Data {
     protected static LinkedList<POI> builtInPOIs;
     protected static LinkedList<POI> userCreatedPOIs;
     protected static LinkedList<POI> bookmarks;
@@ -238,6 +238,8 @@ public class Data extends LinkedList<POI>{
     public LinkedList<POI> getBookmarks() {
         return bookmarks;
     }
+
+
 
     public static void main(String[] args) {
         new Data();
