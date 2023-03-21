@@ -53,7 +53,9 @@ public class Data extends LinkedList<POI>{
             int mapY;
             boolean builtIn;
             POI newPoint;
+
             for(var8 = POIArray1.iterator(); var8.hasNext(); builtInPOIs.add(newPoint)) {
+
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
@@ -84,6 +86,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
+
                 switch (floor) {
                     case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
                     case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
@@ -94,6 +97,7 @@ public class Data extends LinkedList<POI>{
             }
 
             for(var8 = POIArray2.iterator(); var8.hasNext(); userCreatedPOIs.add(newPoint)) {
+
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
@@ -124,6 +128,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
+
                 switch (floor) {
                     case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
                     case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
@@ -133,6 +138,7 @@ public class Data extends LinkedList<POI>{
                 }
             }
             for(var8 = POIArray3.iterator(); var8.hasNext(); bookmarks.add(newPoint)) {
+
                 o = var8.next();
                 point = (JSONObject)o;
                 POIId = (Long)point.get("POIId");
@@ -163,6 +169,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
+
                 switch (floor) {
                     case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
                     case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
