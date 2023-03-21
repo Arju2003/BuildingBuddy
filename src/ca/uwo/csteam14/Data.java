@@ -133,6 +133,47 @@ public class Data extends LinkedList<POI>{
                     newPoint.setPath("./maps/" + buildingCode + "4F.png");
                 }
             }
+            for(var8 = POIArray3.iterator(); var8.hasNext(); bookmarks.add(newPoint)) {
+                o = var8.next();
+                point = (JSONObject)o;
+                POIId = (Long)point.get("POIId");
+                id = (int)POIId;
+                name = (String)point.get("POIName");
+                building = (String)point.get("building");
+                buildingCode = (String)point.get("buildingCode");
+                floor = (String)point.get("floor");
+                roomNum = (Long)point.get("roomNumber");
+                roomNumber = String.valueOf(roomNum);
+                category = (String)point.get("category");
+                description = (String)point.get("description");
+                x = (Long)point.get("mapX");
+                mapX = (int)x;
+                y = (Long)point.get("mapY");
+                mapY = (int)y;
+                builtIn = (Boolean)point.get("built-in");
+                newPoint = new POI(id);
+                newPoint.setCategory(category);
+                newPoint.setX(mapX);
+                newPoint.setY(mapY);
+                newPoint.setName(name);
+                newPoint.setBuilding(building);
+                newPoint.setCode(buildingCode);
+                newPoint.setFloor(floor);
+                newPoint.setRoomNum(roomNumber);
+                newPoint.setDescription(description);
+                newPoint.setCreator(builtIn);
+                if (floor.equals("Ground Floor")) {
+                    newPoint.setPath("./maps/" + buildingCode + "0F.png");
+                } else if (floor.equals("First Floor")) {
+                    newPoint.setPath("./maps/" + buildingCode + "1F.png");
+                } else if (floor.equals("Second Floor")) {
+                    newPoint.setPath("./maps/" + buildingCode + "2F.png");
+                } else if (floor.equals("Third Floor")) {
+                    newPoint.setPath("./maps/" + buildingCode + "3F.png");
+                } else {
+                    newPoint.setPath("./maps/" + buildingCode + "4F.png");
+                }
+            }
         } catch (FileNotFoundException var30) {
             var30.printStackTrace();
         } catch (IOException var31) {
