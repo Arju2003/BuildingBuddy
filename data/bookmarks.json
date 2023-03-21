@@ -1,5 +1,74 @@
 {
   "Bookmarks": [
-
+    {
+      "POIId": 48103,
+      "POIName": "KB 103",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 103,
+      "category": "Classroom",
+      "description": "Listed in the Western Classroom Directory",
+      "map": "KB1F.png",
+      "mapX": 2850,
+      "mapY": 900,
+      "built-in": false
+    },
+    {
+      "POIId": 920,
+      "POIName": "PAB 20",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 20,
+      "category": "Washroom",
+      "Description": "Women only. Accessible",
+      "map": "PAB0F.png",
+      "mapX": 1515,
+      "mapY": 725,
+      "built-in": true
+    },
+    {
+      "POIId": 3902,
+      "POIName": "PAB ElevatorA",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 3902,
+      "category": "Elevator",
+      "Description": "On the ground floor. Accessible",
+      "map": "PAB0F.png",
+      "mapX": 1688,
+      "mapY": 1407,
+      "built-in": true
+    },
+    {
+      "POIId": 3916,
+      "POIName": "PAB ElevatorA",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Second Floor",
+      "roomNumber": 3916,
+      "category": "Elevator",
+      "Description": "On the second floor. Accessible",
+      "map": "PAB2F.png",
+      "mapX": 1615,
+      "mapY": 1407,
+      "built-in": true
+    },
+    {
+      "POIId": 3740,
+      "POIName": "Stairwell 5",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Fourth Floor",
+      "roomNumber": 40,
+      "category": "Stairwell",
+      "Description": "On fourth floor.",
+      "map": "MC4F.png",
+      "mapX": 3120,
+      "mapY": 1540,
+      "built-in": true
+    }
   ]
 }

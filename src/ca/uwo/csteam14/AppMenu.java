@@ -117,10 +117,10 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             }
         });
         bookmarks.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.bookmarksData);
+            new GUIForPOIs(BuildingBuddy.bookmarksData, "Bookmarks");
         });
         myLocations.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.userData);
+            new GUIForPOIs(BuildingBuddy.userData, "My Locations");
         });
         checkForUpdates.addActionListener(e -> {
             clearWindows();
@@ -130,7 +130,9 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                     </div>
                     """);
         });
-        developerTool.addActionListener(this);
+        developerTool.addActionListener(e -> {
+            new GUIForPOIs(BuildingBuddy.builtinData, "Built-In POIs");
+        });
 
         // add KeyListener to menuItems
         bookmarks.addKeyListener(this);

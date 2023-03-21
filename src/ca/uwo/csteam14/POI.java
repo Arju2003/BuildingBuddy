@@ -1,10 +1,23 @@
 package ca.uwo.csteam14;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
+
 public class POI {
 
     protected int id;
     protected String name;
-    protected FloorMap belongsTo;
+    protected String building;
+    protected String map;
     protected String code;
     protected String floor;
     protected String roomNum;
@@ -13,7 +26,7 @@ public class POI {
     protected String pathName;
     protected int positionX;
     protected int positionY;
-    protected boolean creator;
+    protected boolean isBuiltIn;
 
     // node construction
     protected POI current;
@@ -28,36 +41,6 @@ public class POI {
         return name;
     }
 
-    public FloorMap getMap() {
-        return belongsTo;
-    }
-    public String getCode() {return code;}
-    public String getFloor() {return floor;}
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getRoomNum() {
-        return roomNum;
-    }
-    public String getPath() {return pathName;}
-
-    public int getX() {
-        return positionX;
-    }
-    
-    public int getY() {
-        return positionY;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean getCreator() {
-        return creator;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -67,8 +50,10 @@ public class POI {
         this.name = name;
     }
 
-    public void setMap(FloorMap map) {
-        belongsTo = map;
+    public void setBuilding(String building) {this.building = building;}
+
+    public void setMap(String map) {
+        this.map = map;
     }
     public void setCode(String code) { this.code = code;}
     public void setFloor(String floor) {this.floor = floor;}
@@ -94,8 +79,8 @@ public class POI {
         this.description = description;
     }
 
-    public void setCreator(boolean creator) {
-        this.creator = creator;
+    public void setBuiltIn(boolean builtIn) {
+        this.isBuiltIn = builtIn;
     }
     public void getNodeData() {
 
@@ -103,10 +88,9 @@ public class POI {
 
     public POI(int id) {
         this.id = id;
-
-
         // get data from json file based in ID
-
     }
+
+
 
 }
