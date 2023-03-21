@@ -1,11 +1,17 @@
 package ca.uwo.csteam14;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class POI {
 
     protected int id;
     protected String name;
     protected String building;
-    protected FloorMap map;
+    protected String map;
     protected String code;
     protected String floor;
     protected String roomNum;
@@ -14,7 +20,7 @@ public class POI {
     protected String pathName;
     protected int positionX;
     protected int positionY;
-    protected boolean creator;
+    protected boolean isBuiltIn;
 
     // node construction
     protected POI current;
@@ -29,36 +35,6 @@ public class POI {
         return name;
     }
 
-    public FloorMap getMap() {
-        return map;
-    }
-    public String getCode() {return code;}
-    public String getFloor() {return floor;}
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getRoomNum() {
-        return roomNum;
-    }
-    public String getPath() {return pathName;}
-
-    public int getX() {
-        return positionX;
-    }
-    
-    public int getY() {
-        return positionY;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean getCreator() {
-        return creator;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -70,7 +46,7 @@ public class POI {
 
     public void setBuilding(String building) {this.building = building;}
 
-    public void setMap(FloorMap map) {
+    public void setMap(String map) {
         this.map = map;
     }
     public void setCode(String code) { this.code = code;}
@@ -97,8 +73,8 @@ public class POI {
         this.description = description;
     }
 
-    public void setCreator(boolean creator) {
-        this.creator = creator;
+    public void setBuiltIn(boolean builtIn) {
+        this.isBuiltIn = builtIn;
     }
     public void getNodeData() {
 
@@ -106,10 +82,36 @@ public class POI {
 
     public POI(int id) {
         this.id = id;
-
-
         // get data from json file based in ID
-
     }
+
+    public BufferedImage highlight() throws IOException {
+
+        System.out.println(this.map);
+
+        BufferedImage basemap = ImageIO.read(new File("./maps/" + this.map));
+
+        // create a new image with the same dimensions as the original basemap
+        BufferedImage highlightedImage = new BufferedImage(basemap.getWidth(), basemap.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        // create a Graphics2D object for drawing on the new map
+        Graphics2D g2d = highlightedImage.createGraphics();
+
+        // draw the original basemap on the new map
+        g2d.drawImage(basemap, 0, 0, null);
+
+        // set the rendering hints for smooth antialiasing
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // create a cicle with a transparent fill and a solid border
+        g2d.setColor(new Color(255, 0, 0, 90));
+
+        g2d.fillOval(this.positionX, this.positionY, 80, 80);
+
+        // dispose of the Graphics2D object to free up resources
+        g2d.dispose();
+        return highlightedImage;
+    }
+
 
 }

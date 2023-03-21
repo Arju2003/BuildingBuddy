@@ -22,7 +22,7 @@ public class BuildingBuddy {
     public static Point getOptimumPoint(String buildingCode) {
         switch (buildingCode){
             case ("MC") -> {
-                return new Point(1700,350);
+                return new Point(1700,700);
             }
             case ("KB") -> {
                 return new Point(5000, 700);

@@ -3,6 +3,8 @@ package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -13,10 +15,10 @@ public class POISelector extends JPanel {
     public POISelector(LinkedList<POI> collection) {
         currentCollection = collection;
         ArrayList<String> items = new ArrayList<>();
-        ArrayList<String> pois = new ArrayList<>();
+        ArrayList<String> poiIDs = new ArrayList<>();
         for (POI poi: collection) {
             items.add(poi.name + " (" + poi.building +")");
-            pois.add(String.valueOf((Integer)poi.id));
+            poiIDs.add(String.valueOf((Integer)poi.id));
         }
         JList<String> itemList = new JList<>(items.toArray(new String[items.size()]));
 
@@ -26,7 +28,16 @@ public class POISelector extends JPanel {
         itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         itemList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                System.out.println(pois.get(itemList.getSelectedIndex()));
+                try {
+                    POI focus = currentCollection.get(itemList.getSelectedIndex());
+                    BufferedImage newMap = focus.highlight();
+                    GUIForPOIs.map = new MapView(newMap, new Point(focus.positionX, focus.positionY));
+                    GUIForPOIs.secondary.setVisible(false);
+                    GUIForPOIs.secondary.replaceWith(GUIForPOIs.map.loadMapViewer(), 'R');
+                    GUIForPOIs.secondary.setVisible(true);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         scrollPane = new JScrollPane(itemList);

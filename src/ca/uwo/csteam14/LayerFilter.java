@@ -19,6 +19,8 @@ public class LayerFilter extends JPanel {
 
     protected static BufferedImage baseMap;
 
+    private static String selectedLayer;
+
     //main class
     public LayerFilter() throws IOException {
         layerSelector.removeAll();
@@ -43,6 +45,7 @@ public class LayerFilter extends JPanel {
             Color originalBackground = checkbox.getBackground();
             checkbox.addItemListener(e -> {
                 if (checkbox.isSelected()) {
+                    selectedLayer = checkbox.getText();
                     checkbox.setBackground(new Color(209, 204, 255));
                     try {
                         refreshLayers();
@@ -90,12 +93,12 @@ public class LayerFilter extends JPanel {
 
     public static void refreshLayers() throws IOException {
         baseMap = ImageIO.read(new File("./maps/" + BuildingBuddy.currentFloor + ".png"));
-        int i = 0, k = 0, p = 0, q = 5;
+        Point center = BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode);
         for (String layerName: LayerFilter.selectedLayers()) {
             // Load the original images
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage layeredMap = baseMap;
-
+            ArrayList<POI> POIs = Data.getCategory(layerName, BuildingBuddy.currentFloor);
             // Create a new buffered image for the resized icon
             int newWidth = 48;
             int newHeight = 48;
@@ -108,24 +111,17 @@ public class LayerFilter extends JPanel {
             g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
 
-
-
-            Point[] pointsOnThisLayer = {new Point(1360 + i, 1050 + k), new Point(1000 + p, 950 + q), new Point(2700 - p, 180 + q)};
-
-            i += 80; k -= i/20; p += 57; q *= Math.sqrt(p);
-
-            // Draw the resized icon onto the map image
-            for (Point point : pointsOnThisLayer) {
+            for (POI poi : POIs) {
                 g = layeredMap.createGraphics();
-                g.drawImage(resizedIcon, point.x, point.y, null);
+                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
+                if (selectedLayer.contains(poi.category)) {
+                    center.x = poi.positionX;
+                    center.y = poi.positionY;
+                }
             }
 
-            MapView layer;
-            if (pointsOnThisLayer.length != 0)
-                layer = new MapView(layeredMap, pointsOnThisLayer[0]);
-            else
-                layer = new MapView(layeredMap, BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode));
+            MapView layer = new MapView(layeredMap, center);
             baseMap = layeredMap;
             GUI.primary.setVisible(false);
             GUI.primary.replaceWith(layer.loadMapViewer(), 'R');

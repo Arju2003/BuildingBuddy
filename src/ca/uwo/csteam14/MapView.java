@@ -10,7 +10,6 @@ public class MapView extends JPanel {
     private int imageWidth, imageHeight;
     private final Point focalPoint;
 
-
     public MapView(String mapName, Point focalPoint) {
         try {
             mapImage = ImageIO.read(new File(mapName));
@@ -51,11 +50,11 @@ public class MapView extends JPanel {
         JViewport viewport = new JViewport();
         viewport.setView(this);
         // Get the size of the viewport
-        Dimension viewportSize = viewport.getExtentSize();
+        Dimension viewportSize = viewport.getViewSize();
         // Calculate the position to display in the center of the viewport
-        int x = (focalPoint.x-viewportSize.width) / 2; // horizontal position
-        int y = (focalPoint.y-viewportSize.height) / 2; // vertical position
-        viewport.setViewPosition(new Point(Math.abs(x), Math.abs(y)));
+        int x = focalPoint.x - viewportSize.width / 8;
+        int y = focalPoint.y - viewportSize.height / 4;
+        viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
         return scrollPane;
     }
