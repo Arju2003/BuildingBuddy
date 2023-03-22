@@ -1,5 +1,8 @@
 package ca.uwo.csteam14;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,6 +32,7 @@ public class Data extends LinkedList<POI>{
             JSONArray POIArray1 = (JSONArray)jObject1.get("BuiltInPOIs");
             JSONArray POIArray2 = (JSONArray)jObject2.get("UserPOIs");
             JSONArray POIArray3 = (JSONArray)jObject3.get("Bookmarks");
+
             Iterator var8;
             Object o;
             JSONObject point;
@@ -191,19 +195,64 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
-    public POI getPOI(String currentFloor, int x, int y) {
-        for (POI p: builtInPOIs) {
-            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y ) {
-                return p;
-            }
-        }
-        for (POI p: userCreatedPOIs) {
-            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y ) {
-                return p;
-            }
-        }
+    public static void addPOI(String name, int mapx, int mapy) {
+        // generate POI ID, add 4 prefix then attach next ID according to our protocol
+        int userID = (4 * 10000 ) + userCreatedPOIs.getLast().getId() + 1;
+
+        // Create a new instance of POI
+        POI poi = new POI(userID);
+
+        // Get user info from popup window
+        // method in POI selector that opens a popup window and returns the user input
+
+        // something like String building = getUserInfo("Enter building name:");
+
+
+        // Set the POI attributes based on the user input and the parameters passed to this method
+        poi.setName(name);
+        poi.setX(mapx);
+        poi.setY(mapy);
+
+        // Add the POI to the list of user-created POIs
+        userCreatedPOIs.add(poi);
+
+        // write to user.json
+
+    }
+
+    public static POI removePOI() {
+        // user clicks on the POI they want to delete
+        // get info from click event
+
+        // remove from LinkedList
+
+        // wipe from JSON file
+
         return null;
     }
+
+    public LinkedList<POI> getUserCreatedPOIs() {
+        return userCreatedPOIs;
+    }
+
+    public LinkedList<POI> getBookmarks() {
+        return bookmarks;
+    }
+
+    public POI getPOI (String currentFloor,int x, int y){
+        for (POI p : builtInPOIs) {
+            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
+                    return p;
+                }
+            }
+            for (POI p : userCreatedPOIs) {
+                if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
+                    return p;
+                }
+            }
+            return null;
+    }
+
 
 
     public static void main(String[] args) {
