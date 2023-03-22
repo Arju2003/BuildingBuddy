@@ -1,17 +1,5 @@
 package ca.uwo.csteam14;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
-
 public class POI {
 
     protected int id;
@@ -29,7 +17,6 @@ public class POI {
     protected boolean isBuiltIn;
 
     // node construction
-    protected POI current;
     protected POI next;
 
 
@@ -82,8 +69,11 @@ public class POI {
     public void setBuiltIn(boolean builtIn) {
         this.isBuiltIn = builtIn;
     }
-    public void getNodeData() {
-
+    public void setNext(POI next) {
+        this.next = next;
+    }
+    public POI getNext() {
+        return this.next;
     }
 
     public POI(int id) {

@@ -56,6 +56,8 @@ public class GUIForPOIs {
 
             new POISelector(collection);
 
+            new Search();
+
             GUI.frame.setContentPane(secondary);
             GUI.frame.pack();
             GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution

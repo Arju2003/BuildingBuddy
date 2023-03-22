@@ -1,15 +1,12 @@
 package ca.uwo.csteam14;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 public class Data extends LinkedList<POI>{
     protected static LinkedList<POI> builtInPOIs;
@@ -173,30 +170,44 @@ public class Data extends LinkedList<POI>{
         } catch (Exception var30) {
             var30.printStackTrace();
         }
-
     }
 
-    public static ArrayList<POI> getCategory(String layerName, String floor) {
+    public LinkedList<POI> getLinkedListOfPOIs(ArrayList<POI> data) {
+        return new LinkedList<>(data);
+    }
+
+    public static ArrayList<POI> getPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
-            if (layerName.contains(p.category) && p.map.contains(floor))
-                result.add(p);
-            if (p.description != null && layerName.contains("Labs") && p.description.contains("Computer lab") && p.map.contains(floor))
-                result.add(p);
+            if (LayerFilter.selectedLayers.contains(layerName)) {
+                if (layerName.contains(p.category) && p.map.contains(currentFloor))
+                    result.add(p);
+                if (p.description != null && layerName.contains("Labs") && p.description.contains("Computer lab") && p.map.contains(currentFloor))
+                    result.add(p);
+                if (p.description != null && layerName.contains("Accessibility") && p.description.contains("Accessible facility") && p.map.contains(currentFloor))
+                    result.add(p);
+            }
     }
         return result;
     }
 
-    public LinkedList<POI> getUserCreatedPOIs() {
-        return userCreatedPOIs;
+    public POI getPOI(String currentFloor, int x, int y) {
+        for (POI p: builtInPOIs) {
+            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y ) {
+                return p;
+            }
+        }
+        for (POI p: userCreatedPOIs) {
+            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y ) {
+                return p;
+            }
+        }
+        return null;
     }
 
-    public LinkedList<POI> getBookmarks() {
-        return bookmarks;
-    }
 
     public static void main(String[] args) {
-        new Data();
+        Data x = new Data();
         System.out.println("Hello");
     }
 }
