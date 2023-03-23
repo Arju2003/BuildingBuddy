@@ -2,6 +2,7 @@ package ca.uwo.csteam14;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -185,6 +186,33 @@ public class Data extends LinkedList<POI>{
                 result.add(p);
     }
         return result;
+    }
+
+    public void addPOI(LinkedList<Data> userCreatedPOIs) { {
+
+        // Create a JSON object
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        // Add the linked list elements to the JSON array
+        for (Data element : userCreatedPOIs) {
+            jsonArray.add(element);
+        }
+
+        // Add the JSON array to the JSON object
+        jsonObject.put("linked_list", jsonArray);
+
+        // Write the JSON object to a file
+        try {
+            FileWriter writer = new FileWriter("user.json");
+            writer.write(jsonObject.toJSONString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     }
 
     public LinkedList<POI> getUserCreatedPOIs() {
