@@ -19,7 +19,7 @@ public class POISelector extends JPanel {
         ArrayList<String> items = new ArrayList<>();
         ArrayList<String> poiIDs = new ArrayList<>();
         for (POI poi: collection) {
-            items.add(poi.name + " (" + poi.building +")");
+            items.add(poi.category + " – " + poi.name + " (" + poi.floor +", "+poi.code+")");
             poiIDs.add(String.valueOf((Integer)poi.id));
         }
         JList<String> itemList = new JList<>(items.toArray(new String[items.size()]));

@@ -31,6 +31,7 @@ public class GUI {
                         buildingName.setText("Kresge Building (KB)");
                         map = new MapView("./maps/"+BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                         primary.load(map.loadMapViewer(), 'R');
+
                     }
                     case "MC" -> {
                         primary = new Container("./images/MC_hero.png");
