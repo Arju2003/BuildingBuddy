@@ -42,7 +42,7 @@ public class GUIForPOIs {
             title = new JLabel("<html><div style=\"text-align:center;\">" + "" +
                     category + "<br /></div></html>");
                 // Set the font size and style
-            Font title = new Font("Arial", Font.BOLD, 36);
+            Font title = new Font("Arial", Font.BOLD, 26);
             GUIForPOIs.title.setFont(title);
 
             // Set the foreground color
@@ -55,6 +55,8 @@ public class GUIForPOIs {
             secondary.load(GUIForPOIs.title,'L');
 
             new POISelector(collection);
+
+            new Search();
 
             GUI.frame.setContentPane(secondary);
             GUI.frame.pack();
@@ -80,7 +82,7 @@ public class GUIForPOIs {
     }
 
     public void padding(JLabel label) {
-        label.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+        label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
         // Set the preferred size of the JLabel to include the padding
         Dimension size = label.getPreferredSize();
         size.width += 10;

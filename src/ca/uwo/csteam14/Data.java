@@ -2,7 +2,6 @@ package ca.uwo.csteam14;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +9,7 @@ import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 public class Data extends LinkedList<POI>{
     protected static LinkedList<POI> builtInPOIs;
@@ -33,6 +32,7 @@ public class Data extends LinkedList<POI>{
             JSONArray POIArray1 = (JSONArray)jObject1.get("BuiltInPOIs");
             JSONArray POIArray2 = (JSONArray)jObject2.get("UserPOIs");
             JSONArray POIArray3 = (JSONArray)jObject3.get("Bookmarks");
+
             Iterator var8;
             Object o;
             JSONObject point;
@@ -174,45 +174,61 @@ public class Data extends LinkedList<POI>{
         } catch (Exception var30) {
             var30.printStackTrace();
         }
-
     }
 
-    public static ArrayList<POI> getCategory(String layerName, String floor) {
+    public LinkedList<POI> getLinkedListOfPOIs(ArrayList<POI> data) {
+        return new LinkedList<>(data);
+    }
+
+    public static ArrayList<POI> getPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
-            if (layerName.contains(p.category) && p.map.contains(floor))
-                result.add(p);
-            if (p.description != null && layerName.contains("Labs") && p.description.contains("Computer lab") && p.map.contains(floor))
-                result.add(p);
+            if (LayerFilter.selectedLayers.contains(layerName)) {
+                if (layerName.contains(p.category) && p.map.contains(currentFloor))
+                    result.add(p);
+                if (p.description != null && layerName.contains("Labs") && p.description.contains("Computer lab") && p.map.contains(currentFloor))
+                    result.add(p);
+                if (p.description != null && layerName.contains("Accessibility") && p.description.contains("Accessible facility") && p.map.contains(currentFloor))
+                    result.add(p);
+            }
     }
         return result;
     }
 
-    public void addPOI(LinkedList<Data> userCreatedPOIs) { {
+    public static void addPOI(String name, int mapx, int mapy) {
+        // generate POI ID, add 4 prefix then attach next ID according to our protocol
+        int userID = (4 * 10000 ) + userCreatedPOIs.getLast().getId() + 1;
 
-        // Create a JSON object
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
+        // Create a new instance of POI
+        POI poi = new POI(userID);
 
-        // Add the linked list elements to the JSON array
-        for (Data element : userCreatedPOIs) {
-            jsonArray.add(element);
-        }
+        // Get user info from popup window
+        // method in POI selector that opens a popup window and returns the user input
 
-        // Add the JSON array to the JSON object
-        jsonObject.put("linked_list", jsonArray);
+        // something like String building = getUserInfo("Enter building name:");
 
-        // Write the JSON object to a file
-        try {
-            FileWriter writer = new FileWriter("user.json");
-            writer.write(jsonObject.toJSONString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        // Set the POI attributes based on the user input and the parameters passed to this method
+        poi.setName(name);
+        poi.setX(mapx);
+        poi.setY(mapy);
+
+        // Add the POI to the list of user-created POIs
+        userCreatedPOIs.add(poi);
+
+        // write to user.json
 
     }
 
+    public static POI removePOI() {
+        // user clicks on the POI they want to delete
+        // get info from click event
+
+        // remove from LinkedList
+
+        // wipe from JSON file
+
+        return null;
     }
 
     public LinkedList<POI> getUserCreatedPOIs() {
@@ -223,8 +239,24 @@ public class Data extends LinkedList<POI>{
         return bookmarks;
     }
 
+    public POI getPOI (String currentFloor,int x, int y){
+        for (POI p : builtInPOIs) {
+            if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
+                    return p;
+                }
+            }
+            for (POI p : userCreatedPOIs) {
+                if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
+                    return p;
+                }
+            }
+            return null;
+    }
+
+
+
     public static void main(String[] args) {
-        new Data();
+        Data x = new Data();
         System.out.println("Hello");
     }
 }

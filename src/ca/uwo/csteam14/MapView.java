@@ -1,21 +1,24 @@
 package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class MapView extends JPanel {
-    private BufferedImage mapImage;
-    private int imageWidth, imageHeight;
+    private static BufferedImage mapImage;
+    private static int imageWidth, imageHeight;
     private final Point focalPoint;
 
 
 
     public MapView(String mapName, Point focalPoint) {
+
+        this.setLayout(null);
 
         try {
             mapImage = ImageIO.read(new File(mapName));
@@ -28,7 +31,20 @@ public class MapView extends JPanel {
     }
 
     public MapView(BufferedImage bufferedMap, Point focalPoint) {
+        this.setLayout(null);
         mapImage = bufferedMap;
+        try {
+            imageWidth = mapImage.getWidth();
+            imageHeight = mapImage.getHeight();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.focalPoint = focalPoint;
+    }
+
+    public MapView(ImageIcon bufferedMap, Point focalPoint) {
+        this.setLayout(null);
+        mapImage = new BufferedImage(bufferedMap.getIconWidth(), bufferedMap.getIconHeight(), BufferedImage.TYPE_INT_RGB);
         try {
             imageWidth = mapImage.getWidth();
             imageHeight = mapImage.getHeight();
@@ -52,6 +68,14 @@ public class MapView extends JPanel {
 
 
     public JScrollPane loadMapViewer() {
+        this.setLayout(new OverlayLayout(this));
+        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
+        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
+            clickables[i] = getClickableAreas(BuildingBuddy.currentFloor,LayerFilter.selectedLayers);
+            clickables[i].setPreferredSize(new Dimension(48,48));
+            add(clickables[i]);
+            setComponentZOrder(clickables[i], 0);
+        }
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
         viewport.setView(this);
@@ -62,42 +86,6 @@ public class MapView extends JPanel {
         int y = focalPoint.y - viewportSize.height / 4;
         viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Check if the click was inside the oval shape
-                if (e.getX() >= focalPoint.x && e.getX() <= focalPoint.x + 80
-                        && e.getY() >= focalPoint.y && e.getY() <= focalPoint.y + 80) {
-                    // The user clicked on the oval shape
-                    System.out.println("This is a highlighted POI!");
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Check if the click was inside the oval shape
-                if (e.getX() >= focalPoint.x && e.getX() <= focalPoint.x + 80
-                        && e.getY() >= focalPoint.y && e.getY() <= focalPoint.y + 80) {
-                    // The user clicked on the oval shape
-                    System.out.println("This is a highlighted POI!");
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                System.out.println("Mouse has moved away!");
-            }
-        });
         return scrollPane;
     }
 
@@ -106,6 +94,7 @@ public class MapView extends JPanel {
     }
 
     public BufferedImage highlight(POI poi) throws IOException {
+
 
         BufferedImage basemap = ImageIO.read(new File("./maps/" + BuildingBuddy.currentFloor + ".png"));
 
@@ -121,7 +110,7 @@ public class MapView extends JPanel {
         // set the rendering hints for smooth antialiasing
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // create a cicle with a transparent fill and a solid border
+        // create a circle with a transparent fill and a solid border
         g2d.setColor(new Color(255, 0, 0, 90));
 
         g2d.fillOval(poi.positionX, poi.positionY, 80, 80);
@@ -132,6 +121,37 @@ public class MapView extends JPanel {
         focalPoint.y = poi.positionY;
 
         return highlightedImage;
+    }
+
+    public JComponent getClickableAreas(String currentFloor, ArrayList<String> layerNames) {
+        ArrayList<POI> POIs = new ArrayList<>();
+        for (String s: layerNames) {
+            POIs.addAll(Data.getPOIs(currentFloor, s));
+        }
+        Rectangle[] clickableAreas = new Rectangle[POIs.size()];
+        for (int i = 0; i < clickableAreas.length; ++i)
+            clickableAreas[i] = new Rectangle(POIs.get(i).positionX, POIs.get(i).positionY, 80,80);
+        String[] messages = new String[POIs.size()];
+        for (int i = 0; i < clickableAreas.length; ++i)
+            messages[i] = POIs.get(i).name;
+        // Create a custom component to display the image
+        JComponent component = new JComponent() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(mapImage, 0, 0, null);
+            }
+        };
+        component.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                for (int i = 0; i < clickableAreas.length; ++i) {
+                    if (e.getX() >= clickableAreas[i].x && e.getX() <= clickableAreas[i].x + 80 && e.getY() >= clickableAreas[i].y && e.getY() <= clickableAreas[i].y + 80) {
+                        System.out.println("You clicked on " + messages[i] + ".");
+                        break;
+                    }
+                }
+            }
+        });
+        return component;
     }
 
 

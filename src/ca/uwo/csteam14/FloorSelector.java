@@ -21,7 +21,7 @@ public class FloorSelector {
         JComboBox<? extends String> floorSelector = new JComboBox<>(floors);
         floorSelector.setPreferredSize(new Dimension(200, 60));
         floorSelector.setBounds(450, 300, 250, 50);
-        floorSelector.setFont(new Font("Arial", Font.PLAIN, 20));
+        floorSelector.setFont(new Font("Arial", Font.PLAIN, 18));
         floorSelector.setRenderer(BuildingBuddy.centerRenderer);
         switch (BuildingBuddy.currentBuildingCode ) {
             case "MC" -> floorSelector.setSelectedItem(getFloorName(BuildingBuddy.currentFloor_MC));
