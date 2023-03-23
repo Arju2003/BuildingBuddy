@@ -30,11 +30,11 @@ public class LayerFilter extends JPanel {
     public LayerFilter() throws IOException {
         layerSelector.removeAll();
         checkboxPanel = new JPanel();
-        this.setFont(new Font("Arial", Font.PLAIN, 24));
+        setFont(new Font("Arial", Font.PLAIN, 10));
         checkboxPanel.setLayout(new GridLayout(0, 1));
-        Font regularFont = new Font("Arial", Font.PLAIN, 18);
+        Font regularFont = new Font("Arial", Font.PLAIN, 16);
         JCheckBox[] checkboxes = new JCheckBox[labelArray.length];
-        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border padding = BorderFactory.createEmptyBorder(3, 10, 3, 10);
 
         for (int i = 0; i < checkboxes.length; ++i) {
             ImageIcon icon = new ImageIcon(iconArray[i]);

@@ -50,7 +50,7 @@ public class GUI {
 
                 buildingName = new JLabel("<html><div style=\"text-align:center;\">" +getBuildingName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
                 // Set the font size and style
-                Font title = new Font("Arial", Font.BOLD, 36);
+                Font title = new Font("Arial", Font.BOLD, 26);
                 buildingName.setFont(title);
 
                 // Set the foreground color
@@ -96,7 +96,7 @@ public class GUI {
     }
 
     public void padding(JLabel label) {
-        label.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+        label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
         // Set the preferred size of the JLabel to include the padding
         Dimension size = label.getPreferredSize();
         size.width += 10;

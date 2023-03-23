@@ -73,8 +73,8 @@ public class POISelector extends JPanel {
             c.setForeground(Color.BLACK);
             }
 
-            c.setFont(new Font("Arial", Font.PLAIN, 18));
-            Insets insets = new Insets(20, 20, 20, 20);
+            c.setFont(new Font("Arial", Font.PLAIN, 16));
+            Insets insets = new Insets(3, 20, 3, 20);
             ((JComponent) c).setBorder(new EmptyBorder(insets));
 
             // Return the customized cell
