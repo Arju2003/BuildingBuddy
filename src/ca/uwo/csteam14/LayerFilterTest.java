@@ -1,6 +1,4 @@
-package tests;
-
-import static org.junit.jupiter.api.Assertions.*;
+package ca.uwo.csteam14;
 
 class LayerFilterTest {
 

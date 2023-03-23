@@ -1,11 +1,10 @@
-package tests;
+package ca.uwo.csteam14;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class PopupViewTest {
+class SearchTest {
 
     @BeforeEach
     void setUp() {
@@ -13,5 +12,9 @@ class PopupViewTest {
 
     @AfterEach
     void tearDown() {
+    }
+
+    @Test
+    void showResults() {
     }
 }

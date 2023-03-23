@@ -1,12 +1,10 @@
-package tests;
+package ca.uwo.csteam14;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class GUIForPOIsTest {
+class DataTest {
 
     @BeforeEach
     void setUp() {
@@ -17,18 +15,18 @@ class GUIForPOIsTest {
     }
 
     @Test
-    void getBuildingName() {
+    void getCategory() {
     }
 
     @Test
-    void padding() {
+    void getUserCreatedPOIs() {
     }
 
     @Test
-    void getMap() {
+    void getBookmarks() {
     }
 
     @Test
-    void getBufferedMap() {
+    void main() {
     }
 }

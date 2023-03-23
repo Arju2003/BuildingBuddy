@@ -231,6 +231,10 @@ public class Data extends LinkedList<POI>{
         return null;
     }
 
+    public LinkedList<POI> getBuiltInPOIs() {
+        return builtInPOIs;
+    }
+
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
     }
