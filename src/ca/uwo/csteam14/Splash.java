@@ -14,7 +14,7 @@ public class Splash extends JPanel {
 
     public Splash(String backgroundImg) throws IOException{
         GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        AppMenu appMenu = new AppMenu();
+        AppMenu appMenu = new AppMenu("user");
         GUI.frame.setJMenuBar(appMenu.load());
         this.setBackground(ImageIO.read(new File(backgroundImg)));
         centerEverything();
@@ -317,7 +317,7 @@ public class Splash extends JPanel {
                 }
             }
         });
-        this.load(exploreButton);
+        load(exploreButton);
         GUI.frame.setContentPane(this);
         GUI.frame.pack();
         GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution

@@ -9,13 +9,13 @@ import javax.swing.*;
 
 public class GUIForPOIs {
    
-    protected final AppMenu appMenu = new AppMenu();
+    protected AppMenu appMenu = new AppMenu("user");
     protected static Container secondary;
     protected static JLabel title = new JLabel();
 
     protected static MapView map;
 
-    public GUIForPOIs(LinkedList<POI> collection, String category) {
+    public GUIForPOIs(LinkedList<POI> collection, String listTitle) {
         EventQueue.invokeLater(() -> {
 
             try {
@@ -31,8 +31,8 @@ public class GUIForPOIs {
                 /* Show the correct background picture and building name */
 
                 secondary = new Container("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png");
-                title.setText(category);
-                map = new MapView("./maps/"+BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode));
+                title.setText(listTitle);
+                map = new MapView(BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode));
                 secondary.load(map.loadMapViewer(), 'R');
 
                 } catch (IOException e) {
@@ -40,7 +40,7 @@ public class GUIForPOIs {
             }
 
             title = new JLabel("<html><div style=\"text-align:center;\">" + "" +
-                    category + "<br /></div></html>");
+                    listTitle + "<br /></div></html>");
                 // Set the font size and style
             Font title = new Font("Arial", Font.BOLD, 26);
             GUIForPOIs.title.setFont(title);

@@ -4,14 +4,17 @@ package ca.uwo.csteam14;// Java program  to add a menubar
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+
+import static javax.swing.BoxLayout.Y_AXIS;
 
 public class AppMenu extends JFrame implements ActionListener, KeyListener {
     protected final JMenuBar mb = new JMenuBar(); // create a menubar
 
 
-    public AppMenu() {        // create an object of the class
+    public AppMenu(String mode) {        // create an object of the class
 
         // create menu buttons
         mb.setLayout(new FlowLayout());
@@ -131,7 +134,54 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                     """);
         });
         developerTool.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.builtinData, "Built-In POIs");
+            JDialog window = new JDialog();
+            window.setSize(600,200);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screenSize.width - window.getWidth()) / 2;
+            int y = (screenSize.height - window.getHeight()) / 2;
+            window.setLocation(x, y); // Set the position of the window to the center of the screen
+
+
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new GridLayout(0,1));
+            JLabel title = new JLabel("Developer Tool");
+            mainPanel.add(title);
+            JLabel prompt = new JLabel("Please enter security key");
+            mainPanel.add(prompt);
+
+            JTextField securityKey = new JTextField();
+            securityKey.setPreferredSize(new Dimension(260,40));
+            securityKey.setText("Hello");
+            securityKey.setVisible(true);
+            securityKey.setEnabled(true);
+            securityKey.setEditable(true);
+            mainPanel.add(securityKey);
+
+            JButton enter = new JButton("Enter");
+            JButton cancel = new JButton("Cancel");
+
+            mainPanel.add(enter);
+            mainPanel.add(cancel);
+
+            enter.addActionListener( e3->{
+                if (securityKey.getText().equals(BuildingBuddy.getSecurityKey())) {
+                    GUIForPOIs devUI = new GUIForPOIs(BuildingBuddy.builtinData, "Developer Tool");
+                    devUI.appMenu = new AppMenu("dev");
+                    GUIForPOIs.title.setText("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                    GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                }
+                else prompt.setText("Incorrect security key. Please retry.");
+            });
+
+            window.add(mainPanel);
+            window.pack();
+            AppMenu.clearWindows();
+            window.setVisible(true);
+            window.setFocusableWindowState(true);
+
+            cancel.addActionListener( e2-> {
+                clearWindows();
+            });
         });
 
         // add KeyListener to menuItems
@@ -155,6 +205,15 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(about);
         mb.add(more);
         mb.add(exit);
+
+        if (mode.equalsIgnoreCase("dev")) {
+            start.setEnabled(false);
+            view.setEnabled(false);
+            myLocations.setEnabled(false);
+            bookmarks.setEnabled(false);
+            developerTool.setEnabled(false);
+            BuildingBuddy.devMode = true;
+        }
     }
 
     public void actionPerformed(ActionEvent e) {

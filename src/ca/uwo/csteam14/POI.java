@@ -11,7 +11,6 @@ public class POI {
     protected String roomNum;
     protected String category;
     protected String description;
-    protected String pathName;
     protected int positionX;
     protected int positionY;
     protected boolean isBuiltIn;
@@ -52,7 +51,6 @@ public class POI {
     public void setRoomNum(String roomNum) {
         this.roomNum = roomNum;
     }
-    public void setPath(String path) { pathName = path;}
 
     public void setX(int x) {
         this.positionX = x;

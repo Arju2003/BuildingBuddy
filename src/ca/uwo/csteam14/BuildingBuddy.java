@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 public class BuildingBuddy {
 
+    protected static boolean devMode;
+
+    private static String securityKey = "CS2212BB";
     protected static LinkedList<POI> userData;
     protected static LinkedList<POI> builtinData;
     protected static LinkedList<POI> bookmarksData;
@@ -49,16 +52,22 @@ public class BuildingBuddy {
         return "";
     }
 
+    public static String getSecurityKey() {
+        return securityKey;
+    }
+
     public static void main(String[] args) throws IOException {
+        devMode = false;
         new Data();
         userData = Data.userCreatedPOIs;
         builtinData = Data.builtInPOIs;
         bookmarksData = Data.bookmarks;
-        currentBuildingCode = "MC";
-        currentFloor_MC = "MC0F";
-        currentFloor_KB = "KB0F";
-        currentFloor_PAB = "PAB0F";
-        currentFloor = currentFloor_MC;
+        if (currentFloor_MC == null) currentFloor_MC = "MC0F";
+        if (currentFloor_KB == null) currentFloor_KB = "KB0F";
+        if (currentFloor_PAB == null) currentFloor_PAB = "PAB0F";
+        if (currentFloor == null) currentFloor = currentFloor_MC;
+        if (currentBuildingCode == null) currentBuildingCode = "MC";
+
         centerRenderer = new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

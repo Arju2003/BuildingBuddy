@@ -46,7 +46,7 @@ public class PopupView extends JDialog {
         });
         dialog.add(closeButton, BorderLayout.SOUTH);
 
-// Pack the JDialog
+        // Pack the JDialog
         dialog.pack();
 
         // Set the location of the JDialog to the center of the screen

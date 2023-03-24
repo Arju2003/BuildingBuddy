@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class GUI {
     protected static JFrame frame = new JFrame("BuildingBuddy – Ver 1.0 –");
-    private final AppMenu appMenu = new AppMenu();
+    private final AppMenu appMenu = new AppMenu("user");
     protected static Container primary;
     protected static JLabel buildingName = new JLabel();
 
@@ -29,20 +29,20 @@ public class GUI {
                     case "KB" -> {
                         primary = new Container("./images/KB_hero.png");
                         buildingName.setText("Kresge Building (KB)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        map = new MapView(BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                         primary.load(map.loadMapViewer(), 'R');
 
                     }
                     case "MC" -> {
                         primary = new Container("./images/MC_hero.png");
                         buildingName.setText("Middlesex College (MC)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        map = new MapView(BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                         primary.load(map.loadMapViewer(), 'R');
                     }
                     case "PAB" -> {
                         primary = new Container("./images/PAB_hero.png");
                         buildingName.setText("Physics & Astronomy Building (PAB)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        map = new MapView(BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                         primary.load(map.loadMapViewer(), 'R');
 
                     }
