@@ -1,5 +1,7 @@
 package ca.uwo.csteam14;
 
+import java.util.LinkedList;
+
 public class POI {
 
     protected int id;
@@ -22,12 +24,6 @@ public class POI {
     public int getId() {
         return id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-
     public void setId(int id) {
         this.id = id;
     }
@@ -76,7 +72,22 @@ public class POI {
 
     public POI(int id) {
         this.id = id;
+        name = "";
+        building = "";
+        map = "";
+        code = "";
+        floor = "";
+        roomNum = "";
+        category = "";
+        description = "";
+        pathName = "";
+        positionX = 0;
+        positionY = 0;
+        isBuiltIn = false;
+
         // get data from json file based in ID
+
+
     }
 
 
