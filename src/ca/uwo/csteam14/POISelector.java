@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +31,12 @@ public class POISelector extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 try {
                     POI focus = currentCollection.get(itemList.getSelectedIndex());
-                    BuildingBuddy.currentFloor = focus.pathName.replace(".png","").replace("./maps/","");
+                    GUIForPOIs.map = new MapView(focus.map, new Point(focus.positionX, focus.positionY));
+                    BuildingBuddy.currentFloor = focus.map.replace(".png","");
                     BuildingBuddy.currentBuildingCode = BuildingBuddy.currentFloor.replaceAll("\\dF", "");
                     GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png")));
-                    BufferedImage newMap = GUIForPOIs.map.highlight(focus);
-                    GUIForPOIs.map = new MapView(newMap, new Point(focus.positionX, focus.positionY));
+                    GUIForPOIs.map = new MapView(focus.map, new Point(focus.positionX, focus.positionY));
+                    GUIForPOIs.map.highlight(focus.positionX,focus.positionY,"BIP");
                     GUIForPOIs.secondary.setVisible(false);
                     GUIForPOIs.secondary.replaceWith(GUIForPOIs.map.loadMapViewer(), 'R');
                     GUIForPOIs.secondary.setVisible(true);

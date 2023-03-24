@@ -19,7 +19,8 @@ public class Search {
                 String userInput = input.getText();
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
-                    new GUIForPOIs(pl, "Search Results");
+                    new GUIForPOIs(pl, "Search & Discovery");
+                    GUIForPOIs.map.loadMapViewer();
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
@@ -70,14 +71,25 @@ public class Search {
                 if (!results.contains(p) && (p.category.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.category.toLowerCase())))
                     results.add(p);
             }
+            if (!BuildingBuddy.devMode) {
+                for (POI p : Data.userCreatedPOIs) {
+                    if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
+                        results.add(p);
+                        continue;
+                    }
+                    if (!results.contains(p) && (p.description.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.description.toLowerCase()))) {
+                        results.add(p);
+                    }
+                }
+            }
         }
         else {
         results.addAll(Data.builtInPOIs);
-        results.addAll(Data.userCreatedPOIs);
+        if (!BuildingBuddy.devMode)
+            results.addAll(Data.userCreatedPOIs);
         }
         if (results.size() > 0)
             return new LinkedList<>(results);
         return null;
     }
-
 }
