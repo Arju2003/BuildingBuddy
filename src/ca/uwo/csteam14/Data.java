@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Data extends LinkedList<POI>{
@@ -218,6 +220,15 @@ public class Data extends LinkedList<POI>{
         userCreatedPOIs.add(poi);
 
         // write to user.json
+        JSONObject obj = new JSONObject();
+        obj.put("POIId", userID);
+        // etc..... other attributes
+
+        try (FileWriter file = new FileWriter("user.json")) {
+            file.write(obj.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -263,5 +274,7 @@ public class Data extends LinkedList<POI>{
     public static void main(String[] args) {
         Data x = new Data();
         System.out.println("Hello");
+
+        addPOI("test", 12, 15);
     }
 }

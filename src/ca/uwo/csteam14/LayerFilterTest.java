@@ -11,7 +11,11 @@ class LayerFilterTest {
     }
 
     @org.junit.jupiter.api.Test
-    void selectedLayers() {
+    void isExisting(String layerName) {
+    }
+
+    @org.junit.jupiter.api.Test
+    void isExisting(POI poi) {
     }
 
     @org.junit.jupiter.api.Test

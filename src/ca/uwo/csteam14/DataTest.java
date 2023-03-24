@@ -14,8 +14,19 @@ class DataTest {
     void tearDown() {
     }
 
+    @AfterEach
+    void getLinkedListOfPOIs() {
+    }
+    @AfterEach
+    void addPOI() {
+    }
+
+    @AfterEach
+    void removePOI() {
+    }
+
     @Test
-    void getCategory() {
+    void getBuiltInPOIs() {
     }
 
     @Test
@@ -24,6 +35,11 @@ class DataTest {
 
     @Test
     void getBookmarks() {
+    }
+
+    @Test
+    void getPOI() {
+
     }
 
     @Test
