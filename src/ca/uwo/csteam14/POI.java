@@ -80,7 +80,6 @@ public class POI {
         roomNum = "";
         category = "";
         description = "";
-        pathName = "";
         positionX = 0;
         positionY = 0;
         isBuiltIn = false;
