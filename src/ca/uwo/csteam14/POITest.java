@@ -91,14 +91,6 @@ class POITest {
         assertEquals(expResult, instance.roomNum);
     }
 
-    @Test
-    void setPath() {
-        System.out.println("setPath()");
-        POI instance = new POI(8103);
-        instance.setPath("./maps/KB0F");
-        String expResult = "./maps/KB0F";
-        assertEquals(expResult, instance.pathName);
-    }
 
     @Test
     void setX() {
