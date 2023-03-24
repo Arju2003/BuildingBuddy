@@ -82,12 +82,12 @@ public class POIEditor extends JDialog {
         });
 
         saveButton.setOpaque(true);
-        saveButton.setForeground(new Color(10,250,250));
+        saveButton.setForeground(new Color(255,250,250));
         saveButton.setBackground(new Color(0,128,0));
         saveButton.setUI(new BasicButtonUI());
 
         deleteButton.setOpaque(true);
-        deleteButton.setForeground(new Color(204,255,0));
+        deleteButton.setForeground(new Color(159,210,228));
         deleteButton.setBackground(new Color(128,0,0));
         deleteButton.setUI(new BasicButtonUI());
 
@@ -121,16 +121,28 @@ public class POIEditor extends JDialog {
         }
 
             if (!BuildingBuddy.devMode) {
+
+                deleteButton.setEnabled(false);
+                deleteButton.setBackground(new Color(200,200,200));
+                deleteButton.setForeground(new Color(133,133,133));
+
                 for (Component j : rightPanel.getComponents()) {
+
                     if (j instanceof JTextField) {
                         ((JTextField) j).setEditable(false);
-                    } else if (j instanceof JRadioButton) {
-                       j.setEnabled(true);
+                        if  (String.valueOf(poi.id).startsWith("4")) {
+                            ((JTextField) j).setEditable(true);
+                            deleteButton.setEnabled(true);
+                            deleteButton.setForeground(new Color(255,255,255));
+                            deleteButton.setBackground(new Color(128,0,0));
+                        }
+                    }
+
+                    if (j instanceof JRadioButton) {
+                        j.setEnabled(true);
                     }
                 }
-                deleteButton.setEnabled(false);
-                deleteButton.setBackground(new Color(181,181,181));
-                deleteButton.setForeground(new Color(0,0,0));
+
             }
             else {
                 bookmarkAdd.setEnabled(false);
@@ -158,7 +170,8 @@ public class POIEditor extends JDialog {
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dialog.dispose();
-                GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX,MapView.currentHighlighted.positionY,"OFF");
+                if (GUIForPOIs.map != null)
+                    GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX,MapView.currentHighlighted.positionY,"OFF");
             }
         });
         dialog.add(closeButton, BorderLayout.SOUTH);
@@ -180,10 +193,12 @@ public class POIEditor extends JDialog {
             public void windowClosing(WindowEvent e) {
                 // Define your desired behavior here
                 dialog.dispose();
-                if (GUIForPOIs.map != null)
-                    GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX,MapView.currentHighlighted.positionY,"OFF");
-                if (GUI.map != null)
-                    GUI.map.highlight(MapView.currentHighlighted.positionX,MapView.currentHighlighted.positionY,"OFF");
+                if (MapView.currentHighlighted != null) {
+                    if (GUIForPOIs.map != null)
+                        GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                    if (GUI.map != null)
+                        GUI.map.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                }
             }
         });
     }

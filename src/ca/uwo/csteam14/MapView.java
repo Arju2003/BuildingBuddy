@@ -169,17 +169,14 @@ public class MapView extends JPanel {
                     if (p != null) {
                         if (currentHighlighted == null) {
                             currentHighlighted = p;
-                            System.out.println("You opened " + p.name + ".");
                             highlight(p.positionX,p.positionY,BUILT_IN);
                             new POIEditor(p);
                         }
                         else {
-                            System.out.println("You closed " + currentHighlighted.name + ".");
                             AppMenu.clearWindows();
                             highlight(currentHighlighted.positionX, currentHighlighted.positionY, OFF);
                             if (!p.equals(currentHighlighted)) {
                                 currentHighlighted = p;
-                                System.out.println("You opened " + p.name + ".");
                                 highlight(p.positionX,p.positionY,BUILT_IN);
                                 new POIEditor(p);
                             }
@@ -189,8 +186,23 @@ public class MapView extends JPanel {
 
                     }
                     else {
-                        System.out.println("You gonna make a new POI?");
                         highlight(e.getX(),e.getY(),USER_DEFINED);
+                        int largestUD = 4000;
+                        for (POI poi : Data.userCreatedPOIs) {
+                            if (poi.id > largestUD)
+                                largestUD = poi.id;
+                        }
+                        POI newPOI = new POI(largestUD + 1);
+                        newPOI.positionX = e.getX();
+                        newPOI.positionY = e.getY();
+                        newPOI.category = "My Locations";
+                        newPOI.map = BuildingBuddy.currentFloor.replaceAll("\\dF","") + ".png";
+                        newPOI.building = BuildingBuddy.getBuildingFullName(BuildingBuddy.currentFloor);
+                        newPOI.floor = BuildingBuddy.getFloorFullName(BuildingBuddy.currentFloor);
+                        newPOI.code = BuildingBuddy.currentBuildingCode;
+                        newPOI.isBuiltIn = false;
+                        newPOI.next = null;
+                        new POIEditor(newPOI);
                     }
             }
         });

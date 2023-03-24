@@ -56,6 +56,23 @@ public class BuildingBuddy {
         return securityKey;
     }
 
+    public static String getFloorFullName(String floorMapName) {
+        if (floorMapName.contains("0F")) return "Ground Floor";
+        else if (floorMapName.contains("1F")) return "First Floor";
+        else if (floorMapName.contains("2F")) return "Second Floor";
+        else if (floorMapName.contains("3F")) return "Third Floor";
+        else if (floorMapName.contains("4F")) return "Fourth Floor";
+        return "Unknown";
+    }
+
+    public static String getBuildingFullName(String floorMapName) {
+        if (floorMapName.contains("MC")) return "Middlesex College";
+        else if (floorMapName.contains("KB")) return "Kresge Building";
+        else if (floorMapName.contains("PAB")) return "Physics & Astronomy Building";
+        return "Unknown";
+    }
+
+
     public static void main(String[] args) throws IOException {
         devMode = false;
         new Data();
@@ -79,4 +96,5 @@ public class BuildingBuddy {
 
         new Splash("./images/"+currentBuildingCode+"_hero.png").build();
     }
+
 }
