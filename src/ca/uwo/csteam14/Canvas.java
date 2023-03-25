@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Container extends JPanel {
+public class Canvas extends JPanel {
     private BufferedImage img;
     private BufferedImage scaled;
     private final JPanel leftPanel;
@@ -14,7 +14,7 @@ public class Container extends JPanel {
     protected GridBagConstraints everythingCentered;
 
 
-    public Container(String backgroundImg) throws IOException {
+    public Canvas(String backgroundImg) throws IOException {
         this.setBackground(ImageIO.read(new File(backgroundImg)));
             this.setLayout(new GridLayout(1,2));
             leftPanel = new JPanel();

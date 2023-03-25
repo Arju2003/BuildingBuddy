@@ -1,84 +1,67 @@
 package ca.uwo.csteam14;
-import org.w3c.dom.html.HTMLImageElement;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.LinkedList;
 import javax.swing.*;
 
 public class GUIForPOIs {
    
     protected AppMenu appMenu = new AppMenu("user");
-    protected static Container secondary;
+    protected static Canvas secondary;
     protected static JLabel title = new JLabel();
 
-    protected static MapView map;
+    protected static MapView mapView;
 
-    public GUIForPOIs(LinkedList<POI> collection, String listTitle) {
+    public GUIForPOIs(String POIsGroup, String POIType) {
         EventQueue.invokeLater(() -> {
-
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 throw new RuntimeException(ex);
             }
-
-            try {
-                GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                GUI.frame.setJMenuBar(appMenu.load());
-                /* A split screen to show map and layer filter on the left side*/
-                /* Show the correct background picture and building name */
-
-                secondary = new Container("./images/"+BuildingBuddy.currentBuildingCode+"_hero.png");
-                title.setText(listTitle);
-                map = new MapView(BuildingBuddy.currentFloor+".png", BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode));
-                secondary.load(map.loadMapViewer(), 'R');
-
-                } catch (IOException e) {
-                throw new RuntimeException(e);
+            POI poi = null;
+            switch (POIType) {
+                case "Bookmarks" -> poi = Data.bookmarks.getFirst();
+                case "My Locations" -> poi = Data.userCreatedPOIs.getFirst();
+                case "Developer Tool" -> poi = Data.builtInPOIs.getFirst();
+                case "Search & Discovery" -> poi = Search.firstResult;
             }
 
-            title = new JLabel("<html><div style=\"text-align:center;\">" + "" +
-                    listTitle + "<br /></div></html>");
+            try {
+                if (poi == null) poi = Data.builtInPOIs.getFirst();
+                secondary = new Canvas("./images/"+poi.map.replaceAll("\\dF.png","")+"_hero.png");
+                mapView = new MapView(poi.map, new Point(poi.positionX,poi.positionY));
+                title = new JLabel("<html><div style=\"text-align:center;\">" +
+                        POIType + "<br /></div></html>");
                 // Set the font size and style
-            Font title = new Font("Arial", Font.BOLD, 26);
-            GUIForPOIs.title.setFont(title);
+                title.setFont(new Font("Arial", Font.BOLD, 26));
+                // Set the foreground color
+                Color foregroundColour = new Color(75, 250 ,0);
+                Color background = new Color(0,0,0, 0.3f);
+                padding(title);
+                title.setForeground(foregroundColour);
+                title.setOpaque(true);
+                title.setBackground(background);
+                secondary.load(title,'L');
+                GUI.frame.setContentPane(secondary);
+                new POISelector(POIsGroup);
+                new Search();
+                BuildingBuddy.currentBuildingCode=poi.code;
+                BuildingBuddy.currentFloor=poi.map.replaceAll(".png","");
+                LayerFilter.paintAllIcons();
+                GUI.frame.pack();
+                GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
 
-            // Set the foreground color
-            Color foregroundColour = new Color(75, 250 ,0);
-            Color background = new Color(0,0,0, 0.3f);
-            padding(GUIForPOIs.title);
-            GUIForPOIs.title.setForeground(foregroundColour);
-            GUIForPOIs.title.setOpaque(true);
-            GUIForPOIs.title.setBackground(background);
-            secondary.load(GUIForPOIs.title,'L');
 
-            new POISelector(collection);
-
-            new Search();
-
-            GUI.frame.setContentPane(secondary);
-            GUI.frame.pack();
-            GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
-            GUI.frame.setVisible(true);
-
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
-    public static String getBuildingName(String currentBuilding) {
-        switch (currentBuilding) {
-            case ("MC") -> {
-                return "Middlesex College";
-            }
-            case ("KB") -> {
-                return "Kresge Building";
-            }
-            case ("PAB") -> {
-                return "Physics & Astronomy Building";
-            }
-        }
-        return "";
+    public static void rebuild(String POIsGroup, String listTitle) {
+        new GUIForPOIs(POIsGroup, listTitle);
+        GUI.frame.setContentPane(GUIForPOIs.secondary);
     }
 
     public void padding(JLabel label) {
@@ -91,10 +74,8 @@ public class GUIForPOIs {
     }
 
     public static MapView getMap() {
-        return map;
+        return mapView;
     }
-    public static BufferedImage getBufferedMap() {
-        return map.getMapImage();
-    }
+
 
 }

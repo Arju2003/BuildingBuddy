@@ -74,13 +74,14 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
+                newPoint.setMap(mapFileName);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -113,13 +114,14 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
+                newPoint.setMap(mapFileName);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -151,13 +153,14 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
+                newPoint.setMap(mapFileName);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -177,7 +180,7 @@ public class Data extends LinkedList<POI>{
         return new LinkedList<>(data);
     }
 
-    public static ArrayList<POI> getPOIs(String currentFloor, String layerName) {
+    public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
             if (LayerFilter.selectedLayers.contains(layerName)) {
@@ -267,6 +270,14 @@ public class Data extends LinkedList<POI>{
                 }
             }
             return null;
+    }
+
+    public static boolean containsPOI(LinkedList<POI> list, POI poi) {
+        for (POI p: list) {
+            if (p.id == poi.id)
+                return true;
+        }
+        return false;
     }
 
 

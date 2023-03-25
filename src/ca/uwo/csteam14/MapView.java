@@ -14,16 +14,10 @@ public class MapView extends JPanel {
     private static int imageWidth, imageHeight;
     private final Point focalPoint;
     protected static POI currentHighlighted;
-    private final String USER_DEFINED = "UDP";
-    private final String BUILT_IN = "BIP";
-    private final String OFF = "OFF";
 
 
 
     public MapView(String mapFileName, Point focalPoint) {
-
-        this.setLayout(null);
-
         try {
             mapImage = ImageIO.read(new File("./maps/"+mapFileName));
             imageWidth = mapImage.getWidth();
@@ -32,62 +26,7 @@ public class MapView extends JPanel {
             e.printStackTrace();
         }
         this.focalPoint = focalPoint;
-        setLayout(new OverlayLayout(this));
-        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
-        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
-            clickables[i] = getClickableAreas(BuildingBuddy.currentFloor,LayerFilter.selectedLayers);
-            clickables[i].setPreferredSize(new Dimension(48,48));
-            add(clickables[i]);
-            setComponentZOrder(clickables[i], 0);
-        }
-    }
 
-    public MapView(BufferedImage bufferedMap, Point focalPoint) {
-        this.setLayout(null);
-        mapImage = bufferedMap;
-        try {
-            imageWidth = mapImage.getWidth();
-            imageHeight = mapImage.getHeight();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.focalPoint = focalPoint;
-        setLayout(new OverlayLayout(this));
-        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
-        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
-            clickables[i] = getClickableAreas(BuildingBuddy.currentFloor,LayerFilter.selectedLayers);
-            clickables[i].setPreferredSize(new Dimension(48,48));
-            add(clickables[i]);
-            setComponentZOrder(clickables[i], 0);
-        }
-    }
-
-    public MapView(ImageIcon bufferedMap, Point focalPoint) {
-        this.setLayout(null);
-        mapImage = new BufferedImage(bufferedMap.getIconWidth(), bufferedMap.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-        try {
-            imageWidth = mapImage.getWidth();
-            imageHeight = mapImage.getHeight();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.focalPoint = focalPoint;
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        if (mapImage != null) {
-            g2d.drawImage(mapImage, 0, 0, this.getWidth(), this.getHeight(), null);
-        }
-    }
-
-    public Dimension getPreferredSize() {
-        return new Dimension(imageWidth, imageHeight);
-    }
-
-
-    public JScrollPane loadMapViewer() {
         setLayout(new OverlayLayout(this));
         JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
         for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
@@ -106,18 +45,60 @@ public class MapView extends JPanel {
         int y = focalPoint.y - viewportSize.height / 4;
         viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
-        return scrollPane;
+        if (GUI.frame.getContentPane() instanceof Canvas)
+            ((Canvas)GUI.frame.getContentPane()).replaceWith(scrollPane,'R');
+        }
+
+
+    public MapView(BufferedImage bufferedMap, Point focalPoint) {
+        mapImage = bufferedMap;
+        try {
+            imageWidth = mapImage.getWidth();
+            imageHeight = mapImage.getHeight();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.focalPoint = focalPoint;
+        setLayout(new OverlayLayout(this));
+        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
+        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
+            clickables[i] = getClickableAreas(BuildingBuddy.currentFloor,LayerFilter.selectedLayers);
+            clickables[i].setPreferredSize(new Dimension(48,48));
+            add(clickables[i]);
+            setComponentZOrder(clickables[i], 0);
+        }
+        JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JViewport viewport = new JViewport();
+        viewport.setView(this);
+        // Get the size of the viewport
+        Dimension viewportSize = viewport.getViewSize();
+        // Calculate the position to display in the center of the viewport
+        int x = focalPoint.x - viewportSize.width / 8;
+        int y = focalPoint.y - viewportSize.height / 4;
+        viewport.setViewPosition(new Point(x, y));
+        scrollPane.setViewport(viewport);
+        if (GUI.frame.getContentPane() instanceof Canvas)
+            ((Canvas)GUI.frame.getContentPane()).replaceWith(scrollPane,'R');
     }
 
-    public BufferedImage getMapImage() {
-        return mapImage;
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        if (mapImage != null) {
+            g2d.drawImage(mapImage, 0, 0, this.getWidth(), this.getHeight(), null);
+        }
     }
+
+    public Dimension getPreferredSize() {
+        return new Dimension(imageWidth, imageHeight);
+    }
+
+
 
     public BufferedImage applyHighlighter(int x, int y, String mode) throws IOException {
 
-        BufferedImage basemap = LayerFilter.updatedMap;
-
-        if (basemap == null) basemap = ImageIO.read(new File("./maps/"+BuildingBuddy.currentFloor+".png"));
+        BufferedImage basemap = ImageIO.read(new File("./maps/"+BuildingBuddy.currentFloor+".png"));
 
         // create a new image with the same dimensions as the original basemap
         BufferedImage highlightedImage = new BufferedImage(basemap.getWidth(), basemap.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -134,16 +115,24 @@ public class MapView extends JPanel {
         // create a circle with a transparent fill and a solid border
 
 
-        if (mode.strip().equalsIgnoreCase(BUILT_IN)) {
+        if (mode.strip().equalsIgnoreCase("BIP")) {
             g2d.setColor(new Color(255, 0, 0, 90));
             g2d.fillOval(x - 6 , y - 6 , 60, 60);
         }
-        else if (mode.strip().equalsIgnoreCase(USER_DEFINED)) {
-            g2d.setColor(new Color(255, 255,0 , 150));
+        else if (mode.strip().equalsIgnoreCase("UDP")) {
+            g2d.setColor(new Color(255, 255,0 , 110));
             g2d.fillOval(x - 30, y - 30, 60, 60);
         }
 
-        else assert !mode.strip().equalsIgnoreCase(OFF) || true;
+        else if (mode.strip().equalsIgnoreCase("OFF")) {
+            g2d.setColor(new Color(8, 222,0 , 0));
+            g2d.fillOval(0,0,0,0);
+        }
+
+        else {
+            g2d.setColor(new Color(8, 222,0 , 110));
+            g2d.fillOval(x - 30, y - 30, 60, 60);
+        }
 
         // dispose of the Graphics2D object to free up resources
         g2d.dispose();
@@ -166,44 +155,50 @@ public class MapView extends JPanel {
             public void mouseClicked(MouseEvent e) {
 
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
-                    if (p != null) {
-                        if (currentHighlighted == null) {
-                            currentHighlighted = p;
-                            highlight(p.positionX,p.positionY,BUILT_IN);
-                            new POIEditor(p);
-                        }
-                        else {
-                            AppMenu.clearWindows();
-                            highlight(currentHighlighted.positionX, currentHighlighted.positionY, OFF);
-                            if (!p.equals(currentHighlighted)) {
-                                currentHighlighted = p;
-                                highlight(p.positionX,p.positionY,BUILT_IN);
-                                new POIEditor(p);
-                            }
-                            else
-                                currentHighlighted = null;
-                        }
-
+                if (p != null) {
+                    if (currentHighlighted == null) {
+                        currentHighlighted = p;
+                        highlight(p.positionX,p.positionY,"BIP");
+                        new POIEditor(p);
                     }
                     else {
-                        highlight(e.getX(),e.getY(),USER_DEFINED);
-                        int largestUD = 4000;
-                        for (POI poi : Data.userCreatedPOIs) {
-                            if (poi.id > largestUD)
-                                largestUD = poi.id;
+                        AppMenu.clearWindows();
+                        highlight(currentHighlighted.positionX, currentHighlighted.positionY, "OFF");
+                        if (!p.equals(currentHighlighted)) {
+                            currentHighlighted = p;
+                            highlight(p.positionX,p.positionY,"BIP");
+                            new POIEditor(p);
                         }
-                        POI newPOI = new POI(largestUD + 1);
-                        newPOI.positionX = e.getX();
-                        newPOI.positionY = e.getY();
-                        newPOI.category = "My Locations";
-                        newPOI.map = BuildingBuddy.currentFloor.replaceAll("\\dF","") + ".png";
-                        newPOI.building = BuildingBuddy.getBuildingFullName(BuildingBuddy.currentFloor);
-                        newPOI.floor = BuildingBuddy.getFloorFullName(BuildingBuddy.currentFloor);
-                        newPOI.code = BuildingBuddy.currentBuildingCode;
-                        newPOI.isBuiltIn = false;
-                        newPOI.next = null;
-                        new POIEditor(newPOI);
+                        else
+                            currentHighlighted = null;
                     }
+
+                }
+                else {
+                    highlight(e.getX(),e.getY(),"UDP");
+                    int largestUD = 40000;
+                    for (POI poi : Data.userCreatedPOIs) {
+                        if (poi.id > largestUD)
+                            largestUD = poi.id;
+                    }
+                    POI newPOI = new POI(largestUD + 1);
+                    newPOI.positionX = e.getX();
+                    newPOI.positionY = e.getY();
+                    newPOI.category = "My Locations";
+                    newPOI.roomNumber = "0";
+                    newPOI.map = BuildingBuddy.currentFloor.replaceAll("\\dF","") + ".png";
+                    newPOI.building = BuildingBuddy.getBuildingFullName(BuildingBuddy.currentFloor);
+                    newPOI.floor = BuildingBuddy.getFloorFullName(BuildingBuddy.currentFloor);
+                    newPOI.code = BuildingBuddy.currentBuildingCode;
+                    newPOI.isBuiltIn = false;
+                    newPOI.next = null;
+                    new POIEditor(newPOI);
+                    if (POIEditor.isSaved) {
+                        currentHighlighted = newPOI;
+                        POIEditor.isSaved=false;
+                    }
+
+                }
             }
         });
         return component;
@@ -213,7 +208,7 @@ public class MapView extends JPanel {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
             if (!s.contains("Bookmarks"))
-                list.addAll(Data.getPOIs(floorName, s));
+                list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
             if (x >= p.positionX - 12 && x <= p.positionX + 60 && y >= p.positionY - 12 && y <= p.positionY + 60)
@@ -222,38 +217,23 @@ public class MapView extends JPanel {
         return null;
     }
 
-    public static void refreshMaps(BufferedImage newMap, int x, int y) {
-        if (GUIForPOIs.secondary != null) {
-            GUIForPOIs.map = new MapView(newMap, new Point(x, y ));
-            GUIForPOIs.secondary.setVisible(false);
-            GUIForPOIs.secondary.replaceWith(GUIForPOIs.map.loadMapViewer(), 'R');
-            GUIForPOIs.secondary.setVisible(true);
-        }
-        if (GUI.primary != null) {
-            GUI.map = new MapView(newMap, new Point(x , y ));
-            GUI.primary.setVisible(false);
-            GUI.primary.replaceWith(GUI.map.loadMapViewer(), 'R');
-            GUI.primary.setVisible(true);
-        }
-    }
     public void highlight(int x, int y, String mode) {
         BufferedImage newMap;
-        loadMapViewer();
-        if (GUIForPOIs.secondary != null) {
+        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
             try {
-                newMap = GUIForPOIs.map.applyHighlighter(x, y,mode);
+                newMap = GUIForPOIs.mapView.applyHighlighter(x, y,mode);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            refreshMaps(newMap, x, y);
+            new MapView(newMap, new Point(x , y ));
         }
-        if (GUI.primary != null) {
+        if (GUI.frame.getContentPane().equals(GUI.canvas)) {
             try {
-                newMap = GUI.map.applyHighlighter(x, y, mode);
+                newMap = LayerFilter.currentMapView.applyHighlighter(x, y, mode);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            refreshMaps(newMap, x, y);
+            new MapView(newMap, new Point(x , y ));
         }
     }
 }

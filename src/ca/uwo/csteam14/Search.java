@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 public class Search {
 
+    protected static String userInput;
+    protected static POI firstResult;
+
     public Search() {
         JPanel searchTool = new JPanel();
         JTextField input = new JTextField("Search anything ...");
@@ -16,11 +19,10 @@ public class Search {
         goButton.setPreferredSize(new Dimension(40,40));
         goButton.addActionListener(e->{
             if (e.getSource() == goButton) {
-                String userInput = input.getText();
+                userInput = input.getText();
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
-                    new GUIForPOIs(pl, "Search & Discovery");
-                    GUIForPOIs.map.loadMapViewer();
+                    new GUIForPOIs("SRC", "Search & Discovery");
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
@@ -47,17 +49,25 @@ public class Search {
         searchTool.setLayout(new GridBagLayout());
         searchTool.add(input);
         searchTool.add(goButton);
-        if (GUI.primary != null)
-            GUI.primary.load(searchTool, 'L');
-        if (GUIForPOIs.secondary != null)
+        if (GUI.frame.getContentPane().equals(GUI.canvas))
+            GUI.canvas.load(searchTool, 'L');
+        else if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary))
             GUIForPOIs.secondary.load(searchTool,'L');
+        else System.out.println(GUI.frame.getContentPane());
     }
 
-    public LinkedList<POI> searchResults(String userInput) {
+    public static LinkedList<POI> searchResults(String userInput) {
+
+        Search.userInput = userInput;
 
         ArrayList<POI> results = new ArrayList<>();
 
-        if (userInput.length() > 0) {
+        if (userInput == null) {
+            results.addAll(Data.builtInPOIs);
+            if (!BuildingBuddy.devMode)
+                results.addAll(Data.userCreatedPOIs);
+        }
+        else  {
             for (POI p : Data.builtInPOIs) {
                 if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
                     results.add(p);
@@ -69,6 +79,9 @@ public class Search {
                 }
 
                 if (!results.contains(p) && (p.category.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.category.toLowerCase())))
+                    results.add(p);
+
+                if (!results.contains(p) && (p.map.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.map.toLowerCase())))
                     results.add(p);
             }
             if (!BuildingBuddy.devMode) {
@@ -83,13 +96,11 @@ public class Search {
                 }
             }
         }
-        else {
-        results.addAll(Data.builtInPOIs);
-        if (!BuildingBuddy.devMode)
-            results.addAll(Data.userCreatedPOIs);
-        }
-        if (results.size() > 0)
+
+        if (results.size() > 0) {
+            firstResult = results.get(0);
             return new LinkedList<>(results);
+        }
         return null;
     }
 }

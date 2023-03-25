@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class FloorSelector {
 
-    protected static MapView currentMap = GUI.getMap();
+    protected static MapView currentMap;
     public FloorSelector() {
         /* make a floor selector and add a button */
         ArrayList<String> floorSet = new ArrayList<>();
@@ -29,7 +29,7 @@ public class FloorSelector {
             case "PAB" -> floorSelector.setSelectedItem(getFloorName(BuildingBuddy.currentFloor_PAB));
         }
 
-        GUI.primary.load(floorSelector, 'L');
+        GUI.canvas.load(floorSelector, 'L');
         floorSelector.addActionListener(e -> {
             // Get the selected item in the dropdown list
             String selectedItem = (String) floorSelector.getSelectedItem();
@@ -122,14 +122,13 @@ public class FloorSelector {
                 }
             }
 
-            GUI.primary.setVisible(false);
-            GUI.primary.replaceWith(currentMap.loadMapViewer(), 'R');
+            GUI.canvas.setVisible(false);
             try {
                 LayerFilter.refreshLayers();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            GUI.primary.setVisible(true);
+            GUI.canvas.setVisible(true);
         });
     }
     public static String getFloorName(String currentFloor) {

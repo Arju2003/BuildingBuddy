@@ -1,20 +1,6 @@
 {
   "Bookmarks": [
     {
-      "POIId": 48103,
-      "POIName": "KB 103",
-      "building": "Kresge Building",
-      "buildingCode": "KB",
-      "floor": "First Floor",
-      "roomNumber": 103,
-      "category": "Classroom",
-      "description": "Listed in the Western Classroom Directory",
-      "map": "KB1F.png",
-      "mapX": 2850,
-      "mapY": 900,
-      "built-in": false
-    },
-    {
       "POIId": 920,
       "POIName": "PAB 20",
       "building": "Physics & Astronomy Building",
@@ -68,6 +54,34 @@
       "map": "MC4F.png",
       "mapX": 3120,
       "mapY": 1540,
+      "built-in": true
+    },
+    {
+      "POIId": 719,
+      "POIName": "Grad Club",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Ground Floor",
+      "roomNumber": 19,
+      "category": "Restaurant",
+      "description": "The Grad Club is a non-profit graduate student pub & eatery.",
+      "map": "MC0F.png",
+      "mapX": 1717,
+      "mapY": 628,
+      "built-in": true
+    },
+    {
+      "POIId": 7220,
+      "POIName": "MC 220",
+      "building": "Middlesex College",
+      "buildingCode": "MC",
+      "floor": "Second Floor",
+      "roomNumber": 220,
+      "category": "CompSci Spot",
+      "description": "Collaborative space. Capacity: 8, contains whiteboard",
+      "map": "MC2F.png",
+      "mapX": 685,
+      "mapY": 1433,
       "built-in": true
     }
   ]
