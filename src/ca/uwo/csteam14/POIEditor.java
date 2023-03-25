@@ -8,13 +8,18 @@ import static javax.swing.SwingConstants.*;
 
 public class POIEditor extends JDialog {
     // Create a new JDialog with the desired title
-    JDialog dialog = new JDialog();
+    private final JDialog dialog = new JDialog();
+    protected static boolean isSaved = false;
+
+
 
     public POIEditor(POI poi) {
         AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
         dialog.setTitle(poi.name);
         dialog.setResizable(false);
+        dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+
         // Create a new JTextPane
         setLayout(null);
         JPanel main = new JPanel();
@@ -44,18 +49,29 @@ public class POIEditor extends JDialog {
         JLabel POIBuildingLabel = new JLabel("Building");
         JLabel POICategoryLabel = new JLabel("Category");
         JLabel POIDescriptionLabel = new JLabel("Description");
-        JRadioButton bookmarkAdd = new JRadioButton("Add Bookmark");
-        JRadioButton bookmarkRemove = new JRadioButton("Remove Bookmark");
+        JLabel notABookmark = new JLabel("Not in Your Bookmarks");
+        JCheckBox bookmarkAdd = new JCheckBox("Add Bookmark");
+        JLabel isABookmark = new JLabel("Already in Your Bookmarks");
+        JCheckBox bookmarkRemove = new JCheckBox("Remove Bookmark");
         leftPanel.add(POINameLabel, toTheRight);
         leftPanel.add(POIRoomNumberLabel,toTheRight);
         leftPanel.add(POIFloorLabel,toTheRight);
         leftPanel.add(POIBuildingLabel,toTheRight);
         leftPanel.add(POICategoryLabel,toTheRight);
         leftPanel.add(POIDescriptionLabel,toTheRight);
-        leftPanel.add(bookmarkAdd, toTheRight);
-        leftPanel.add(bookmarkRemove, toTheRight);
+        if (!Data.containsPOI(Data.bookmarks,poi)) {
+            leftPanel.add(notABookmark, toTheRight);
+            leftPanel.add(bookmarkAdd, toTheRight);
+
+        }
+        else {
+            leftPanel.add(isABookmark, toTheRight);
+            leftPanel.add(bookmarkRemove, toTheRight);
+
+        }
+
         JTextField POIMameField = new JTextField(poi.name);
-        JTextField POIRoomNumberField = new JTextField(poi.roomNum);
+        JTextField POIRoomNumberField = new JTextField(poi.roomNumber);
         JTextField POIFloorField = new JTextField(poi.floor);
         JTextField POIBuildingField = new JTextField(poi.building);
         JTextField POICategoryField = new JTextField(poi.category);
@@ -71,34 +87,18 @@ public class POIEditor extends JDialog {
         rightPanel.add(saveButton, toTheLeft);
         rightPanel.add(deleteButton, toTheLeft);
 
-        bookmarkAdd.addActionListener( e-> {
-            if (!Data.bookmarks.contains(poi)) bookmarkAdd.setSelected(true);
-            if (bookmarkAdd.isSelected()) bookmarkRemove.setSelected(false);
-        });
-
-        bookmarkRemove.addActionListener( e-> {
-            if (Data.bookmarks.contains(poi)) bookmarkAdd.setSelected(true);
-            if (bookmarkRemove.isSelected()) bookmarkAdd.setSelected(false);
-        });
-
-        saveButton.setOpaque(true);
-        saveButton.setForeground(new Color(255,250,250));
-        saveButton.setBackground(new Color(0,128,0));
-        saveButton.setUI(new BasicButtonUI());
-
-        deleteButton.setOpaque(true);
-        deleteButton.setForeground(new Color(159,210,228));
-        deleteButton.setBackground(new Color(128,0,0));
-        deleteButton.setUI(new BasicButtonUI());
 
         for (Component j: leftPanel.getComponents()) {
             j.setFont(new Font("Arial", Font.PLAIN, 14));
             if (j instanceof JLabel) {
                 j.setPreferredSize(new Dimension(100, 40));
+                isABookmark.setPreferredSize(new Dimension(200,40));
+                notABookmark.setPreferredSize(new Dimension(200,40));
                 ((JLabel) j).setHorizontalAlignment(RIGHT);
-            } else if (j instanceof JRadioButton) {
-                ((JRadioButton) j).setHorizontalAlignment(RIGHT);
-                ((JRadioButton) j).setHorizontalAlignment(RIGHT);
+
+            } else if (j instanceof JCheckBox) {
+                ((JCheckBox) j).setHorizontalAlignment(RIGHT);
+                ((JCheckBox) j).setHorizontalAlignment(RIGHT);
                 j.setPreferredSize(new Dimension(160, 40));
             }
             else {
@@ -106,6 +106,8 @@ public class POIEditor extends JDialog {
 
             }
         }
+
+
 
         for (Component j: rightPanel.getComponents()) {
 
@@ -120,34 +122,109 @@ public class POIEditor extends JDialog {
             }
         }
 
-            if (!BuildingBuddy.devMode) {
 
-                deleteButton.setEnabled(false);
-                deleteButton.setBackground(new Color(200,200,200));
-                deleteButton.setForeground(new Color(133,133,133));
 
-                for (Component j : rightPanel.getComponents()) {
+        saveButton.setOpaque(true);
+        saveButton.setForeground(new Color(255,255,255));
+        saveButton.setBackground(new Color(0,90,181));
+        saveButton.setUI(new BasicButtonUI());
+        saveButton.setFont(new Font("Arial",Font.BOLD,14));
 
-                    if (j instanceof JTextField) {
-                        ((JTextField) j).setEditable(false);
-                        if  (String.valueOf(poi.id).startsWith("4")) {
-                            ((JTextField) j).setEditable(true);
-                            deleteButton.setEnabled(true);
-                            deleteButton.setForeground(new Color(255,255,255));
-                            deleteButton.setBackground(new Color(128,0,0));
-                        }
+
+        saveButton.addActionListener(e -> {
+            // This code will be executed when the button is pressed
+            isSaved = true;
+            dialog.dispose();
+        });
+
+        deleteButton.setOpaque(true);
+        deleteButton.setForeground(new Color(255,255,255));
+        deleteButton.setBackground(new Color(220,50,32));
+        deleteButton.setUI(new BasicButtonUI());
+        deleteButton.setFont(new Font("Arial",Font.BOLD,14));
+
+        deleteButton.addActionListener(e -> {
+            dialog.setVisible(false);
+            // This code will be executed when the button is pressed
+            JWindow alert = new JWindow();
+            alert.setSize(480, 48);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screenSize.width - alert.getWidth()) / 2;
+            int y = (screenSize.height - alert.getHeight()) / 2;
+            alert.setLocation(x, y); // Set the position of the window to the center of the screen
+            JPanel panel = new JPanel();
+            panel.setForeground( new Color(160,0,0));
+            panel.setForeground(new Color(255,255,255));
+            JLabel message = new JLabel("Delete this location forever?");
+            panel.add(message);
+            JButton confirm = new JButton("Confirm Deletion");
+            confirm.addActionListener(e3-> {
+                alert.setVisible(false);
+                dialog.dispose();
+            });
+            panel.add(confirm);
+            JButton cancel = new JButton("Continue Editing");
+            cancel.setEnabled(true);
+            alert.setLocationRelativeTo(dialog);
+            cancel.addActionListener(e2-> {
+                alert.setVisible(false);
+                dialog.setVisible(true);
+            });
+            panel.add(cancel);
+            alert.add(panel);
+            alert.pack();
+            alert.setVisible(true);
+            alert.setAlwaysOnTop(true);
+
+        });
+
+
+
+        if (!BuildingBuddy.devMode) {
+            deleteButton.setEnabled(false);
+            deleteButton.setBackground(new Color(200,200,200));
+            deleteButton.setForeground(new Color(20,20,20));
+
+            for (Component j : rightPanel.getComponents()) {
+
+                if (j instanceof JTextField) {
+                    j.setEnabled(false);
+                    ((JTextField) j).setEditable(false);
+                    if  (String.valueOf(poi.id).startsWith("4") && !Data.containsPOI(Data.userCreatedPOIs,poi)) {
+                        POIMameField.setEnabled(true);
+                        POIDescriptionField.setEnabled(true);
+                        POIMameField.setEditable(true);
+                        POIDescriptionField.setEditable(true);
+                    }
+                    else if (String.valueOf(poi.id).startsWith("4") && Data.containsPOI(Data.userCreatedPOIs,poi)) {
+                        POIMameField.setEnabled(true);
+                        POIDescriptionField.setEnabled(true);
+                        POIMameField.setEditable(true);
+                        POIDescriptionField.setEditable(true);
+                        deleteButton.setEnabled(true);
+                        deleteButton.setForeground(new Color(255,255,255));
+                        deleteButton.setBackground(new Color(128,0,0));
                     }
 
-                    if (j instanceof JRadioButton) {
-                        j.setEnabled(true);
-                    }
                 }
+            }
 
-            }
-            else {
-                bookmarkAdd.setEnabled(false);
-                bookmarkRemove.setEnabled(false);
-            }
+        }
+        else {
+            notABookmark.setEnabled(false);
+            bookmarkAdd.setEnabled(false);
+            isABookmark.setEnabled(false);
+            bookmarkRemove.setEnabled(false);
+        }
+
+        notABookmark.setForeground(new Color(93,58,155));
+        bookmarkAdd.setForeground(new Color(93,58,155));
+        bookmarkAdd.setFont(new Font("Arial", Font.BOLD,14));
+
+        isABookmark.setForeground(new Color(230,97,0));
+        bookmarkRemove.setForeground(new Color(230,97,0));
+        bookmarkRemove.setFont(new Font("Arial", Font.BOLD,14));
+
 
         main.add(leftPanel);
         main.add(rightPanel);
@@ -167,11 +244,12 @@ public class POIEditor extends JDialog {
 
         // Create a JButton to close the dialog
         JButton closeButton = new JButton("Cancel");
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                if (GUIForPOIs.map != null)
-                    GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX,MapView.currentHighlighted.positionY,"OFF");
+        closeButton.addActionListener(e -> {
+            dialog.dispose();
+            if (MapView.currentHighlighted != null) {
+                if (GUIForPOIs.mapView != null) {
+                    GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                }
             }
         });
         dialog.add(closeButton, BorderLayout.SOUTH);
@@ -191,13 +269,11 @@ public class POIEditor extends JDialog {
         dialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Define your desired behavior here
                 dialog.dispose();
                 if (MapView.currentHighlighted != null) {
-                    if (GUIForPOIs.map != null)
-                        GUIForPOIs.map.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
-                    if (GUI.map != null)
-                        GUI.map.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                    if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+                        GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                    }
                 }
             }
         });

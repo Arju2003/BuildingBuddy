@@ -1,6 +1,5 @@
 package ca.uwo.csteam14;
 
-import ca.uwo.csteam14.POI;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,9 +85,9 @@ class POITest {
     void setRoomNum() {
         System.out.println("setRoomNum()");
         POI instance = new POI(8103);
-        instance.setRoomNum("10");
+        instance.setRoomNumber("10");
         String expResult = "10";
-        assertEquals(expResult, instance.roomNum);
+        assertEquals(expResult, instance.roomNumber);
     }
 
 

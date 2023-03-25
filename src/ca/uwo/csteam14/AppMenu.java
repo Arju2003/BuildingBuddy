@@ -36,6 +36,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         JMenuItem about = new JMenuItem("About");
         JMenuItem exit = new JMenuItem("Exit");
         JMenuItem weather = new JMenuItem("Weather");
+        JMenuItem changeKey = new JMenuItem("Change Security Key");
 
         // add ActionListener to menu buttons and menu items
         start.addActionListener(e -> {
@@ -120,10 +121,11 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             }
         });
         bookmarks.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.bookmarksData, "Bookmarks");
+            new GUIForPOIs("BMK", "Bookmarks");
         });
         myLocations.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.userData, "My Locations");
+            new GUIForPOIs("UDP", "My Locations");
+
         });
         checkForUpdates.addActionListener(e -> {
             clearWindows();
@@ -135,7 +137,8 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         });
         developerTool.addActionListener(e -> {
             JDialog window = new JDialog();
-            window.setSize(600,200);
+            window.setResizable(false);
+            window.setSize(new Dimension(260,390));
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int x = (screenSize.width - window.getWidth()) / 2;
             int y = (screenSize.height - window.getHeight()) / 2;
@@ -151,7 +154,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
             JTextField securityKey = new JTextField();
             securityKey.setPreferredSize(new Dimension(260,40));
-            securityKey.setText("Hello");
+            securityKey.setText("CS2212BB");
             securityKey.setVisible(true);
             securityKey.setEnabled(true);
             securityKey.setEditable(true);
@@ -165,10 +168,66 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
             enter.addActionListener( e3->{
                 if (securityKey.getText().equals(BuildingBuddy.getSecurityKey())) {
-                    GUIForPOIs devUI = new GUIForPOIs(BuildingBuddy.builtinData, "Developer Tool");
-                    devUI.appMenu = new AppMenu("dev");
-                    GUIForPOIs.title.setText("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                    new GUIForPOIs("BIP", "Developer Tool");
+                    start.setEnabled(false);
+                    view.setEnabled(false);
+                    myLocations.setEnabled(false);
+                    bookmarks.setEnabled(false);
+                    developerTool.setEnabled(false);
+                    changeKey.addActionListener(e4->{
+                        clearWindows();
+                        JDialog changeKeyDialog = new JDialog();
+                        changeKeyDialog.setResizable(false);
+                        changeKeyDialog.setSize(600,200);
+                        changeKeyDialog.setLocation(x, y); // Set the position of the window to the center of the screen
+                        JPanel mainPanel2 = new JPanel();
+                        mainPanel2.setLayout(new GridLayout(0,1));
+                        JLabel title2 = new JLabel("Change Security Key");
+                        mainPanel2.add(title2);
+                        JLabel newKey1 = new JLabel("Please enter new security key:");
+                        JTextField newKeyInput1 = new JTextField();
+                        mainPanel2.add(newKey1);
+                        mainPanel2.add(newKeyInput1);
+                        JLabel newKey2 = new JLabel("Please enter new security key again:");
+                        JTextField newKeyInput2 = new JTextField();
+                        mainPanel2.add(newKey2);
+                        mainPanel2.add(newKeyInput2);
+
+
+                        newKey1.setPreferredSize(new Dimension(260,40));
+                        newKeyInput1.setText("CS2212BB");
+
+                        newKey2.setPreferredSize(new Dimension(260,40));
+                        newKeyInput2.setText("CS2212BB");
+
+                        newKeyInput1.setEditable(true);
+                        newKeyInput2.setEditable(true);
+
+                        JButton yes = new JButton("Confirm");
+                        yes.addActionListener(e5-> {
+                            if (newKeyInput1.getText().equals(newKeyInput2.getText())) {
+                                newKey1.setText("Changing security is highly risky. BuildingBuddy Ver 2.0 will support that.");
+                                newKeyInput1.setEnabled(false);
+                                newKey2.setText("Thank you! Please press Cancel for now. :-)");
+                                newKeyInput2.setEnabled(false);
+                            }
+                            else
+                                newKey1.setText("Two inputs did not match. Try again. Enter new security key:");
+                        });
+                        JButton no = new JButton("Cancel");
+                        no.addActionListener(e1 -> changeKeyDialog.dispose());
+
+                        mainPanel2.add(yes);
+                        mainPanel2.add(no);
+                        changeKeyDialog.add(mainPanel2);
+                        changeKeyDialog.setVisible(true);
+                        changeKeyDialog.setLocationRelativeTo(window);
+
+                    });
+                    more.add(changeKey);
+                    BuildingBuddy.devMode = true;
                     GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                    window.dispose();
                 }
                 else prompt.setText("Incorrect security key. Please retry.");
             });
@@ -205,19 +264,10 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(about);
         mb.add(more);
         mb.add(exit);
-
-        if (mode.equalsIgnoreCase("dev")) {
-            start.setEnabled(false);
-            view.setEnabled(false);
-            myLocations.setEnabled(false);
-            bookmarks.setEnabled(false);
-            developerTool.setEnabled(false);
-            BuildingBuddy.devMode = true;
-        }
     }
 
     public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
+
 
     }
 

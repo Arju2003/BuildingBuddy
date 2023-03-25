@@ -233,8 +233,8 @@ public class Splash extends JPanel {
     public void build() throws IOException {
         ImageIcon icon = new ImageIcon("./images/BB_icon.png");
         Image image = icon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
-        icon = new ImageIcon(newimg);  // transform it back
+        Image newImg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
+        icon = new ImageIcon(newImg);  // transform it back
         JLabel logo = new JLabel();
         logo.setIcon(icon);
         this.load(logo);
@@ -322,7 +322,5 @@ public class Splash extends JPanel {
         GUI.frame.pack();
         GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
         GUI.frame.setVisible(true);
-
-
     }
 }

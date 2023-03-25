@@ -1,7 +1,5 @@
 package ca.uwo.csteam14;
 
-import java.util.LinkedList;
-
 public class POI {
 
     protected int id;
@@ -10,7 +8,7 @@ public class POI {
     protected String map;
     protected String code;
     protected String floor;
-    protected String roomNum;
+    protected String roomNumber;
     protected String category;
     protected String description;
     protected int positionX;
@@ -44,8 +42,8 @@ public class POI {
         this.category = category;
     }
 
-    public void setRoomNum(String roomNum) {
-        this.roomNum = roomNum;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public void setX(int x) {
@@ -77,7 +75,7 @@ public class POI {
         map = "";
         code = "";
         floor = "";
-        roomNum = "";
+        roomNumber = "";
         category = "";
         description = "";
         positionX = 0;

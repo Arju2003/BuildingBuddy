@@ -10,9 +10,6 @@ public class BuildingBuddy {
     protected static boolean devMode;
 
     private static String securityKey = "CS2212BB";
-    protected static LinkedList<POI> userData;
-    protected static LinkedList<POI> builtinData;
-    protected static LinkedList<POI> bookmarksData;
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -72,13 +69,14 @@ public class BuildingBuddy {
         return "Unknown";
     }
 
+    public static void setSecurityKey(String newKey) {
+        securityKey = newKey;
+    }
+
 
     public static void main(String[] args) throws IOException {
         devMode = false;
         new Data();
-        userData = Data.userCreatedPOIs;
-        builtinData = Data.builtInPOIs;
-        bookmarksData = Data.bookmarks;
         if (currentFloor_MC == null) currentFloor_MC = "MC0F";
         if (currentFloor_KB == null) currentFloor_KB = "KB0F";
         if (currentFloor_PAB == null) currentFloor_PAB = "PAB0F";
