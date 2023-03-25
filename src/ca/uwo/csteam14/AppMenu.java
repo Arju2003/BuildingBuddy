@@ -136,13 +136,13 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                     """);
         });
         developerTool.addActionListener(e -> {
-            JDialog window = new JDialog();
-            window.setResizable(false);
-            window.setSize(new Dimension(260,390));
+            JDialog devLogin = new JDialog();
+            devLogin.setResizable(false);
+            devLogin.setSize(new Dimension(260,390));
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (screenSize.width - window.getWidth()) / 2;
-            int y = (screenSize.height - window.getHeight()) / 2;
-            window.setLocation(x, y); // Set the position of the window to the center of the screen
+            int x = (screenSize.width - devLogin.getWidth()) / 2;
+            int y = (screenSize.height - devLogin.getHeight()) / 2;
+            devLogin.setLocation(x, y); // Set the position of the window to the center of the screen
 
 
             JPanel mainPanel = new JPanel();
@@ -152,7 +152,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             JLabel prompt = new JLabel("Please enter security key");
             mainPanel.add(prompt);
 
-            JTextField securityKey = new JTextField();
+            JPasswordField securityKey = new JPasswordField();
             securityKey.setPreferredSize(new Dimension(260,40));
             securityKey.setText("CS2212BB");
             securityKey.setVisible(true);
@@ -185,11 +185,11 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                         JLabel title2 = new JLabel("Change Security Key");
                         mainPanel2.add(title2);
                         JLabel newKey1 = new JLabel("Please enter new security key:");
-                        JTextField newKeyInput1 = new JTextField();
+                        JPasswordField newKeyInput1 = new JPasswordField();
                         mainPanel2.add(newKey1);
                         mainPanel2.add(newKeyInput1);
                         JLabel newKey2 = new JLabel("Please enter new security key again:");
-                        JTextField newKeyInput2 = new JTextField();
+                        JPasswordField newKeyInput2 = new JPasswordField();
                         mainPanel2.add(newKey2);
                         mainPanel2.add(newKeyInput2);
 
@@ -206,9 +206,10 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                         JButton yes = new JButton("Confirm");
                         yes.addActionListener(e5-> {
                             if (newKeyInput1.getText().equals(newKeyInput2.getText())) {
-                                newKey1.setText("Changing security is highly risky. BuildingBuddy Ver 2.0 will support that.");
+                                title2.setText("This Feature Is For Demonstration Purposes");
+                                newKey1.setText("BuildingBuddy Ver 2.0 will support changing security key.");
                                 newKeyInput1.setEnabled(false);
-                                newKey2.setText("Thank you! Please press Cancel for now. :-)");
+                                newKey2.setText("Please press Cancel for now. Thank you:-)");
                                 newKeyInput2.setEnabled(false);
                             }
                             else
@@ -221,22 +222,22 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                         mainPanel2.add(no);
                         changeKeyDialog.add(mainPanel2);
                         changeKeyDialog.setVisible(true);
-                        changeKeyDialog.setLocationRelativeTo(window);
+                        changeKeyDialog.setLocationRelativeTo(devLogin);
 
                     });
                     more.add(changeKey);
                     BuildingBuddy.devMode = true;
                     GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
-                    window.dispose();
+                    devLogin.dispose();
                 }
                 else prompt.setText("Incorrect security key. Please retry.");
             });
 
-            window.add(mainPanel);
-            window.pack();
+            devLogin.add(mainPanel);
+            devLogin.pack();
             AppMenu.clearWindows();
-            window.setVisible(true);
-            window.setFocusableWindowState(true);
+            devLogin.setVisible(true);
+            devLogin.setFocusableWindowState(true);
 
             cancel.addActionListener( e2-> {
                 clearWindows();
