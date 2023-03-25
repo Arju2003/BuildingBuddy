@@ -15,6 +15,6 @@ class SearchTest {
     }
 
     @Test
-    void showResults() {
+    void searchResults() {
     }
 }
