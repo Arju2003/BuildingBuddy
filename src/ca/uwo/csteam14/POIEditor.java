@@ -195,6 +195,10 @@ public class POIEditor extends JDialog {
                         POIDescriptionField.setEnabled(true);
                         POIMameField.setEditable(true);
                         POIDescriptionField.setEditable(true);
+                        POIBuildingLabel.setEnabled(false);
+                        POIRoomNumberLabel.setEnabled(false);
+                        POICategoryLabel.setEnabled(false);
+                        POIFloorLabel.setEnabled(false);
                     }
                     else if (String.valueOf(poi.id).startsWith("4") && Data.containsPOI(Data.userCreatedPOIs,poi)) {
                         POIMameField.setEnabled(true);
@@ -202,6 +206,10 @@ public class POIEditor extends JDialog {
                         POIMameField.setEditable(true);
                         POIDescriptionField.setEditable(true);
                         deleteButton.setEnabled(true);
+                        POIBuildingLabel.setEnabled(false);
+                        POIRoomNumberLabel.setEnabled(false);
+                        POICategoryLabel.setEnabled(false);
+                        POIFloorLabel.setEnabled(false);
                         deleteButton.setForeground(new Color(255,255,255));
                         deleteButton.setBackground(new Color(128,0,0));
                     }
