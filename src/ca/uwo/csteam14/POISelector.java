@@ -15,6 +15,8 @@ public class POISelector extends JPanel {
     protected JScrollPane scrollPane;
     protected LinkedList<POI> currentCollection;
 
+    protected static POI focus;
+
     public POISelector(String POIsGroup) {
         switch (POIsGroup) {
             case "UDP" -> currentCollection = Data.userCreatedPOIs;
@@ -40,11 +42,11 @@ public class POISelector extends JPanel {
             itemList.addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
                     try {
-                        POI focus = currentCollection.get(itemList.getSelectedIndex());
+                        focus = currentCollection.get(itemList.getSelectedIndex());
                         GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + BuildingBuddy.currentBuildingCode + "_hero.png")));
                         BuildingBuddy.currentFloor = focus.map.replace(".png", "").toUpperCase();
                         BuildingBuddy.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");
-                        new MapView(focus.map, new Point(focus.positionX,focus.positionY));
+                        GUIForPOIs.mapView = new MapView(focus.map, new Point(focus.positionX,focus.positionY));
                         GUIForPOIs.mapView.highlight(focus.positionX, focus.positionY, POIsGroup);
                         new POIEditor(focus);
                     } catch (IOException ex) {

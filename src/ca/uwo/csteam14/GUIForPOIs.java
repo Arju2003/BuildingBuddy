@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class GUIForPOIs {
-   
+
     protected AppMenu appMenu = new AppMenu("user");
     protected static Canvas secondary;
     protected static JLabel title = new JLabel();
@@ -16,7 +16,8 @@ public class GUIForPOIs {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                     UnsupportedLookAndFeelException ex) {
                 throw new RuntimeException(ex);
             }
             POI poi = null;
@@ -29,25 +30,25 @@ public class GUIForPOIs {
 
             try {
                 if (poi == null) poi = Data.builtInPOIs.getFirst();
-                secondary = new Canvas("./images/"+poi.map.replaceAll("\\dF.png","")+"_hero.png");
-                mapView = new MapView(poi.map, new Point(poi.positionX,poi.positionY));
+                secondary = new Canvas("./images/" + poi.map.replaceAll("\\dF.png", "") + "_hero.png");
+                mapView = new MapView(poi.map, new Point(poi.positionX, poi.positionY));
                 title = new JLabel("<html><div style=\"text-align:center;\">" +
                         POIType + "<br /></div></html>");
                 // Set the font size and style
                 title.setFont(new Font("Arial", Font.BOLD, 26));
                 // Set the foreground color
-                Color foregroundColour = new Color(75, 250 ,0);
-                Color background = new Color(0,0,0, 0.3f);
+                Color foregroundColour = new Color(75, 250, 0);
+                Color background = new Color(0, 0, 0, 0.3f);
                 padding(title);
                 title.setForeground(foregroundColour);
                 title.setOpaque(true);
                 title.setBackground(background);
-                secondary.load(title,'L');
+                secondary.load(title, 'L');
                 GUI.frame.setContentPane(secondary);
                 new POISelector(POIsGroup);
                 new Search();
-                BuildingBuddy.currentBuildingCode=poi.code;
-                BuildingBuddy.currentFloor=poi.map.replaceAll(".png","");
+                BuildingBuddy.currentBuildingCode = poi.code;
+                BuildingBuddy.currentFloor = poi.map.replaceAll(".png", "");
                 LayerFilter.paintAllIcons();
                 GUI.frame.pack();
                 GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
@@ -59,10 +60,6 @@ public class GUIForPOIs {
         });
     }
 
-    public static void rebuild(String POIsGroup, String listTitle) {
-        new GUIForPOIs(POIsGroup, listTitle);
-        GUI.frame.setContentPane(GUIForPOIs.secondary);
-    }
 
     public void padding(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
@@ -72,10 +69,4 @@ public class GUIForPOIs {
         size.height += 5;
         label.setPreferredSize(size);
     }
-
-    public static MapView getMap() {
-        return mapView;
-    }
-
-
 }

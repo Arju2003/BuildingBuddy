@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
@@ -120,13 +121,8 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                 throw new RuntimeException(ex);
             }
         });
-        bookmarks.addActionListener(e -> {
-            new GUIForPOIs("BMK", "Bookmarks");
-        });
-        myLocations.addActionListener(e -> {
-            new GUIForPOIs("UDP", "My Locations");
-
-        });
+        bookmarks.addActionListener(e -> new GUIForPOIs("BMK", "Bookmarks"));
+        myLocations.addActionListener(e -> new GUIForPOIs("UDP", "My Locations"));
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
@@ -154,7 +150,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
             JPasswordField securityKey = new JPasswordField();
             securityKey.setPreferredSize(new Dimension(260,40));
-            securityKey.setText("CS2212BB");
+            securityKey.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
             securityKey.setVisible(true);
             securityKey.setEnabled(true);
             securityKey.setEditable(true);
@@ -167,7 +163,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             mainPanel.add(cancel);
 
             enter.addActionListener( e3->{
-                if (securityKey.getText().equals(BuildingBuddy.getSecurityKey())) {
+                if (Arrays.equals(securityKey.getPassword(), BuildingBuddy.getSecurityKey())) {
                     new GUIForPOIs("BIP", "Developer Tool");
                     start.setEnabled(false);
                     view.setEnabled(false);
@@ -195,19 +191,19 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
 
                         newKey1.setPreferredSize(new Dimension(260,40));
-                        newKeyInput1.setText("CS2212BB");
+                        newKeyInput1.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
 
                         newKey2.setPreferredSize(new Dimension(260,40));
-                        newKeyInput2.setText("CS2212BB");
+                        newKeyInput2.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
 
                         newKeyInput1.setEditable(true);
                         newKeyInput2.setEditable(true);
 
                         JButton yes = new JButton("Confirm");
                         yes.addActionListener(e5-> {
-                            if (newKeyInput1.getText().equals(newKeyInput2.getText())) {
-                                title2.setText("This Feature Is For Demonstration Purposes");
-                                newKey1.setText("BuildingBuddy Ver 2.0 will support changing security key.");
+                            if (Arrays.equals(newKeyInput1.getPassword(), newKeyInput2.getPassword())) {
+                                title2.setText("THIS FEATURE IS FOR DEMONSTRATION PURPOSES ONLY");
+                                newKey1.setText("BuildingBuddy Ver 2.0 will support changing your security key.");
                                 newKeyInput1.setEnabled(false);
                                 newKey2.setText("Please press Cancel for now. Thank you:-)");
                                 newKeyInput2.setEnabled(false);
@@ -239,9 +235,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             devLogin.setVisible(true);
             devLogin.setFocusableWindowState(true);
 
-            cancel.addActionListener( e2-> {
-                clearWindows();
-            });
+            cancel.addActionListener( e2-> clearWindows());
         });
 
         // add KeyListener to menuItems

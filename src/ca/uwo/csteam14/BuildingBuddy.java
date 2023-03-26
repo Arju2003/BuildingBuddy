@@ -9,7 +9,7 @@ public class BuildingBuddy {
 
     protected static boolean devMode;
 
-    private static String securityKey = "CS2212BB";
+    private static char[] securityKey = {'C','S','2','2','1','2','B','B'};
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -49,7 +49,7 @@ public class BuildingBuddy {
         return "";
     }
 
-    public static String getSecurityKey() {
+    public static char[] getSecurityKey() {
         return securityKey;
     }
 
@@ -69,7 +69,7 @@ public class BuildingBuddy {
         return "Unknown";
     }
 
-    public static void setSecurityKey(String newKey) {
+    public static void setSecurityKey(char[] newKey) {
         securityKey = newKey;
     }
 

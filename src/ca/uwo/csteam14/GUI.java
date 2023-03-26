@@ -7,6 +7,8 @@ public class GUI {
     protected static JFrame frame = new JFrame("BuildingBuddy – Ver 1.0 –");
     protected static Canvas canvas;
 
+    protected static MapView mapView;
+
 
     public GUI(String buildingCode) {
         EventQueue.invokeLater(() -> {
@@ -25,17 +27,17 @@ public class GUI {
                     case "KB" -> {
                         canvas = new Canvas("./images/KB_hero.png");
                         buildingName.setText("Kresge Building (KB)");
-                        //mapView = new MapView(BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        mapView = new MapView(BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                     case "MC" -> {
                         canvas = new Canvas("./images/MC_hero.png");
                         buildingName.setText("Middlesex College (MC)");
-                        //mapView = new MapView(BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        mapView = new MapView(BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                     case "PAB" -> {
                         canvas = new Canvas("./images/PAB_hero.png");
                         buildingName.setText("Physics & Astronomy Building (PAB)");
-                        //mapView = new MapView(BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
+                        mapView = new MapView(BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                 }
                 frame.setContentPane(canvas);

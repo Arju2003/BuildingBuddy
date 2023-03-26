@@ -201,23 +201,23 @@ public class LayerFilter extends JPanel {
 
     public static String getLayerIcon(String layer) {
         String filepath = "./images/";
-        if (layer.contains("Classrooms"))
+        if (layer.contains("Classroom"))
             filepath += "classroom.png";
-        else if (layer.contains("Bookmarks"))
+        else if (layer.contains("Bookmark"))
             filepath += "bookmark.png";
-        else if (layer.contains("CompSci Spots"))
+        else if (layer.contains("CompSci"))
             filepath += "compsci.png";
-        else if (layer.contains("Restaurants"))
+        else if (layer.contains("Restaurant"))
             filepath += "restaurant.png";
-        else if (layer.contains("Labs"))
+        else if (layer.contains("Lab"))
             filepath += "lab.png";
-        else if (layer.contains("Stairwells"))
+        else if (layer.contains("Stairwell") || layer.contains("Elevator"))
             filepath += "stairwell.png";
-        else if (layer.contains("Entrances"))
+        else if (layer.contains("Entrance") || layer.contains("Exit"))
             filepath += "entrance.png";
-        else if (layer.contains("Locations"))
+        else if (layer.contains("My") || layer.contains("Locations"))
             filepath += "location.png";
-        else if (layer.contains("Washrooms"))
+        else if (layer.contains("Washroom"))
             filepath += "washroom.png";
         else if (layer.contains("Accessibility"))
             filepath += "accessibility.png";
