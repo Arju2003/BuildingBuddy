@@ -2,6 +2,7 @@ package ca.uwo.csteam14;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -203,6 +204,7 @@ public class Data extends LinkedList<POI>{
         POI poi = new POI(userID);
 
         // Get user info from popup window
+
         // method in POI selector that opens a popup window and returns the user input
 
         // something like String building = getUserInfo("Enter building name:");
@@ -220,16 +222,43 @@ public class Data extends LinkedList<POI>{
 
     }
 
-    public static POI removePOI() {
-        // user clicks on the POI they want to delete
-        // get info from click event
-
-        // remove from LinkedList
-
-        // wipe from JSON file
-
-        return null;
-    }
+//    public static POI removePOI(String name, int mapx, int mapy, String filePath) throws IOException {
+//        // user clicks on the POI they want to delete
+//
+//        // get info from click event
+//
+//
+//
+//        // remove from LinkedList
+//        for (POI p :userCreatedPOIs) {
+//
+//            if (p.getName().contains(name)) {
+//                userCreatedPOIs.remove(p);
+//            }
+//        }
+//
+//        // wipe from JSON file
+//        JSONParser parser = new JSONParser();
+//        JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filePath));
+//        jsonObject.get();
+//
+//        // Remove the data from the JSON object
+//        Object removedValue = jsonObject.remove();
+//
+//        if (removedValue == null) {
+//            System.out.println("Key not found: " + name);
+//            return;
+//        }
+//
+//        // Write the updated JSON object back to the original file
+//        FileWriter fileWriter = new FileWriter(filePath);
+//        fileWriter.write(jsonObject.toJSONString());
+//        fileWriter.flush();
+//        fileWriter.close();
+//    }
+//
+//        return null;
+//    }
 
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
