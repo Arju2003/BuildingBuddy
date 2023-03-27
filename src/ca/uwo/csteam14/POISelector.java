@@ -41,8 +41,12 @@ public class POISelector extends JPanel {
             itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             itemList.addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
-                    try {
-                        focus = currentCollection.get(itemList.getSelectedIndex());
+                    try {if (!MapView.mouseClickedOnPOI)
+                            focus = currentCollection.get(itemList.getSelectedIndex());
+                        else {
+                        focus = MapView.currentHighlighted;
+                        MapView.mouseClickedOnPOI = false;
+                    }
                         GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + BuildingBuddy.currentBuildingCode + "_hero.png")));
                         BuildingBuddy.currentFloor = focus.map.replace(".png", "").toUpperCase();
                         BuildingBuddy.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");
