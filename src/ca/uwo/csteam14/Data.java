@@ -235,15 +235,52 @@ public class Data extends LinkedList<POI>{
 
     }
 
-    public static POI removePOI() {
+    public static int removePOI(POI p) throws IOException {
         // user clicks on the POI they want to delete
         // get info from click event
-
-        // remove from LinkedList
-
-        // wipe from JSON file
-
-        return null;
+        LinkedList<POI> newUserCreatedPOIs = new LinkedList<POI>();
+        // In built linked list removal
+        if (userCreatedPOIs.contains(p)) {
+            userCreatedPOIs.remove(p);
+        }
+        else {
+            return 1;
+        }
+        // Write from linked list to json file
+        JSONArray jsonArray = new JSONArray();
+        // Write the empty array to the file
+        try (FileWriter fileWriter = new FileWriter("user.json")) {
+            fileWriter.write(jsonArray.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Create a new json array of json objects that hold objects from the linked list of POIs
+        JSONArray filledJsonArray = new JSONArray();
+        for (POI data : userCreatedPOIs) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("mapX", data.positionX);
+            jsonObject.put("mapY", data.positionY);
+            jsonObject.put("POIName", data.name);
+            jsonObject.put("POIId", data.id);
+            jsonObject.put("map", data.map);
+            jsonObject.put("description", data.description);
+            jsonObject.put("category", data.category);
+            jsonObject.put("buildingCode", data.code);
+            jsonObject.put("floor", data.floor);
+            jsonObject.put("building", data.building);
+            jsonObject.put("built-in", data.isBuiltIn);
+            jsonObject.put("roomNumber", data.roomNumber);
+            filledJsonArray.add(jsonObject);
+        }
+        // Write the Json file
+        try (FileWriter fileWriter = new FileWriter("user.json")) {
+            fileWriter.write(filledJsonArray.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public LinkedList<POI> getBuiltInPOIs() {
