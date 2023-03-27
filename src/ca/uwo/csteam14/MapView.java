@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
 
@@ -18,6 +17,9 @@ public class MapView extends JPanel {
     protected static POI currentHighlighted;
 
     private static  BufferedImage basemap;
+
+    protected static boolean mouseClickedOnPOI = false;
+
 
 
 
@@ -193,6 +195,7 @@ public class MapView extends JPanel {
 
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 if (p != null) {
+                    mouseClickedOnPOI = true;
                     if (currentHighlighted == null) {
                         currentHighlighted = p;
                         highlight(p.positionX,p.positionY,"BIP");
@@ -212,6 +215,7 @@ public class MapView extends JPanel {
 
                 }
                 else {
+                    mouseClickedOnPOI = false;
                     if (BuildingBuddy.devMode && GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(0);
