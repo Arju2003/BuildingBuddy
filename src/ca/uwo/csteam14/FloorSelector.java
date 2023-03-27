@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class FloorSelector {
 
-    protected static MapView currentMap = GUI.getMap();
+    protected static MapView currentMap;
     public FloorSelector() {
         /* make a floor selector and add a button */
         ArrayList<String> floorSet = new ArrayList<>();
@@ -29,7 +29,7 @@ public class FloorSelector {
             case "PAB" -> floorSelector.setSelectedItem(getFloorName(BuildingBuddy.currentFloor_PAB));
         }
 
-        GUI.primary.load(floorSelector, 'L');
+        GUI.canvas.load(floorSelector, 'L');
         floorSelector.addActionListener(e -> {
             // Get the selected item in the dropdown list
             String selectedItem = (String) floorSelector.getSelectedItem();
@@ -40,17 +40,17 @@ public class FloorSelector {
                     switch (BuildingBuddy.currentBuildingCode ) {
                         case "MC" -> {
                             BuildingBuddy.currentFloor_MC = "MC0F";
-                            currentMap = new MapView("./maps/MC0F.png", BuildingBuddy.getOptimumPoint("MC"));
+                            currentMap = new MapView("MC0F.png", BuildingBuddy.getOptimumPoint("MC"));
                             BuildingBuddy.currentFloor = "MC0F";
                         }
                         case "KB" -> {
                             BuildingBuddy.currentFloor_KB = "KB0F";
-                            currentMap = new MapView("./maps/KB0F.png", BuildingBuddy.getOptimumPoint("KB"));
+                            currentMap = new MapView("KB0F.png", BuildingBuddy.getOptimumPoint("KB"));
                             BuildingBuddy.currentFloor = "KB0F";
                         }
                         case "PAB" -> {
                             BuildingBuddy.currentFloor_PAB = "PAB0F";
-                            currentMap = new MapView("./maps/PAB0F.png", BuildingBuddy.getOptimumPoint("PAB"));
+                            currentMap = new MapView("PAB0F.png", BuildingBuddy.getOptimumPoint("PAB"));
                             BuildingBuddy.currentFloor = "PAB0F";
                         }
                     }
@@ -59,17 +59,17 @@ public class FloorSelector {
                     switch (BuildingBuddy.currentBuildingCode ) {
                         case "MC" -> {
                             BuildingBuddy.currentFloor_MC = "MC1F";
-                            currentMap = new MapView("./maps/MC1F.png", BuildingBuddy.getOptimumPoint("MC"));
+                            currentMap = new MapView("MC1F.png", BuildingBuddy.getOptimumPoint("MC"));
                             BuildingBuddy.currentFloor = "MC1F";
                         }
                         case "KB" -> {
                             BuildingBuddy.currentFloor_KB = "KB1F";
-                            currentMap = new MapView("./maps/KB1F.png", BuildingBuddy.getOptimumPoint("KB"));
+                            currentMap = new MapView("KB1F.png", BuildingBuddy.getOptimumPoint("KB"));
                             BuildingBuddy.currentFloor = "KB1F";
                         }
                         case "PAB" -> {
                             BuildingBuddy.currentFloor_PAB = "PAB1F";
-                            currentMap = new MapView("./maps/PAB1F.png", BuildingBuddy.getOptimumPoint("PAB"));
+                            currentMap = new MapView("PAB1F.png", BuildingBuddy.getOptimumPoint("PAB"));
                             BuildingBuddy.currentFloor = "PAB1F";
 
                         }
@@ -79,17 +79,17 @@ public class FloorSelector {
                     switch (BuildingBuddy.currentBuildingCode ) {
                         case "MC" -> {
                             BuildingBuddy.currentFloor_MC = "MC2F";
-                            currentMap = new MapView("./maps/MC2F.png", BuildingBuddy.getOptimumPoint("MC"));
+                            currentMap = new MapView("MC2F.png", BuildingBuddy.getOptimumPoint("MC"));
                             BuildingBuddy.currentFloor = "MC2F";
                         }
                         case "KB" -> {
                             BuildingBuddy.currentFloor_KB = "KB2F";
-                            currentMap = new MapView("./maps/KB2F.png", BuildingBuddy.getOptimumPoint("KB"));
+                            currentMap = new MapView("KB2F.png", BuildingBuddy.getOptimumPoint("KB"));
                             BuildingBuddy.currentFloor = "KB2F";
                         }
                         case "PAB" -> {
                             BuildingBuddy.currentFloor_PAB = "PAB2F";
-                            currentMap = new MapView("./maps/PAB2F.png", BuildingBuddy.getOptimumPoint("PAB"));
+                            currentMap = new MapView("PAB2F.png", BuildingBuddy.getOptimumPoint("PAB"));
                             BuildingBuddy.currentFloor = "PAB2F";
                         }
                     }
@@ -98,17 +98,17 @@ public class FloorSelector {
                     switch (BuildingBuddy.currentBuildingCode ) {
                         case "MC" -> {
                             BuildingBuddy.currentFloor_MC = "MC3F";
-                            currentMap = new MapView("./maps/MC3F.png", BuildingBuddy.getOptimumPoint("MC"));
+                            currentMap = new MapView("MC3F.png", BuildingBuddy.getOptimumPoint("MC"));
                             BuildingBuddy.currentFloor = "MC3F";
                         }
                         case "KB" -> {
                             BuildingBuddy.currentFloor_KB = "KB3F";
-                            currentMap = new MapView("./maps/KB3F.png", BuildingBuddy.getOptimumPoint("KB"));
+                            currentMap = new MapView("KB3F.png", BuildingBuddy.getOptimumPoint("KB"));
                             BuildingBuddy.currentFloor = "KB3F";
                         }
                         case "PAB" -> {
                             BuildingBuddy.currentFloor_PAB = "PAB3F";
-                            currentMap = new MapView("./maps/PAB3F.png", BuildingBuddy.getOptimumPoint("PAB"));
+                            currentMap = new MapView("PAB3F.png", BuildingBuddy.getOptimumPoint("PAB"));
                             BuildingBuddy.currentFloor = "PAB3F";
                         }
                     }
@@ -116,20 +116,19 @@ public class FloorSelector {
                 case "Fourth Floor" -> {
                     if ("MC".equals(BuildingBuddy.currentBuildingCode )) {
                         BuildingBuddy.currentFloor_MC = "MC4F";
-                        currentMap = new MapView("./maps/MC4F.png", BuildingBuddy.getOptimumPoint("MC"));
+                        currentMap = new MapView("MC4F.png", BuildingBuddy.getOptimumPoint("MC"));
                         BuildingBuddy.currentFloor = "MC4F";
                     }
                 }
             }
 
-            GUI.primary.setVisible(false);
-            GUI.primary.replaceWith(currentMap.loadMapViewer(), 'R');
+            GUI.canvas.setVisible(false);
             try {
                 LayerFilter.refreshLayers();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            GUI.primary.setVisible(true);
+            GUI.canvas.setVisible(true);
         });
     }
     public static String getFloorName(String currentFloor) {

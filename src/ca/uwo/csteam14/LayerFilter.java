@@ -12,19 +12,20 @@ import java.util.Collections;
 public class LayerFilter extends JPanel {
 
     private static final JPanel layerSelector = new JPanel();
-
     protected static JPanel checkboxPanel;
-    private static final String[] labelArray = {"Bookmarks", "Classrooms","Labs","CompSci Spots",
+    static final String[] labelArray = {"Bookmarks", "Classrooms","Labs","CompSci Spots",
             "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"};
     private static final String[] iconArray = {"./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"};
 
-    protected static BufferedImage baseMap;
+    protected static BufferedImage baseMapImage;
 
     protected static String currentLayer = "Washrooms";
 
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
 
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
+
+    protected static MapView currentMapView;
 
     //main class
     public LayerFilter() throws IOException {
@@ -53,7 +54,7 @@ public class LayerFilter extends JPanel {
                     currentLayer = checkbox.getText();
                     if (!isExisting(checkbox.getText())) {
                         selectedLayers.add(checkbox.getText());
-                        ArrayList<POI> list = Data.getPOIs(BuildingBuddy.currentFloor, checkbox.getText());
+                        ArrayList<POI> list = Data.getLayerPOIs(BuildingBuddy.currentFloor, checkbox.getText());
                         POIsOnSelectedLayer.addAll(list);
                     }
                     checkbox.setBackground(new Color(209, 204, 255));
@@ -72,7 +73,7 @@ public class LayerFilter extends JPanel {
                         currentLayer = selectedLayers.get(selectedLayers.size()-1);
                         if (isExisting(checkbox.getText())) {
                             selectedLayers.removeAll(Collections.singleton(checkbox.getText()));
-                            ArrayList<POI> list = Data.getPOIs(BuildingBuddy.currentFloor, checkbox.getText());
+                            ArrayList<POI> list = Data.getLayerPOIs(BuildingBuddy.currentFloor, checkbox.getText());
                             POIsOnSelectedLayer.removeAll(list);
                         }
                     }
@@ -104,18 +105,18 @@ public class LayerFilter extends JPanel {
         Border border = BorderFactory.createCompoundBorder(checkboxPanel.getBorder(), padding);
         checkboxPanel.setBorder(border);
         layerSelector.add(checkboxPanel, BorderLayout.CENTER);
-        GUI.primary.load(layerSelector, 'L');
+        GUI.canvas.load(layerSelector, 'L');
 
     }
 
     public static void refreshLayers() throws IOException {
-        baseMap = ImageIO.read(new File("./maps/" + BuildingBuddy.currentFloor + ".png"));
+        baseMapImage = ImageIO.read(new File("./maps/" + BuildingBuddy.currentFloor + ".png"));
         Point center = BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode);
         for (String layerName: selectedLayers) {
             // Load the original images
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
-            BufferedImage layeredMap = baseMap;
-            ArrayList<POI> POIsOnFloorMap = Data.getPOIs(BuildingBuddy.currentFloor, layerName);
+            BufferedImage mapImageWithLayers = baseMapImage;
+            ArrayList<POI> POIsOnFloorMap = Data.getLayerPOIs(BuildingBuddy.currentFloor, layerName);
             // Create a new buffered image for the resized icon
             int newWidth = 48;
             int newHeight = 48;
@@ -127,6 +128,44 @@ public class LayerFilter extends JPanel {
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
             g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
+
+
+            for (POI poi : POIsOnFloorMap) {
+                POIsOnSelectedLayer = new ArrayList<>();
+                POIsOnSelectedLayer.add(poi);
+                g = mapImageWithLayers.createGraphics();
+                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
+                g.dispose();
+                if (currentLayer.contains(poi.category)) {
+                    center.x = poi.positionX;
+                    center.y = poi.positionY;
+                }
+            }
+            currentMapView = new MapView(mapImageWithLayers, center);
+            baseMapImage = mapImageWithLayers;
+        }
+    }
+
+    public static void paintAllIcons() throws IOException {
+        baseMapImage = ImageIO.read(new File("./maps/" + BuildingBuddy.currentFloor + ".png"));
+        Point center = BuildingBuddy.getOptimumPoint(BuildingBuddy.currentBuildingCode);
+        for (String layerName: labelArray) {
+            // Load the original images
+            BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
+            BufferedImage layeredMap = baseMapImage;
+            ArrayList<POI> POIsOnFloorMap = Data.getLayerPOIs(BuildingBuddy.currentFloor, layerName);
+            // Create a new buffered image for the resized icon
+            int newWidth = 48;
+            int newHeight = 48;
+            BufferedImage resizedIcon = new BufferedImage(newWidth, newHeight, iconImage.getType());
+
+            // Scale the icon image to the new size
+            Graphics2D g = resizedIcon.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
+            g.dispose();
+
 
             for (POI poi : POIsOnFloorMap) {
                 POIsOnSelectedLayer = new ArrayList<>();
@@ -140,11 +179,8 @@ public class LayerFilter extends JPanel {
                 }
             }
 
-            MapView layer = new MapView(layeredMap, center);
-            baseMap = layeredMap;
-            GUI.primary.setVisible(false);
-            GUI.primary.replaceWith(layer.loadMapViewer(), 'R');
-            GUI.primary.setVisible(true);
+            currentMapView = new MapView(layeredMap, center);
+            baseMapImage = layeredMap;
         }
     }
 
@@ -165,23 +201,23 @@ public class LayerFilter extends JPanel {
 
     public static String getLayerIcon(String layer) {
         String filepath = "./images/";
-        if (layer.contains("Classrooms"))
+        if (layer.contains("Classroom"))
             filepath += "classroom.png";
-        else if (layer.contains("Bookmarks"))
+        else if (layer.contains("Bookmark"))
             filepath += "bookmark.png";
-        else if (layer.contains("CompSci Spots"))
+        else if (layer.contains("CompSci"))
             filepath += "compsci.png";
-        else if (layer.contains("Restaurants"))
+        else if (layer.contains("Restaurant"))
             filepath += "restaurant.png";
-        else if (layer.contains("Labs"))
+        else if (layer.contains("Lab"))
             filepath += "lab.png";
-        else if (layer.contains("Stairwells"))
+        else if (layer.contains("Stairwell") || layer.contains("Elevator"))
             filepath += "stairwell.png";
-        else if (layer.contains("Entrances"))
+        else if (layer.contains("Entrance") || layer.contains("Exit"))
             filepath += "entrance.png";
-        else if (layer.contains("Locations"))
+        else if (layer.contains("My") || layer.contains("Locations"))
             filepath += "location.png";
-        else if (layer.contains("Washrooms"))
+        else if (layer.contains("Washroom"))
             filepath += "washroom.png";
         else if (layer.contains("Accessibility"))
             filepath += "accessibility.png";

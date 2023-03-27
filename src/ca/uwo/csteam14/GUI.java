@@ -1,16 +1,14 @@
 package ca.uwo.csteam14;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.*;
 
 public class GUI {
     protected static JFrame frame = new JFrame("BuildingBuddy – Ver 1.0 –");
-    private final AppMenu appMenu = new AppMenu();
-    protected static Container primary;
-    protected static JLabel buildingName = new JLabel();
+    protected static Canvas canvas;
 
-    protected static MapView map;
+    protected static MapView mapView;
+
 
     public GUI(String buildingCode) {
         EventQueue.invokeLater(() -> {
@@ -22,33 +20,28 @@ public class GUI {
 
             try {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                AppMenu appMenu = new AppMenu("user");
                 frame.setJMenuBar(appMenu.load());
-                /* A split screen to show map and layer filter on the left side*/
-                /* Show the correct background picture and building name */
+                JLabel buildingName = new JLabel();
                 switch (buildingCode) {
                     case "KB" -> {
-                        primary = new Container("./images/KB_hero.png");
+                        canvas = new Canvas("./images/KB_hero.png");
                         buildingName.setText("Kresge Building (KB)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
-                        primary.load(map.loadMapViewer(), 'R');
-
+                        mapView = new MapView(BuildingBuddy.currentFloor_KB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                     case "MC" -> {
-                        primary = new Container("./images/MC_hero.png");
+                        canvas = new Canvas("./images/MC_hero.png");
                         buildingName.setText("Middlesex College (MC)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
-                        primary.load(map.loadMapViewer(), 'R');
+                        mapView = new MapView(BuildingBuddy.currentFloor_MC+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                     case "PAB" -> {
-                        primary = new Container("./images/PAB_hero.png");
+                        canvas = new Canvas("./images/PAB_hero.png");
                         buildingName.setText("Physics & Astronomy Building (PAB)");
-                        map = new MapView("./maps/"+BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
-                        primary.load(map.loadMapViewer(), 'R');
-
+                        mapView = new MapView(BuildingBuddy.currentFloor_PAB+".png", BuildingBuddy.getOptimumPoint(buildingCode));
                     }
                 }
-
-                buildingName = new JLabel("<html><div style=\"text-align:center;\">" +getBuildingName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
+                frame.setContentPane(canvas);
+                buildingName = new JLabel("<html><div style=\"text-align:center;\">" +BuildingBuddy.getBuildingFullName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
                 // Set the font size and style
                 Font title = new Font("Arial", Font.BOLD, 26);
                 buildingName.setFont(title);
@@ -60,15 +53,11 @@ public class GUI {
                 buildingName.setForeground(foregroundColour);
                 buildingName.setOpaque(true);
                 buildingName.setBackground(background);
-                primary.load(buildingName,'L');
+                canvas.load(buildingName,'L');
 
                 new FloorSelector();
-
-                new LayerFilter();
-
+                new LayerFilter(); // this invokes the MapView object
                 new Search();
-
-                frame.setContentPane(primary);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
@@ -80,21 +69,6 @@ public class GUI {
         });
     }
 
-    public static String getBuildingName(String currentBuilding) {
-        switch (currentBuilding) {
-            case ("MC") -> {
-                return "Middlesex College";
-            }
-            case ("KB") -> {
-                return "Kresge Building";
-            }
-            case ("PAB") -> {
-                return "Physics & Astronomy Building";
-            }
-        }
-        return "";
-    }
-
     public void padding(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
         // Set the preferred size of the JLabel to include the padding
@@ -103,12 +77,4 @@ public class GUI {
         size.height += 5;
         label.setPreferredSize(size);
     }
-
-    public static MapView getMap() {
-        return map;
-    }
-    public static BufferedImage getBufferedMap() {
-        return map.getMapImage();
-    }
-
 }

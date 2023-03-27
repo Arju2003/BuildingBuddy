@@ -8,10 +8,9 @@ public class POI {
     protected String map;
     protected String code;
     protected String floor;
-    protected String roomNum;
+    protected String roomNumber;
     protected String category;
     protected String description;
-    protected String pathName;
     protected int positionX;
     protected int positionY;
     protected boolean isBuiltIn;
@@ -23,12 +22,6 @@ public class POI {
     public int getId() {
         return id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-
     public void setId(int id) {
         this.id = id;
     }
@@ -49,10 +42,9 @@ public class POI {
         this.category = category;
     }
 
-    public void setRoomNum(String roomNum) {
-        this.roomNum = roomNum;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
-    public void setPath(String path) { pathName = path;}
 
     public void setX(int x) {
         this.positionX = x;
@@ -78,7 +70,21 @@ public class POI {
 
     public POI(int id) {
         this.id = id;
+        name = "";
+        building = "";
+        map = "";
+        code = "";
+        floor = "";
+        roomNumber = "";
+        category = "";
+        description = "";
+        positionX = 0;
+        positionY = 0;
+        isBuiltIn = false;
+
         // get data from json file based in ID
+
+
     }
 
 

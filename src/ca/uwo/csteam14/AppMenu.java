@@ -4,14 +4,18 @@ package ca.uwo.csteam14;// Java program  to add a menubar
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+
+import static javax.swing.BoxLayout.Y_AXIS;
 
 public class AppMenu extends JFrame implements ActionListener, KeyListener {
     protected final JMenuBar mb = new JMenuBar(); // create a menubar
 
 
-    public AppMenu() {        // create an object of the class
+    public AppMenu(String mode) {        // create an object of the class
 
         // create menu buttons
         mb.setLayout(new FlowLayout());
@@ -33,6 +37,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         JMenuItem about = new JMenuItem("About");
         JMenuItem exit = new JMenuItem("Exit");
         JMenuItem weather = new JMenuItem("Weather");
+        JMenuItem changeKey = new JMenuItem("Change Security Key");
 
         // add ActionListener to menu buttons and menu items
         start.addActionListener(e -> {
@@ -116,12 +121,8 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                 throw new RuntimeException(ex);
             }
         });
-        bookmarks.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.bookmarksData, "Bookmarks");
-        });
-        myLocations.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.userData, "My Locations");
-        });
+        bookmarks.addActionListener(e -> new GUIForPOIs("BMK", "Bookmarks"));
+        myLocations.addActionListener(e -> new GUIForPOIs("UDP", "My Locations"));
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
@@ -131,7 +132,110 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                     """);
         });
         developerTool.addActionListener(e -> {
-            new GUIForPOIs(BuildingBuddy.builtinData, "Built-In POIs");
+            JDialog devLogin = new JDialog();
+            devLogin.setResizable(false);
+            devLogin.setSize(new Dimension(260,390));
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screenSize.width - devLogin.getWidth()) / 2;
+            int y = (screenSize.height - devLogin.getHeight()) / 2;
+            devLogin.setLocation(x, y); // Set the position of the window to the center of the screen
+
+
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new GridLayout(0,1));
+            JLabel title = new JLabel("Developer Tool");
+            mainPanel.add(title);
+            JLabel prompt = new JLabel("Please enter security key");
+            mainPanel.add(prompt);
+
+            JPasswordField securityKey = new JPasswordField();
+            securityKey.setPreferredSize(new Dimension(260,40));
+            securityKey.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+            securityKey.setVisible(true);
+            securityKey.setEnabled(true);
+            securityKey.setEditable(true);
+            mainPanel.add(securityKey);
+
+            JButton enter = new JButton("Enter");
+            JButton cancel = new JButton("Cancel");
+
+            mainPanel.add(enter);
+            mainPanel.add(cancel);
+
+            enter.addActionListener( e3->{
+                if (Arrays.equals(securityKey.getPassword(), BuildingBuddy.getSecurityKey())) {
+                    new GUIForPOIs("BIP", "Developer Tool");
+                    start.setEnabled(false);
+                    view.setEnabled(false);
+                    myLocations.setEnabled(false);
+                    bookmarks.setEnabled(false);
+                    developerTool.setEnabled(false);
+                    changeKey.addActionListener(e4->{
+                        clearWindows();
+                        JDialog changeKeyDialog = new JDialog();
+                        changeKeyDialog.setResizable(false);
+                        changeKeyDialog.setSize(600,200);
+                        changeKeyDialog.setLocation(x, y); // Set the position of the window to the center of the screen
+                        JPanel mainPanel2 = new JPanel();
+                        mainPanel2.setLayout(new GridLayout(0,1));
+                        JLabel title2 = new JLabel("Change Security Key");
+                        mainPanel2.add(title2);
+                        JLabel newKey1 = new JLabel("Please enter new security key:");
+                        JPasswordField newKeyInput1 = new JPasswordField();
+                        mainPanel2.add(newKey1);
+                        mainPanel2.add(newKeyInput1);
+                        JLabel newKey2 = new JLabel("Please enter new security key again:");
+                        JPasswordField newKeyInput2 = new JPasswordField();
+                        mainPanel2.add(newKey2);
+                        mainPanel2.add(newKeyInput2);
+
+
+                        newKey1.setPreferredSize(new Dimension(260,40));
+                        newKeyInput1.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+
+                        newKey2.setPreferredSize(new Dimension(260,40));
+                        newKeyInput2.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+
+                        newKeyInput1.setEditable(true);
+                        newKeyInput2.setEditable(true);
+
+                        JButton yes = new JButton("Confirm");
+                        yes.addActionListener(e5-> {
+                            if (Arrays.equals(newKeyInput1.getPassword(), newKeyInput2.getPassword())) {
+                                title2.setText("THIS FEATURE IS FOR DEMONSTRATION PURPOSES ONLY");
+                                newKey1.setText("BuildingBuddy Ver 2.0 will support changing your security key.");
+                                newKeyInput1.setEnabled(false);
+                                newKey2.setText("Please press Cancel for now. Thank you:-)");
+                                newKeyInput2.setEnabled(false);
+                            }
+                            else
+                                newKey1.setText("Two inputs did not match. Try again. Enter new security key:");
+                        });
+                        JButton no = new JButton("Cancel");
+                        no.addActionListener(e1 -> changeKeyDialog.dispose());
+
+                        mainPanel2.add(yes);
+                        mainPanel2.add(no);
+                        changeKeyDialog.add(mainPanel2);
+                        changeKeyDialog.setVisible(true);
+                        changeKeyDialog.setLocationRelativeTo(devLogin);
+
+                    });
+                    more.add(changeKey);
+                    BuildingBuddy.devMode = true;
+                    GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                    devLogin.dispose();
+                }
+                else prompt.setText("Incorrect security key. Please retry.");
+            });
+
+            devLogin.add(mainPanel);
+            devLogin.pack();
+            AppMenu.clearWindows();
+            devLogin.setVisible(true);
+            devLogin.setFocusableWindowState(true);
+
+            cancel.addActionListener( e2-> clearWindows());
         });
 
         // add KeyListener to menuItems
@@ -158,7 +262,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
+
 
     }
 

@@ -7,9 +7,9 @@ import java.util.LinkedList;
 
 public class BuildingBuddy {
 
-    protected static LinkedList<POI> userData;
-    protected static LinkedList<POI> builtinData;
-    protected static LinkedList<POI> bookmarksData;
+    protected static boolean devMode;
+
+    private static char[] securityKey = {'C','S','2','2','1','2','B','B'};
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -49,16 +49,40 @@ public class BuildingBuddy {
         return "";
     }
 
+    public static char[] getSecurityKey() {
+        return securityKey;
+    }
+
+    public static String getFloorFullName(String floorMapName) {
+        if (floorMapName.contains("0F")) return "Ground Floor";
+        else if (floorMapName.contains("1F")) return "First Floor";
+        else if (floorMapName.contains("2F")) return "Second Floor";
+        else if (floorMapName.contains("3F")) return "Third Floor";
+        else if (floorMapName.contains("4F")) return "Fourth Floor";
+        return "Unknown";
+    }
+
+    public static String getBuildingFullName(String floorMapName) {
+        if (floorMapName.contains("MC")) return "Middlesex College";
+        else if (floorMapName.contains("KB")) return "Kresge Building";
+        else if (floorMapName.contains("PAB")) return "Physics & Astronomy Building";
+        return "Unknown";
+    }
+
+    public static void setSecurityKey(char[] newKey) {
+        securityKey = newKey;
+    }
+
+
     public static void main(String[] args) throws IOException {
+        devMode = false;
         new Data();
-        userData = Data.userCreatedPOIs;
-        builtinData = Data.builtInPOIs;
-        bookmarksData = Data.bookmarks;
-        currentBuildingCode = "MC";
-        currentFloor_MC = "MC0F";
-        currentFloor_KB = "KB0F";
-        currentFloor_PAB = "PAB0F";
-        currentFloor = currentFloor_MC;
+        if (currentFloor_MC == null) currentFloor_MC = "MC0F";
+        if (currentFloor_KB == null) currentFloor_KB = "KB0F";
+        if (currentFloor_PAB == null) currentFloor_PAB = "PAB0F";
+        if (currentFloor == null) currentFloor = currentFloor_MC;
+        if (currentBuildingCode == null) currentBuildingCode = "MC";
+
         centerRenderer = new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -70,4 +94,5 @@ public class BuildingBuddy {
 
         new Splash("./images/"+currentBuildingCode+"_hero.png").build();
     }
+
 }

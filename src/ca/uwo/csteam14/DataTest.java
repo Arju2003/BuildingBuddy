@@ -1,10 +1,8 @@
-package tests;
+package ca.uwo.csteam14;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DataTest {
 
@@ -16,8 +14,19 @@ class DataTest {
     void tearDown() {
     }
 
+    @AfterEach
+    void getLinkedListOfPOIs() {
+    }
+    @AfterEach
+    void addPOI() {
+    }
+
+    @AfterEach
+    void removePOI() {
+    }
+
     @Test
-    void getCategory() {
+    void getBuiltInPOIs() {
     }
 
     @Test
@@ -26,6 +35,11 @@ class DataTest {
 
     @Test
     void getBookmarks() {
+    }
+
+    @Test
+    void getPOI() {
+
     }
 
     @Test

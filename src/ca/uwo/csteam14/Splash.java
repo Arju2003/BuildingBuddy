@@ -14,7 +14,7 @@ public class Splash extends JPanel {
 
     public Splash(String backgroundImg) throws IOException{
         GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        AppMenu appMenu = new AppMenu();
+        AppMenu appMenu = new AppMenu("user");
         GUI.frame.setJMenuBar(appMenu.load());
         this.setBackground(ImageIO.read(new File(backgroundImg)));
         centerEverything();
@@ -233,8 +233,8 @@ public class Splash extends JPanel {
     public void build() throws IOException {
         ImageIcon icon = new ImageIcon("./images/BB_icon.png");
         Image image = icon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
-        icon = new ImageIcon(newimg);  // transform it back
+        Image newImg = image.getScaledInstance(300, 300,  Image.SCALE_SMOOTH); // scale it the smooth way
+        icon = new ImageIcon(newImg);  // transform it back
         JLabel logo = new JLabel();
         logo.setIcon(icon);
         this.load(logo);
@@ -317,12 +317,10 @@ public class Splash extends JPanel {
                 }
             }
         });
-        this.load(exploreButton);
+        load(exploreButton);
         GUI.frame.setContentPane(this);
         GUI.frame.pack();
         GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
         GUI.frame.setVisible(true);
-
-
     }
 }
