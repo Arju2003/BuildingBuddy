@@ -1,14 +1,14 @@
 package ca.uwo.csteam14;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 public class Data extends LinkedList<POI>{
@@ -46,7 +46,7 @@ public class Data extends LinkedList<POI>{
             String roomNumber;
             String category;
             String description;
-            String mapFileName;
+            String mapFile;
             long x;
             int mapX;
             long y;
@@ -66,7 +66,7 @@ public class Data extends LinkedList<POI>{
                 roomNumber = String.valueOf(roomNum);
                 category = (String)point.get("category");
                 description = (String)point.get("description");
-                mapFileName = (String)point.get("map");
+                mapFile = (String)point.get("map");
                 x = (Long)point.get("mapX");
                 mapX = (int)x;
                 y = (Long)point.get("mapY");
@@ -74,22 +74,22 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
-                newPoint.setMap(mapFileName);
+                newPoint.setMap(mapFile);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNumber(roomNumber);
+                newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
-                    case "Ground Floor" -> newPoint.setMap(buildingCode + "0F.png");
-                    case "First Floor" -> newPoint.setMap(buildingCode + "1F.png");
-                    case "Second Floor" -> newPoint.setMap(buildingCode + "2F.png");
-                    case "Third Floor" -> newPoint.setMap(buildingCode + "3F.png");
-                    case "Fourth Floor" -> newPoint.setMap(buildingCode + "4F.png");
+                    case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
+                    case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
+                    case "Second Floor" -> newPoint.setPath("./maps/" + buildingCode + "2F.png");
+                    case "Third Floor" -> newPoint.setPath("./maps/" + buildingCode + "3F.png");
+                    default -> newPoint.setPath("./maps/" + buildingCode + "4F.png");
                 }
             }
 
@@ -106,7 +106,7 @@ public class Data extends LinkedList<POI>{
                 roomNumber = String.valueOf(roomNum);
                 category = (String)point.get("category");
                 description = (String)point.get("description");
-                mapFileName = (String)point.get("map");
+                mapFile = (String)point.get("map");
                 x = (Long)point.get("mapX");
                 mapX = (int)x;
                 y = (Long)point.get("mapY");
@@ -114,22 +114,22 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
-                newPoint.setMap(mapFileName);
+                newPoint.setMap(mapFile);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNumber(roomNumber);
+                newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
-                    case "Ground Floor" -> newPoint.setMap(buildingCode + "0F.png");
-                    case "First Floor" -> newPoint.setMap(buildingCode + "1F.png");
-                    case "Second Floor" -> newPoint.setMap(buildingCode + "2F.png");
-                    case "Third Floor" -> newPoint.setMap(buildingCode + "3F.png");
-                    case "Fourth Floor" -> newPoint.setMap(buildingCode + "4F.png");
+                    case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
+                    case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
+                    case "Second Floor" -> newPoint.setPath("./maps/" + buildingCode + "2F.png");
+                    case "Third Floor" -> newPoint.setPath("./maps/" + buildingCode + "3F.png");
+                    default -> newPoint.setPath("./maps/" + buildingCode + "4F.png");
                 }
             }
             for(var8 = POIArray3.iterator(); var8.hasNext(); bookmarks.add(newPoint)) {
@@ -145,7 +145,7 @@ public class Data extends LinkedList<POI>{
                 roomNumber = String.valueOf(roomNum);
                 category = (String)point.get("category");
                 description = (String)point.get("description");
-                mapFileName = (String)point.get("map");
+                mapFile = (String)point.get("map");
                 x = (Long)point.get("mapX");
                 mapX = (int)x;
                 y = (Long)point.get("mapY");
@@ -153,22 +153,22 @@ public class Data extends LinkedList<POI>{
                 builtIn = (Boolean)point.get("built-in");
                 newPoint = new POI(id);
                 newPoint.setCategory(category);
-                newPoint.setMap(mapFileName);
+                newPoint.setMap(mapFile);
                 newPoint.setX(mapX);
                 newPoint.setY(mapY);
                 newPoint.setName(name);
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNumber(roomNumber);
+                newPoint.setRoomNum(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
-                    case "Ground Floor" -> newPoint.setMap(buildingCode + "0F.png");
-                    case "First Floor" -> newPoint.setMap(buildingCode + "1F.png");
-                    case "Second Floor" -> newPoint.setMap(buildingCode + "2F.png");
-                    case "Third Floor" -> newPoint.setMap(buildingCode + "3F.png");
-                    case "Fourth Floor" -> newPoint.setMap(buildingCode + "4F.png");
+                    case "Ground Floor" -> newPoint.setPath("./maps/" + buildingCode + "0F.png");
+                    case "First Floor" -> newPoint.setPath("./maps/" + buildingCode + "1F.png");
+                    case "Second Floor" -> newPoint.setPath("./maps/" + buildingCode + "2F.png");
+                    case "Third Floor" -> newPoint.setPath("./maps/" + buildingCode + "3F.png");
+                    default -> newPoint.setPath("./maps/" + buildingCode + "4F.png");
                 }
             }
         } catch (Exception var30) {
@@ -180,7 +180,7 @@ public class Data extends LinkedList<POI>{
         return new LinkedList<>(data);
     }
 
-    public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
+    public static ArrayList<POI> getPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
             if (LayerFilter.selectedLayers.contains(layerName)) {
@@ -192,12 +192,6 @@ public class Data extends LinkedList<POI>{
                     result.add(p);
             }
     }
-        for (POI p : userCreatedPOIs) {
-            if (LayerFilter.selectedLayers.contains("My Locations") && p.map.contains(currentFloor)) {
-                    result.add(p);
-            }
-        }
-
         return result;
     }
 
@@ -209,6 +203,7 @@ public class Data extends LinkedList<POI>{
         POI poi = new POI(userID);
 
         // Get user info from popup window
+
         // method in POI selector that opens a popup window and returns the user input
 
         // something like String building = getUserInfo("Enter building name:");
@@ -223,32 +218,69 @@ public class Data extends LinkedList<POI>{
         userCreatedPOIs.add(poi);
 
         // write to user.json
-        JSONObject obj = new JSONObject();
-        obj.put("POIId", userID);
-        // etc..... other attributes
 
-        try (FileWriter file = new FileWriter("user.json")) {
-            file.write(obj.toJSONString());
+    }
+
+    public static int removePOI(POI p) throws IOException {
+        // user clicks on the POI they want to delete
+
+        // get info from click event
+
+        LinkedList<POI> newUserCreatedPOIs = new LinkedList<POI>();
+
+        // In built linked list removal
+        if (userCreatedPOIs.contains(p)) {
+            userCreatedPOIs.remove(p);
+        }
+
+        else {
+            return 1;
+        }
+
+        // Write from linked list to json file
+        JSONArray jsonArray = new JSONArray();
+
+        // Write the empty array to the file
+        try (FileWriter fileWriter = new FileWriter("user.json")) {
+            fileWriter.write(jsonArray.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Create a new json array of json objects that hold objects from the linked list of POIs
+        JSONArray filledJsonArray = new JSONArray();
+        for (POI data : userCreatedPOIs) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("mapx", data.positionX);
+            jsonObject.put("mapy", data.positionY);
+            jsonObject.put("POIName", data.name);
+            jsonObject.put("POIId", data.id);
+            jsonObject.put("map", data.map);
+            jsonObject.put("description", data.description);
+            jsonObject.put("category", data.category);
+            jsonObject.put("buildingCode", data.code);
+            jsonObject.put("floor", data.floor);
+            jsonObject.put("building", data.building);
+            jsonObject.put("built-in", data.isBuiltIn);
+            jsonObject.put("roomNumber", data.roomNum);
+
+            filledJsonArray.add(jsonObject);
+        }
+
+        // Write the Json file
+
+        try (FileWriter fileWriter = new FileWriter("user.json")) {
+            fileWriter.write(filledJsonArray.toJSONString());
+            fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return 0;
+
     }
 
-    public static POI removePOI() {
-        // user clicks on the POI they want to delete
-        // get info from click event
 
-        // remove from LinkedList
-
-        // wipe from JSON file
-
-        return null;
-    }
-
-    public LinkedList<POI> getBuiltInPOIs() {
-        return builtInPOIs;
-    }
 
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
@@ -272,20 +304,10 @@ public class Data extends LinkedList<POI>{
             return null;
     }
 
-    public static boolean containsPOI(LinkedList<POI> list, POI poi) {
-        for (POI p: list) {
-            if (p.id == poi.id)
-                return true;
-        }
-        return false;
-    }
-
 
 
     public static void main(String[] args) {
         Data x = new Data();
         System.out.println("Hello");
-
-        addPOI("test", 12, 15);
     }
 }
