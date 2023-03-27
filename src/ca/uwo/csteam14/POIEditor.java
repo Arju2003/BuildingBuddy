@@ -18,7 +18,7 @@ public class POIEditor extends JDialog {
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
         dialog.setTitle(poi.name);
         dialog.setResizable(false);
-        dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setModalityType(ModalityType.MODELESS);
 
         // Create a new JTextPane
         setLayout(null);
@@ -255,8 +255,11 @@ public class POIEditor extends JDialog {
         closeButton.addActionListener(e -> {
             dialog.dispose();
             if (MapView.currentHighlighted != null) {
-                if (GUIForPOIs.mapView != null) {
+                if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
                     GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                }
+                else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
+                    GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
                 }
             }
         });
@@ -281,6 +284,9 @@ public class POIEditor extends JDialog {
                 if (MapView.currentHighlighted != null) {
                     if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
                         GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                    }
+                    else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
+                        GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
                     }
                 }
             }
