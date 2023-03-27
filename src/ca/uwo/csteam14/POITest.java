@@ -126,4 +126,13 @@ class POITest {
         boolean expResult = true;
         assertEquals(expResult, instance.isBuiltIn);
     }
+
+    @Test
+    void setPath() {
+        System.out.println("setPath()");
+        POI instance = new POI(8103);
+        instance.setPath("./maps/PAB0F");
+        String expResult = "./maps/PAB0F";
+        assertEquals(expResult, instance.path);
+    }
 }
