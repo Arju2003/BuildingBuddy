@@ -14,6 +14,7 @@ public class POI {
     protected int positionX;
     protected int positionY;
     protected boolean isBuiltIn;
+    protected String path;
 
     // node construction
     protected POI next;
@@ -60,6 +61,9 @@ public class POI {
 
     public void setBuiltIn(boolean builtIn) {
         this.isBuiltIn = builtIn;
+    }
+    public void setPath(String path) {
+        this.path = path;
     }
     public void setNext(POI next) {
         this.next = next;

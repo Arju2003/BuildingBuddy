@@ -2,6 +2,7 @@ package ca.uwo.csteam14;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -81,7 +82,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -121,7 +122,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -160,7 +161,7 @@ public class Data extends LinkedList<POI>{
                 newPoint.setBuilding(building);
                 newPoint.setCode(buildingCode);
                 newPoint.setFloor(floor);
-                newPoint.setRoomNum(roomNumber);
+                newPoint.setRoomNumber(roomNumber);
                 newPoint.setDescription(description);
                 newPoint.setBuiltIn(builtIn);
                 switch (floor) {
@@ -262,7 +263,7 @@ public class Data extends LinkedList<POI>{
             jsonObject.put("floor", data.floor);
             jsonObject.put("building", data.building);
             jsonObject.put("built-in", data.isBuiltIn);
-            jsonObject.put("roomNumber", data.roomNum);
+            jsonObject.put("roomNumber", data.roomNumber);
 
             filledJsonArray.add(jsonObject);
         }
