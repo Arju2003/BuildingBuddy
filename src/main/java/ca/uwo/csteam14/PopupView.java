@@ -1,10 +1,8 @@
 package ca.uwo.csteam14;
-
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Objects;
+
 
 public class PopupView extends JDialog {
     // Create a new JDialog with the desired title
@@ -39,11 +37,7 @@ public class PopupView extends JDialog {
 
         // Create a JButton to close the dialog
         JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-            }
-        });
+        closeButton.addActionListener(e -> dialog.dispose());
         dialog.add(closeButton, BorderLayout.SOUTH);
 
         // Pack the JDialog

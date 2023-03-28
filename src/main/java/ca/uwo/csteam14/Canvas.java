@@ -254,12 +254,6 @@ public class Canvas extends JPanel {
         panel.repaint(); // Repaint the panel after removing components
     }
 
-    public void removeAll(char position) {
-        switch (position) {
-            case 'L' -> leftPanel.removeAll();
-            case 'R' -> rightPanel.removeAll();
-        }
-    }
 
     public void load(JComponent comp, char position) {
         if (position == 'L') {
@@ -270,10 +264,4 @@ public class Canvas extends JPanel {
         }
     }
 
-    public void repaint(char position) {
-        switch (position) {
-            case 'L' -> leftPanel.repaint();
-            case 'R' -> rightPanel.repaint();
-        }
-    }
 }
