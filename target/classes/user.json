@@ -1,0 +1,32 @@
+{
+  "UserPOIs": [
+    {
+      "POIId": 40000,
+      "POIName": "KB 103",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 0,
+      "category": "My Locations",
+      "description": "Not Listed in the Western Classroom Directory",
+      "map": "KB1F.png",
+      "mapX": 2850,
+      "mapY": 900,
+      "built-in": false
+    },
+    {
+      "POIId": 40001,
+      "POIName": "Lovely Space",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 0,
+      "category": "My Locations",
+      "description": "Listed in the Western Classroom Directory",
+      "map": "KB1F.png",
+      "mapX": 2900,
+      "mapY": 950,
+      "built-in": false
+    }
+  ]
+}
