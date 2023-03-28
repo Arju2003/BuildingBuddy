@@ -1,3 +1,9 @@
+/**
+ * @author Jason, Bobby, Josh, Arjuna, Daniel
+ * Data Class
+ * Manipulate JSON data for POIs, store persistent data, etc.
+ */
+
 package ca.uwo.csteam14;
 
 import java.io.FileNotFoundException;
@@ -18,6 +24,10 @@ public class Data extends LinkedList<POI>{
     protected static LinkedList<POI> userCreatedPOIs;
     protected static LinkedList<POI> bookmarks;
 
+    /**
+     * Data Class Constructor
+     * Initialize all POIs in JSON files
+     */
     public Data() {
         JSONParser parser = new JSONParser();
         builtInPOIs = new LinkedList<>();
@@ -178,10 +188,19 @@ public class Data extends LinkedList<POI>{
         }
     }
 
+    /**
+     * @param data POI stored in array list
+     * @return Created Linked List storing all POIs in the given array list
+     */
     public LinkedList<POI> getLinkedListOfPOIs(ArrayList<POI> data) {
         return new LinkedList<>(data);
     }
 
+    /**
+     * @param currentFloor floor where layer is located
+     * @param layerName name of layer being returned
+     * @return array list of POIs stored in layer
+     */
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
@@ -203,6 +222,11 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
+    /**
+     * @param name desired name of POI
+     * @param mapx x coordinate of POI, grabbed from map
+     * @param mapy y coordinate of POI, grabbed from map
+     */
     public static void addPOI(String name, int mapx, int mapy) {
         // generate POI ID, add 4 prefix then attach next ID according to our protocol
         int userID = (4 * 10000 ) + userCreatedPOIs.getLast().getId() + 1;
@@ -238,6 +262,11 @@ public class Data extends LinkedList<POI>{
 
     }
 
+    /**
+     * @param p POI to be removed
+     * @return
+     * @throws IOException
+     */
     public static int removePOI(POI p) throws IOException {
         // user clicks on the POI they want to delete
 
@@ -292,18 +321,33 @@ public class Data extends LinkedList<POI>{
         return 0;
     }
 
+    /**
+     * @return builtInPOIs linked list, all built in POIs
+     */
     public LinkedList<POI> getBuiltInPOIs() {
         return builtInPOIs;
     }
 
+    /**
+     * @return userCreatedPOIs linked list, all user created POIs
+     */
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
     }
 
+    /** bookmarks linked list, all bookmarked POIs
+     * @return
+     */
     public LinkedList<POI> getBookmarks() {
         return bookmarks;
     }
 
+    /**
+     * @param currentFloor floor of POI
+     * @param x x coordinate of POI
+     * @param y y coordinate of POI
+     * @return the POI user is trying to get, null if POI does not exist
+     */
     public POI getPOI (String currentFloor,int x, int y){
         for (POI p : builtInPOIs) {
             if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
@@ -318,6 +362,9 @@ public class Data extends LinkedList<POI>{
         return null;
     }
 
+    /**
+     * @param p POI to be added as a bookmark
+     */
     public static void addBookmark(POI p) {
 
         // Add the POI to the list of user-created POIs
@@ -380,7 +427,9 @@ public class Data extends LinkedList<POI>{
     }
 
 
-
+    /**
+     * @param p
+     */
     public static void addPOI(POI p) {
 
         // Add the POI to the list of user-created POIs
@@ -415,6 +464,11 @@ public class Data extends LinkedList<POI>{
 
     }
 
+    /**
+     * @param list list to be checked for POI's existence
+     * @param poi the actual POI
+     * @return true if inside list, false otherwise
+     */
     public static boolean containsPOI(LinkedList<POI> list, POI poi) {
         for (POI p: list) {
             if (p.id == poi.id)
