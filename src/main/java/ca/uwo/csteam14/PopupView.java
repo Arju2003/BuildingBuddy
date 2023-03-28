@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * PopupView Class
+ * Handles popups in application
+ */
+
 package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -8,6 +14,10 @@ public class PopupView extends JDialog {
     // Create a new JDialog with the desired title
     JDialog dialog = new JDialog();
 
+    /**
+     * @param title
+     * @param content
+     */
     public PopupView(String title, String content) {
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
         dialog.setTitle(title);
