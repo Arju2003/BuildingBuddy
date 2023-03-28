@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * POIEditor Class
+ * Edit POI appearance in application
+ */
+
 package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -12,7 +18,9 @@ public class POIEditor extends JDialog {
     protected static boolean isSaved = false;
 
 
-
+    /**
+     * @param poi 
+     */
     public POIEditor(POI poi) {
         AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
