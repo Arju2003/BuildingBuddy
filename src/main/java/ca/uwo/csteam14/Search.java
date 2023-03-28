@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * Search Class
+ * Search for POIs in application, display results
+ */
+
 package ca.uwo.csteam14;
 
 import javax.swing.*;
@@ -10,6 +16,9 @@ public class Search {
     protected static String userInput;
     protected static POI firstResult;
 
+    /**
+     *
+     */
     public Search() {
         JPanel searchTool = new JPanel();
         JTextField input = new JTextField("Search anything ...");
@@ -56,6 +65,10 @@ public class Search {
         else System.out.println(GUI.frame.getContentPane());
     }
 
+    /**
+     * @param userInput 
+     * @return
+     */
     public static LinkedList<POI> searchResults(String userInput) {
 
         Search.userInput = userInput;
