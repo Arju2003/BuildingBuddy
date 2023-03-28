@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * WeatherInfo Class
+ * Connect weather API to application
+ */
+
 package ca.uwo.csteam14;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -11,6 +17,9 @@ import org.json.JSONObject;
 
 public class WeatherInfo {
 
+    /**
+     * @throws IOException
+     */
     public WeatherInfo() throws IOException {
         JWindow window = new JWindow();
         window.setSize(480, 48);
