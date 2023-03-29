@@ -21,6 +21,8 @@ public class Main {
     protected static String currentFloor_KB;
     protected static String currentFloor_PAB;
     protected static String version = "You're running the latest version (Ver 1.0) of BuildingBuddy!";
+    protected static POI fallbackPOI = new POI(-1);
+
 
     public static ListCellRenderer<? super String> centerRenderer;
 
@@ -109,6 +111,19 @@ public class Main {
         if (currentFloor_PAB == null) currentFloor_PAB = "PAB0F";
         if (currentFloor == null) currentFloor = currentFloor_MC;
         if (currentBuildingCode == null) currentBuildingCode = "MC";
+
+        fallbackPOI.id=719;
+        fallbackPOI.name = "Grad Club";
+        fallbackPOI.building = "Middlesex College";
+        fallbackPOI.code = "MC";
+        fallbackPOI.floor = "Ground Floor";
+        fallbackPOI.roomNumber = 19;
+        fallbackPOI.category = "Restaurant";
+        fallbackPOI.description = "The Grad Club is a non-profit graduate student pub & eatery.";
+        fallbackPOI.map = "MC0F.png";
+        fallbackPOI.positionX = 1717;
+        fallbackPOI.positionY = 628;
+        fallbackPOI.isBuiltIn = true;
 
         centerRenderer = new DefaultListCellRenderer() {
             @Override

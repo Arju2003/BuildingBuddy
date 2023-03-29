@@ -14,13 +14,17 @@ public class GUIForPOIs {
     protected static Canvas secondary;
     protected static JLabel title = new JLabel();
 
+    protected static String POIsGroup;
+
+    protected static String POIType;
+
     protected static MapView mapView;
 
     /**
      * @param POIsGroup
-     * @param POIType
      */
-    public GUIForPOIs(String POIsGroup, String POIType) {
+
+    public GUIForPOIs(String POIsGroup)  {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -29,19 +33,39 @@ public class GUIForPOIs {
                 throw new RuntimeException(ex);
             }
             POI poi = null;
-            switch (POIType) {
-                case "Bookmarks" -> poi = Data.bookmarks.getFirst();
-                case "My Locations" -> poi = Data.userCreatedPOIs.getFirst();
-                case "Developer Tool" -> poi = Data.builtInPOIs.getFirst();
-                case "Search & Discovery" -> poi = Search.firstResult;
+
+            switch (POIsGroup) {
+                case "BMK" -> {
+                    GUIForPOIs.POIType = "Bookmarks";
+                    if (Data.bookmarks.size() > 0)
+                        poi = Data.bookmarks.getFirst();
+                }
+                case "BIP" -> {
+                    GUIForPOIs.POIType = "Developer Tool";
+                    if (Data.builtInPOIs.size() > 0)
+                        poi = Data.builtInPOIs.getFirst();
+                }
+                case "UDP" -> {
+                    GUIForPOIs.POIType = "My Locations";
+                    if (Data.userCreatedPOIs.size() > 0)
+                        poi = Data.userCreatedPOIs.getFirst();
+                }
+                case "SRC" -> {
+                    GUIForPOIs.POIType = "Search & Discovery";
+                    poi = Search.firstResult;
+                }
             }
 
             try {
-                if (poi == null) poi = Data.builtInPOIs.getFirst();
-                secondary = new Canvas("./images/" + poi.map.replaceAll("\\dF.png", "") + "_hero.png");
+                if (poi == null && Data.builtInPOIs.size() > 0) poi = Data.builtInPOIs.getFirst();
+                if (poi == null && Data.builtInPOIs.size() == 0) poi = Main.fallbackPOI;
+                assert poi != null;
+                Main.currentBuildingCode = poi.code;
+                Main.currentFloor = poi.map.replaceAll(".png", "");
+                secondary = new Canvas("./images/" + Main.currentBuildingCode + "_hero.png");
                 mapView = new MapView(poi.map, new Point(poi.positionX, poi.positionY));
                 title = new JLabel("<html><div style=\"text-align:center;\">" +
-                        POIType + "<br /></div></html>");
+                        GUIForPOIs.POIType + "<br /></div></html>");
                 // Set the font size and style
                 title.setFont(new Font("Arial", Font.BOLD, 26));
                 // Set the foreground color
@@ -54,14 +78,11 @@ public class GUIForPOIs {
                 secondary.load(title, 'L');
                 GUI.frame.setContentPane(secondary);
                 new POISelector(POIsGroup);
+                GUIForPOIs.POIsGroup = POIsGroup;
                 new Search();
-                Main.currentBuildingCode = poi.code;
-                Main.currentFloor = poi.map.replaceAll(".png", "");
                 LayerFilter.paintAllIcons();
                 GUI.frame.pack();
                 GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
-
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

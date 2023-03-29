@@ -14,14 +14,16 @@ import java.util.LinkedList;
 public class Search {
 
     protected static String userInput;
-    protected static POI firstResult;
+    protected static POI firstResult = null;
+
+    private static final String defaultText = "Search anything ...";
 
     /**
      *
      */
     public Search() {
         JPanel searchTool = new JPanel();
-        JTextField input = new JTextField("Search anything ...");
+        JTextField input = new JTextField(defaultText);
         input.setPreferredSize(new Dimension(260,40));
 
         JButton goButton = new JButton("Go");
@@ -31,7 +33,7 @@ public class Search {
                 userInput = input.getText();
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
-                    new GUIForPOIs("SRC", "Search & Discovery");
+                    new GUIForPOIs("SRC");
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
@@ -75,7 +77,7 @@ public class Search {
 
         ArrayList<POI> results = new ArrayList<>();
 
-        if (userInput == null) {
+        if (userInput == null || userInput.equals(defaultText)) {
             results.addAll(Data.builtInPOIs);
             if (!Main.devMode)
                 results.addAll(Data.userCreatedPOIs);

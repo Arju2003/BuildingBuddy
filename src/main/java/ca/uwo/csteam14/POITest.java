@@ -85,7 +85,7 @@ class POITest {
     void setRoomNum() {
         System.out.println("setRoomNum()");
         POI instance = new POI(8103);
-        instance.setRoomNumber("10");
+        instance.setRoomNumber(10);
         String expResult = "10";
         assertEquals(expResult, instance.roomNumber);
     }
