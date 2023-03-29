@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * Canvas Class
+ * Create the vanvas to display images, POIs, etc.
+ */
+
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +20,10 @@ public class Canvas extends JPanel {
     protected GridBagConstraints everythingCentered;
 
 
+    /**
+     * @param backgroundImg
+     * @throws IOException
+     */
     public Canvas(String backgroundImg) throws IOException {
         this.setBackground(ImageIO.read(new File(backgroundImg)));
             this.setLayout(new GridLayout(1,2));
@@ -28,11 +38,17 @@ public class Canvas extends JPanel {
             rightPanel.setLayout(new GridLayout());
     }
 
+    /**
+     * @return
+     */
     @Override
     public Dimension getPreferredSize() {
         return img == null ? super.getPreferredSize() : new Dimension(img.getWidth(), img.getHeight());
     }
 
+    /**
+     * @param value
+     */
     public void setBackground(BufferedImage value) {
         if (value != img) {
             this.img = value;
@@ -40,6 +56,9 @@ public class Canvas extends JPanel {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void invalidate() {
         super.invalidate();
@@ -50,6 +69,9 @@ public class Canvas extends JPanel {
         }
     }
 
+    /**
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -61,7 +83,11 @@ public class Canvas extends JPanel {
     }
 
 
-
+    /**
+     * @param img
+     * @param size
+     * @return
+     */
     public static BufferedImage getScaledInstanceToFill(BufferedImage img, Dimension size) {
 
         double scaleFactor = getScaleFactorToFill(img, size);
@@ -70,6 +96,11 @@ public class Canvas extends JPanel {
 
     }
 
+    /**
+     * @param img
+     * @param size
+     * @return
+     */
     public static double getScaleFactorToFill(BufferedImage img, Dimension size) {
 
         double dScale = 1;
@@ -90,18 +121,35 @@ public class Canvas extends JPanel {
 
     }
 
+    /**
+     * @param iMasterSize
+     * @param iTargetSize
+     * @return
+     */
     public static double getScaleFactor(int iMasterSize, int iTargetSize) {
 
         return (double) iTargetSize / (double) iMasterSize;
 
     }
 
+    /**
+     * @param img
+     * @param dScaleFactor
+     * @return
+     */
     public static BufferedImage getScaledInstance(BufferedImage img, double dScaleFactor) {
 
         return getScaledInstance(img, dScaleFactor, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
 
     }
 
+    /**
+     * @param img
+     * @param dScaleFactor
+     * @param hint
+     * @param bHighQuality
+     * @return
+     */
     protected static BufferedImage getScaledInstance(BufferedImage img, double dScaleFactor, Object hint, boolean bHighQuality) {
 
         BufferedImage imgScale;
@@ -124,6 +172,14 @@ public class Canvas extends JPanel {
 
     }
 
+    /**
+     * @param img
+     * @param targetWidth
+     * @param targetHeight
+     * @param hint
+     * @param higherQuality
+     * @return
+     */
     protected static BufferedImage getScaledDownInstance(BufferedImage img,
                                                          int targetWidth,
                                                          int targetHeight,
@@ -178,6 +234,14 @@ public class Canvas extends JPanel {
         return ret;
     }
 
+    /**
+     * @param img
+     * @param targetWidth
+     * @param targetHeight
+     * @param hint
+     * @param higherQuality
+     * @return
+     */
     protected static BufferedImage getScaledUpInstance(BufferedImage img,
                                                        int targetWidth,
                                                        int targetHeight,
@@ -228,12 +292,19 @@ public class Canvas extends JPanel {
         return ret;
     }
 
+    /**
+     *
+     */
     private void centerEverything() {
         everythingCentered = new GridBagConstraints();
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
         everythingCentered.insets = new Insets(0, 0, 30, 0);
     }
 
+    /**
+     * @param comp
+     * @param position
+     */
     public void replaceWith(JComponent comp, char position) {
         JPanel panel = rightPanel;
         if (position == 'L') {
@@ -243,6 +314,10 @@ public class Canvas extends JPanel {
         panel.add(comp, everythingCentered);
     }
 
+    /**
+     * @param comp
+     * @param panel
+     */
     private void removeComponent(JComponent comp, JPanel panel) {
         Component[] components = panel.getComponents();
         for (Component component : components) {
@@ -255,6 +330,10 @@ public class Canvas extends JPanel {
     }
 
 
+    /**
+     * @param comp
+     * @param position
+     */
     public void load(JComponent comp, char position) {
         if (position == 'L') {
             leftPanel.add(comp, everythingCentered);

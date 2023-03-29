@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * AppMenu Class
+ * Display About and Help Screens
+ */
+
 package ca.uwo.csteam14;// Java program  to add a menubar
 // and add menu items, submenu items and also add
 // ActionListener and KeyListener to menu items
@@ -11,6 +17,9 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
     protected final JMenuBar mb = new JMenuBar(); // create a menubar
 
 
+    /**
+     *
+     */
     public AppMenu() {        // create an object of the class
 
         // create menu buttons
@@ -257,30 +266,48 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(exit);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e) {
 
 
     }
 
+    /**
+     * @return
+     */
     public JMenuBar load() {
         return mb;
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
 
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 
     }
 
+    /**
+     *
+     */
     public static void clearWindows() {
         Window[] windows = Window.getWindows();
         for (Window window : windows) {

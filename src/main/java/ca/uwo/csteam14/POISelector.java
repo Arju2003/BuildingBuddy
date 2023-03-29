@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * POISelector Class
+ * Select POIs in application in order to interact with them, grab attributes, etc.
+ */
+
 package ca.uwo.csteam14;
 
 import javax.imageio.ImageIO;
@@ -15,6 +21,9 @@ public class POISelector extends JPanel {
 
     protected static POI focus;
 
+    /**
+     * @param POIsGroup
+     */
     public POISelector(String POIsGroup) {
         switch (POIsGroup) {
             case "UDP" -> currentCollection = Data.userCreatedPOIs;
@@ -70,6 +79,14 @@ public class POISelector extends JPanel {
 
 
     public static class CustomListCellRenderer extends DefaultListCellRenderer {
+        /**
+         * @param list         The JList we're painting.
+         * @param value        The value returned by list.getModel().getElementAt(index).
+         * @param index        The cells index.
+         * @param isSelected   True if the specified cell was selected.
+         * @param cellHasFocus True if the specified cell has the focus.
+         * @return
+         */
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value,
                                                       int index, boolean isSelected, boolean cellHasFocus) {

@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * LayerFilter Class
+ * Display/Hide Layers in GUI
+ */
+
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +33,9 @@ public class LayerFilter extends JPanel {
 
     protected static MapView currentMapView;
 
+    /**
+     * @throws IOException
+     */
     //main class
     public LayerFilter() throws IOException {
         layerSelector.removeAll();
@@ -109,6 +118,9 @@ public class LayerFilter extends JPanel {
 
     }
 
+    /**
+     * @throws IOException
+     */
     public static void refreshLayers() throws IOException {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
@@ -146,6 +158,9 @@ public class LayerFilter extends JPanel {
         }
     }
 
+    /**
+     * @throws IOException
+     */
     public static void paintAllIcons() throws IOException {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
@@ -184,6 +199,10 @@ public class LayerFilter extends JPanel {
         }
     }
 
+    /**
+     * @param layerName
+     * @return
+     */
     public static boolean isExisting(String layerName) {
         for (String s: selectedLayers) {
             if (s.equals(layerName)) return true;
@@ -191,6 +210,10 @@ public class LayerFilter extends JPanel {
         return false;
     }
 
+    /**
+     * @param poi
+     * @return
+     */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
             if (p.positionX == poi.positionX && p.positionY == poi.positionY) return true;
@@ -199,6 +222,10 @@ public class LayerFilter extends JPanel {
     }
 
 
+    /**
+     * @param layer
+     * @return
+     */
     public static String getLayerIcon(String layer) {
         String filepath = "./images/";
         if (layer.contains("Classroom"))

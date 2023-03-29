@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * MapView Class
+ * Contruct maps, scrollable maps, scroll display, interact with maps
+ */
+
 package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +27,10 @@ public class MapView extends JPanel {
     protected static boolean mouseClickedOnPOI = false;
 
 
-
-
+    /**
+     * @param mapFileName
+     * @param focalPoint
+     */
     public MapView(String mapFileName, Point focalPoint) {
         try {
             mapImage = ImageIO.read(new File("./maps/"+mapFileName));
@@ -56,6 +64,10 @@ public class MapView extends JPanel {
         }
 
 
+    /**
+     * @param bufferedMap
+     * @param focalPoint
+     */
     public MapView(BufferedImage bufferedMap, Point focalPoint) {
         mapImage = bufferedMap;
         try {
@@ -88,6 +100,9 @@ public class MapView extends JPanel {
     }
 
 
+    /**
+     * @param g the <code>Graphics</code> object to protect
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -96,12 +111,21 @@ public class MapView extends JPanel {
         }
     }
 
+    /**
+     * @return
+     */
     public Dimension getPreferredSize() {
         return new Dimension(imageWidth, imageHeight);
     }
 
 
-
+    /**
+     * @param x
+     * @param y
+     * @param mode
+     * @return
+     * @throws IOException
+     */
     public BufferedImage applyHighlighter(int x, int y, String mode) throws IOException {
 
         if (GUI.frame.getContentPane().equals(GUI.canvas)) basemap = LayerFilter.baseMapImage;
@@ -181,6 +205,12 @@ public class MapView extends JPanel {
 
         return highlightedImage;
     }
+
+    /**
+     * @param currentFloor
+     * @param layerNames
+     * @return
+     */
     public JComponent getClickableAreas(String currentFloor, ArrayList<String> layerNames) {
         // Create a custom component to display the image
         JComponent component = new JComponent() {
@@ -266,6 +296,13 @@ public class MapView extends JPanel {
         return component;
     }
 
+    /**
+     * @param floorName
+     * @param layerNames
+     * @param x
+     * @param y
+     * @return
+     */
     public POI identifyPOI(String floorName, ArrayList<String> layerNames, int x, int y) {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
@@ -280,6 +317,11 @@ public class MapView extends JPanel {
     }
 
 
+    /**
+     * @param x
+     * @param y
+     * @param mode
+     */
     public void highlight(int x, int y, String mode) {
         BufferedImage newMap;
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {

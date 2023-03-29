@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * Splash Class
+ * First screen where user selects building
+ */
+
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +18,10 @@ public class Splash extends JPanel {
     private BufferedImage scaled;
     protected GridBagConstraints everythingCentered;
 
+    /**
+     * @param backgroundImg
+     * @throws IOException
+     */
     public Splash(String backgroundImg) throws IOException{
         GUI.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         AppMenu appMenu = new AppMenu();
@@ -21,11 +31,17 @@ public class Splash extends JPanel {
         this.setLayout(new GridBagLayout());
     }
 
+    /**
+     * @return
+     */
     @Override
     public Dimension getPreferredSize() {
         return img == null ? super.getPreferredSize() : new Dimension(img.getWidth(), img.getHeight());
     }
 
+    /**
+     * @param value
+     */
     public void setBackground(BufferedImage value) {
         if (value != img) {
             this.img = value;
@@ -33,6 +49,9 @@ public class Splash extends JPanel {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void invalidate() {
         super.invalidate();
@@ -43,6 +62,9 @@ public class Splash extends JPanel {
         }
     }
 
+    /**
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -54,7 +76,11 @@ public class Splash extends JPanel {
     }
 
 
-
+    /**
+     * @param img
+     * @param size
+     * @return
+     */
     public static BufferedImage getScaledInstanceToFill(BufferedImage img, Dimension size) {
 
         double scaleFactor = getScaleFactorToFill(img, size);
@@ -63,6 +89,11 @@ public class Splash extends JPanel {
 
     }
 
+    /**
+     * @param img
+     * @param size
+     * @return
+     */
     public static double getScaleFactorToFill(BufferedImage img, Dimension size) {
 
         double dScale = 1;
@@ -83,18 +114,35 @@ public class Splash extends JPanel {
 
     }
 
+    /**
+     * @param iMasterSize
+     * @param iTargetSize
+     * @return
+     */
     public static double getScaleFactor(int iMasterSize, int iTargetSize) {
 
         return (double) iTargetSize / (double) iMasterSize;
 
     }
 
+    /**
+     * @param img
+     * @param dScaleFactor
+     * @return
+     */
     public static BufferedImage getScaledInstance(BufferedImage img, double dScaleFactor) {
 
         return getScaledInstance(img, dScaleFactor, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
 
     }
 
+    /**
+     * @param img
+     * @param dScaleFactor
+     * @param hint
+     * @param bHighQuality
+     * @return
+     */
     protected static BufferedImage getScaledInstance(BufferedImage img, double dScaleFactor, Object hint, boolean bHighQuality) {
 
         BufferedImage imgScale;
@@ -117,6 +165,14 @@ public class Splash extends JPanel {
 
     }
 
+    /**
+     * @param img
+     * @param targetWidth
+     * @param targetHeight
+     * @param hint
+     * @param higherQuality
+     * @return
+     */
     protected static BufferedImage getScaledDownInstance(BufferedImage img,
                                                          int targetWidth,
                                                          int targetHeight,
@@ -171,6 +227,14 @@ public class Splash extends JPanel {
         return ret;
     }
 
+    /**
+     * @param img
+     * @param targetWidth
+     * @param targetHeight
+     * @param hint
+     * @param higherQuality
+     * @return
+     */
     protected static BufferedImage getScaledUpInstance(BufferedImage img,
                                                        int targetWidth,
                                                        int targetHeight,
@@ -221,15 +285,25 @@ public class Splash extends JPanel {
         return ret;
     }
 
+    /**
+     *
+     */
     private void centerEverything() {
         everythingCentered = new GridBagConstraints();
         everythingCentered.gridwidth = GridBagConstraints.REMAINDER;
         everythingCentered.insets = new Insets(0, 0, 60, 0);
     }
+
+    /**
+     * @param comp
+     */
     public void load(JComponent comp) {
             this.add(comp, everythingCentered);
     }
 
+    /**
+     * @throws IOException
+     */
     public void build() throws IOException {
         ImageIcon icon = new ImageIcon("./images/BB_icon.png");
         Image image = icon.getImage(); // transform it

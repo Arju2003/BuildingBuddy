@@ -1,3 +1,9 @@
+/**
+ * @author Jason, Daniel, Arjuna, Bobby, Josh
+ * Main Class
+ * Run BuildingBuddy, ensure events occur when user interacts with application
+ */
+
 package ca.uwo.csteam14;
 
 import javax.swing.*;
@@ -20,6 +26,10 @@ public class Main {
 
     public static ListCellRenderer<? super String> centerRenderer;
 
+    /**
+     * @param buildingCode
+     * @return
+     */
     public static Point getOptimumPoint(String buildingCode) {
         switch (buildingCode){
             case ("MC") -> {
@@ -35,6 +45,10 @@ public class Main {
         return new Point(1700, 1100);
     }
 
+    /**
+     * @param currentBuildingCode
+     * @return
+     */
     public static String getCurrentFloor(String currentBuildingCode) {
         switch (currentBuildingCode) {
             case ("MC") -> {
@@ -50,10 +64,17 @@ public class Main {
         return "";
     }
 
+    /**
+     * @return
+     */
     public static char[] getSecurityKey() {
         return securityKey;
     }
 
+    /**
+     * @param floorMapName
+     * @return
+     */
     public static String getFloorFullName(String floorMapName) {
         if (floorMapName.contains("0F")) return "Ground Floor";
         else if (floorMapName.contains("1F")) return "First Floor";
@@ -63,11 +84,22 @@ public class Main {
         return "Unknown";
     }
 
+    /**
+     * @param floorMapName
+     * @return
+     */
     public static String getBuildingFullName(String floorMapName) {
         if (floorMapName.contains("MC")) return "Middlesex College";
         else if (floorMapName.contains("KB")) return "Kresge Building";
         else if (floorMapName.contains("PAB")) return "Physics & Astronomy Building";
         return "Unknown";
+    }
+
+    /**
+     * @param newKey
+     */
+    public static void setSecurityKey(char[] newKey) {
+        securityKey = newKey;
     }
 
 

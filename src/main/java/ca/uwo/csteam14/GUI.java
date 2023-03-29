@@ -1,3 +1,9 @@
+/**
+ * @author Jason, Daniel, Arjuna, Bobby, Josh
+ * GUI Class
+ * Construct the GUI for the building buddy application
+ */
+
 package ca.uwo.csteam14;
 import java.awt.*;
 import java.io.IOException;
@@ -10,6 +16,9 @@ public class GUI {
     protected static MapView mapView;
 
 
+    /**
+     * @param buildingCode
+     */
     public GUI(String buildingCode) {
         EventQueue.invokeLater(() -> {
             try {
@@ -69,6 +78,9 @@ public class GUI {
         });
     }
 
+    /**
+     * @param label
+     */
     public void padding(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
         // Set the preferred size of the JLabel to include the padding

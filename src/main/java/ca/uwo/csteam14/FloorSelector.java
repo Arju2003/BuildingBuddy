@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * FloorSelector Class
+ * Methods for selecting a user's desired floor depending on their selected building
+ */
+
 package ca.uwo.csteam14;
 
 import javax.swing.*;
@@ -9,6 +15,10 @@ import java.util.Objects;
 public class FloorSelector {
 
     protected static MapView currentMap;
+
+    /**
+     *
+     */
     public FloorSelector() {
         /* make a floor selector and add a button */
         ArrayList<String> floorSet = new ArrayList<>();
@@ -131,6 +141,11 @@ public class FloorSelector {
             GUI.canvas.setVisible(true);
         });
     }
+
+    /**
+     * @param currentFloor
+     * @return
+     */
     public static String getFloorName(String currentFloor) {
         if (currentFloor.contains("0F")) return "Ground Floor";
         else if (currentFloor.contains("1F")) return "First Floor";

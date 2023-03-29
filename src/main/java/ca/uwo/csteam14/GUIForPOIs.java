@@ -1,3 +1,9 @@
+/**
+ * @author Jason
+ * GUIForPOIs Class
+ * GUI componenets built specifically for POI use
+ */
+
 package ca.uwo.csteam14;
 
 import java.awt.*;
@@ -14,8 +20,11 @@ public class GUIForPOIs {
 
     protected static MapView mapView;
 
-    public GUIForPOIs(String POIsGroup) {
+    /**
+     * @param POIsGroup
+     */
 
+    public GUIForPOIs(String POIsGroup)  {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -81,6 +90,9 @@ public class GUIForPOIs {
     }
 
 
+    /**
+     * @param label
+     */
     public void padding(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));
         // Set the preferred size of the JLabel to include the padding
