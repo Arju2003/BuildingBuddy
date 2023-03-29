@@ -25,6 +25,7 @@ public class POISelector extends JPanel {
 
         ArrayList<String> items = new ArrayList<>();
         ArrayList<String> poiIDs = new ArrayList<>();
+        JList<String> itemList2 = new JList<>();
         if (currentCollection != null) {
             for (POI poi : currentCollection) {
                 items.add(poi.category + " – " + poi.name + " (" + poi.floor + ", " + poi.code + ")");
@@ -45,21 +46,23 @@ public class POISelector extends JPanel {
                         focus = MapView.currentHighlighted;
                         MapView.mouseClickedOnPOI = false;
                     }
-                        GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + Main.currentBuildingCode + "_hero.png")));
-                        Main.currentFloor = focus.map.replace(".png", "").toUpperCase();
-                        Main.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");
-                        GUIForPOIs.mapView = new MapView(focus.map, new Point(focus.positionX,focus.positionY));
-                        GUIForPOIs.mapView.highlight(focus.positionX, focus.positionY, POIsGroup);
-                        new POIEditor(focus);
+                        if (focus != null) {
+                            Main.currentFloor = focus.map.replace(".png", "").toUpperCase();
+                            Main.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");
+                            GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + Main.currentBuildingCode + "_hero.png")));
+                            GUIForPOIs.mapView = new MapView(focus.map, new Point(focus.positionX, focus.positionY));
+                            GUIForPOIs.mapView.highlight(focus.positionX, focus.positionY, POIsGroup);
+                            new POIEditor(focus);
+                        }
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
 
             });
-
-            scrollPane = new JScrollPane(itemList);
+            itemList2 = itemList;
         }
+        scrollPane = new JScrollPane(itemList2);
         scrollPane.setLayout(new ScrollPaneLayout());
         scrollPane.setPreferredSize(new Dimension(450,450));
         GUIForPOIs.secondary.load(scrollPane, 'L');

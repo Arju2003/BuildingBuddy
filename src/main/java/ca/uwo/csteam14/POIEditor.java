@@ -3,13 +3,20 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
+import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
 
 public class POIEditor extends JDialog {
     // Create a new JDialog with the desired title
     private final JDialog dialog = new JDialog();
     protected static boolean isSaved = false;
+
+    JWindow alert = new JWindow();
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (screenSize.width - alert.getWidth()) / 2;
+    int y = (screenSize.height - alert.getHeight()) / 2;
 
 
 
@@ -70,15 +77,15 @@ public class POIEditor extends JDialog {
 
         }
 
-        JTextField POIMameField = new JTextField(poi.name);
-        JTextField POIRoomNumberField = new JTextField(poi.roomNumber);
+        JTextField POINameField = new JTextField(poi.name);
+        JTextField POIRoomNumberField = new JTextField(String.valueOf(poi.roomNumber));
         JTextField POIFloorField = new JTextField(poi.floor);
         JTextField POIBuildingField = new JTextField(poi.building);
         JTextField POICategoryField = new JTextField(poi.category);
         JTextField POIDescriptionField = new JTextField(poi.description);
         JButton saveButton = new JButton("Save Changes");
         JButton deleteButton = new JButton("Delete Location");
-        rightPanel.add(POIMameField, toTheLeft);
+        rightPanel.add(POINameField, toTheLeft);
         rightPanel.add(POIRoomNumberField, toTheLeft);
         rightPanel.add(POIFloorField, toTheLeft);
         rightPanel.add(POIBuildingField, toTheLeft);
@@ -122,47 +129,98 @@ public class POIEditor extends JDialog {
             }
         }
 
-
-
         saveButton.setOpaque(true);
         saveButton.setForeground(new Color(255,255,255));
         saveButton.setBackground(new Color(0,90,181));
         saveButton.setUI(new BasicButtonUI());
-        saveButton.setFont(new Font("Arial",Font.BOLD,14));
+        saveButton.setFont(new Font("Arial", BOLD,14));
 
 
         saveButton.addActionListener(e -> {
-            // This code will be executed when the button is pressed
-            isSaved = true;
+            if(Main.devMode) {
+                POI newP = new POI(0);
+                if (POINameField.getText().length() > 0) {
+                    if(Data.containsPOI(Data.builtInPOIs, poi)) {
+                        try {
+                            newP.id = poi.id;
+                            newP.map = poi.map;
+                            newP.positionX = poi.positionX;
+                            newP.positionY = poi.positionY;
+                            newP.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
+                            newP.isBuiltIn = true;
+                            newP.category = POICategoryField.getText();
+                            newP.floor = POIFloorField.getText();
+                            newP.description = POIDescriptionField.getText();
+                            newP.name = POINameField.getText();
+                            newP.code = poi.map.replaceAll("\\dF.png","");
+                            newP.next = poi.next;
+                            newP.building = POIBuildingField.getText();
+                            Data.removePOI(poi, Data.builtInPOIs);
+                            Data.addPOI(newP, Data.builtInPOIs);
+                        } catch (IOException e4) {
+                            throw new RuntimeException(e4);
+                        }
+                    }
+
+                    isSaved = true;
+                    resultDisplay("Saved successfully!", Color.GREEN);
+                    new GUIForPOIs("BIP");
+                }
+                else {
+                    POINameLabel.setFont(new Font("Arial", BOLD,14));
+                    POINameLabel.setForeground(Color.RED);
+                }
+            }
+            else {
+                if (poi.isBuiltIn) {
+                    if (bookmarkAdd.isSelected()) {
+                        Data.addPOI(poi, Data.bookmarks);
+                    }
+                    if (bookmarkRemove.isSelected()) {
+                        try {
+                            Data.removePOI(poi, Data.bookmarks);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+                else {
+                    Data.addPOI(poi, Data.userCreatedPOIs);
+                    if (bookmarkAdd.isSelected()) {
+                        Data.addPOI(poi, Data.bookmarks);
+                    }
+                    if (bookmarkRemove.isSelected()) {
+                        try {
+                            Data.removePOI(poi, Data.bookmarks);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+            }
+            resultDisplay("Saved successfully!", Color.GREEN);
             dialog.dispose();
+            if(GUI.frame.getContentPane().equals(GUIForPOIs.secondary))
+                new GUIForPOIs(GUIForPOIs.POIsGroup);
+            else new GUI(Main.currentBuildingCode);
         });
 
         deleteButton.setOpaque(true);
         deleteButton.setForeground(new Color(255,255,255));
         deleteButton.setBackground(new Color(220,50,32));
         deleteButton.setUI(new BasicButtonUI());
-        deleteButton.setFont(new Font("Arial",Font.BOLD,14));
+        deleteButton.setFont(new Font("Arial", BOLD,14));
 
         deleteButton.addActionListener(e -> {
             dialog.setVisible(false);
             // This code will be executed when the button is pressed
-            JWindow alert = new JWindow();
             alert.setSize(480, 48);
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (screenSize.width - alert.getWidth()) / 2;
-            int y = (screenSize.height - alert.getHeight()) / 2;
             alert.setLocation(x, y); // Set the position of the window to the center of the screen
             JPanel panel = new JPanel();
             panel.setForeground( new Color(160,0,0));
             panel.setForeground(new Color(255,255,255));
             JLabel message = new JLabel("Delete this location forever?");
             panel.add(message);
-            JButton confirm = new JButton("Confirm Deletion");
-            confirm.addActionListener(e3-> {
-                alert.setVisible(false);
-                dialog.dispose();
-            });
-            panel.add(confirm);
             JButton cancel = new JButton("Continue Editing");
             cancel.setEnabled(true);
             alert.setLocationRelativeTo(dialog);
@@ -170,54 +228,62 @@ public class POIEditor extends JDialog {
                 alert.setVisible(false);
                 dialog.setVisible(true);
             });
+            JButton confirm = new JButton("Confirm Deletion");
+            confirm.addActionListener(e3-> {
+                try {
+                    boolean user = Data.removePOI(poi,Data.userCreatedPOIs);
+                    boolean bookmark = Data.removePOI(poi,Data.bookmarks);
+                    boolean builtin = Data.removePOI(poi,Data.builtInPOIs);
+                    if (user || bookmark || builtin) {
+                        resultDisplay("Successfully removed!",Color.GREEN);
+                    }
+                    else {
+                        resultDisplay("Oops... But you're still good!",Color.PINK);
+                    }
+                    new GUIForPOIs(GUIForPOIs.POIsGroup);
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException(ex);
+
+                }
+                alert.setVisible(false);
+                dialog.dispose();
+            });
+            panel.add(confirm);
             panel.add(cancel);
             alert.add(panel);
             alert.pack();
             alert.setVisible(true);
             alert.setAlwaysOnTop(true);
-
         });
 
 
 
-        if (!Main.devMode) {
+        if (!Main.devMode && poi.isBuiltIn) {
             deleteButton.setEnabled(false);
-            deleteButton.setBackground(new Color(200,200,200));
-            deleteButton.setForeground(new Color(20,20,20));
-
-            for (Component j : rightPanel.getComponents()) {
-
-                if (j instanceof JTextField) {
-                    j.setEnabled(false);
-                    ((JTextField) j).setEditable(false);
-                    if  (String.valueOf(poi.id).startsWith("4") && !Data.containsPOI(Data.userCreatedPOIs,poi)) {
-                        POIMameField.setEnabled(true);
-                        POIDescriptionField.setEnabled(true);
-                        POIMameField.setEditable(true);
-                        POIDescriptionField.setEditable(true);
-                        POIBuildingLabel.setEnabled(false);
-                        POIRoomNumberLabel.setEnabled(false);
-                        POICategoryLabel.setEnabled(false);
-                        POIFloorLabel.setEnabled(false);
-                    }
-                    else if (String.valueOf(poi.id).startsWith("4") && Data.containsPOI(Data.userCreatedPOIs,poi)) {
-                        POIMameField.setEnabled(true);
-                        POIDescriptionField.setEnabled(true);
-                        POIMameField.setEditable(true);
-                        POIDescriptionField.setEditable(true);
-                        deleteButton.setEnabled(true);
-                        POIBuildingLabel.setEnabled(false);
-                        POIRoomNumberLabel.setEnabled(false);
-                        POICategoryLabel.setEnabled(false);
-                        POIFloorLabel.setEnabled(false);
-                        deleteButton.setForeground(new Color(255,255,255));
-                        deleteButton.setBackground(new Color(128,0,0));
-                    }
-
-                }
-            }
-
+            deleteButton.setBackground(new Color(200, 200, 200));
+            deleteButton.setForeground(new Color(20, 20, 20));
+            POINameField.setEditable(false);
+            POIRoomNumberField.setEditable(false);
+            POIFloorField.setEditable(false);
+            POIBuildingField.setEditable(false);
+            POICategoryField.setEditable(false);
+            POIDescriptionField.setEditable(false);
         }
+        else if (!Main.devMode) {
+            POINameField.setEditable(true);
+            POIRoomNumberField.setEditable(false);
+            POIFloorField.setEditable(false);
+            POIBuildingField.setEditable(false);
+            POICategoryField.setEditable(false);
+            POIDescriptionField.setEditable(true);
+            if (Data.containsPOI(Data.userCreatedPOIs,poi)) {
+                deleteButton.setForeground(new Color(255, 255, 255));
+                deleteButton.setBackground(new Color(220,50,32));
+            }
+        }
+
+
         else {
             notABookmark.setEnabled(false);
             bookmarkAdd.setEnabled(false);
@@ -227,11 +293,11 @@ public class POIEditor extends JDialog {
 
         notABookmark.setForeground(new Color(93,58,155));
         bookmarkAdd.setForeground(new Color(93,58,155));
-        bookmarkAdd.setFont(new Font("Arial", Font.BOLD,14));
+        bookmarkAdd.setFont(new Font("Arial", BOLD,14));
 
         isABookmark.setForeground(new Color(230,97,0));
         bookmarkRemove.setForeground(new Color(230,97,0));
-        bookmarkRemove.setFont(new Font("Arial", Font.BOLD,14));
+        bookmarkRemove.setFont(new Font("Arial", BOLD,14));
 
 
         main.add(leftPanel);
@@ -291,5 +357,25 @@ public class POIEditor extends JDialog {
                 }
             }
         });
+    }
+
+    public void resultDisplay(String text, Color color) {
+        alert.dispose();
+        JWindow result = new JWindow();
+        result.setLocationRelativeTo(dialog);
+        result.setLocation(x, y);
+        JLabel message = new JLabel(text);
+        JPanel panel = new JPanel();
+        message.setFont(new Font("Arial", BOLD,24));
+        result.setPreferredSize(new Dimension(480,48));
+        panel.setBackground(color);
+        panel.add(message);
+        result.add(panel);
+        result.pack();
+        result.setAlwaysOnTop(true);
+        result.setVisible(true);
+        Timer timer = new Timer(1000, e5 -> result.dispose());
+        timer.setRepeats(false);
+        timer.start();
     }
 }

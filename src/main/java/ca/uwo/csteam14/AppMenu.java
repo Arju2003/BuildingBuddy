@@ -117,8 +117,8 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                 throw new RuntimeException(ex);
             }
         });
-        bookmarks.addActionListener(e -> new GUIForPOIs("BMK", "Bookmarks"));
-        myLocations.addActionListener(e -> new GUIForPOIs("UDP", "My Locations"));
+        bookmarks.addActionListener(e -> new GUIForPOIs("BMK"));
+        myLocations.addActionListener(e -> new GUIForPOIs("UDP"));
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
@@ -160,7 +160,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
             enter.addActionListener( e3->{
                 if (Arrays.equals(securityKey.getPassword(), Main.getSecurityKey())) {
-                    new GUIForPOIs("BIP", "Developer Tool");
+                    new GUIForPOIs("BIP");
                     start.setEnabled(false);
                     view.setEnabled(false);
                     myLocations.setEnabled(false);

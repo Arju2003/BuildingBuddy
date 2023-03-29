@@ -215,15 +215,16 @@ public class MapView extends JPanel {
                 }
                 else {
                     mouseClickedOnPOI = false;
-                    if (Main.devMode && GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+                    if (Main.devMode) {
+                        System.out.println("HERE");
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(0);
                         newPOI.id = 0;
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
                         newPOI.category = "";
-                        newPOI.roomNumber = "";
-                        newPOI.map = Main.currentFloor.replaceAll("\\dF", "") + ".png";
+                        newPOI.roomNumber = 0;
+                        newPOI.map = Main.currentFloor + ".png";
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
@@ -246,8 +247,8 @@ public class MapView extends JPanel {
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
                         newPOI.category = "My Locations";
-                        newPOI.roomNumber = "0";
-                        newPOI.map = Main.currentFloor.replaceAll("\\dF", "") + ".png";
+                        newPOI.roomNumber = 0;
+                        newPOI.map = Main.currentFloor + ".png";
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
@@ -259,7 +260,6 @@ public class MapView extends JPanel {
                             POIEditor.isSaved = false;
                         }
                     }
-
                 }
             }
         });
