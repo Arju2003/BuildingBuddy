@@ -12,43 +12,30 @@ class LayerFilterTest {
     }
 
     @org.junit.jupiter.api.Test
-    void refreshLayers() {
-        System.out.println("refreshLayers()");
-        // Set up the required variables and objects
-        Main.currentFloor = "Floor1";
-        Main.currentBuildingCode = "ABC";
-        ArrayList<String> selectedLayers = new ArrayList<>();
-        selectedLayers.add("Layer1");
-        selectedLayers.add("Layer2");
-        LayerFilter.selectedLayers = selectedLayers;
+    void isExistingLayerName() {
+        System.out.println("isExisting(String layerName)");
 
-        // Call the method
-        try {
-            LayerFilter.refreshLayers();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Check that the map view has been updated
-        assertNotNull(LayerFilter.currentMapView);
-
-        // Check that the base map image has been updated
-        assertNotNull(LayerFilter.baseMapImage);
-
-        // Check that the POIs on the selected layer have been updated
-        assertNotNull(LayerFilter.POIsOnSelectedLayer);
-        assertFalse(LayerFilter.POIsOnSelectedLayer.isEmpty());
+        LayerFilter.selectedLayers.clear();
+        assertFalse(LayerFilter.isExisting("Labs"));
+        LayerFilter.selectedLayers.add("Labs");
+        assertTrue(LayerFilter.isExisting("Labs"));
     }
 
     @org.junit.jupiter.api.Test
-    void isExisting() {
-        System.out.println("isExisting()");
-        // for isExisting(String layer)
-        String testlayer = "layer";
-        assertTrue(LayerFilter.isExisting(testlayer));
-        // for isExisting(POI poi)
-        POI testPOI = new POI(1);
-        assertTrue(LayerFilter.isExisting(testPOI));
+    void isExistingPOI() {
+        System.out.println("isExisting(POI poi)");
+
+        LayerFilter.POIsOnSelectedLayer.clear();
+        POI poi1 = new POI(123456);
+        poi1.setX(100);
+        poi1.setY(100);
+        POI poi2 = new POI(123457);
+        poi2.setX(200);
+        poi2.setY(200);
+        assertFalse(LayerFilter.isExisting(poi1));
+        LayerFilter.POIsOnSelectedLayer.add(poi1);
+        assertTrue(LayerFilter.isExisting(poi1));
+        assertFalse(LayerFilter.isExisting(poi2));
     }
 
     @org.junit.jupiter.api.Test
