@@ -42,12 +42,24 @@ public class MapView extends JPanel {
         this.focalPoint = focalPoint;
 
         setLayout(new OverlayLayout(this));
-        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
-        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
-            clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-            clickables[i].setPreferredSize(new Dimension(48,48));
-            add(clickables[i]);
-            setComponentZOrder(clickables[i], 0);
+        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
+            JComponent[] clickables = new JComponent[allLayers.size()];
+            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
+                clickables[i].setPreferredSize(new Dimension(48, 48));
+                add(clickables[i]);
+                setComponentZOrder(clickables[i], 0);
+            }
+        }
+        else {
+            JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
+            for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
+                clickables[i].setPreferredSize(new Dimension(48,48));
+                add(clickables[i]);
+                setComponentZOrder(clickables[i], 0);
+            }
         }
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
@@ -78,12 +90,24 @@ public class MapView extends JPanel {
         }
         this.focalPoint = focalPoint;
         setLayout(new OverlayLayout(this));
-        JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
-        for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
-            clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-            clickables[i].setPreferredSize(new Dimension(48,48));
-            add(clickables[i]);
-            setComponentZOrder(clickables[i], 0);
+        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
+            JComponent[] clickables = new JComponent[allLayers.size()];
+            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
+                clickables[i].setPreferredSize(new Dimension(48, 48));
+                add(clickables[i]);
+                setComponentZOrder(clickables[i], 0);
+            }
+        }
+        else {
+            JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
+            for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
+                clickables[i].setPreferredSize(new Dimension(48,48));
+                add(clickables[i]);
+                setComponentZOrder(clickables[i], 0);
+            }
         }
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
@@ -221,7 +245,6 @@ public class MapView extends JPanel {
         };
         component.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 if (p != null) {
                     mouseClickedOnPOI = true;
@@ -233,7 +256,7 @@ public class MapView extends JPanel {
                     else {
                         AppMenu.clearWindows();
                         highlight(currentHighlighted.positionX, currentHighlighted.positionY, "OFF");
-                        if (!p.equals(currentHighlighted)) {
+                        if (!p.isEqualTo(currentHighlighted)) {
                             currentHighlighted = p;
                             highlight(p.positionX,p.positionY,"BIP");
                             new POIEditor(p);
@@ -241,15 +264,13 @@ public class MapView extends JPanel {
                         else
                             currentHighlighted = null;
                     }
-
                 }
                 else {
                     mouseClickedOnPOI = false;
                     if (Main.devMode) {
-                        System.out.println("HERE");
                         highlight(e.getX(), e.getY(), "NEW");
-                        POI newPOI = new POI(0);
-                        newPOI.id = 0;
+                        POI newPOI = new POI(Data.generatePOIID("dev"));
+                        newPOI.name = "";
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
                         newPOI.category = "";
@@ -268,12 +289,8 @@ public class MapView extends JPanel {
                     }
                     else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
                         highlight(e.getX(), e.getY(), "NEW");
-                        int largestUD = 40000;
-                        for (POI poi : Data.userCreatedPOIs) {
-                            if (poi.id > largestUD)
-                                largestUD = poi.id;
-                        }
-                        POI newPOI = new POI(largestUD + 1);
+                        POI newPOI = new POI(Data.generatePOIID("user"));
+                        newPOI.name = "My Location";
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
                         newPOI.category = "My Locations";
@@ -310,7 +327,7 @@ public class MapView extends JPanel {
                 list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
-            if (x >= p.positionX - 12 && x <= p.positionX + 60 && y >= p.positionY - 12 && y <= p.positionY + 60)
+            if (x - p.positionX <= 48 && x - p.positionX >= 0 && y - p.positionY <= 48 && y - p.positionY>= 8)
                 return p;
         }
         return null;

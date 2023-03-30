@@ -37,8 +37,9 @@ public class GUIForPOIs {
             switch (POIsGroup) {
                 case "BMK" -> {
                     GUIForPOIs.POIType = "Bookmarks";
-                    if (Data.bookmarks.size() > 0)
+                    if (Data.bookmarks.size() > 0) {
                         poi = Data.bookmarks.getFirst();
+                    }
                 }
                 case "BIP" -> {
                     GUIForPOIs.POIType = "Developer Tool";
@@ -56,14 +57,16 @@ public class GUIForPOIs {
                 }
             }
 
+            if (poi != null) {
+                Main.currentBuildingCode = poi.map.replaceAll("\\dF.png","");
+                Main.currentFloor = poi.map.replaceAll(".png","");
+            }
             try {
                 if (poi == null && Data.builtInPOIs.size() > 0) poi = Data.builtInPOIs.getFirst();
-                if (poi == null && Data.builtInPOIs.size() == 0) poi = Main.fallbackPOI;
+                else if (poi == null) poi = Main.fallbackPOI;
                 assert poi != null;
-                Main.currentBuildingCode = poi.code;
-                Main.currentFloor = poi.map.replaceAll(".png", "");
                 secondary = new Canvas("./images/" + Main.currentBuildingCode + "_hero.png");
-                mapView = new MapView(poi.map, new Point(poi.positionX, poi.positionY));
+                mapView = new MapView(Main.currentFloor+".png", new Point(poi.positionX, poi.positionY));
                 title = new JLabel("<html><div style=\"text-align:center;\">" +
                         GUIForPOIs.POIType + "<br /></div></html>");
                 // Set the font size and style
@@ -80,7 +83,7 @@ public class GUIForPOIs {
                 new POISelector(POIsGroup);
                 GUIForPOIs.POIsGroup = POIsGroup;
                 new Search();
-                LayerFilter.paintAllIcons();
+                LayerFilter.showAllLayers();
                 GUI.frame.pack();
                 GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
             } catch (IOException e) {

@@ -181,10 +181,6 @@ public class Data extends LinkedList<POI>{
         }
     }
 
-    public LinkedList<POI> getLinkedListOfPOIs(ArrayList<POI> data) {
-        return new LinkedList<>(data);
-    }
-
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
@@ -206,17 +202,17 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
-    public static void addPOI(POI p, LinkedList<POI> list) {
-        list.add(p);
-        String path = "./data/";
-        if (list == userCreatedPOIs)  path += "user.json";
-        else if (list == bookmarks) path += "bookmarks.json";
-        else if (list == builtInPOIs) path += "builtin.json";
+    public static boolean addPOI(POI p, LinkedList<POI> lst) {
+        boolean result = false;
+        String filePath = "./data/";
+        if (lst == userCreatedPOIs && !containsPOI(userCreatedPOIs,p))  {filePath += "user.json"; result = userCreatedPOIs.add(p);}
+        else if (lst == bookmarks && !containsPOI(bookmarks, p)) {filePath += "bookmarks.json"; result = bookmarks.add(p);}
+        else if (lst == builtInPOIs && !containsPOI(bookmarks, p)) {filePath += "builtin.json"; result = builtInPOIs.add(p);}
 
         // write to user.json
         JSONObject obj = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-        for (POI data : (LinkedList<POI>) list) {
+        for (POI data : lst) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("POIId", data.id);
             jsonObject.put("POIName", data.name);
@@ -232,76 +228,61 @@ public class Data extends LinkedList<POI>{
             jsonObject.put("built-in", data.isBuiltIn);
             jsonArray.add(jsonObject);
         }
-        if (list == userCreatedPOIs)  obj.put("UserPOIs", jsonArray);
-        else if (list == bookmarks)  obj.put("Bookmarks", jsonArray);
+        if (lst == userCreatedPOIs)  obj.put("UserPOIs", jsonArray);
+        else if (lst == bookmarks)  obj.put("Bookmarks", jsonArray);
+        else if (lst == builtInPOIs)  obj.put("BuiltInPOIs", jsonArray);
 
-        try (FileWriter file = new FileWriter(path)) {
+        try (FileWriter file = new FileWriter(filePath)) {
             file.write(obj.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return result;
     }
-
     public static boolean removePOI(POI p, LinkedList<POI> lst) throws IOException {
         boolean result = false;
-        // user clicks on the POI they want to delete
-
-        // get info from click event
-
-        LinkedList<POI> newUserCreatedPOIs = new LinkedList<POI>();
 
         // In built linked list removal
-        if (lst.contains(p)) {
-            result = lst.remove(p);
-        }
+        if (containsPOI(lst, p)) {
+                result = lst.remove(p);
 
-        // Write from linked list to json file
-        JSONArray jsonArray = new JSONArray();
-
-        // Write the empty array to the file
-        try (FileWriter fileWriter = new FileWriter("user.json")) {
-            fileWriter.write(jsonArray.toJSONString());
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONObject obj = new JSONObject();
-        // Create a new json array of json objects that hold objects from the linked list of POIs
-        JSONArray filledJsonArray = new JSONArray();
-        for (POI data : lst) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("mapX", data.positionX);
-            jsonObject.put("mapY", data.positionY);
-            jsonObject.put("POIName", data.name);
-            jsonObject.put("POIId", data.id);
-            jsonObject.put("map", data.map);
-            jsonObject.put("description", data.description);
-            jsonObject.put("category", data.category);
-            jsonObject.put("buildingCode", data.code);
-            jsonObject.put("floor", data.floor);
-            jsonObject.put("building", data.building);
-            jsonObject.put("built-in", data.isBuiltIn);
-            jsonObject.put("roomNumber", data.roomNumber);
-            filledJsonArray.add(jsonObject);
-        }
-        String fileName = "";
-        if (lst.equals(Data.userCreatedPOIs)) {
-            obj.put("UserPOIs", filledJsonArray);
-            fileName = "./data/user.json";
-        } else if (lst.equals(Data.builtInPOIs)) {
-            fileName = "./data/builtin.json";
-            obj.put("BuiltInPOIs", filledJsonArray);
-        } else if (lst.equals(Data.bookmarks)) {
-            obj.put("Bookmarks", filledJsonArray);
-            fileName = "./data/bookmarks.json";
-        }
-        // Write the Json file
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            fileWriter.write(obj.toJSONString());
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+            JSONObject obj = new JSONObject();
+            // Create a new json array of json objects that hold objects from the linked list of POIs
+            JSONArray filledJsonArray = new JSONArray();
+            for (POI data : lst) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("mapX", data.positionX);
+                jsonObject.put("mapY", data.positionY);
+                jsonObject.put("POIName", data.name);
+                jsonObject.put("POIId", data.id);
+                jsonObject.put("map", data.map);
+                jsonObject.put("description", data.description);
+                jsonObject.put("category", data.category);
+                jsonObject.put("buildingCode", data.code);
+                jsonObject.put("floor", data.floor);
+                jsonObject.put("building", data.building);
+                jsonObject.put("built-in", data.isBuiltIn);
+                jsonObject.put("roomNumber", data.roomNumber);
+                filledJsonArray.add(jsonObject);
+            }
+            String filePath = "./data/";
+            if (lst.equals(Data.userCreatedPOIs)) {
+                obj.put("UserPOIs", filledJsonArray);
+                filePath += "user.json";
+            } else if (lst.equals(Data.builtInPOIs)) {
+                filePath += "builtin.json";
+                obj.put("BuiltInPOIs", filledJsonArray);
+            } else if (lst.equals(Data.bookmarks)) {
+                obj.put("Bookmarks", filledJsonArray);
+                filePath += "bookmarks.json";
+            }
+            // Write the Json file
+            try (FileWriter fileWriter = new FileWriter(filePath)) {
+                fileWriter.write(obj.toJSONString());
+                fileWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -332,20 +313,33 @@ public class Data extends LinkedList<POI>{
         return null;
     }
 
-
     public static boolean containsPOI(LinkedList<POI> list, POI poi) {
-        for (POI p: list) {
-            if (p.id == poi.id)
-                return true;
+        if (list !=null && list.size() > 0) {
+            for (POI p : list) {
+                if (p.isEqualTo(poi)) return true;
+            }
         }
         return false;
     }
 
-
-
-    public static void main(String[] args) {
-        Data x = new Data();
-        System.out.println("Hello");
-
+    public static int generatePOIID(String creator) {
+        int largestID = -1;
+        switch (creator.toLowerCase()) {
+            case "user" -> {
+                largestID = 4000000;
+                for (POI p: userCreatedPOIs) {
+                    if (p.id > largestID)
+                        largestID = p.id;
+                }
+            }
+            case "dev" -> {
+                largestID = 5000000;
+                for (POI p: builtInPOIs) {
+                    if (p.id > largestID)
+                        largestID = p.id;
+                }
+            }
+        }
+       return largestID + 1;
     }
 }

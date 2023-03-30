@@ -158,16 +158,18 @@ public class LayerFilter extends JPanel {
         }
     }
 
+
+
     /**
      * @throws IOException
      */
-    public static void paintAllIcons() throws IOException {
+    public static void showAllLayers() throws IOException {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
         for (String layerName: labelArray) {
             // Load the original images
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
-            BufferedImage layeredMap = baseMapImage;
+            BufferedImage mapImageWithLayers = baseMapImage;
             ArrayList<POI> POIsOnFloorMap = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
             int newWidth = 48;
@@ -185,7 +187,7 @@ public class LayerFilter extends JPanel {
             for (POI poi : POIsOnFloorMap) {
                 POIsOnSelectedLayer = new ArrayList<>();
                 POIsOnSelectedLayer.add(poi);
-                g = layeredMap.createGraphics();
+                g = mapImageWithLayers.createGraphics();
                 g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
                 if (currentLayer.contains(poi.category)) {
@@ -193,9 +195,8 @@ public class LayerFilter extends JPanel {
                     center.y = poi.positionY;
                 }
             }
-
-            currentMapView = new MapView(layeredMap, center);
-            baseMapImage = layeredMap;
+            currentMapView = new MapView(mapImageWithLayers, center);
+            baseMapImage = mapImageWithLayers;
         }
     }
 
@@ -216,7 +217,7 @@ public class LayerFilter extends JPanel {
      */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
-            if (p.positionX == poi.positionX && p.positionY == poi.positionY) return true;
+            if (Math.abs(p.positionX - poi.positionX) <= 48 && Math.abs(p.positionY - poi.positionY) <= 48) return true;
         }
         return false;
     }
