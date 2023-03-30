@@ -337,18 +337,37 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
+    /**
+     * Method for accessing the linked list of built-in POIs.
+     * @return LinkedList of built-in POIs
+     */
     public LinkedList<POI> getBuiltInPOIs() {
         return builtInPOIs;
     }
 
+    /**
+     * Method for accessing the list of user created POIs.
+     * @return LinkedList of user-created POIs
+     */
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
     }
 
+    /**
+     * Method for accessing the list of bookmarked POIs.
+     * @return LinkedList of bookmarked POIs
+     */
     public LinkedList<POI> getBookmarks() {
         return bookmarks;
     }
 
+    /**
+     * Method for finding a specific POI object on a current floor with a given coordinate set.
+     * @param currentFloor floor the POI resides on
+     * @param x POI's x co-ordinate
+     * @param y POI's y co-ordinate
+     * @return POI object P with co-ordinates (x,y) on floor currentFloor
+     */
     public POI getPOI (String currentFloor,int x, int y){
         for (POI p : builtInPOIs) {
             if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {

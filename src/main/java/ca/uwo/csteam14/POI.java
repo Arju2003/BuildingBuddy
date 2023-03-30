@@ -56,84 +56,98 @@ public class POI {
 
 
     /**
-     * @return
+     * Getter method for accessing a POI's id
+     * @return id the POI's id
      */
     public int getId() {
         return id;
     }
 
     /**
-     * @param id
+     * Method to set the id of a poi
+     * @param id The new id
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @param name
+     * Method to set the name of a POI
+     * @param name The new name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @param building
+     * Method to set the building of the POI
+     * @param building The building the POI resides in
      */
     public void setBuilding(String building) {this.building = building;}
 
     /**
-     * @param map
+     * Method to set the map of a POI
+     * @param map The map the POI resides in
      */
     public void setMap(String map) {
         this.map = map;
     }
 
     /**
-     * @param code
+     * Method to set the code of a POI
+     * @param code The new code
      */
     public void setCode(String code) { this.code = code;}
 
     /**
-     * @param floor
+     * Method to set the floor of a POI
+     * @param floor The floor of the POI
      */
     public void setFloor(String floor) {this.floor = floor;}
 
     /**
-     * @param category
+     * Method to set the category of a POI
+     * @param category The POI's category
      */
     public void setCategory(String category) {
         this.category = category;
     }
+
     /**
-     * @param roomNumber
+     * Method to set the room number of a POI
+     * @param roomNumber The POI's room number
      */
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
 
     /**
-     * @param x
+     * Method to set the x co-ordinate of a POI
+     * @param x The POI's x co-ordinate
      */
     public void setX(int x) {
         this.positionX = x;
     }
 
     /**
-     * @param y
+     * Method to set the y co-ordinate of a POI
+     * @param y The POI's y co-ordinate
      */
     public void setY(int y) {
         this.positionY = y;
     }
 
     /**
-     * @param description
+     * Method to set the description of a POI
+     * @param description The new description for the POI
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * @param builtIn
+     * Method to set the POI's boolean builtIn value, the value is true if the POI is a built in POI and the value is false if the POI is a user created POI
+     * @param builtIn a boolean parameter, true if the POI is a built in POI and the value is false if the POI is a user created POI
      */
     public void setBuiltIn(boolean builtIn) {
         this.isBuiltIn = builtIn;
