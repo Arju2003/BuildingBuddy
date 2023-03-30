@@ -49,12 +49,15 @@ public class POISelector extends JPanel {
             itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             itemList.addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
-                    try {if (!MapView.mouseClickedOnPOI)
+
+                    try {
+                        if (!MapView.mouseClickedOnPOI)
                             focus = currentCollection.get(itemList.getSelectedIndex());
                         else {
                         focus = MapView.currentHighlighted;
                         MapView.mouseClickedOnPOI = false;
-                    }
+                        }
+                        if (Main.devMode) LayerFilter.showAllLayers();
                         if (focus != null) {
                             Main.currentFloor = focus.map.replace(".png", "").toUpperCase();
                             Main.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");

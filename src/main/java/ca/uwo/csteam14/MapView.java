@@ -226,7 +226,7 @@ public class MapView extends JPanel {
 
         focalPoint.x = x;
         focalPoint.y = y;
-
+        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) LayerFilter.showAllLayers();
         return highlightedImage;
     }
 
@@ -247,6 +247,7 @@ public class MapView extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 if (p != null) {
+                    POISelector.focus = p;
                     mouseClickedOnPOI = true;
                     if (currentHighlighted == null) {
                         currentHighlighted = p;
@@ -349,7 +350,7 @@ public class MapView extends JPanel {
             }
             new MapView(newMap, new Point(x , y ));
         }
-        if (GUI.frame.getContentPane().equals(GUI.canvas)) {
+        else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
             try {
                 newMap = LayerFilter.currentMapView.applyHighlighter(x, y, mode);
             } catch (IOException ex) {

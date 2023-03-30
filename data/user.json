@@ -1,3 +1,1 @@
-{
-  "UserPOIs": []
-}
+{"UserPOIs":[{"roomNumber":0,"built-in":false,"buildingCode":"MC","POIId":4000001,"description":"TEST","floor":"Ground Floor","category":"My Locations","map":"MC0F.png","building":"Middlesex College","mapY":1099,"POIName":"My Location 27B","mapX":2603},{"roomNumber":0,"built-in":false,"buildingCode":"MC","POIId":4000002,"description":"","floor":"Ground Floor","category":"My Locations","map":"MC0F.png","building":"Middlesex College","mapY":1466,"POIName":"My Location","mapX":2654}]}

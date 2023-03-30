@@ -1,3 +1,1 @@
-{
-  "Bookmarks": []
-}
+{"Bookmarks":[{"roomNumber":6,"built-in":true,"buildingCode":"MC","POIId":76,"description":"Social Distancing Capacity: 7, Seating Capacity: 48, Room Type: Lecture, Seating Type: Tab Arm; Fixed, Lectern: Portable, Writing Surface: 16-ft Sliding Chalkboard, Projection Screen: 8-ft Motorized, Window Treatment: Manual Blinds","floor":"Ground Floor","category":"Classroom","map":"MC0F.png","building":"Middlesex College","mapY":1130,"POIName":"MC 6","mapX":1350},{"roomNumber":0,"built-in":false,"buildingCode":"MC","POIId":4000001,"description":"TEST","floor":"Ground Floor","category":"My Locations","map":"MC0F.png","building":"Middlesex College","mapY":1099,"POIName":"My Location 27B","mapX":2603},{"roomNumber":5,"built-in":true,"buildingCode":"MC","POIId":3705,"description":"On the ground floor.","floor":"Ground Floor","category":"Stairwell","map":"MC0F.png","building":"Middlesex College","mapY":775,"POIName":"Stairwell 6","mapX":1090}]}

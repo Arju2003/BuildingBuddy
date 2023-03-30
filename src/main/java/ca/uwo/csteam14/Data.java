@@ -2,6 +2,7 @@ package ca.uwo.csteam14;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import org.json.simple.JSONArray;
@@ -184,17 +185,17 @@ public class Data extends LinkedList<POI>{
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
-            if (LayerFilter.selectedLayers.contains(layerName)) {
+            if (Arrays.asList(LayerFilter.labelArray).contains(layerName)) {
                 if (layerName.contains(p.category) && p.map.contains(currentFloor))
                     result.add(p);
-                if (p.description != null && layerName.contains("Labs") && p.description.contains("Computer lab") && p.map.contains(currentFloor))
+                if (layerName.contains("Labs") && p.description != null && p.description.contains("Computer lab") && p.map.contains(currentFloor))
                     result.add(p);
                 if (p.description != null && layerName.contains("Accessibility") && p.description.contains("Accessible facility") && p.map.contains(currentFloor))
                     result.add(p);
             }
         }
         for (POI p : userCreatedPOIs) {
-            if (LayerFilter.selectedLayers.contains("My Locations") && p.map.contains(currentFloor)) {
+            if (Arrays.asList(LayerFilter.labelArray).contains(layerName) && p.map.contains(currentFloor)) {
                 result.add(p);
             }
         }

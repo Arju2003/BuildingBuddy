@@ -29,6 +29,7 @@ public class LayerFilter extends JPanel {
 
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
 
+    protected static ArrayList<POI> POIsOnCurrentFloor = new ArrayList<>();
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
 
     protected static MapView currentMapView;
@@ -52,7 +53,8 @@ public class LayerFilter extends JPanel {
             ImageIcon scaledIcon = new ImageIcon(image);
             JCheckBox checkbox = new JCheckBox();
             checkbox.setIcon(scaledIcon);
-            checkbox.setText("  " + labelArray[i]);
+            checkbox.setText(labelArray[i]);
+            checkbox.setIconTextGap(20);;
             Border border = BorderFactory.createCompoundBorder(checkbox.getBorder(), padding);
             checkbox.setBorder(border);
             checkbox.setPreferredSize(new Dimension(270, checkbox.getPreferredSize().height));
@@ -128,7 +130,7 @@ public class LayerFilter extends JPanel {
             // Load the original images
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
-            ArrayList<POI> POIsOnFloorMap = Data.getLayerPOIs(Main.currentFloor, layerName);
+            POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
             int newWidth = 48;
             int newHeight = 48;
@@ -141,10 +143,9 @@ public class LayerFilter extends JPanel {
             g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
 
-
-            for (POI poi : POIsOnFloorMap) {
-                POIsOnSelectedLayer = new ArrayList<>();
-                POIsOnSelectedLayer.add(poi);
+            System.out.println(layerName);
+            for (POI poi : POIsOnSelectedLayer) {
+                System.out.println("    " + poi.category + " : " + poi.name);
                 g = mapImageWithLayers.createGraphics();
                 g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
@@ -170,7 +171,7 @@ public class LayerFilter extends JPanel {
             // Load the original images
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
-            ArrayList<POI> POIsOnFloorMap = Data.getLayerPOIs(Main.currentFloor, layerName);
+            POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
             int newWidth = 48;
             int newHeight = 48;
@@ -183,17 +184,10 @@ public class LayerFilter extends JPanel {
             g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
 
-
-            for (POI poi : POIsOnFloorMap) {
-                POIsOnSelectedLayer = new ArrayList<>();
-                POIsOnSelectedLayer.add(poi);
+            for (POI poi : POIsOnSelectedLayer) {
                 g = mapImageWithLayers.createGraphics();
                 g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
-                if (currentLayer.contains(poi.category)) {
-                    center.x = poi.positionX;
-                    center.y = poi.positionY;
-                }
             }
             currentMapView = new MapView(mapImageWithLayers, center);
             baseMapImage = mapImageWithLayers;
@@ -243,7 +237,7 @@ public class LayerFilter extends JPanel {
             filepath += "stairwell.png";
         else if (layer.contains("Entrance") || layer.contains("Exit"))
             filepath += "entrance.png";
-        else if (layer.contains("My") || layer.contains("Locations"))
+        else if (layer.contains("My"))
             filepath += "location.png";
         else if (layer.contains("Washroom"))
             filepath += "washroom.png";

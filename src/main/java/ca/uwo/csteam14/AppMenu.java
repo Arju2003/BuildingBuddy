@@ -127,7 +127,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             }
         });
         bookmarks.addActionListener(e -> new GUIForPOIs("BMK"));
-        myLocations.addActionListener(e -> new GUIForPOIs("UDP"));
+        myLocations.addActionListener(e -> {new GUIForPOIs("UDP");});
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
