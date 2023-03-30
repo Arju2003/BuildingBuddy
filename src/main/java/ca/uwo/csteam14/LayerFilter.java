@@ -188,10 +188,6 @@ public class LayerFilter extends JPanel {
                 g = layeredMap.createGraphics();
                 g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
-                if (currentLayer.contains(poi.category)) {
-                    center.x = poi.positionX;
-                    center.y = poi.positionY;
-                }
             }
 
             currentMapView = new MapView(layeredMap, center);
@@ -216,7 +212,7 @@ public class LayerFilter extends JPanel {
      */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
-            if (p.positionX == poi.positionX && p.positionY == poi.positionY) return true;
+            if (Math.abs(p.positionX - poi.positionX) <= 48 && Math.abs(p.positionY - poi.positionY) <= 48) return true;
         }
         return false;
     }

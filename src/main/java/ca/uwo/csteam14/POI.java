@@ -16,6 +16,7 @@ public class POI {
     protected String floor;
     protected int roomNumber;
     protected String category;
+    protected static final String[] categories = {"Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", "Washroom"};
     protected String description;
     protected int positionX;
     protected int positionY;
@@ -135,8 +136,24 @@ public class POI {
         isBuiltIn = false;
         next = null;
         // get data from json file based in ID
+    }
 
+    public boolean isEqualTo(POI p) {
+        return (this.id == p.id || (this.positionX - p.positionX <= 48 && this.positionX - p.positionX >= 0 && this.positionY - p.positionY <= 48 && this.positionY - p.positionY>= 8));
+    }
 
+    public boolean hasLegalCategory() {
+        for (String s: LayerFilter.labelArray) {
+            if (this.category.equals(s)) return true;
+        }
+        return false;
+    }
+
+    public static boolean hasLegalCategory(String str) {
+        for (String s: categories) {
+            if (str.equals(s)) return true;
+        }
+        return false;
     }
 
 

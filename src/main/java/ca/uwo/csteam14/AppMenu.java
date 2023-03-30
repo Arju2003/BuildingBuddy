@@ -239,7 +239,6 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             AppMenu.clearWindows();
             devLogin.setVisible(true);
             devLogin.setFocusableWindowState(true);
-
             cancel.addActionListener( e2-> clearWindows());
         });
 

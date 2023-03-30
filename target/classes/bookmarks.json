@@ -1,1 +1,3 @@
-{"Bookmarks":[{"roomNumber":17,"built-in":true,"buildingCode":"MC","POIId":717,"description":"Social Distancing Capacity: 7, Seating Capacity: 48, Room Type: Lecture, Seating Type: Tab Arm; Fixed, Lectern: Portable, Writing Surface: 16-ft Sliding Chalkboard, Projection Screen: 8-ft Motorized, Window Treatment: Manual Blinds","category":"Classroom","floor":"Ground Floor","map":"MC0F.png","mapY":988,"building":"Middlesex College","mapX":961,"POIName":"MC 17"},{"roomNumber":106,"built-in":true,"buildingCode":"KB","POIId":8106,"description":"Listed in the Western Classroom Directory","category":"Classroom","floor":"First Floor","map":"KB1F.png","mapY":650,"building":"Kresge Building","mapX":2800,"POIName":"KB 106"}]}
+{
+  "Bookmarks": []
+}
