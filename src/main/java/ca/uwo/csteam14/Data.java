@@ -14,6 +14,12 @@ public class Data extends LinkedList<POI>{
     protected static LinkedList<POI> userCreatedPOIs;
     protected static LinkedList<POI> bookmarks;
 
+    /**
+     * Data Constructor
+     * Initializes the linked lists
+     * reads data from json files and adds the data to respective linked lists
+     */
+
     public Data() {
         JSONParser parser = new JSONParser();
         builtInPOIs = new LinkedList<>();
@@ -181,6 +187,13 @@ public class Data extends LinkedList<POI>{
         }
     }
 
+    /**
+     * This method is responsible for accessing POIs that have been selected by the user.
+     * @param currentFloor the floor that is currently on the map
+     * @param layerName the name of the layer that is being shown
+     * @return an Arraylist with the clicked on POIs
+     */
+
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
@@ -313,6 +326,12 @@ public class Data extends LinkedList<POI>{
         return null;
     }
 
+    /**
+     * This method checks if the given LinkedList contains the given POI.
+     * @param list the LinkedList that is being searched
+     * @param poi the POI that is being searched for
+     * @return a boolean indicating if the linked list contains the POI or doesn't contain the POI
+     */
     public static boolean containsPOI(LinkedList<POI> list, POI poi) {
         if (list !=null && list.size() > 0) {
             for (POI p : list) {
