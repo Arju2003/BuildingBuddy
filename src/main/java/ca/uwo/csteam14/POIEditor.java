@@ -10,7 +10,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.Arrays;
 
 import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
@@ -166,14 +165,13 @@ public class POIEditor extends JDialog {
             POIRoomNumberLabel.setPreferredSize(new Dimension(100, 40));
             POIRoomNumberLabel.setForeground(Color.BLACK);
 
-            if(Main.devMode) {
+            if (Main.devMode) {
                 if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText()) && POI.isInteger(POIRoomNumberField.getText())) {
                     poi.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
                     poi.category = POICategoryField.getText();
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.builtInPOIs);
-
                 }
                 else {
                     if (POINameField.getText().length() == 0) {
@@ -195,19 +193,30 @@ public class POIEditor extends JDialog {
                 }
             }
             else {
-                if(!Data.containsPOI(Data.userCreatedPOIs, poi) && !Data.containsPOI(Data.builtInPOIs,poi)) {
+                if (!poi.isBuiltIn) {
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.userCreatedPOIs);
+                    if (bookmarkAdd.isSelected()) {
+                        Data.addPOI(poi, Data.bookmarks);
+                    }
+                    if (bookmarkRemove.isSelected()) {
+                        try {
+                            Data.removePOI(poi, Data.bookmarks);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
                 }
-                if (bookmarkAdd.isSelected()) {
-                    Data.addPOI(poi, Data.bookmarks);
-                }
-                if (bookmarkRemove.isSelected()) {
-                    try {
-                        Data.removePOI(poi, Data.bookmarks);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                else {
+                    if (bookmarkAdd.isSelected()) {
+                        result = Data.addPOI(poi, Data.bookmarks);
+                    } if (bookmarkRemove.isSelected()) {
+                        try {
+                            result = Data.removePOI(poi, Data.bookmarks);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 }
             }
@@ -250,22 +259,38 @@ public class POIEditor extends JDialog {
             });
             JButton confirm = new JButton("Confirm Deletion");
             confirm.addActionListener(e3-> {
-                try {
-                    boolean user = Data.removePOI(poi,Data.userCreatedPOIs);
-                    boolean bookmark = Data.removePOI(poi,Data.bookmarks);
-                    boolean builtin = Data.removePOI(poi,Data.builtInPOIs);
-                    if (user || bookmark || builtin) {
-                        resultDisplay("Successfully removed!",Color.GREEN);
+                boolean result;
+                if (Main.devMode) {
+                    try {
+                        result = Data.removePOI(poi, Data.builtInPOIs);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    else {
-                        resultDisplay("Oops... Be careful!",Color.PINK);
+                    try {
+                        Data.removePOI(poi, Data.bookmarks);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    new GUIForPOIs(GUIForPOIs.POIsGroup);
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                    throw new RuntimeException(ex);
-
                 }
+                else {
+                    try {
+                        result = Data.removePOI(poi, Data.userCreatedPOIs);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        Data.removePOI(poi, Data.bookmarks);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                if (result) {
+                    resultDisplay("Successfully removed!",Color.GREEN);
+                }
+                else {
+                    resultDisplay("Oops... Be careful!",Color.PINK);
+                }
+                new GUIForPOIs(GUIForPOIs.POIsGroup);
                 alert.setVisible(false);
                 dialog.dispose();
             });

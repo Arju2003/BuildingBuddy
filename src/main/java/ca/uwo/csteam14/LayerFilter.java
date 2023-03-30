@@ -29,7 +29,6 @@ public class LayerFilter extends JPanel {
 
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
 
-    protected static ArrayList<POI> POIsOnCurrentFloor = new ArrayList<>();
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
 
     protected static MapView currentMapView;
@@ -54,7 +53,7 @@ public class LayerFilter extends JPanel {
             JCheckBox checkbox = new JCheckBox();
             checkbox.setIcon(scaledIcon);
             checkbox.setText(labelArray[i]);
-            checkbox.setIconTextGap(20);;
+            checkbox.setIconTextGap(20);
             Border border = BorderFactory.createCompoundBorder(checkbox.getBorder(), padding);
             checkbox.setBorder(border);
             checkbox.setPreferredSize(new Dimension(270, checkbox.getPreferredSize().height));
@@ -143,9 +142,7 @@ public class LayerFilter extends JPanel {
             g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
             g.dispose();
 
-            System.out.println(layerName);
             for (POI poi : POIsOnSelectedLayer) {
-                System.out.println("    " + poi.category + " : " + poi.name);
                 g = mapImageWithLayers.createGraphics();
                 g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
                 g.dispose();
@@ -169,6 +166,8 @@ public class LayerFilter extends JPanel {
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
         for (String layerName: labelArray) {
             // Load the original images
+            if (Main.devMode && layerName.contains("My Locations"))
+                continue;
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);

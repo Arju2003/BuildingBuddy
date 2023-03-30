@@ -272,8 +272,8 @@ public class MapView extends JPanel {
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(Data.generatePOIID("dev"));
                         newPOI.name = "";
-                        newPOI.positionX = e.getX();
-                        newPOI.positionY = e.getY();
+                        newPOI.positionX = e.getX() - 24;
+                        newPOI.positionY = e.getY() - 24;
                         newPOI.category = "";
                         newPOI.roomNumber = 0;
                         newPOI.map = Main.currentFloor + ".png";
@@ -292,8 +292,8 @@ public class MapView extends JPanel {
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(Data.generatePOIID("user"));
                         newPOI.name = "My Location";
-                        newPOI.positionX = e.getX();
-                        newPOI.positionY = e.getY();
+                        newPOI.positionX = e.getX() - 24;
+                        newPOI.positionY = e.getY() - 24;
                         newPOI.category = "My Locations";
                         newPOI.roomNumber = 0;
                         newPOI.map = Main.currentFloor + ".png";
@@ -325,7 +325,10 @@ public class MapView extends JPanel {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
             if (!s.contains("Bookmarks"))
-                list.addAll(Data.getLayerPOIs(floorName, s));
+                if (Main.devMode && !s.contains("My Locations"))
+                    list.addAll(Data.getLayerPOIs(floorName, s));
+                else if (!Main.devMode)
+                    list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
             if (x - p.positionX <= 48 && x - p.positionX >= 0 && y - p.positionY <= 48 && y - p.positionY>= 8)
