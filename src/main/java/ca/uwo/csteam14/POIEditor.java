@@ -164,28 +164,17 @@ public class POIEditor extends JDialog {
             POICategoryLabel.setForeground(Color.BLACK);
 
             if(Main.devMode) {
-                POI newP = new POI(Data.generatePOIID("ok"));
                 if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText())) {
-                    try {
-//                        newP.id = poi.id;
-//                        newP.map = poi.map;
-//                        newP.positionX = poi.positionX;
-//                        newP.positionY = poi.positionY;
-//                        newP.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
-                        newP.isBuiltIn = true;
-                        newP.category = POICategoryField.getText();
-                        newP.floor = POIFloorField.getText();
-                        newP.description = POIDescriptionField.getText();
-                        newP.name = POINameField.getText();
-                        newP.code = poi.map.replaceAll("\\dF.png","");
-                        newP.next = poi.next;
-                        newP.building = POIBuildingField.getText();
-                        if(Data.containsPOI(Data.builtInPOIs, poi))
-                            Data.removePOI(poi, Data.builtInPOIs);
-                        result = Data.addPOI(newP, Data.builtInPOIs);
-                    } catch (IOException e4) {
-                        throw new RuntimeException(e4);
-                    }
+                    poi.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
+                    poi.isBuiltIn = true;
+                    poi.map = Main.currentFloor + ".png";
+                    poi.category = POICategoryField.getText();
+                    poi.floor = POIFloorField.getText();
+                    poi.description = POIDescriptionField.getText();
+                    poi.name = POINameField.getText();
+                    poi.code = poi.map.replaceAll("\\dF.png","");
+                    poi.building = POIBuildingField.getText();
+                    result = Data.addPOI(poi, Data.builtInPOIs);
 
                 }
                 else {
@@ -204,27 +193,9 @@ public class POIEditor extends JDialog {
             }
             else {
                 if(!Data.containsPOI(Data.userCreatedPOIs, poi) && !Data.containsPOI(Data.builtInPOIs,poi)) {
-                    POI newP = new POI(Data.generatePOIID("ok"));
-                    try {
-                        newP.id = poi.id;
-                        newP.map = poi.map;
-                        newP.positionX = poi.positionX;
-                        newP.positionY = poi.positionY;
-                        newP.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
-                        newP.isBuiltIn = false;
-                        newP.category = POICategoryField.getText();
-                        newP.floor = POIFloorField.getText();
-                        newP.description = POIDescriptionField.getText();
-                        newP.name = POINameField.getText();
-                        newP.code = poi.map.replaceAll("\\dF.png","");
-                        newP.next = poi.next;
-                        newP.building = POIBuildingField.getText();
-                        Data.removePOI(poi, Data.builtInPOIs);
-                        Data.addPOI(newP, Data.builtInPOIs);
-                    } catch (IOException e4) {
-                        throw new RuntimeException(e4);
-                    }
-                    Data.addPOI(newP, Data.userCreatedPOIs);
+                    poi.description = POIDescriptionField.getText();
+                    poi.name = POINameField.getText();
+                    Data.addPOI(poi, Data.userCreatedPOIs);
                 }
                 if (bookmarkAdd.isSelected()) {
                     Data.addPOI(poi, Data.bookmarks);
@@ -315,7 +286,6 @@ public class POIEditor extends JDialog {
                 POICategoryField.setEditable(false);
                 POIDescriptionField.setEditable(false);
             }
-
             POINameField.setEditable(true);
             POIRoomNumberField.setEditable(false);
             POIFloorField.setEditable(false);
@@ -335,8 +305,6 @@ public class POIEditor extends JDialog {
             bookmarkAdd.setEnabled(false);
             isABookmark.setEnabled(false);
             bookmarkRemove.setEnabled(false);
-            System.out.println(Data.containsPOI(Data.builtInPOIs,poi));
-            System.out.println(Data.builtInPOIs.indexOf(poi));
             if (!Data.containsPOI(Data.builtInPOIs,poi)) {
                 deleteButton.setEnabled(false);
                 deleteButton.setBackground(new Color(200, 200, 200));

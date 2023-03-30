@@ -83,7 +83,7 @@ public class GUIForPOIs {
                 new POISelector(POIsGroup);
                 GUIForPOIs.POIsGroup = POIsGroup;
                 new Search();
-                LayerFilter.paintAllIcons();
+                LayerFilter.showAllLayers();
                 GUI.frame.pack();
                 GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
             } catch (IOException e) {

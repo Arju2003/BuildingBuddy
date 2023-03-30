@@ -139,7 +139,7 @@ public class POI {
     }
 
     public boolean isEqualTo(POI p) {
-        return (this.id == p.id || (this.positionX - p.positionX <= 48 && this.positionX - p.positionX >= 0 && this.positionY - p.positionY <= 48 && this.positionY - p.positionY>= 8));
+        return (this.id == p.id || (this.map.equals(p.map) && this.positionX <= p.positionX + 48 && this.positionX >= p.positionX && this.positionY <= p.positionY + 48 && this.positionY >= p.positionY));
     }
 
     public boolean hasLegalCategory() {
