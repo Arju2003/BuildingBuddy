@@ -1,3 +1,1 @@
-{
-  "UserPOIs": []
-}
+{"UserPOIs":[{"roomNumber":200,"built-in":false,"buildingCode":"B","POIId":4,"description":"New POI description","floor":"Second Floor","category":"Office","map":"Map A","building":"Building A","mapY":500,"POIName":"test poi","mapX":300}]}
