@@ -9,9 +9,32 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileWriter;
 
+/**
+ * Data class used for reading and updating JSON files, managing POIs and bookmarks, and generating new POI IDs.
+ * <br></br>
+ * The JSON files are read and POIs are stored in LinkedList objects when {@link #Data() Data()} is called.
+ * POIs and bookmarks are added with the {@link #addPOI(POI, LinkedList<POI>) addPOI} method and POIs are removed with the {@link #removePOI(POI, LinkedList) removePOI} method.
+ * <br></br>
+ * <b>Example Use:</b>
+ * <pre>
+ * {@code
+ *     new Data();
+ *     addPOI(p, userCreatedPOIs);
+ *     removePOI(p2, bookmarks);
+ * }
+ * </pre>
+ * <b>Example Output:</b> No output, but userCreatedPOIs, and bookmarks list are updated accordingly along with the associated JSON files.
+ * @version 1.0.0
+ * @author Robert Beemer
+ * @author Arjuna Kadirgamar
+ * @author Jason Shew
+ */
 public class Data extends LinkedList<POI>{
+    /** A LinkedList object containing all built-in POIs. */
     protected static LinkedList<POI> builtInPOIs;
+    /** A LinkedList object containing all user-created POIs. */
     protected static LinkedList<POI> userCreatedPOIs;
+    /** A LinkedList object containing all bookmarks. */
     protected static LinkedList<POI> bookmarks;
 
     /**
@@ -215,6 +238,12 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
+    /**
+     * Adds the given POI to the given LinkedList and updates the associated JSON file.
+     * @param p the POI to add
+     * @param lst the LinkedList to add the POI to
+     * @return a boolean value indicating whether the POI was successfully added or not
+     */
     public static boolean addPOI(POI p, LinkedList<POI> lst) {
         boolean result = false;
         String filePath = "./data/";
@@ -252,6 +281,14 @@ public class Data extends LinkedList<POI>{
         }
         return result;
     }
+
+    /**
+     * Removes the given POI from the given LinkedList and updates the associated JSON file.
+     * @param p the POI to remove
+     * @param lst the LinkedList to remove the POI from
+     * @return a boolean value indicating whether the POI was successfully removed or not
+     * @throws IOException if an I/O error occurs
+     */
     public static boolean removePOI(POI p, LinkedList<POI> lst) throws IOException {
         boolean result = false;
 
@@ -341,6 +378,11 @@ public class Data extends LinkedList<POI>{
         return false;
     }
 
+    /**
+     * Generates and returns an appropriate, unused POI ID based on who is creating the POI.
+     * @param creator who is creating the POI
+     * @return an unused, appropriate ID for a potential new POI
+     */
     public static int generatePOIID(String creator) {
         int largestID = -1;
         switch (creator.toLowerCase()) {

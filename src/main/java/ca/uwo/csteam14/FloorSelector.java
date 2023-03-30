@@ -143,8 +143,9 @@ public class FloorSelector {
     }
 
     /**
-     * @param currentFloor
-     * @return
+     * Gets the floor name when given a floor code in the format "xF" where x is an integer from 0-4
+     * @param currentFloor a code for the floor number
+     * @return the floor number in words (e.g. "First Floor")
      */
     public static String getFloorName(String currentFloor) {
         if (currentFloor.contains("0F")) return "Ground Floor";

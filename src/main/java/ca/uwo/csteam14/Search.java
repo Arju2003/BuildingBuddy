@@ -13,9 +13,11 @@ import java.util.LinkedList;
 
 public class Search {
 
+    /** The String the user searched for */
     protected static String userInput;
+    /** The first result returned */
     protected static POI firstResult = null;
-
+    /** The default text in the search box before user searches */
     private static final String defaultText = "Search anything ...";
 
     /**
@@ -68,8 +70,9 @@ public class Search {
     }
 
     /**
-     * @param userInput 
-     * @return
+     * Creates a list of POIs that are returned as search results from the given search
+     * @param userInput the String the user searched
+     * @return a LinkedList of search results (POIs)
      */
     public static LinkedList<POI> searchResults(String userInput) {
 
