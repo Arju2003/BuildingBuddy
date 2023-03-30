@@ -162,18 +162,16 @@ public class POIEditor extends JDialog {
             POICategoryLabel.setFont(new Font("Arial", Font.PLAIN, 14));
             POICategoryLabel.setPreferredSize(new Dimension(100, 40));
             POICategoryLabel.setForeground(Color.BLACK);
+            POIRoomNumberLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            POIRoomNumberLabel.setPreferredSize(new Dimension(100, 40));
+            POIRoomNumberLabel.setForeground(Color.BLACK);
 
             if(Main.devMode) {
-                if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText())) {
+                if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText()) && POI.isInteger(POIRoomNumberField.getText())) {
                     poi.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
-                    poi.isBuiltIn = true;
-                    poi.map = Main.currentFloor + ".png";
                     poi.category = POICategoryField.getText();
-                    poi.floor = POIFloorField.getText();
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
-                    poi.code = poi.map.replaceAll("\\dF.png","");
-                    poi.building = POIBuildingField.getText();
                     result = Data.addPOI(poi, Data.builtInPOIs);
 
                 }
@@ -189,13 +187,18 @@ public class POIEditor extends JDialog {
                         POICategoryLabel.setPreferredSize(new Dimension(110, 40));
                         POICategoryLabel.setForeground(Color.RED);
                     }
+                    if (!POI.isInteger(POIRoomNumberField.getText())) {
+                        POIRoomNumberLabel.setFont(new Font("Arial", BOLD, 14));
+                        POIRoomNumberLabel.setPreferredSize(new Dimension(110, 40));
+                        POIRoomNumberLabel.setForeground(Color.RED);
+                    }
                 }
             }
             else {
                 if(!Data.containsPOI(Data.userCreatedPOIs, poi) && !Data.containsPOI(Data.builtInPOIs,poi)) {
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
-                    Data.addPOI(poi, Data.userCreatedPOIs);
+                    result = Data.addPOI(poi, Data.userCreatedPOIs);
                 }
                 if (bookmarkAdd.isSelected()) {
                     Data.addPOI(poi, Data.bookmarks);
@@ -286,15 +289,17 @@ public class POIEditor extends JDialog {
                 POICategoryField.setEditable(false);
                 POIDescriptionField.setEditable(false);
             }
-            POINameField.setEditable(true);
-            POIRoomNumberField.setEditable(false);
-            POIFloorField.setEditable(false);
-            POIBuildingField.setEditable(false);
-            POICategoryField.setEditable(false);
-            POIDescriptionField.setEditable(true);
-            if (Data.containsPOI(Data.userCreatedPOIs,poi)) {
-                deleteButton.setForeground(new Color(255, 255, 255));
-                deleteButton.setBackground(new Color(220,50,32));
+            else {
+                POINameField.setEditable(true);
+                POIRoomNumberField.setEditable(false);
+                POIFloorField.setEditable(false);
+                POIBuildingField.setEditable(false);
+                POICategoryField.setEditable(false);
+                POIDescriptionField.setEditable(true);
+                if (Data.containsPOI(Data.userCreatedPOIs, poi)) {
+                    deleteButton.setForeground(new Color(255, 255, 255));
+                    deleteButton.setBackground(new Color(220, 50, 32));
+                }
             }
         }
 
@@ -311,9 +316,6 @@ public class POIEditor extends JDialog {
                 deleteButton.setForeground(new Color(20, 20, 20));
             }
         }
-
-
-
 
         main.add(leftPanel);
         main.add(rightPanel);

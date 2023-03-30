@@ -37,22 +37,26 @@ public class GUIForPOIs {
             switch (POIsGroup) {
                 case "BMK" -> {
                     GUIForPOIs.POIType = "Bookmarks";
+                    GUIForPOIs.POIsGroup = POIsGroup;
                     if (Data.bookmarks.size() > 0) {
                         poi = Data.bookmarks.getFirst();
                     }
                 }
                 case "BIP" -> {
                     GUIForPOIs.POIType = "Developer Tool";
+                    GUIForPOIs.POIsGroup = POIsGroup;
                     if (Data.builtInPOIs.size() > 0)
                         poi = Data.builtInPOIs.getFirst();
                 }
                 case "UDP" -> {
                     GUIForPOIs.POIType = "My Locations";
+                    GUIForPOIs.POIsGroup = POIsGroup;
                     if (Data.userCreatedPOIs.size() > 0)
                         poi = Data.userCreatedPOIs.getFirst();
                 }
                 case "SRC" -> {
                     GUIForPOIs.POIType = "Search & Discovery";
+                    GUIForPOIs.POIsGroup = POIsGroup;
                     poi = Search.firstResult;
                 }
             }
