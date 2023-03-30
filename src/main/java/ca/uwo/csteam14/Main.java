@@ -96,7 +96,8 @@ public class Main {
     }
 
     /**
-     * @param newKey
+     * Updates the value fo the securityKey attrbute
+     * @param newKey the value replacing the current securityKey value
      */
     public static void setSecurityKey(char[] newKey) {
         securityKey = newKey;

@@ -10,10 +10,39 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileWriter;
 
+/**
+ * Data class used for reading and updating JSON files, managing POIs and bookmarks, and generating new POI IDs.
+ * <br></br>
+ * The JSON files are read and POIs are stored in LinkedList objects when {@link #Data() Data()} is called.
+ * POIs and bookmarks are added with the {@link #addPOI(POI, LinkedList<POI>) addPOI} method and POIs are removed with the {@link #removePOI(POI, LinkedList) removePOI} method.
+ * <br></br>
+ * <b>Example Use:</b>
+ * <pre>
+ * {@code
+ *     new Data();
+ *     addPOI(p, userCreatedPOIs);
+ *     removePOI(p2, bookmarks);
+ * }
+ * </pre>
+ * <b>Example Output:</b> No output, but userCreatedPOIs, and bookmarks list are updated accordingly along with the associated JSON files.
+ * @version 1.0.0
+ * @author Robert Beemer
+ * @author Arjuna Kadirgamar
+ * @author Jason Shew
+ */
 public class Data extends LinkedList<POI>{
+    /** A LinkedList object containing all built-in POIs. */
     protected static LinkedList<POI> builtInPOIs;
+    /** A LinkedList object containing all user-created POIs. */
     protected static LinkedList<POI> userCreatedPOIs;
+    /** A LinkedList object containing all bookmarks. */
     protected static LinkedList<POI> bookmarks;
+
+    /**
+     * Data Constructor
+     * Initializes the linked lists
+     * reads data from json files and adds the data to respective linked lists
+     */
 
     public Data() {
         JSONParser parser = new JSONParser();
@@ -182,6 +211,13 @@ public class Data extends LinkedList<POI>{
         }
     }
 
+    /**
+     * This method is responsible for accessing POIs that have been selected by the user.
+     * @param currentFloor the floor that is currently on the map
+     * @param layerName the name of the layer that is being shown
+     * @return an Arraylist with the clicked on POIs
+     */
+
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
@@ -203,6 +239,12 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
+    /**
+     * Adds the given POI to the given LinkedList and updates the associated JSON file.
+     * @param p the POI to add
+     * @param lst the LinkedList to add the POI to
+     * @return a boolean value indicating whether the POI was successfully added or not
+     */
     public static boolean addPOI(POI p, LinkedList<POI> lst) {
         boolean result = false;
         String filePath = "./data/";
@@ -240,6 +282,14 @@ public class Data extends LinkedList<POI>{
         }
         return result;
     }
+
+    /**
+     * Removes the given POI from the given LinkedList and updates the associated JSON file.
+     * @param p the POI to remove
+     * @param lst the LinkedList to remove the POI from
+     * @return a boolean value indicating whether the POI was successfully removed or not
+     * @throws IOException if an I/O error occurs
+     */
     public static boolean removePOI(POI p, LinkedList<POI> lst) throws IOException {
         boolean result = false;
 
@@ -288,18 +338,37 @@ public class Data extends LinkedList<POI>{
         return result;
     }
 
+    /**
+     * Method for accessing the linked list of built-in POIs.
+     * @return LinkedList of built-in POIs
+     */
     public LinkedList<POI> getBuiltInPOIs() {
         return builtInPOIs;
     }
 
+    /**
+     * Method for accessing the list of user created POIs.
+     * @return LinkedList of user-created POIs
+     */
     public LinkedList<POI> getUserCreatedPOIs() {
         return userCreatedPOIs;
     }
 
+    /**
+     * Method for accessing the list of bookmarked POIs.
+     * @return LinkedList of bookmarked POIs
+     */
     public LinkedList<POI> getBookmarks() {
         return bookmarks;
     }
 
+    /**
+     * Method for finding a specific POI object on a current floor with a given coordinate set.
+     * @param currentFloor floor the POI resides on
+     * @param x POI's x co-ordinate
+     * @param y POI's y co-ordinate
+     * @return POI object P with co-ordinates (x,y) on floor currentFloor
+     */
     public POI getPOI (String currentFloor,int x, int y){
         for (POI p : builtInPOIs) {
             if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
@@ -314,6 +383,12 @@ public class Data extends LinkedList<POI>{
         return null;
     }
 
+    /**
+     * This method checks if the given LinkedList contains the given POI.
+     * @param list the LinkedList that is being searched
+     * @param poi the POI that is being searched for
+     * @return a boolean indicating if the linked list contains the POI or doesn't contain the POI
+     */
     public static boolean containsPOI(LinkedList<POI> list, POI poi) {
         if (list !=null && list.size() > 0) {
             for (POI p : list) {
@@ -323,6 +398,11 @@ public class Data extends LinkedList<POI>{
         return false;
     }
 
+    /**
+     * Generates and returns an appropriate, unused POI ID based on who is creating the POI.
+     * @param creator who is creating the POI
+     * @return an unused, appropriate ID for a potential new POI
+     */
     public static int generatePOIID(String creator) {
         int largestID = -1;
         switch (creator.toLowerCase()) {
