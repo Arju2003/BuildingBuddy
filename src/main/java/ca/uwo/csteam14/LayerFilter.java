@@ -13,15 +13,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class LayerFilter extends JPanel {
 
     private static final JPanel layerSelector = new JPanel();
     protected static JPanel checkboxPanel;
-    static final String[] labelArray = {"Bookmarks", "Classrooms","Labs","CompSci Spots",
-            "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"};
-    private static final String[] iconArray = {"./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"};
+    protected static final ArrayList<String> labelArray = new ArrayList<>(Arrays.asList("Bookmarks", "Classrooms","Labs","CompSci Spots",
+            "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"));
+    protected static final ArrayList<String> iconArray = new ArrayList<>(Arrays.asList("./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"));
 
     protected static BufferedImage baseMapImage;
 
@@ -43,16 +44,16 @@ public class LayerFilter extends JPanel {
         setFont(new Font("Arial", Font.PLAIN, 10));
         checkboxPanel.setLayout(new GridLayout(0, 1));
         Font regularFont = new Font("Arial", Font.PLAIN, 16);
-        JCheckBox[] checkboxes = new JCheckBox[labelArray.length];
+        JCheckBox[] checkboxes = new JCheckBox[labelArray.size()];
         Border padding = BorderFactory.createEmptyBorder(3, 10, 3, 10);
 
         for (int i = 0; i < checkboxes.length; ++i) {
-            ImageIcon icon = new ImageIcon(iconArray[i]);
+            ImageIcon icon = new ImageIcon(iconArray.get(i));
             Image image = icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(image);
             JCheckBox checkbox = new JCheckBox();
             checkbox.setIcon(scaledIcon);
-            checkbox.setText(labelArray[i]);
+            checkbox.setText(labelArray.get(i));
             checkbox.setIconTextGap(20);
             Border border = BorderFactory.createCompoundBorder(checkbox.getBorder(), padding);
             checkbox.setBorder(border);
@@ -95,7 +96,7 @@ public class LayerFilter extends JPanel {
                 }
             });
 
-            if (labelArray[i].contains("Washrooms") || labelArray[i].contains("Accessibility")) {
+            if (labelArray.get(i).contains("Washrooms") || labelArray.get(i).contains("Accessibility")) {
                 checkbox.setEnabled(true);
                 checkbox.setSelected(true);
                 checkbox.setFocusable(false);

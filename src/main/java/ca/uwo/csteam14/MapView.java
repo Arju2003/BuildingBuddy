@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 
 public class MapView extends JPanel {
@@ -43,10 +42,9 @@ public class MapView extends JPanel {
 
         setLayout(new OverlayLayout(this));
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
-            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
-            JComponent[] clickables = new JComponent[allLayers.size()];
-            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
-                clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
+            JComponent[] clickables = new JComponent[LayerFilter.labelArray.size()];
+            for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.labelArray);
                 clickables[i].setPreferredSize(new Dimension(48, 48));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
@@ -91,9 +89,9 @@ public class MapView extends JPanel {
         this.focalPoint = focalPoint;
         setLayout(new OverlayLayout(this));
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
-            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
+            ArrayList<String> allLayers = LayerFilter.labelArray;
             JComponent[] clickables = new JComponent[allLayers.size()];
-            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
+            for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
                 clickables[i].setPreferredSize(new Dimension(48, 48));
                 add(clickables[i]);
@@ -170,12 +168,11 @@ public class MapView extends JPanel {
 
         // create a circle with a transparent fill and a solid border
 
-        ArrayList<String> list = new ArrayList<>(List.of(LayerFilter.labelArray));
 
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
             POI p = POISelector.focus;
             if (p == null || mode.equals("NEW")) {
-                p = identifyPOI(Main.currentFloor,list,x,y);}
+                p = identifyPOI(Main.currentFloor,LayerFilter.labelArray,x,y);}
             if (p != null) {
                 BufferedImage iconImage = ImageIO.read(new File(LayerFilter.getLayerIcon(p.category)));
                 BufferedImage resizedIcon = new BufferedImage(48, 48, iconImage.getType());
@@ -186,7 +183,7 @@ public class MapView extends JPanel {
                 g.drawImage(iconImage, 0, 0, 48, 48, null);
                 g.dispose();
                 g = highlightedImage.createGraphics();
-                if (!Main.devMode || !mode.equals("NEW"))
+                if (!mode.equals("NEW"))
                     g.drawImage(resizedIcon, x, y, 48, 48, null);
                 g.dispose();
                 }
@@ -267,6 +264,7 @@ public class MapView extends JPanel {
                     }
                 }
                 else {
+                    POISelector.focus = null;
                     mouseClickedOnPOI = false;
                     if (Main.devMode) {
                         highlight(e.getX(), e.getY(), "NEW");

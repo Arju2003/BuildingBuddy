@@ -338,14 +338,12 @@ public class POIEditor extends JDialog {
             notABookmark.setText("");
             notABookmark.setForeground(Color.BLACK);
             bookmarkAdd.setText("© Team 14 at UWO");
-            //bookmarkAdd.setSelected(true);
             bookmarkAdd.setForeground(Color.WHITE);
             notABookmark.setEnabled(false);
             bookmarkAdd.setEnabled(false);
             isABookmark.setText("");
             isABookmark.setForeground(Color.BLACK);
             bookmarkRemove.setText("© Team 14 at UWO");
-            //bookmarkRemove.setSelected(true);
             bookmarkRemove.setForeground(Color.WHITE);
             isABookmark.setEnabled(false);
             bookmarkRemove.setEnabled(false);
@@ -372,16 +370,21 @@ public class POIEditor extends JDialog {
         // Add the JScrollPane to the JDialog
         dialog.add(scrollPane);
 
+
         // Create a JButton to close the dialog
         JButton closeButton = new JButton("Cancel");
         closeButton.addActionListener(e -> {
             dialog.dispose();
             if (MapView.currentHighlighted != null) {
-                if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
-                    GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
+                    if (Data.containsPOI(Data.builtInPOIs, poi) || Data.containsPOI(Data.userCreatedPOIs,poi))
+                        GUIForPOIs.mapView.highlight(poi.positionX, poi.positionY, "OFF");
+                    else GUIForPOIs.mapView.highlight(poi.positionX + 24, poi.positionY + 24, "OFF");
                 }
-                else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
-                    GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                else if (GUI.frame.getContentPane() == (GUI.canvas)) {
+                    if (Data.containsPOI(Data.builtInPOIs, poi) || Data.containsPOI(Data.userCreatedPOIs,poi))
+                        GUI.mapView.highlight(poi.positionX, poi.positionY, "OFF");
+                    else GUI.mapView.highlight(poi.positionX + 24, poi.positionY + 24, "OFF");
                 }
             }
         });
