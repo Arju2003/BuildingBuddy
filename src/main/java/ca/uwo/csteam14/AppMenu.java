@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class AppMenu extends JFrame implements ActionListener, KeyListener {
+public class AppMenu extends JFrame {
     protected final JMenuBar mb = new JMenuBar(); // create a menubar
 
 
@@ -166,7 +166,7 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         });
         bookmarks.addActionListener(e -> new GUIForPOIs("BMK"));
         bookmarks.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
-        myLocations.addActionListener(e -> {new GUIForPOIs("UDP");});
+        myLocations.addActionListener(e -> new GUIForPOIs("UDP"));
         myLocations.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
         checkForUpdates.addActionListener(e -> {
             clearWindows();
@@ -191,13 +191,14 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new GridLayout(0,1));
             JLabel title = new JLabel("Developer Tool");
+            title.setFont(new Font("Arial",Font.BOLD,18));
             mainPanel.add(title);
-            JLabel prompt = new JLabel("Please enter security key");
+            JLabel prompt = new JLabel("Please enter security key:");
             mainPanel.add(prompt);
 
             JPasswordField securityKey = new JPasswordField();
             securityKey.setPreferredSize(new Dimension(260,40));
-            securityKey.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+            securityKey.setText("");
             securityKey.setVisible(true);
             securityKey.setEnabled(true);
             securityKey.setEditable(true);
@@ -241,10 +242,10 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
 
 
                         newKey1.setPreferredSize(new Dimension(260,40));
-                        newKeyInput1.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+                        newKeyInput1.setText("");
 
                         newKey2.setPreferredSize(new Dimension(260,40));
-                        newKeyInput2.setText(new String(new char[]{'C', 'S', '2', '2', '1', '2', 'B', 'B'}));
+                        newKeyInput2.setText("");
 
                         newKeyInput1.setEditable(true);
                         newKeyInput2.setEditable(true);
@@ -271,12 +272,13 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
                         changeKeyDialog.setLocationRelativeTo(devLogin);
 
                     });
+                    changeKey.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
                     more.add(changeKey);
                     Main.devMode = true;
                     GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
                     devLogin.dispose();
                 }
-                else prompt.setText("Incorrect security key. Please retry.");
+                else prompt.setText("Incorrect security key. Please try again:");
             });
 
             devLogin.add(mainPanel);
@@ -305,6 +307,15 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         mb.add(more);
         mb.add(exit);
 
+        Font font = new Font("Arial", Font.PLAIN, 16);
+        start.setFont(font);
+        view.setFont(font);
+        weather.setFont(font);
+        help.setFont(font);
+        about.setFont(font);
+        more.setFont(font);
+        exit.setFont(font);
+
         start.setPreferredSize(new Dimension(100, 20));
         view.setPreferredSize(new Dimension(80, 20));
         weather.setPreferredSize(new Dimension(100, 20));
@@ -313,47 +324,31 @@ public class AppMenu extends JFrame implements ActionListener, KeyListener {
         more.setPreferredSize(new Dimension(80, 20));
         exit.setPreferredSize(new Dimension(100, 20));
 
+        start.setBackground(mb.getBackground());
+        view.setBackground(mb.getBackground());
+        weather.setBackground(mb.getBackground());
+        help.setBackground(mb.getBackground());
+        about.setBackground(mb.getBackground());
+        more.setBackground(mb.getBackground());
+        exit.setBackground(mb.getBackground());
+
+        start.setForeground(mb.getForeground());
+        view.setForeground(mb.getForeground());
+        weather.setForeground(mb.getForeground());
+        help.setForeground(mb.getForeground());
+        about.setForeground(mb.getForeground());
+        more.setForeground(mb.getForeground());
+        exit.setForeground(mb.getForeground());
 
 
     }
 
-    /**
-     * @param e the event to be processed
-     */
-    public void actionPerformed(ActionEvent e) {
-
-
-    }
 
     /**
      * @return
      */
     public JMenuBar load() {
         return mb;
-    }
-
-    /**
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    /**
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    /**
-     * @param e the event to be processed
-     */
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
     /**
