@@ -8,6 +8,10 @@ package ca.uwo.csteam14;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -27,6 +31,15 @@ public class Search {
         JPanel searchTool = new JPanel();
         JTextField input = new JTextField(defaultText);
         input.setPreferredSize(new Dimension(260,40));
+        input.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                input.setText("");
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+            }
+        });
 
         JButton goButton = new JButton("Go");
         goButton.setPreferredSize(new Dimension(40,40));
@@ -57,6 +70,25 @@ public class Search {
                     """);
 
                 }
+            }
+        });
+        input.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Do nothing
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Simulate a button click when the Enter key is pressed in the text field
+                    goButton.doClick();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Do nothing
             }
         });
         searchTool.setLayout(new GridBagLayout());

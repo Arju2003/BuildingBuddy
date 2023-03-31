@@ -68,6 +68,7 @@ public class GUI {
                 new LayerFilter(); // this invokes the MapView object
                 new Search();
                 frame.pack();
+                frame.setResizable(false);
                 frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
                 frame.setVisible(true);
 

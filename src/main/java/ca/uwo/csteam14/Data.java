@@ -247,7 +247,8 @@ public class Data extends LinkedList<POI>{
     public static boolean addPOI(POI p, LinkedList<POI> lst) {
         boolean result;
         POI temp = new POI(p);
-        lst.removeIf(poi -> poi != null && poi.isEqualTo(p));
+        lst.removeIf(poi -> poi.isEqualTo(temp));
+
         result = lst.add(temp);
 
         // write to user.json
@@ -271,13 +272,13 @@ public class Data extends LinkedList<POI>{
         }
 
         String filePath = "./data/";
-        if (lst.equals(Data.userCreatedPOIs)) {
+        if (lst == Data.userCreatedPOIs) {
             obj.put("UserPOIs", jsonArray);
             filePath += "user.json";
-        } else if (lst.equals(Data.builtInPOIs)) {
+        } else if (lst == Data.builtInPOIs) {
             obj.put("BuiltInPOIs", jsonArray);
             filePath += "builtin.json";
-        } else if (lst.equals(Data.bookmarks)) {
+        } else if (lst == Data.bookmarks) {
             obj.put("Bookmarks", jsonArray);
             filePath += "bookmarks.json";
         }
@@ -298,44 +299,49 @@ public class Data extends LinkedList<POI>{
      * @throws IOException if an I/O error occurs
      */
     public static boolean removePOI(POI p, LinkedList<POI> lst) throws IOException {
-        boolean result = false;
-
-        for (POI poi : lst) {
-            if (poi != null && poi.isEqualTo(p)) {
-                result = lst.remove(poi);
-                if (result) break;
+        int count = 0;
+        Iterator<POI> iterator = lst.iterator();
+        while (iterator.hasNext()) {
+            POI poi = iterator.next();
+            if (poi.isEqualTo(p)) {
+                iterator.remove();
+                count++;
             }
         }
-        // In built linked list removal
 
+        boolean result = count > 0;
+        // In built linked list removal
 
         JSONObject obj = new JSONObject();
         // Create a new json array of json objects that hold objects from the linked list of POIs
         JSONArray jsonArray = new JSONArray();
-        for (POI data : lst) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("mapX", data.positionX);
-            jsonObject.put("mapY", data.positionY);
-            jsonObject.put("POIName", data.name);
-            jsonObject.put("POIId", data.id);
-            jsonObject.put("map", data.map);
-            jsonObject.put("description", data.description);
-            jsonObject.put("category", data.category);
-            jsonObject.put("buildingCode", data.code);
-            jsonObject.put("floor", data.floor);
-            jsonObject.put("building", data.building);
-            jsonObject.put("built-in", data.isBuiltIn);
-            jsonObject.put("roomNumber", data.roomNumber);
-            jsonArray.add(jsonObject);
+        if (lst.size() > 0) {
+            for (POI data : lst) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("mapX", data.positionX);
+                jsonObject.put("mapY", data.positionY);
+                jsonObject.put("POIName", data.name);
+                jsonObject.put("POIId", data.id);
+                jsonObject.put("map", data.map);
+                jsonObject.put("description", data.description);
+                jsonObject.put("category", data.category);
+                jsonObject.put("buildingCode", data.code);
+                jsonObject.put("floor", data.floor);
+                jsonObject.put("building", data.building);
+                jsonObject.put("built-in", data.isBuiltIn);
+                jsonObject.put("roomNumber", data.roomNumber);
+                jsonArray.add(jsonObject);
+            }
         }
+
         String filePath = "./data/";
-        if (lst.equals(Data.userCreatedPOIs)) {
+        if (lst == Data.userCreatedPOIs) {
             obj.put("UserPOIs", jsonArray);
             filePath += "user.json";
-        } else if (lst.equals(Data.builtInPOIs)) {
+        } else if (lst == Data.builtInPOIs) {
             obj.put("BuiltInPOIs", jsonArray);
             filePath += "builtin.json";
-        } else if (lst.equals(Data.bookmarks)) {
+        } else if (lst == Data.bookmarks) {
             obj.put("Bookmarks", jsonArray);
             filePath += "bookmarks.json";
         }

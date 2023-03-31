@@ -172,6 +172,8 @@ public class POIEditor extends JDialog {
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.builtInPOIs);
+                    if (Data.containsPOI(Data.bookmarks,poi))
+                        Data.addPOI(poi, Data.bookmarks);
                 }
                 else {
                     if (POINameField.getText().length() == 0) {
@@ -197,6 +199,8 @@ public class POIEditor extends JDialog {
                     poi.description = POIDescriptionField.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.userCreatedPOIs);
+                    if (Data.containsPOI(Data.bookmarks,poi))
+                        Data.addPOI(poi, Data.bookmarks);
                     if (bookmarkAdd.isSelected()) {
                         Data.addPOI(poi, Data.bookmarks);
                     }
@@ -331,16 +335,18 @@ public class POIEditor extends JDialog {
         else {
             POIFloorField.setEditable(false);
             POIBuildingField.setEditable(false);
-            notABookmark.setText("Developer's Editor");
+            notABookmark.setText("");
             notABookmark.setForeground(Color.BLACK);
-            bookmarkAdd.setText("Ver 1.0");
-            bookmarkAdd.setForeground(Color.BLACK);
+            bookmarkAdd.setText("© Team 14 at UWO");
+            //bookmarkAdd.setSelected(true);
+            bookmarkAdd.setForeground(Color.WHITE);
             notABookmark.setEnabled(false);
             bookmarkAdd.setEnabled(false);
-            isABookmark.setText("Developer's Editor");
+            isABookmark.setText("");
             isABookmark.setForeground(Color.BLACK);
-            bookmarkRemove.setText("Ver 1.0");
-            bookmarkRemove.setForeground(Color.BLACK);
+            bookmarkRemove.setText("© Team 14 at UWO");
+            //bookmarkRemove.setSelected(true);
+            bookmarkRemove.setForeground(Color.WHITE);
             isABookmark.setEnabled(false);
             bookmarkRemove.setEnabled(false);
             if (!Data.containsPOI(Data.builtInPOIs,poi)) {
@@ -379,6 +385,8 @@ public class POIEditor extends JDialog {
                 }
             }
         });
+        closeButton.setFocusTraversalKeysEnabled(true);
+        dialog.getRootPane().setDefaultButton(closeButton);
         dialog.add(closeButton, BorderLayout.SOUTH);
 
         // Pack the JDialog
