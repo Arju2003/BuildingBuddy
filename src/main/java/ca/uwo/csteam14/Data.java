@@ -428,8 +428,11 @@ public class Data extends LinkedList<POI>{
             case "user" -> {
                 largestID = 4000000;
                 for (POI p: userCreatedPOIs) {
-                    if (p.id > largestID)
+                    if (p.id > largestID) {
                         largestID = p.id;
+                        if (largestID == 4999999)
+                            largestID -= 1000000;
+                    }
                 }
             }
             case "dev" -> {

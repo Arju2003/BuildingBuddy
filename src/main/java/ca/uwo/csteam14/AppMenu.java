@@ -76,14 +76,17 @@ public class AppMenu extends JFrame {
                     A bookmark is one of your favourite POIs across all the maps in BuildingBuddy.
                     
                     <h2>How can I bookmark / unbookmark a location?</h2>
-                    Click on any icon that represents a POI on the map and choose <b>Add Bookmark</b> or <b>Remove Bookmark</b> before pressing Save Changes.
+                    Click on any icon that represents a POI on the map and choose <b>Add Bookmark</b> or <b>Remove Bookmark</b> before pressing <b>Save Changes</b>.
 
                     <h2>What is My Location?</h2>
-                    My Location is a POI you defined, not a built-in POI.
+                    My Location is a POI defined by the user, not a built-in POI.
+                    
+                    <h2>How many My Locations are allowed to be created?</h2>
+                    Currently, BuildingBuddy allows the user to create up to 999,999 POIs. If you create a new POI after reaching the limit, the oldest My Location will be overwritten.
                     
                     <h2>How can I create a location?</h2>
-                    <p>When you're in Building Exploration mode (where you see a layer filter on the left), click any empty space on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
-                    <p>Please note that users cannot create a location when viewing Bookmarks, My Locations, or search results.</p>
+                    <p>As a user, you can only create a location when you're in Exploration mode (where you see a layer filter on the left). Click any empty space on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
+                    <p>If you are viewing Bookmarks, My Locations, or search results, you cannot define your location. Click <b>Start</b> and <b>Explore</b> the building you hope to add a location in.</p>
 
                     <h2>How to view or edit bookmarks?</h2>
                     Enter <b>View</b> – <b>Bookmarks</b>, or press CTRL + B.
@@ -91,19 +94,35 @@ public class AppMenu extends JFrame {
                     <h2>How to view or edit My Locations?</h2>
                     Enter <b>View</b> – <b>My Locations</b>, or press CTRL + L.
                     
-                    <h2>Can I bookmark a POI I have created on my own?</h2>
+                    <h2>How many bookmarks can I have?</h2>
+                    A user can have as many bookmarks as they want.
+                    
+                    <h2>Can I bookmark a My Location?</h2>
                     Sure! You can bookmark anything on any floor map.
                     
                     <h2>Can I delete a bookmark or a My Location?</h2>
                     Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.
 
-                    <h2>How to choose another building?</h2>
+                    <h2>How can I explore another building?</h2>
                     Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.
                     
                     <h2>How can I get to a specific floor and see all the locations?</h2>
-                    <p>Use the search bar at the bottom left, enter <i>building code + floor number</i>.</p>
-                    <p>Building codes are building abbreviations (MC for Middlesex College, KB for Kresge Building, and PAB for Physics & Astronomy Building).</p>
-                    <p>A floor number is a single-digit number + F. The ground floor is 0F, first floor 1F, second floor 2F, etc.</p>
+                    <p>Use the search bar at the bottom left, enter <i>building code + floor code</i>.</p>
+                    <p>A building code is a building abbreviation:
+                    <ul>
+                    <li><b>MC</b> for Middlesex College</li>
+                    <li><b>KB</b> for Kresge Building</li>
+                    <li><b>PAB</b> for Physics & Astronomy Building</li>
+                    </ul>
+                    </p>
+                    <p>A floor code is a single-digit number + F:
+                    <ul>
+                    <li><b>0F</b> for ground floor</li>
+                    <li><b>1F</b> for first floor</li>
+                    <li><b>2F</b> for second floor</li>
+                    <li>...</li>
+                    </ul>
+                    </p>
                     <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
                     
                     <h2>How can I see all the locations on all the floors in all the building?</h2>
