@@ -331,8 +331,16 @@ public class POIEditor extends JDialog {
         else {
             POIFloorField.setEditable(false);
             POIBuildingField.setEditable(false);
+            notABookmark.setText("Developer's Editor");
+            notABookmark.setForeground(Color.BLACK);
+            bookmarkAdd.setText("Ver 1.0");
+            bookmarkAdd.setForeground(Color.BLACK);
             notABookmark.setEnabled(false);
             bookmarkAdd.setEnabled(false);
+            isABookmark.setText("Developer's Editor");
+            isABookmark.setForeground(Color.BLACK);
+            bookmarkRemove.setText("Ver 1.0");
+            bookmarkRemove.setForeground(Color.BLACK);
             isABookmark.setEnabled(false);
             bookmarkRemove.setEnabled(false);
             if (!Data.containsPOI(Data.builtInPOIs,poi)) {
