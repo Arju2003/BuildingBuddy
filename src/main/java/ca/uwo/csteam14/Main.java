@@ -14,7 +14,7 @@ public class Main {
 
     protected static boolean devMode;
 
-    private static char[] securityKey = {'C','S','2','2','1','2','B','B'};
+    private static final char[] securityKey = {'C','S','2','2','1','2','B','B'};
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -95,12 +95,23 @@ public class Main {
         return "Unknown";
     }
 
-    /**
-     * Updates the value fo the securityKey attrbute
-     * @param newKey the value replacing the current securityKey value
-     */
-    public static void setSecurityKey(char[] newKey) {
-        securityKey = newKey;
+
+    public static void restartApplication() throws IOException {
+        String javaCommand = System.getProperty("java.home") + "/bin/java";
+        String javaClassPath = System.getProperty("java.class.path");
+        String className = Main.class.getName();
+        String[] command = { javaCommand, "-cp", javaClassPath, className };
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        processBuilder.start();
+        System.exit(0);
+    }
+
+    public static void updateCurrent(POI poi) {
+        if (poi != null) {
+            Main.currentBuildingCode = poi.map.replaceAll("\\dF.png","").toUpperCase();
+            Main.currentFloor = poi.map.replaceAll(".png","").toUpperCase();
+        }
+
     }
 
 

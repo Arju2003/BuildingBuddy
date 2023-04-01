@@ -8,6 +8,8 @@ package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class PopupView extends JDialog {
@@ -30,17 +32,15 @@ public class PopupView extends JDialog {
         textPane.setText(content);
         textPane.setFont(new Font("Arial", Font.PLAIN, 16));
         textPane.setMargin(new Insets(10, 10, 10, 10)); // top, left, bottom, right
-        textPane.addHyperlinkListener(e -> {
-            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                // Handle link activation here
-            }
-        });
+        textPane.addHyperlinkListener(HyperlinkEvent::getEventType);
         JScrollPane scrollPane = new JScrollPane(textPane);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         JViewport viewport = scrollPane.getViewport();
-        Point point = new Point(0, 0);
-        viewport.setViewPosition(point);
-
+        viewport.setViewPosition(new Point(0, 0));
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        });
 
         // Add the JScrollPane to the JDialog
         dialog.add(scrollPane);
@@ -48,18 +48,19 @@ public class PopupView extends JDialog {
         // Create a JButton to close the dialog
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(e -> dialog.dispose());
+        closeButton.setFocusTraversalKeysEnabled(true);
+        dialog.getRootPane().setDefaultButton(closeButton);
         dialog.add(closeButton, BorderLayout.SOUTH);
 
-        // Pack the JDialog
+        dialog.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // Center the window on the screen
+                dialog.setLocationRelativeTo(null);
+            }
+        });
         dialog.pack();
-
-        // Set the location of the JDialog to the center of the screen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((screenSize.getWidth() - dialog.getWidth()) / 2);
-        int y = (int) ((screenSize.getHeight() - dialog.getHeight()) / 2);
-        dialog.setLocation(x, y);
-
-// Display the JDialog
+        // Display the JDialog
         dialog.setVisible(true);
     }
 }

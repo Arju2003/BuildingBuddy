@@ -16,6 +16,7 @@ Washroom – from flaticon.com
 Accessibility – from pngitem.com
 Help – from flaticon.com
 Sorry – from pngtree.com
+No Internet - from uxwing.com
 
 BuddyBuilding Icon – by Jason Shew
 

@@ -13,15 +13,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class LayerFilter extends JPanel {
 
     private static final JPanel layerSelector = new JPanel();
     protected static JPanel checkboxPanel;
-    static final String[] labelArray = {"Bookmarks", "Classrooms","Labs","CompSci Spots",
-            "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"};
-    private static final String[] iconArray = {"./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"};
+    protected static final ArrayList<String> labelArray = new ArrayList<>(Arrays.asList("Bookmarks", "Classrooms","Labs","CompSci Spots",
+            "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"));
+    protected static final ArrayList<String> iconArray = new ArrayList<>(Arrays.asList("./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"));
 
     protected static BufferedImage baseMapImage;
 
@@ -29,10 +30,12 @@ public class LayerFilter extends JPanel {
 
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
 
-    protected static ArrayList<POI> POIsOnCurrentFloor = new ArrayList<>();
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
 
     protected static MapView currentMapView;
+
+    protected static int iconWidth = 60;
+    protected static int iconHeight = 60;
 
     /**
      * @throws IOException
@@ -44,17 +47,17 @@ public class LayerFilter extends JPanel {
         setFont(new Font("Arial", Font.PLAIN, 10));
         checkboxPanel.setLayout(new GridLayout(0, 1));
         Font regularFont = new Font("Arial", Font.PLAIN, 16);
-        JCheckBox[] checkboxes = new JCheckBox[labelArray.length];
+        JCheckBox[] checkboxes = new JCheckBox[labelArray.size()];
         Border padding = BorderFactory.createEmptyBorder(3, 10, 3, 10);
 
         for (int i = 0; i < checkboxes.length; ++i) {
-            ImageIcon icon = new ImageIcon(iconArray[i]);
+            ImageIcon icon = new ImageIcon(iconArray.get(i));
             Image image = icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(image);
             JCheckBox checkbox = new JCheckBox();
             checkbox.setIcon(scaledIcon);
-            checkbox.setText(labelArray[i]);
-            checkbox.setIconTextGap(20);;
+            checkbox.setText(labelArray.get(i));
+            checkbox.setIconTextGap(20);
             Border border = BorderFactory.createCompoundBorder(checkbox.getBorder(), padding);
             checkbox.setBorder(border);
             checkbox.setPreferredSize(new Dimension(270, checkbox.getPreferredSize().height));
@@ -96,7 +99,7 @@ public class LayerFilter extends JPanel {
                 }
             });
 
-            if (labelArray[i].contains("Washrooms") || labelArray[i].contains("Accessibility")) {
+            if (labelArray.get(i).contains("Washrooms") || labelArray.get(i).contains("Accessibility")) {
                 checkbox.setEnabled(true);
                 checkbox.setSelected(true);
                 checkbox.setFocusable(false);
@@ -132,22 +135,19 @@ public class LayerFilter extends JPanel {
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
-            int newWidth = 48;
-            int newHeight = 48;
-            BufferedImage resizedIcon = new BufferedImage(newWidth, newHeight, iconImage.getType());
+
+            BufferedImage resizedIcon = new BufferedImage(iconWidth, iconHeight, iconImage.getType());
 
             // Scale the icon image to the new size
             Graphics2D g = resizedIcon.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
+            g.drawImage(iconImage, 0, 0, iconWidth, iconHeight, null);
             g.dispose();
 
-            System.out.println(layerName);
             for (POI poi : POIsOnSelectedLayer) {
-                System.out.println("    " + poi.category + " : " + poi.name);
                 g = mapImageWithLayers.createGraphics();
-                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
+                g.drawImage(resizedIcon, poi.positionX - iconWidth / 2, poi.positionY - iconHeight / 2, null);
                 g.dispose();
                 if (currentLayer.contains(poi.category)) {
                     center.x = poi.positionX;
@@ -169,24 +169,25 @@ public class LayerFilter extends JPanel {
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
         for (String layerName: labelArray) {
             // Load the original images
+            if (Main.devMode && layerName.contains("My Locations"))
+                continue;
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
-            int newWidth = 48;
-            int newHeight = 48;
-            BufferedImage resizedIcon = new BufferedImage(newWidth, newHeight, iconImage.getType());
+
+            BufferedImage resizedIcon = new BufferedImage(iconWidth, iconHeight, iconImage.getType());
 
             // Scale the icon image to the new size
             Graphics2D g = resizedIcon.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
+            g.drawImage(iconImage, 0, 0, iconWidth, iconHeight, null);
             g.dispose();
 
             for (POI poi : POIsOnSelectedLayer) {
                 g = mapImageWithLayers.createGraphics();
-                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
+                g.drawImage(resizedIcon, poi.positionX - iconWidth / 2, poi.positionY - iconHeight / 2, null);
                 g.dispose();
             }
             currentMapView = new MapView(mapImageWithLayers, center);
@@ -211,7 +212,7 @@ public class LayerFilter extends JPanel {
      */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
-            if (Math.abs(p.positionX - poi.positionX) <= 48 && Math.abs(p.positionY - poi.positionY) <= 48) return true;
+            if (Math.abs(p.positionX - poi.positionX) <= iconWidth && Math.abs(p.positionY - poi.positionY) <= iconHeight) return true;
         }
         return false;
     }

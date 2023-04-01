@@ -59,8 +59,7 @@ public class POISelector extends JPanel {
                         }
                         if (Main.devMode) LayerFilter.showAllLayers();
                         if (focus != null) {
-                            Main.currentFloor = focus.map.replace(".png", "").toUpperCase();
-                            Main.currentBuildingCode = focus.map.replaceAll("\\dF.png", "");
+                            Main.updateCurrent(focus);
                             GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + Main.currentBuildingCode + "_hero.png")));
                             GUIForPOIs.mapView = new MapView(focus.map, new Point(focus.positionX, focus.positionY));
                             GUIForPOIs.mapView.highlight(focus.positionX, focus.positionY, POIsGroup);

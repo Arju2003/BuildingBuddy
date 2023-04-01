@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Canvas extends JPanel {
     private BufferedImage img;
     private BufferedImage scaled;
-    private final JPanel leftPanel;
+    protected final JPanel leftPanel;
     private final JPanel rightPanel;
     protected GridBagConstraints everythingCentered;
 

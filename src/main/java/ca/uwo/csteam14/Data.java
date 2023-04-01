@@ -2,7 +2,6 @@ package ca.uwo.csteam14;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import org.json.simple.JSONArray;
@@ -30,13 +29,26 @@ import java.io.FileWriter;
  * @author Arjuna Kadirgamar
  * @author Jason Shew
  */
-public class Data extends LinkedList<POI>{
-    /** A LinkedList object containing all built-in POIs. */
+public class Data extends LinkedList<POI> {
+    /**
+     * A LinkedList object containing all built-in POIs.
+     */
     protected static LinkedList<POI> builtInPOIs;
-    /** A LinkedList object containing all user-created POIs. */
+    /**
+     * A LinkedList object containing all user-created POIs.
+     */
     protected static LinkedList<POI> userCreatedPOIs;
-    /** A LinkedList object containing all bookmarks. */
+    /**
+     * A LinkedList object containing all bookmarks.
+     */
     protected static LinkedList<POI> bookmarks;
+
+    protected static final int userPOIStartID = 4000000;
+
+    protected static final int userPOICapacity = 999999;
+    protected static final int devPOIStartID = 5000000;
+
+    protected static final int devPOICapacity = 999999;
 
     /**
      * Data Constructor
@@ -206,51 +218,51 @@ public class Data extends LinkedList<POI>{
                     }
                 }
             }
-            }catch(Exception var30){
+        } catch (Exception var30) {
             var30.printStackTrace();
         }
     }
 
     /**
      * This method is responsible for accessing POIs that have been selected by the user.
+     *
      * @param currentFloor the floor that is currently on the map
-     * @param layerName the name of the layer that is being shown
+     * @param layerName    the name of the layer that is being shown
      * @return an Arraylist with the clicked on POIs
      */
 
     public static ArrayList<POI> getLayerPOIs(String currentFloor, String layerName) {
         ArrayList<POI> result = new ArrayList<>();
         for (POI p : builtInPOIs) {
-            if (Arrays.asList(LayerFilter.labelArray).contains(layerName)) {
-                if (layerName.contains(p.category) && p.map.contains(currentFloor))
-                    result.add(p);
-                if (layerName.contains("Labs") && p.description != null && p.description.contains("Computer lab") && p.map.contains(currentFloor))
-                    result.add(p);
-                if (p.description != null && layerName.contains("Accessibility") && p.description.contains("Accessible facility") && p.map.contains(currentFloor))
-                    result.add(p);
-            }
+            if (layerName.contains(p.category) && p.map.contains(currentFloor))
+                result.add(p);
+            if (layerName.contains("Labs") && p.description != null && p.description.contains("Computer lab") && p.map.contains(currentFloor))
+                result.add(p);
+            if (p.description != null && layerName.contains("Accessibility") && p.description.contains("Accessible facility") && p.map.contains(currentFloor))
+                result.add(p);
+            if (layerName.contains("Bookmark") && p.map.contains(currentFloor) && Data.containsPOI(Data.bookmarks, p))
+                result.add(p);
         }
         for (POI p : userCreatedPOIs) {
-            if (Arrays.asList(LayerFilter.labelArray).contains(layerName) && p.map.contains(currentFloor)) {
+            if (layerName.contains(p.category) && p.map.contains(currentFloor))
                 result.add(p);
-            }
+            if (layerName.contains("Bookmark") && p.map.contains(currentFloor) && Data.containsPOI(Data.bookmarks, p))
+                result.add(p);
         }
-
         return result;
     }
 
     /**
      * Adds the given POI to the given LinkedList and updates the associated JSON file.
-     * @param p the POI to add
+     *
+     * @param p   the POI to add
      * @param lst the LinkedList to add the POI to
      * @return a boolean value indicating whether the POI was successfully added or not
      */
     public static boolean addPOI(POI p, LinkedList<POI> lst) {
-        boolean result = false;
-        String filePath = "./data/";
-        if (lst == userCreatedPOIs && !containsPOI(userCreatedPOIs,p))  {filePath += "user.json"; result = userCreatedPOIs.add(p);}
-        else if (lst == bookmarks && !containsPOI(bookmarks, p)) {filePath += "bookmarks.json"; result = bookmarks.add(p);}
-        else if (lst == builtInPOIs && !containsPOI(bookmarks, p)) {filePath += "builtin.json"; result = builtInPOIs.add(p);}
+        POI temp = new POI(p);
+        lst.removeIf(poi -> poi.isEqualTo(p));
+        boolean result = lst.add(temp);
 
         // write to user.json
         JSONObject obj = new JSONObject();
@@ -271,9 +283,18 @@ public class Data extends LinkedList<POI>{
             jsonObject.put("built-in", data.isBuiltIn);
             jsonArray.add(jsonObject);
         }
-        if (lst == userCreatedPOIs)  obj.put("UserPOIs", jsonArray);
-        else if (lst == bookmarks)  obj.put("Bookmarks", jsonArray);
-        else if (lst == builtInPOIs)  obj.put("BuiltInPOIs", jsonArray);
+
+        String filePath = "./data/";
+        if (lst == Data.userCreatedPOIs) {
+            obj.put("UserPOIs", jsonArray);
+            filePath += "user.json";
+        } else if (lst == Data.builtInPOIs) {
+            obj.put("BuiltInPOIs", jsonArray);
+            filePath += "builtin.json";
+        } else if (lst == Data.bookmarks) {
+            obj.put("Bookmarks", jsonArray);
+            filePath += "bookmarks.json";
+        }
 
         try (FileWriter file = new FileWriter(filePath)) {
             file.write(obj.toJSONString());
@@ -285,21 +306,32 @@ public class Data extends LinkedList<POI>{
 
     /**
      * Removes the given POI from the given LinkedList and updates the associated JSON file.
-     * @param p the POI to remove
+     *
+     * @param p   the POI to remove
      * @param lst the LinkedList to remove the POI from
      * @return a boolean value indicating whether the POI was successfully removed or not
      * @throws IOException if an I/O error occurs
      */
     public static boolean removePOI(POI p, LinkedList<POI> lst) throws IOException {
-        boolean result = false;
+        int count = 0;
+        Iterator<POI> iter = lst.iterator();
+        while (iter.hasNext()) {
+            POI poi = iter.next();
+            if (poi.isEqualTo(p)) {
+                iter.remove();
+                count++;
+            }
+        }
+
+        boolean result = count > 0;
+
 
         // In built linked list removal
-        if (containsPOI(lst, p)) {
-                result = lst.remove(p);
 
-            JSONObject obj = new JSONObject();
-            // Create a new json array of json objects that hold objects from the linked list of POIs
-            JSONArray filledJsonArray = new JSONArray();
+        JSONObject obj = new JSONObject();
+        // Create a new json array of json objects that hold objects from the linked list of POIs
+        JSONArray jsonArray = new JSONArray();
+        if (lst.size() > 0) {
             for (POI data : lst) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("mapX", data.positionX);
@@ -314,32 +346,35 @@ public class Data extends LinkedList<POI>{
                 jsonObject.put("building", data.building);
                 jsonObject.put("built-in", data.isBuiltIn);
                 jsonObject.put("roomNumber", data.roomNumber);
-                filledJsonArray.add(jsonObject);
+                jsonArray.add(jsonObject);
             }
-            String filePath = "./data/";
-            if (lst.equals(Data.userCreatedPOIs)) {
-                obj.put("UserPOIs", filledJsonArray);
-                filePath += "user.json";
-            } else if (lst.equals(Data.builtInPOIs)) {
-                filePath += "builtin.json";
-                obj.put("BuiltInPOIs", filledJsonArray);
-            } else if (lst.equals(Data.bookmarks)) {
-                obj.put("Bookmarks", filledJsonArray);
-                filePath += "bookmarks.json";
-            }
-            // Write the Json file
-            try (FileWriter fileWriter = new FileWriter(filePath)) {
-                fileWriter.write(obj.toJSONString());
-                fileWriter.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+
+        String filePath = "./data/";
+        if (lst == Data.userCreatedPOIs) {
+            obj.put("UserPOIs", jsonArray);
+            filePath += "user.json";
+        } else if (lst == Data.builtInPOIs) {
+            obj.put("BuiltInPOIs", jsonArray);
+            filePath += "builtin.json";
+        } else if (lst == Data.bookmarks) {
+            obj.put("Bookmarks", jsonArray);
+            filePath += "bookmarks.json";
+        }
+        // Write the Json file
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            fileWriter.write(obj.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }
 
+
     /**
      * Method for accessing the linked list of built-in POIs.
+     *
      * @return LinkedList of built-in POIs
      */
     public LinkedList<POI> getBuiltInPOIs() {
@@ -348,6 +383,7 @@ public class Data extends LinkedList<POI>{
 
     /**
      * Method for accessing the list of user created POIs.
+     *
      * @return LinkedList of user-created POIs
      */
     public LinkedList<POI> getUserCreatedPOIs() {
@@ -356,6 +392,7 @@ public class Data extends LinkedList<POI>{
 
     /**
      * Method for accessing the list of bookmarked POIs.
+     *
      * @return LinkedList of bookmarked POIs
      */
     public LinkedList<POI> getBookmarks() {
@@ -364,12 +401,13 @@ public class Data extends LinkedList<POI>{
 
     /**
      * Method for finding a specific POI object on a current floor with a given coordinate set.
+     *
      * @param currentFloor floor the POI resides on
-     * @param x POI's x co-ordinate
-     * @param y POI's y co-ordinate
+     * @param x            POI's x co-ordinate
+     * @param y            POI's y co-ordinate
      * @return POI object P with co-ordinates (x,y) on floor currentFloor
      */
-    public POI getPOI (String currentFloor,int x, int y){
+    public POI getPOI(String currentFloor, int x, int y) {
         for (POI p : builtInPOIs) {
             if (p.map.contains(currentFloor) && p.positionX == x && p.positionY == y) {
                 return p;
@@ -385,14 +423,15 @@ public class Data extends LinkedList<POI>{
 
     /**
      * This method checks if the given LinkedList contains the given POI.
+     *
      * @param list the LinkedList that is being searched
-     * @param poi the POI that is being searched for
+     * @param poi  the POI that is being searched for
      * @return a boolean indicating if the linked list contains the POI or doesn't contain the POI
      */
     public static boolean containsPOI(LinkedList<POI> list, POI poi) {
-        if (list !=null && list.size() > 0) {
+        if (list != null && list.size() > 0) {
             for (POI p : list) {
-                if (p.isEqualTo(poi)) return true;
+                if (p != null && p.isEqualTo(poi)) return true;
             }
         }
         return false;
@@ -400,6 +439,7 @@ public class Data extends LinkedList<POI>{
 
     /**
      * Generates and returns an appropriate, unused POI ID based on who is creating the POI.
+     *
      * @param creator who is creating the POI
      * @return an unused, appropriate ID for a potential new POI
      */
@@ -407,20 +447,70 @@ public class Data extends LinkedList<POI>{
         int largestID = -1;
         switch (creator.toLowerCase()) {
             case "user" -> {
-                largestID = 4000000;
-                for (POI p: userCreatedPOIs) {
-                    if (p.id > largestID)
+                largestID = userPOIStartID - 1;
+                for (POI p : userCreatedPOIs) {
+                    if (p.id > largestID) {
                         largestID = p.id;
+                        if (largestID == userPOIStartID + userPOICapacity)
+                            largestID -= userPOICapacity;
+                    }
                 }
             }
             case "dev" -> {
-                largestID = 5000000;
-                for (POI p: builtInPOIs) {
-                    if (p.id > largestID)
+                largestID = devPOIStartID - 1;
+                for (POI p : builtInPOIs) {
+                    if (p.id > largestID) {
                         largestID = p.id;
+                        if (largestID == devPOIStartID + devPOICapacity)
+                            largestID -= devPOICapacity;
+                    }
                 }
             }
         }
-       return largestID + 1;
+        return largestID + 1;
     }
-}
+
+    public static boolean nuke(LinkedList<POI> lst) throws IOException {
+
+        Iterator<POI> iter = lst.iterator();
+        if (lst != bookmarks) {
+            while (iter.hasNext()) {
+                POI poi = new POI(iter.next());
+                iter.remove();
+                if (Data.containsPOI(bookmarks, poi))
+                    Data.removePOI(poi, bookmarks);
+            }
+        } else {
+            while (iter.hasNext()) {
+                iter.next();
+                iter.remove();
+            }
+        }
+            boolean result = lst.size() == 0;
+            // In built linked list removal
+
+            JSONObject obj = new JSONObject();
+            // Create a new json array of json objects that hold objects from the linked list of POIs
+            JSONArray jsonArray = new JSONArray();
+
+            String filePath = "./data/";
+            if (lst == Data.userCreatedPOIs) {
+                obj.put("UserPOIs", jsonArray);
+                filePath += "user.json";
+            } else if (lst == Data.builtInPOIs) {
+                obj.put("BuiltInPOIs", jsonArray);
+                filePath += "builtin.json";
+            } else if (lst == Data.bookmarks) {
+                obj.put("Bookmarks", jsonArray);
+                filePath += "bookmarks.json";
+            }
+            // Write the Json file
+            try (FileWriter fileWriter = new FileWriter(filePath)) {
+                fileWriter.write(obj.toJSONString());
+                fileWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+    }

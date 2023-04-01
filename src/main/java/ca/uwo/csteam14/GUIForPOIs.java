@@ -38,20 +38,23 @@ public class GUIForPOIs {
                 case "BMK" -> {
                     GUIForPOIs.POIType = "Bookmarks";
                     GUIForPOIs.POIsGroup = POIsGroup;
-                    if (Data.bookmarks.size() > 0) {
+                    poi = POISelector.focus;
+                    if (poi == null && Data.bookmarks.size() > 0) {
                         poi = Data.bookmarks.getFirst();
                     }
                 }
                 case "BIP" -> {
                     GUIForPOIs.POIType = "Developer Tool";
                     GUIForPOIs.POIsGroup = POIsGroup;
-                    if (Data.builtInPOIs.size() > 0)
+                    poi = POISelector.focus;
+                    if (poi == null && Data.builtInPOIs.size() > 0)
                         poi = Data.builtInPOIs.getFirst();
                 }
                 case "UDP" -> {
                     GUIForPOIs.POIType = "My Locations";
                     GUIForPOIs.POIsGroup = POIsGroup;
-                    if (Data.userCreatedPOIs.size() > 0)
+                    poi = POISelector.focus;
+                    if (poi == null && Data.userCreatedPOIs.size() > 0)
                         poi = Data.userCreatedPOIs.getFirst();
                 }
                 case "SRC" -> {
@@ -62,13 +65,13 @@ public class GUIForPOIs {
             }
 
             if (poi != null) {
-                Main.currentBuildingCode = poi.map.replaceAll("\\dF.png","");
-                Main.currentFloor = poi.map.replaceAll(".png","");
+                Main.updateCurrent(poi);
             }
             try {
                 if (poi == null && Data.builtInPOIs.size() > 0) poi = Data.builtInPOIs.getFirst();
                 else if (poi == null) poi = Main.fallbackPOI;
                 assert poi != null;
+                Main.updateCurrent(poi);
                 secondary = new Canvas("./images/" + Main.currentBuildingCode + "_hero.png");
                 mapView = new MapView(Main.currentFloor+".png", new Point(poi.positionX, poi.positionY));
                 title = new JLabel("<html><div style=\"text-align:center;\">" +

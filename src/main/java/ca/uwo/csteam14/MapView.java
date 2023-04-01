@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 
 public class MapView extends JPanel {
@@ -43,11 +42,10 @@ public class MapView extends JPanel {
 
         setLayout(new OverlayLayout(this));
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
-            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
-            JComponent[] clickables = new JComponent[allLayers.size()];
-            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
-                clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
-                clickables[i].setPreferredSize(new Dimension(48, 48));
+            JComponent[] clickables = new JComponent[LayerFilter.labelArray.size()];
+            for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
+                clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.labelArray);
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -56,7 +54,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
             for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-                clickables[i].setPreferredSize(new Dimension(48,48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -91,11 +89,11 @@ public class MapView extends JPanel {
         this.focalPoint = focalPoint;
         setLayout(new OverlayLayout(this));
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
-            ArrayList<String> allLayers = new ArrayList<>(List.of(LayerFilter.labelArray));
+            ArrayList<String> allLayers = LayerFilter.labelArray;
             JComponent[] clickables = new JComponent[allLayers.size()];
-            for (int i = 0; i < LayerFilter.labelArray.length; ++i) {
+            for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
-                clickables[i].setPreferredSize(new Dimension(48, 48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -104,7 +102,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
             for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-                clickables[i].setPreferredSize(new Dimension(48,48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -170,45 +168,47 @@ public class MapView extends JPanel {
 
         // create a circle with a transparent fill and a solid border
 
-        ArrayList<String> list = new ArrayList<>(List.of(LayerFilter.labelArray));
 
-        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+        if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
             POI p = POISelector.focus;
             if (p == null || mode.equals("NEW")) {
-                p = identifyPOI(Main.currentFloor,list,x,y);}
+                p = identifyPOI(Main.currentFloor,LayerFilter.labelArray,x,y);}
             if (p != null) {
                 BufferedImage iconImage = ImageIO.read(new File(LayerFilter.getLayerIcon(p.category)));
-                BufferedImage resizedIcon = new BufferedImage(48, 48, iconImage.getType());
+                BufferedImage resizedIcon = new BufferedImage(LayerFilter.iconWidth, LayerFilter.iconHeight, iconImage.getType());
                 // Scale the icon image to the new size
                 Graphics2D g = resizedIcon.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-                g.drawImage(iconImage, 0, 0, 48, 48, null);
+                g.drawImage(iconImage, 0, 0, LayerFilter.iconWidth, LayerFilter.iconHeight, null);
                 g.dispose();
                 g = highlightedImage.createGraphics();
-                if (!Main.devMode || !mode.equals("NEW"))
-                    g.drawImage(resizedIcon, x, y, 48, 48, null);
+                if (!mode.equals("NEW"))
+                    g.drawImage(resizedIcon, x - LayerFilter.iconWidth / 2, y - LayerFilter.iconHeight / 2, LayerFilter.iconWidth, LayerFilter.iconHeight, null);
                 g.dispose();
                 }
             }
 
+        int highlightOvalWidth = (int) ( LayerFilter.iconWidth * 1.5);
+        int highlightOvalHeight = (int) ( LayerFilter.iconHeight * 1.5);
+
         if (mode.strip().equalsIgnoreCase("BIP")) {
             g2d.setColor(new Color(255, 0, 0, 90));
-            g2d.fillOval(x - 6 , y - 6 , 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2 , y - highlightOvalHeight / 2 , highlightOvalWidth, highlightOvalHeight);
         }
         else if (mode.strip().equalsIgnoreCase("UDP")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("BMK")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("SRC")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("OFF")) {
@@ -216,9 +216,9 @@ public class MapView extends JPanel {
             g2d.fillOval(0,0,0,0);
         }
 
-        else {
+        else if (mode.strip().equalsIgnoreCase("NEW"))  {
             g2d.setColor(new Color(8, 222,0 , 110));
-            g2d.fillOval(x - 30, y - 30, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         // dispose of the Graphics2D object to free up resources
@@ -226,7 +226,9 @@ public class MapView extends JPanel {
 
         focalPoint.x = x;
         focalPoint.y = y;
-        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) LayerFilter.showAllLayers();
+        if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) LayerFilter.showAllLayers();
+        else if (GUI.frame.getContentPane() == (GUI.canvas)) LayerFilter.refreshLayers();
+
         return highlightedImage;
     }
 
@@ -248,6 +250,7 @@ public class MapView extends JPanel {
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 if (p != null) {
                     POISelector.focus = p;
+                    Main.updateCurrent(p);
                     mouseClickedOnPOI = true;
                     if (currentHighlighted == null) {
                         currentHighlighted = p;
@@ -267,6 +270,7 @@ public class MapView extends JPanel {
                     }
                 }
                 else {
+                    POISelector.focus = null;
                     mouseClickedOnPOI = false;
                     if (Main.devMode) {
                         highlight(e.getX(), e.getY(), "NEW");
@@ -280,32 +284,39 @@ public class MapView extends JPanel {
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
+                        newPOI.description = "";
                         newPOI.isBuiltIn = true;
                         newPOI.next = null;
                         new POIEditor(newPOI);
                         if (POIEditor.isSaved) {
                             currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
+                            POISelector.focus = newPOI;
+                            Main.updateCurrent(newPOI);
                         }
                     }
                     else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
                         highlight(e.getX(), e.getY(), "NEW");
-                        POI newPOI = new POI(Data.generatePOIID("user"));
-                        newPOI.name = "My Location";
+                        int id = Data.generatePOIID("user");
+                        POI newPOI = new POI(id);
+                        newPOI.name = "My Location #" + (id - Data.userPOIStartID + 1);
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
-                        newPOI.category = "My Locations";
+                        newPOI.category = "My Location";
                         newPOI.roomNumber = 0;
                         newPOI.map = Main.currentFloor + ".png";
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
+                        newPOI.description = "Your description goes here.";
                         newPOI.isBuiltIn = false;
                         newPOI.next = null;
                         new POIEditor(newPOI);
                         if (POIEditor.isSaved) {
                             currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
+                            POISelector.focus = newPOI;
+                            Main.updateCurrent(newPOI);
                         }
                     }
                 }
@@ -325,10 +336,13 @@ public class MapView extends JPanel {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
             if (!s.contains("Bookmarks"))
-                list.addAll(Data.getLayerPOIs(floorName, s));
+                if (Main.devMode && !s.contains("My Locations"))
+                    list.addAll(Data.getLayerPOIs(floorName, s));
+                else if (!Main.devMode)
+                    list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
-            if (x - p.positionX <= 48 && x - p.positionX >= 0 && y - p.positionY <= 48 && y - p.positionY>= 8)
+            if (x <= p.positionX + LayerFilter.iconWidth && x >= p.positionX - LayerFilter.iconWidth && y <= p.positionY + LayerFilter.iconHeight && y >= p.positionY - LayerFilter.iconHeight)
                 return p;
         }
         return null;

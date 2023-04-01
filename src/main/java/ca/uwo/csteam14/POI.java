@@ -183,21 +183,34 @@ public class POI {
     }
 
     /**
+     * POI alternative constructor. Copies a new POI object from an existing POI object.
+     * @param that another POI object
+     */
+    public POI (POI that) {
+        this.id = that.id;
+        this.name = that.name;
+        this.building = that.building;
+        this.map = that.map;
+        this.code = that.code;
+        this.floor = that.floor;
+        this.roomNumber = that.roomNumber;
+        this.category = that.category;
+        this.description = that.description;
+        this.positionX = that.positionX;
+        this.positionY = that.positionY;
+        this.isBuiltIn = that.isBuiltIn;
+        this.next = that.next;
+    }
+
+    /**
      * Compares this POI to the given POI and returns true if the POIs are determined to be equal, or false otherwise.
      * @param p the POI that will be compared to this POI object
      * @return a boolean value indicating whether the POIs are determined to be equal
      */
     public boolean isEqualTo(POI p) {
-        return (this.id == p.id || (this.map.equals(p.map) && this.positionX <= p.positionX + 48 && this.positionX >= p.positionX && this.positionY <= p.positionY + 48 && this.positionY >= p.positionY));
+        return (this.id == p.id || (this.map.equals(p.map) && (this.positionX <= p.positionX + 48 && this.positionX >= p.positionX && this.positionY <= p.positionY + 48 && this.positionY >= p.positionY) && (this.isBuiltIn == p.isBuiltIn)));
     }
 
-    // do we need this? Looks like it's never called
-    public boolean hasLegalCategory() {
-        for (String s: LayerFilter.labelArray) {
-            if (this.category.equals(s)) return true;
-        }
-        return false;
-    }
 
     /**
      * Checks if the given category is valid. Returns true if the category is valid, or false otherwise.
