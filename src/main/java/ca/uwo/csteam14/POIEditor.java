@@ -229,9 +229,12 @@ public class POIEditor extends JDialog {
                 editor.dispose();
                 POISelector.focus = poi;
                 Main.updateCurrent(poi);
-                if(GUI.frame.getContentPane() == (GUIForPOIs.secondary))
+                if(GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
                     new GUIForPOIs(GUIForPOIs.POIsGroup);
-                else new GUI(Main.currentBuildingCode);
+                }
+                else {
+                    new GUI(Main.currentBuildingCode);
+                }
             }
             else {
                 resultDisplay("Oops... Be careful!",Color.PINK);
@@ -403,15 +406,15 @@ public class POIEditor extends JDialog {
         else {
             POIFloorField.setEditable(false);
             POIBuildingField.setEditable(false);
-            notABookmark.setText("BuildingBuddy");
+            notABookmark.setText("© 2023 BuildingBuddy");
             notABookmark.setForeground(Color.BLACK);
-            bookmarkAdd.setText("© Team 14 at UWO");
+            bookmarkAdd.setText(" Team 14 at UWO");
             bookmarkAdd.setForeground(Color.WHITE);
             notABookmark.setEnabled(false);
             bookmarkAdd.setEnabled(false);
-            isABookmark.setText("BuildingBuddy");
+            isABookmark.setText("© 2023 BuildingBuddy");
             isABookmark.setForeground(Color.BLACK);
-            bookmarkRemove.setText("© Team 14 at UWO");
+            bookmarkRemove.setText(" Team 14 at UWO");
             bookmarkRemove.setForeground(Color.WHITE);
             isABookmark.setEnabled(false);
             bookmarkRemove.setEnabled(false);
@@ -443,9 +446,10 @@ public class POIEditor extends JDialog {
         JButton closeButton = new JButton("Cancel");
         closeButton.addActionListener(e -> {
             editor.dispose();
+            POISelector.focus = poi;
+            Main.updateCurrent(poi);
             if (GUI.frame.getContentPane() == (GUIForPOIs.secondary))
                 GUIForPOIs.mapView.highlight(poi.positionX, poi.positionY, "OFF");
-
             else if (GUI.frame.getContentPane() == (GUI.canvas))
                 GUI.mapView.highlight(poi.positionX, poi.positionY, "OFF");
         });

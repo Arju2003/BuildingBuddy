@@ -45,7 +45,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[LayerFilter.labelArray.size()];
             for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.labelArray);
-                clickables[i].setPreferredSize(new Dimension(48, 48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -54,7 +54,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
             for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-                clickables[i].setPreferredSize(new Dimension(48,48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -93,7 +93,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[allLayers.size()];
             for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor, allLayers);
-                clickables[i].setPreferredSize(new Dimension(48, 48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -102,7 +102,7 @@ public class MapView extends JPanel {
             JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
             for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
                 clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
-                clickables[i].setPreferredSize(new Dimension(48,48));
+                clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
@@ -169,7 +169,7 @@ public class MapView extends JPanel {
         // create a circle with a transparent fill and a solid border
 
 
-        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+        if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
             POI p = POISelector.focus;
             if (p == null || mode.equals("NEW")) {
                 p = identifyPOI(Main.currentFloor,LayerFilter.labelArray,x,y);}
@@ -226,7 +226,9 @@ public class MapView extends JPanel {
 
         focalPoint.x = x;
         focalPoint.y = y;
-        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) LayerFilter.showAllLayers();
+        if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) LayerFilter.showAllLayers();
+        else if (GUI.frame.getContentPane() == (GUI.canvas)) LayerFilter.refreshLayers();
+
         return highlightedImage;
     }
 
@@ -248,6 +250,7 @@ public class MapView extends JPanel {
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 if (p != null) {
                     POISelector.focus = p;
+                    Main.updateCurrent(p);
                     mouseClickedOnPOI = true;
                     if (currentHighlighted == null) {
                         currentHighlighted = p;
@@ -288,6 +291,8 @@ public class MapView extends JPanel {
                         if (POIEditor.isSaved) {
                             currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
+                            POISelector.focus = newPOI;
+                            Main.updateCurrent(newPOI);
                         }
                     }
                     else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
@@ -310,6 +315,8 @@ public class MapView extends JPanel {
                         if (POIEditor.isSaved) {
                             currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
+                            POISelector.focus = newPOI;
+                            Main.updateCurrent(newPOI);
                         }
                     }
                 }
