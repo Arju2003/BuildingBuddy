@@ -6,6 +6,8 @@
 
 package ca.uwo.csteam14;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,11 +23,14 @@ public class WeatherInfo {
      */
     public WeatherInfo() throws IOException {
         JWindow window = new JWindow();
-        window.setSize(480, 48);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width - window.getWidth()) / 2;
-        int y = (screenSize.height - window.getHeight()) / 2;
-        window.setLocation(x, y); // Set the position of the window to the center of the screen
+        window.setSize(480, 120);
+        window.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // Center the window on the screen
+                window.setLocationRelativeTo(null);
+            }
+        });
 
 
         JPanel panel = new JPanel();

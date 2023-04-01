@@ -8,6 +8,8 @@ package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class PopupView extends JDialog {
@@ -50,11 +52,13 @@ public class PopupView extends JDialog {
         dialog.getRootPane().setDefaultButton(closeButton);
         dialog.add(closeButton, BorderLayout.SOUTH);
 
-        // Set the location of the JDialog to the center of the screen
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((screenSize.getWidth() - dialog.getWidth()) / 2 );
-        int y = (int) ((screenSize.getHeight() - dialog.getHeight()) / 2);
-        dialog.setLocation( x - 250, y - 175);
+        dialog.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // Center the window on the screen
+                dialog.setLocationRelativeTo(null);
+            }
+        });
         dialog.pack();
         // Display the JDialog
         dialog.setVisible(true);

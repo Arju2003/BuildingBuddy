@@ -34,6 +34,9 @@ public class LayerFilter extends JPanel {
 
     protected static MapView currentMapView;
 
+    protected static int iconWidth = 60;
+    protected static int iconHeight = 60;
+
     /**
      * @throws IOException
      */
@@ -132,20 +135,19 @@ public class LayerFilter extends JPanel {
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
-            int newWidth = 48;
-            int newHeight = 48;
-            BufferedImage resizedIcon = new BufferedImage(newWidth, newHeight, iconImage.getType());
+
+            BufferedImage resizedIcon = new BufferedImage(iconWidth, iconHeight, iconImage.getType());
 
             // Scale the icon image to the new size
             Graphics2D g = resizedIcon.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
+            g.drawImage(iconImage, 0, 0, iconWidth, iconHeight, null);
             g.dispose();
 
             for (POI poi : POIsOnSelectedLayer) {
                 g = mapImageWithLayers.createGraphics();
-                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
+                g.drawImage(resizedIcon, poi.positionX - iconWidth / 2, poi.positionY - iconHeight / 2, null);
                 g.dispose();
                 if (currentLayer.contains(poi.category)) {
                     center.x = poi.positionX;
@@ -173,20 +175,19 @@ public class LayerFilter extends JPanel {
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
             // Create a new buffered image for the resized icon
-            int newWidth = 48;
-            int newHeight = 48;
-            BufferedImage resizedIcon = new BufferedImage(newWidth, newHeight, iconImage.getType());
+
+            BufferedImage resizedIcon = new BufferedImage(iconWidth, iconHeight, iconImage.getType());
 
             // Scale the icon image to the new size
             Graphics2D g = resizedIcon.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g.drawImage(iconImage, 0, 0, newWidth, newHeight, null);
+            g.drawImage(iconImage, 0, 0, iconWidth, iconHeight, null);
             g.dispose();
 
             for (POI poi : POIsOnSelectedLayer) {
                 g = mapImageWithLayers.createGraphics();
-                g.drawImage(resizedIcon, poi.positionX, poi.positionY, null);
+                g.drawImage(resizedIcon, poi.positionX - iconWidth / 2, poi.positionY - iconHeight / 2, null);
                 g.dispose();
             }
             currentMapView = new MapView(mapImageWithLayers, center);
@@ -211,7 +212,7 @@ public class LayerFilter extends JPanel {
      */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
-            if (Math.abs(p.positionX - poi.positionX) <= 48 && Math.abs(p.positionY - poi.positionY) <= 48) return true;
+            if (Math.abs(p.positionX - poi.positionX) <= iconWidth && Math.abs(p.positionY - poi.positionY) <= iconHeight) return true;
         }
         return false;
     }

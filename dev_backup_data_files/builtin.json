@@ -25,8 +25,8 @@
       "category": "Washroom",
       "description": "For women only.",
       "map": "KB0F.png",
-      "mapX": 3050,
-      "mapY": 700,
+      "mapX": 3059,
+      "mapY": 721,
       "built-in": true
     },
     {
@@ -1105,8 +1105,8 @@
       "category": "Classroom",
       "description": "Social Distancing Capacity: 7, Seating Capacity: 48, Room Type: Lecture, Seating Type: Tab Arm; Fixed, Lectern: Portable, Writing Surface: 16-ft Sliding Chalkboard, Projection Screen: 8-ft Motorized, Window Treatment: Manual Blinds",
       "map": "MC0F.png",
-      "mapX": 1350,
-      "mapY": 1130,
+      "mapX": 1332,
+      "mapY": 1082,
       "built-in": true
     },
     {
@@ -1149,8 +1149,8 @@
       "category": "Restaurant",
       "description": "The Grad Club is a non-profit graduate student pub & eatery.",
       "map": "MC0F.png",
-      "mapX": 1717,
-      "mapY": 628,
+      "mapX": 1720,
+      "mapY": 650,
       "built-in": true
     },
 
@@ -1252,8 +1252,8 @@
       "category": "Stairwell",
       "description": "On the ground floor.",
       "map": "MC0F.png",
-      "mapX": 302,
-      "mapY": 1504,
+      "mapX": 254,
+      "mapY": 1534,
       "built-in": true
     },
     {
@@ -1266,8 +1266,8 @@
       "category": "Stairwell",
       "description": "On the ground floor.",
       "map": "MC0F.png",
-      "mapX": 771,
-      "mapY": 1367,
+      "mapX": 810,
+      "mapY": 1430,
       "built-in": true
     },
     {

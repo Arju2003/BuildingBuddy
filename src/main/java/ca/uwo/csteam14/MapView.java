@@ -175,37 +175,40 @@ public class MapView extends JPanel {
                 p = identifyPOI(Main.currentFloor,LayerFilter.labelArray,x,y);}
             if (p != null) {
                 BufferedImage iconImage = ImageIO.read(new File(LayerFilter.getLayerIcon(p.category)));
-                BufferedImage resizedIcon = new BufferedImage(48, 48, iconImage.getType());
+                BufferedImage resizedIcon = new BufferedImage(LayerFilter.iconWidth, LayerFilter.iconHeight, iconImage.getType());
                 // Scale the icon image to the new size
                 Graphics2D g = resizedIcon.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-                g.drawImage(iconImage, 0, 0, 48, 48, null);
+                g.drawImage(iconImage, 0, 0, LayerFilter.iconWidth, LayerFilter.iconHeight, null);
                 g.dispose();
                 g = highlightedImage.createGraphics();
                 if (!mode.equals("NEW"))
-                    g.drawImage(resizedIcon, x, y, 48, 48, null);
+                    g.drawImage(resizedIcon, x - LayerFilter.iconWidth / 2, y - LayerFilter.iconHeight / 2, LayerFilter.iconWidth, LayerFilter.iconHeight, null);
                 g.dispose();
                 }
             }
 
+        int highlightOvalWidth = (int) ( LayerFilter.iconWidth * 1.5);
+        int highlightOvalHeight = (int) ( LayerFilter.iconHeight * 1.5);
+
         if (mode.strip().equalsIgnoreCase("BIP")) {
             g2d.setColor(new Color(255, 0, 0, 90));
-            g2d.fillOval(x - 6 , y - 6 , 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2 , y - highlightOvalHeight / 2 , highlightOvalWidth, highlightOvalHeight);
         }
         else if (mode.strip().equalsIgnoreCase("UDP")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("BMK")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("SRC")) {
             g2d.setColor(new Color(255, 255,0 , 110));
-            g2d.fillOval(x - 6, y - 6, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         else if (mode.strip().equalsIgnoreCase("OFF")) {
@@ -213,9 +216,9 @@ public class MapView extends JPanel {
             g2d.fillOval(0,0,0,0);
         }
 
-        else {
+        else if (mode.strip().equalsIgnoreCase("NEW"))  {
             g2d.setColor(new Color(8, 222,0 , 110));
-            g2d.fillOval(x - 30, y - 30, 60, 60);
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
         // dispose of the Graphics2D object to free up resources
@@ -270,14 +273,15 @@ public class MapView extends JPanel {
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(Data.generatePOIID("dev"));
                         newPOI.name = "";
-                        newPOI.positionX = e.getX() - 24;
-                        newPOI.positionY = e.getY() - 24;
+                        newPOI.positionX = e.getX();
+                        newPOI.positionY = e.getY();
                         newPOI.category = "";
                         newPOI.roomNumber = 0;
                         newPOI.map = Main.currentFloor + ".png";
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
+                        newPOI.description = "";
                         newPOI.isBuiltIn = true;
                         newPOI.next = null;
                         new POIEditor(newPOI);
@@ -288,16 +292,18 @@ public class MapView extends JPanel {
                     }
                     else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
                         highlight(e.getX(), e.getY(), "NEW");
-                        POI newPOI = new POI(Data.generatePOIID("user"));
-                        newPOI.name = "My Location";
-                        newPOI.positionX = e.getX() - 24;
-                        newPOI.positionY = e.getY() - 24;
-                        newPOI.category = "My Locations";
+                        int id = Data.generatePOIID("user");
+                        POI newPOI = new POI(id);
+                        newPOI.name = "My Location #" + (id - Data.userPOIStartID + 1);
+                        newPOI.positionX = e.getX();
+                        newPOI.positionY = e.getY();
+                        newPOI.category = "My Location";
                         newPOI.roomNumber = 0;
                         newPOI.map = Main.currentFloor + ".png";
                         newPOI.building = Main.getBuildingFullName(Main.currentFloor);
                         newPOI.floor = Main.getFloorFullName(Main.currentFloor);
                         newPOI.code = Main.currentBuildingCode;
+                        newPOI.description = "Your description goes here.";
                         newPOI.isBuiltIn = false;
                         newPOI.next = null;
                         new POIEditor(newPOI);
@@ -329,7 +335,7 @@ public class MapView extends JPanel {
                     list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
-            if (x - p.positionX <= 48 && x - p.positionX >= 0 && y - p.positionY <= 48 && y - p.positionY>= 8)
+            if (x <= p.positionX + LayerFilter.iconWidth && x >= p.positionX - LayerFilter.iconWidth && y <= p.positionY + LayerFilter.iconHeight && y >= p.positionY - LayerFilter.iconHeight)
                 return p;
         }
         return null;
