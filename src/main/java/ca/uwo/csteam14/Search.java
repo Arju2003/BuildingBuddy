@@ -24,13 +24,15 @@ public class Search {
     /** The default text in the search box before user searches */
     private static final String defaultText = "Search anything ...";
 
+    private static boolean successful = false;
+
     /**
      *
      */
     public Search() {
         JPanel searchTool = new JPanel();
         JTextField input = new JTextField(defaultText);
-        if (userInput != null) input.setText(userInput);
+        if (userInput != null && successful) input.setText(userInput);
         input.setPreferredSize(new Dimension(260,40));
         input.addFocusListener(new FocusListener() {
             @Override
@@ -50,6 +52,8 @@ public class Search {
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
                     new GUIForPOIs("SRC");
+                    successful = true;
+                    input.setText(userInput);
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
@@ -69,9 +73,10 @@ public class Search {
                    Try another set of keywords.</h2>
                     </div>
                     ""","sorry.png");
-
+                    successful = false;
+                    userInput = null;
+                    input.setText(defaultText);
                 }
-                input.setText(defaultText);
             }
         });
         input.addKeyListener(new KeyListener() {

@@ -473,6 +473,7 @@ public class AppMenu extends JFrame {
             enter.addActionListener( e3->{
                 if (Arrays.equals(securityKey.getPassword(), Main.getSecurityKey())) {
                     new GUIForPOIs("BIP");
+                    Search.userInput = null;
                     more.remove(developerTool);
                     more.remove(nukeBookmarks);
                     more.remove(nukeMyLocations);
