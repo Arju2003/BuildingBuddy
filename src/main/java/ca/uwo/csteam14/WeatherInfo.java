@@ -77,8 +77,8 @@ public class WeatherInfo {
             Image scaledImage = originalIcon.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
             weatherIcon.setIcon(scaledIcon);
-            temperatureLabel.setText("Issue Detected: ");
-            humidityLabel.setText("Internet Connection Failure");
+            temperatureLabel.setText("Weather is unavailable:");
+            humidityLabel.setText("Check your Internet connection");
         }
 
         window.setVisible(true);
