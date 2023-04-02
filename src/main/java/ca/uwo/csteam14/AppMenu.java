@@ -78,14 +78,9 @@ public class AppMenu extends JFrame {
         help.addActionListener(e -> {
             clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
             // instantiate an object of the other class
-            String iconURL = "https://cdn-icons-png.flaticon.com/512/868/868681.png";
             new PopupView("Help", """
-                   <div style="font-family: Arial">
-                   <p style="text-align:right"><img src="
-                    """ + iconURL + """
-                    " width="150"></p>
-                    
-                    <h2>What is a POI?</h2>
+                   <div style="font-family: Arial; font-size: 18">
+                  <h2>What is a POI?</h2>
                     <p>A POI is a point of interest, namely a location on the map.</p>
                     <hr>
 
@@ -112,7 +107,7 @@ public class AppMenu extends JFrame {
                     <hr>
                     
                     <h2>How can I get to a specific floor and see all the locations?</h2>
-                    <p>Use the search bar at the bottom left, enter <i>building code + floor code</i>.</p>
+                    <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Enter <i>building code + floor code</i> to explore any floor.</p>
                     <p>A building code is a building abbreviation:
                     <ul>
                     <li><b>MC</b> for Middlesex College</li>
@@ -129,6 +124,7 @@ public class AppMenu extends JFrame {
                     </ul>
                     </p>
                     <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
+                    <p>The search bar remembers your last search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
                     <hr>
                     
                     <h2>How can I create a location?</h2>
@@ -162,11 +158,12 @@ public class AppMenu extends JFrame {
                     <hr>
                     
                     <h2>What are "Nuke Bookmarks" and "Nuke My Locations"?</h2>
-                    <p>These two features will delete all your bookmarks and My Locations, respectively. As such, your personalized data will be erased, and the program will be restored to its default settings.</p>
+                    <p>These two features will delete all your bookmarks and My Locations, respectively. As such, your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
                     <p>Again, if you choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
+                    <p>After you confirm your choice, the program will reboot automatically.</p>
                     <hr>
                     
-                    <h2>How can I activate "Discovery Mode" to see all the locations on all the floors in all the building?</h2>
+                    <h2>How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?</h2>
                     <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase <i>Search Anything...</i> in the text bar or clear it before hitting <b>Go</b>.)</p>
                     <hr>
                     
@@ -182,9 +179,9 @@ public class AppMenu extends JFrame {
                     <p>Yes, you can. Here's a few tips for developers:
                     <ol>
                     <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
-                    <li>You can only exit Developer Tool by hitting <b>[X]</b> or the <b>Exit</b> button. </li>
+                    <li>You can exit Developer Tool by hitting <b>Reboot</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
                     <li>You can only add, edit, or remove built-in POIs. </li>
-                    <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the MC2F example above). </li>
+                    <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
                     <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
                     <li>If you forget your security key, shoot us an email.</li>
                     </ol>
@@ -195,17 +192,17 @@ public class AppMenu extends JFrame {
                     <p>Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
                     <hr>
                     </div>
-                    """);
+                    ""","help.png");
 
         });
         about.addActionListener(e -> {
             clearWindows();
-            String logoURL = "https://blotcdn.com/blog_708cbe8290984c03aff9e7a84d617b68/_image_cache/5aa729fb-9ca1-455c-9697-91e24575fca9.png";
             new PopupView("About", """
                     <div style="font-family: Arial; text-align: center;">
-                    <img src="
-                    """ + logoURL + """
-                    " width="150">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <h2><i>BuildingBuddy</i></h2>
 
                     <h3>Version: 1.0</h3>
@@ -215,7 +212,7 @@ public class AppMenu extends JFrame {
                     <h4>Developers: Daniel, Robert, Joshua, Arjuna, Jason</h4>
 
                     <a href="https://wiki.csd.uwo.ca/display/COMPSCI2212W2023GROUP14/COMPSCI+2212+-+Winter+2023+-+Group+14+Home">Project Website</a> | <a href="https://github.com/dan1el5/BuildingBuddy">GitHub</a><br>
-                    </div>""");
+                    </div>""","BB_icon.png");
 
         });
         exit.addActionListener(e -> {
@@ -402,10 +399,18 @@ public class AppMenu extends JFrame {
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
+                   <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                    <div style="font-family: Arial; font-size: 16px; text-align: center; color: green">""" +
                    Main.version + """
                     </div>
-                    """);
+                    ""","BB_icon.png");
         });
         checkForUpdates.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
 
