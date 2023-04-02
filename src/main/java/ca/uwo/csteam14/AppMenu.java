@@ -124,7 +124,7 @@ public class AppMenu extends JFrame {
                     </ul>
                     </p>
                     <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
-                    <p>The search bar remembers your last search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
+                    <p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
                     <hr>
                     
                     <h2>How can I create a location?</h2>
@@ -183,7 +183,7 @@ public class AppMenu extends JFrame {
                     <li>You can only add, edit, or remove built-in POIs. </li>
                     <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
                     <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
-                    <li>If you forget your security key, shoot us an email.</li>
+                    <li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
                     </ol>
                     </p>
                     <hr>

@@ -71,6 +71,7 @@ public class Search {
                     ""","sorry.png");
 
                 }
+                input.setText(defaultText);
             }
         });
         input.addKeyListener(new KeyListener() {
