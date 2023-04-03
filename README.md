@@ -1,4 +1,4 @@
-# _BuildingBuddy_ (Ver 1.1)
+# _BuildingBuddy_ (Ver 1.0)
 
 ## Introduction
 _BuildingBuddy_ is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics & Astronomy Building.
