@@ -458,17 +458,20 @@ public class POIEditor extends JDialog {
         editor.pack();
 
         // Displays the editor.
-        editor.setVisible(true);
+
 
         // Sets the location of the editor.
         editor.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
                 // Places the editor at a proper location over the floor map.
-                editor.setLocationRelativeTo(GUI.canvas.rightPanel);
-                editor.setLocation((int) (GUI.canvas.getSize().width * 0.23), (int) (GUI.canvas.getSize().height * 0.42));
+                editor.setLocationRelativeTo(GUI.frame);
+                editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.42));
             }
         });
+
+        // Dev heads-up: Keep this repeated line to prevent the POI editor from flashing briefly in the top left corner!
+        editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.42));
 
         editor.addWindowListener(new WindowAdapter() {
             @Override
@@ -484,6 +487,8 @@ public class POIEditor extends JDialog {
                 }
             }
         });
+
+        editor.setVisible(true);
     }
 
     public static void resultDisplay(String text, Color color) {
