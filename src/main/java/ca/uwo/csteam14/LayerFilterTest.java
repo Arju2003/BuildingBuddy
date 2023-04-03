@@ -2,7 +2,7 @@ package ca.uwo.csteam14;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * The LayerFilterTest class tests the methods in the LayerFilter class.
+ * This class contains unit tests for the LayerFilter class.
  *  @author Daniel Gomes
  *  @version 1.0.0
  *  @since 2023-03-20
