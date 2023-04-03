@@ -15,7 +15,6 @@ import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
 
 public class POIEditor extends JDialog {
-    // Create a new JDialog with the desired title
     private  final JDialog editor = new JDialog();
     protected static boolean isSaved = false;
     protected static JWindow deletionAlert = new JWindow();
@@ -25,7 +24,7 @@ public class POIEditor extends JDialog {
      * @param poi 
      */
     public POIEditor(POI poi) {
-        AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
+        AppMenu.clearWindows(); // Closes all floating windows.
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
         if (poi.name.length() > 0)
             editor.setTitle(poi.name);
@@ -33,7 +32,6 @@ public class POIEditor extends JDialog {
         editor.setResizable(false);
         editor.setModalityType(ModalityType.MODELESS);
 
-        // Create a new JTextPane
         setLayout(null);
         JPanel main = new JPanel();
         JPanel leftPanel = new JPanel();
@@ -437,12 +435,11 @@ public class POIEditor extends JDialog {
         Point point = new Point(0, 0);
         viewport.setViewPosition(point);
 
-
-        // Add the JScrollPane to the JDialog
+        // Adds the JScrollPane to the JDialog
         editor.add(scrollPane);
 
 
-        // Create a JButton to close the dialog
+        // Creates a JButton to close the editor.
         JButton closeButton = new JButton("Cancel");
         closeButton.addActionListener(e -> {
             editor.dispose();
@@ -457,20 +454,21 @@ public class POIEditor extends JDialog {
         editor.getRootPane().setDefaultButton(closeButton);
         editor.add(closeButton, BorderLayout.SOUTH);
 
-        // Pack the JDialog
+        // Packs the editor.
         editor.pack();
 
-        // Set the location of the JDialog to the center of the screen
+        // Displays the editor.
+        editor.setVisible(true);
+
+        // Sets the location of the editor.
         editor.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
-                // Center the window on the screen
-                editor.setLocationRelativeTo(null);
+                // Places the editor at a proper location over the floor map.
+                editor.setLocationRelativeTo(GUI.canvas.rightPanel);
+                editor.setLocation((int) (GUI.canvas.getSize().width * 0.23), (int) (GUI.canvas.getSize().height * 0.42));
             }
         });
-
-        // Display the JDialog
-        editor.setVisible(true);
 
         editor.addWindowListener(new WindowAdapter() {
             @Override

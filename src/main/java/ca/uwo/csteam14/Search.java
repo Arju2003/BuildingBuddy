@@ -24,12 +24,15 @@ public class Search {
     /** The default text in the search box before user searches */
     private static final String defaultText = "Search anything ...";
 
+    private static boolean successful = false;
+
     /**
      *
      */
     public Search() {
         JPanel searchTool = new JPanel();
         JTextField input = new JTextField(defaultText);
+        if (userInput != null && successful) input.setText(userInput);
         input.setPreferredSize(new Dimension(260,40));
         input.addFocusListener(new FocusListener() {
             @Override
@@ -49,17 +52,19 @@ public class Search {
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
                     new GUIForPOIs("SRC");
+                    successful = true;
+                    input.setText(userInput);
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
                     // instantiate an object of the other class
-                    String iconURL = "https://png.pngtree.com/png-vector/20220616/ourlarge/pngtree-sad-apologizing-emoticon-holding-a-sign-with-the-text-sorry-png-image_5103588.png";
                     new PopupView("Sorry...", """
                    <div style="font-family: Arial">
-                   <p style="text-align:right"><img src="
-                    """ + iconURL + """
-                    " width="150"></p>
-                    <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
                    <h1>Uh-oh!</h1>
                    <h2>No search results for \""""
                             + userInput +
@@ -67,8 +72,10 @@ public class Search {
                    ". <br >
                    Try another set of keywords.</h2>
                     </div>
-                    """);
-
+                    ""","sorry.png");
+                    successful = false;
+                    userInput = null;
+                    input.setText(defaultText);
                 }
             }
         });

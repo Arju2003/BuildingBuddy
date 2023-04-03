@@ -19,6 +19,7 @@ package ca.uwo.csteam14;
  * @version 1.0.0
  * @author Daniel Gomes
  * @author Robert Beemer
+ * @since 2023-03-07
  */
 public class POI {
     /** The POI's id */
@@ -224,6 +225,12 @@ public class POI {
         return false;
     }
 
+    /**
+     * Checks if a given string can be parsed as an integer.
+     *
+     * @param str the string to check
+     * @return true if the string can be parsed as an integer, false otherwise
+     */
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
@@ -232,5 +239,6 @@ public class POI {
             return false;
         }
     }
+
 
 }

@@ -395,5 +395,6 @@ public class Splash extends JPanel {
         GUI.frame.pack();
         GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
         GUI.frame.setVisible(true);
+        GUI.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 }

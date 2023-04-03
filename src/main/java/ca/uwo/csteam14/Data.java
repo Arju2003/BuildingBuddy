@@ -470,6 +470,13 @@ public class Data extends LinkedList<POI> {
         return largestID + 1;
     }
 
+    /**
+     * Removes all elements in a given LinkedList and writes the updated list to a JSON file.
+     *
+     * @param lst the LinkedList of POIs to remove elements from
+     * @return a boolean value indicating if the list is empty after removing elements
+     * @throws IOException if there is an error writing to the JSON file
+     */
     public static boolean nuke(LinkedList<POI> lst) throws IOException {
 
         Iterator<POI> iter = lst.iterator();
@@ -487,10 +494,9 @@ public class Data extends LinkedList<POI> {
             }
         }
             boolean result = lst.size() == 0;
-            // In built linked list removal
 
             JSONObject obj = new JSONObject();
-            // Create a new json array of json objects that hold objects from the linked list of POIs
+            // Creates a new json array of json objects that hold objects from the linked list of POIs
             JSONArray jsonArray = new JSONArray();
 
             String filePath = "./data/";
@@ -512,5 +518,54 @@ public class Data extends LinkedList<POI> {
                 e.printStackTrace();
             }
             return result;
-        }
     }
+
+    /**
+     * Resets the application's data by removing all POIs from the bookmarks and userCreatedPOIs lists and saving the empty lists to JSON files.
+     *
+     * @return true if the bookmarks and userCreatedPOIs lists are empty after the reset, false otherwise
+     * @throws IOException if there is an error writing to the JSON files
+     */
+    public static boolean reset() throws IOException {
+
+        // Remove all POIs from bookmarks list
+        Iterator<POI> iter1 = bookmarks.iterator();
+        while (iter1.hasNext()) {
+            iter1.next();
+            iter1.remove();
+        }
+
+        // Save bookmarks list as empty JSON file
+        JSONObject obj1 = new JSONObject();
+        JSONArray jsonArray1 = new JSONArray();
+        obj1.put("Bookmarks", jsonArray1);
+        try (FileWriter fileWriter = new FileWriter("./data/bookmarks.json")) {
+            fileWriter.write(obj1.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Remove all POIs from userCreatedPOIs list
+        Iterator<POI> iter2 = userCreatedPOIs.iterator();
+        while (iter2.hasNext()) {
+            iter2.next();
+            iter2.remove();
+        }
+
+        // Save userCreatedPOIs list as empty JSON file
+        JSONObject obj2 = new JSONObject();
+        JSONArray jsonArray2 = new JSONArray();
+        obj2.put("UserPOIs", jsonArray2);
+        try (FileWriter fileWriter = new FileWriter("./data/user.json")) {
+            fileWriter.write(obj2.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Return true if both lists are empty after reset, false otherwise
+        return bookmarks.size() + userCreatedPOIs.size() == 0;
+    }
+
+}

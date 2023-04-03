@@ -1,8 +1,11 @@
 /**
- * @author Jason
- * LayerFilter Class
- * Display/Hide Layers in GUI
+ * This class displays a layer selector with checkboxes for each layer of points of interest on the map.
+ *
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
+
 
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
@@ -16,31 +19,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+
 public class LayerFilter extends JPanel {
 
+    // Fields
     private static final JPanel layerSelector = new JPanel();
     protected static JPanel checkboxPanel;
     protected static final ArrayList<String> labelArray = new ArrayList<>(Arrays.asList("Bookmarks", "Classrooms","Labs","CompSci Spots",
             "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"));
     protected static final ArrayList<String> iconArray = new ArrayList<>(Arrays.asList("./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"));
-
     protected static BufferedImage baseMapImage;
-
     protected static String currentLayer = "Washrooms";
-
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
-
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
-
     protected static MapView currentMapView;
-
     protected static int iconWidth = 60;
     protected static int iconHeight = 60;
 
+    // Constructor
     /**
-     * @throws IOException
+     * Creates a new LayerFilter object.
+     *
+     * @throws IOException if there is an error reading an image file.
      */
-    //main class
     public LayerFilter() throws IOException {
         layerSelector.removeAll();
         checkboxPanel = new JPanel();
@@ -50,6 +51,7 @@ public class LayerFilter extends JPanel {
         JCheckBox[] checkboxes = new JCheckBox[labelArray.size()];
         Border padding = BorderFactory.createEmptyBorder(3, 10, 3, 10);
 
+        // Create checkbox for each layer
         for (int i = 0; i < checkboxes.length; ++i) {
             ImageIcon icon = new ImageIcon(iconArray.get(i));
             Image image = icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
@@ -63,6 +65,8 @@ public class LayerFilter extends JPanel {
             checkbox.setPreferredSize(new Dimension(270, checkbox.getPreferredSize().height));
             checkbox.setOpaque(true);
             Color originalBackground = checkbox.getBackground();
+
+            // Add listener to checkbox
             checkbox.addItemListener(e -> {
                 if (checkbox.isSelected()) {
                     currentLayer = checkbox.getText();
@@ -124,7 +128,9 @@ public class LayerFilter extends JPanel {
     }
 
     /**
-     * @throws IOException
+     * Refreshes the selected layers on the current map view
+     *
+     * @throws IOException if an IO exception occurs
      */
     public static void refreshLayers() throws IOException {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
@@ -134,8 +140,8 @@ public class LayerFilter extends JPanel {
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
             POIsOnSelectedLayer = Data.getLayerPOIs(Main.currentFloor, layerName);
-            // Create a new buffered image for the resized icon
 
+            // Create a new buffered image for the resized icon
             BufferedImage resizedIcon = new BufferedImage(iconWidth, iconHeight, iconImage.getType());
 
             // Scale the icon image to the new size
@@ -162,7 +168,9 @@ public class LayerFilter extends JPanel {
 
 
     /**
-     * @throws IOException
+     * Shows all the layers on the current map view
+     *
+     * @throws IOException if an IO exception occurs
      */
     public static void showAllLayers() throws IOException {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
@@ -196,8 +204,10 @@ public class LayerFilter extends JPanel {
     }
 
     /**
-     * @param layerName
-     * @return
+     * This method checks whether a given layer name is in the list of selected layers.
+     *
+     * @param layerName the name of the layer to check
+     * @return true if the layer exists in the list of selected layers, false otherwise
      */
     public static boolean isExisting(String layerName) {
         for (String s: selectedLayers) {
@@ -207,8 +217,10 @@ public class LayerFilter extends JPanel {
     }
 
     /**
-     * @param poi
-     * @return
+     * This method checks whether a given point of interest (POI) exists on the currently selected layer.
+     *
+     * @param poi the POI to check
+     * @return true if the POI exists on the currently selected layer, false otherwise
      */
     public static boolean isExisting(POI poi) {
         for (POI p: POIsOnSelectedLayer) {
@@ -217,10 +229,11 @@ public class LayerFilter extends JPanel {
         return false;
     }
 
-
     /**
-     * @param layer
-     * @return
+     * This method returns the filepath of the icon corresponding to a given layer name.
+     *
+     * @param layer the name of the layer
+     * @return the filepath of the icon corresponding to the layer name
      */
     public static String getLayerIcon(String layer) {
         String filepath = "./images/";
@@ -244,6 +257,7 @@ public class LayerFilter extends JPanel {
             filepath += "washroom.png";
         else if (layer.contains("Accessibility"))
             filepath += "accessibility.png";
+        else filepath += "void.png";
         return filepath;
     }
 }

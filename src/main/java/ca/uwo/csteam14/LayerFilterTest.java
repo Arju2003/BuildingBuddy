@@ -1,16 +1,24 @@
 package ca.uwo.csteam14;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The LayerFilterTest class tests the methods in the LayerFilter class.
+ *  @author Daniel Gomes
+ *  @version 1.0.0
+ *  @since 2023-03-20
+ */
 class LayerFilterTest {
 
+    /**
+     * This method is called after each test to clean up resources.
+     */
     @org.junit.jupiter.api.AfterEach
     void tearDown() {
     }
 
+    /**
+     * This test method tests the isExisting(String layerName) method of LayerFilter.
+     */
     @org.junit.jupiter.api.Test
     void isExistingLayerName() {
         System.out.println("isExisting(String layerName)");
@@ -21,10 +29,12 @@ class LayerFilterTest {
         assertTrue(LayerFilter.isExisting("Labs"));
     }
 
+    /**
+     * This test method tests the isExisting(POI poi) method of LayerFilter.
+     */
     @org.junit.jupiter.api.Test
     void isExistingPOI() {
         System.out.println("isExisting(POI poi)");
-
         LayerFilter.POIsOnSelectedLayer.clear();
         POI poi1 = new POI(123456);
         poi1.setX(100);
@@ -38,6 +48,9 @@ class LayerFilterTest {
         assertFalse(LayerFilter.isExisting(poi2));
     }
 
+    /**
+     * This test method tests the getLayerIcon() method of LayerFilter.
+     */
     @org.junit.jupiter.api.Test
     void getLayerIcon() {
         System.out.println("getLayerIcon()");
