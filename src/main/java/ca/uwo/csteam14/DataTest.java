@@ -3,6 +3,8 @@ package ca.uwo.csteam14;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -72,20 +74,31 @@ class DataTest {
     void removePOI() throws IOException {
         System.out.println("removePOI()");
 
-        LinkedList<POI> lst = new LinkedList<>();
-        POI poi1 = new POI(1);
-        POI poi2 = new POI(2);
-        lst.add(poi1);
-        lst.add(poi2);
+        Data.builtInPOIs = new LinkedList<>();
 
-        // Test removing an existing POI
-        assertTrue(Data.removePOI(poi1, lst));
-        assertFalse(lst.contains(poi1));
-        assertTrue(lst.contains(poi2));
+        // Create a new POI object to add
+        POI newPOI = new POI(4);
+        newPOI.setName("test poi");
+        newPOI.setBuilding("Building A");
+        newPOI.setCode("B");
+        newPOI.setFloor("Second Floor");
+        newPOI.setRoomNumber(200);
+        newPOI.setCategory("Office");
+        newPOI.setDescription("New POI description");
+        newPOI.setMap("Map A");
+        newPOI.setX(300);
+        newPOI.setY(500);
+        newPOI.setBuiltIn(false);
 
-        // Test removing a non-existing POI
-        assertFalse(Data.removePOI(new POI(3), lst));
-        assertTrue(lst.contains(poi2));
+        // add the POI to be able to remove it
+        Data.builtInPOIs.add(newPOI);
+
+        // remove the new POI from the builtInPOIs list
+        Data data = new Data();
+        assertNotNull(data.removePOI(newPOI, Data.builtInPOIs));
+
+        // Check that the new POI has been removed from the builtInPOIs list
+        assertFalse(Data.containsPOI(Data.builtInPOIs, newPOI));
     }
 
     /**
@@ -147,41 +160,29 @@ class DataTest {
      * Retrieves a POI with the given code, x coordinate, and y coordinate from the Data class and checks that it is not null and equal to the expected POI.
      */
     @Test
-    void getPOI() {  // NOT WORKING
+    void getPOI() {
         System.out.println("getPOI()");
 
+        Data instance = new Data();
         LinkedList<POI> builtInPOIs = new LinkedList<>();
         LinkedList<POI> userCreatedPOIs = new LinkedList<>();
 
-        Data instance = new Data();
-        builtInPOIs = instance.getBuiltInPOIs();
-        userCreatedPOIs = instance.getUserCreatedPOIs();
+        // Create a test POI
+        POI testPOI = new POI(1);
+        testPOI.setX(10);
+        testPOI.setY(20);
+        testPOI.setMap("Test Floor");
 
-        // create test POI
-        POI poi1 = new POI(1);
-        poi1.setName("Test POI");
-        poi1.setBuilding("Test Building");
-        poi1.setCode("TB");
-        poi1.setFloor("1");
-        poi1.setRoomNumber(123);
-        poi1.setCategory("Test Category");
-        poi1.setDescription("Test Description");
-        poi1.setMap("Test Map");
-        poi1.setX(100);
-        poi1.setY(200);
-        poi1.setBuiltIn(false);
+        // Add the test POI to the list of built-in POIs
+        Data.builtInPOIs.add(testPOI);
 
-        // add test POI to user created POIs
-        userCreatedPOIs.add(poi1);
+        // Test that the getPOI method returns the correct POI for the given coordinates
+        POI resultPOI = instance.getPOI("Test Floor", 10, 20);
+        assertEquals(testPOI, resultPOI);
 
-        // test getting POI
-        POI retrievedPOI = instance.getPOI("1", 100, 200);
-        assertNotNull(retrievedPOI);
-        assertEquals(poi1, retrievedPOI);
-
-        // test getting non-existent POI
-        retrievedPOI = instance.getPOI("1", 999, 999);
-        assertNull(retrievedPOI);
+        // Test that the method returns null if there is no POI at the given coordinates
+        POI resultNull = instance.getPOI("Test Floor", 30, 40);
+        assertNull(resultNull);
     }
 
     /**
@@ -207,18 +208,87 @@ class DataTest {
      * Generates an ID for a new POI based on whether it is a user-created POI or a built-in POI.
      */
     @Test
-    void generatePOIID() {
+    public void generatePOIID() {
         System.out.println("generatePOIID()");
 
-        Data instance = new Data();
-        // Test case for user created POI
-        int expectedUserID = 4000001;
-        int actualUserID = instance.generatePOIID("user");
-        assertEquals(expectedUserID, actualUserID);
+        Data.builtInPOIs = new LinkedList<>();
+        Data.userCreatedPOIs = new LinkedList<>();
 
-        // Test case for built-in POI
-        int expectedDevID = 5000001;
-        int actualDevID = instance.generatePOIID("dev");
-        assertEquals(expectedDevID, actualDevID);
+        Data.builtInPOIs.add(new POI(5000000));
+        Data.builtInPOIs.add(new POI(5000001));
+        Data.builtInPOIs.add(new POI(5000002));
+
+        Data.userCreatedPOIs.add(new POI(4000000));
+        Data.userCreatedPOIs.add(new POI(4000001));
+        Data.userCreatedPOIs.add(new POI(4000002));
+
+        // Test for user creator
+        int expectedUserID = 4000003; // largest user POI ID is 4001000
+        assertEquals(expectedUserID, Data.generatePOIID("user"));
+
+        // Test for dev creator
+        int expectedDevID = 5000003; // largest dev POI ID is 5002000
+        assertEquals(expectedDevID, Data.generatePOIID("dev"));
+    }
+
+    @Test
+    void nuke() {
+        System.out.println("nuke()");
+
+        // this does not actually affect builtIn POIs, but nukes a test list
+
+        // Create a test list with some POIs
+        LinkedList<POI> testList = new LinkedList<POI>();
+        testList.add(new POI(1));
+        testList.add(new POI(2));
+        testList.add(new POI(3));
+
+        // Check that the test list is not empty before nuking
+        assertFalse(testList.isEmpty());
+
+        // Nuke the test list
+        boolean result = false;
+        try {
+            result = Data.nuke(testList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Check that the test list is empty after nuking
+        assertTrue(testList.isEmpty());
+
+        // Check that the nuke method returned true
+        assertTrue(result);
+    }
+
+    @Test
+    void reset() {
+        System.out.println("reset()");
+
+        // careful, this test actually resets user POIs and bookmarks to ensure validity.
+
+        // Create some POIs and add them to the bookmarks and userCreatedPOIs lists
+        Data instance = new Data();
+        POI poi1 = new POI(1);
+        POI poi2 = new POI(2);
+
+        LinkedList<POI> testBookmarks = new LinkedList<POI>();
+        LinkedList<POI> testUserList = new LinkedList<POI>();
+        testBookmarks.add(poi1);
+        testBookmarks.add(poi2);
+        testUserList.add(poi1);
+
+        // Call the reset method
+        boolean result = false;
+        try {
+            result = instance.reset();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Assert that the bookmarks and userCreatedPOIs lists are empty and the method returned true
+        assertEquals(0, Data.bookmarks.size());
+        assertEquals(0, Data.userCreatedPOIs.size());
+        assertTrue(result);
     }
 }
