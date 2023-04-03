@@ -151,7 +151,7 @@ public class AppMenu extends JFrame {
                     <p>A user can have as many bookmarks as they want.</p>
                     <hr>
                     
-                    <h2>Can I bookmark a My Location?</h2>
+                    <h2>Can I bookmark a "My Location"?</h2>
                     <p>Sure! You can bookmark anything on any floor map.</p>
                     <hr>
                     
@@ -159,7 +159,7 @@ public class AppMenu extends JFrame {
                     <p>Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.</p>
                     <hr>
                     
-                    <h2>What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy?</h2>
+                    <h2>What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy"?</h2>
                     <p>These three features will delete all your bookmarks, My Locations, and both. Your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
                     <p>If you only choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
                     <p>After you confirm your choice, the program will reboot automatically.</p>
