@@ -475,12 +475,18 @@ public class AppMenu extends JFrame {
         // Links the menu option with software version display.
         checkForUpdates.addActionListener(e -> {
             clearWindows();
+            String result;
+            try {
+                result = Main.updateChecker();
+            } catch (IOException ex) {
+                result = "Something's wrong with the connection between BuildingBuddy and the remote server.<br><br>Please try again later.";
+            }
             new PopupView("Software Update", """
-                    <br><br><br><br><br><br><br><br>
-                   <div style="font-family: Arial; font-size: 16px; text-align: center; color: green">""" +
-                   Main.version + """
+                     <br><br><br><br><br><br><br><br>
+                    <div style="font-family: Arial; font-size: 16px; text-align: center; color: green">""" +
+                    result + """
                     </div>
-                    ""","BB_icon.png");
+                    """, "BB_icon.png");
         });
         // Adds hotkey to this menu option.
         checkForUpdates.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));

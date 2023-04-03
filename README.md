@@ -22,6 +22,20 @@ This security key is designed to only prevent regular users from modifying the d
 
 To quit Development Mode, either click [X] or **Exit** to quit the entire program, or click **Logout** to restart the program as a regular user.
 
+## Special Features
+* The GUI is programmed to occupy a fixed portion of your screen estate.
+* Key features support hotkey commands for enhanced accessibility.
+* Regular users can choose to delete their entire bookmark collection in one click.
+* Regular users can choose to delete all locations they have defined in one click.
+* Regular users can choose to reset the program to factory settings in one click.
+* When a POI is deleted, the data list gets synced and refreshed immediately.
+* Users and developers can create up to 999,999 POIs respectively in addition to built-in POIs.
+* Developers can choose to erase all the built-in data in one click.
+* Developers can change their security key at any time.
+* The program will remember your last choice of building and floor before you quit or restart.
+* The program will remember your last successful search query before you quit or restart.
+* Users and developers can check if there's a new version and update their software in one click.
+
 ## FAQ
 <h3>What is a POI?</h3>
 <p>A POI is a point of interest, namely a location on the map.</p>
@@ -79,11 +93,11 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### How to view or edit bookmarks?
-<p>Enter <b>View</b> – <b>Bookmarks</b>, or press CTRL + B.</p>
+<p>Enter <b>View</b> – <b>Bookmarks</b>, or press <code>CTRL + B</code>.</p>
 <hr>
 
 ### How to view or edit My Locations?
-<p>Enter <b>View</b> – <b>My Locations</b>, or press CTRL + L.</p>
+<p>Enter <b>View</b> – <b>My Locations</b>, or press <code>CTRL + L</code>.</p>
 <hr>
 
 ### How many bookmarks can I have?
@@ -124,7 +138,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <li>You can only add, edit, or remove built-in POIs. </li>
 <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
 <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
-<li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
+<li>If you forget your security key, check <code>./data/security_key</code> or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
 </ol>
 <hr>
 

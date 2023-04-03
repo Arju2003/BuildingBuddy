@@ -15,6 +15,7 @@ package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.net.URL;
 
 public class Main {
     protected static boolean devMode;
@@ -24,7 +25,7 @@ public class Main {
     protected static String currentFloor_MC;
     protected static String currentFloor_KB;
     protected static String currentFloor_PAB;
-    protected static String version = "You're running the latest version (Ver 1.0) of BuildingBuddy!";
+    protected static String currentAppVersion = "1.0";
     protected static POI fallbackPOI = new POI(-1);
 
     public static ListCellRenderer<? super String> centerRenderer;
@@ -139,6 +140,23 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Checks if a new version of the app is available.
+     *
+     * @return A message that shows the user whether there is a new version of the app available.
+     */
+    public static String updateChecker() throws IOException {
+        String urlStr = "https://raw.githubusercontent.com/dan1el5/BuildingBuddy/master/README.md"; // replace with your URL
+        URL url = new URL(urlStr);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String firstLine = reader.readLine();
+            reader.close();
+            if (firstLine.contains(currentAppVersion))
+                return "You're running the latest version of BuildingBuddy!<br><br>Happy exploring!";
+            else return "There's a new version of BuildingBuddy available.<br><br>You may download it now from our GitHub repo (click About in the menu).";
+    }
+
 
     /**
      * The main method that initializes the application and sets up the fallback POI and other data structures.
