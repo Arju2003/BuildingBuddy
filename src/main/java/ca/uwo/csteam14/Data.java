@@ -512,5 +512,50 @@ public class Data extends LinkedList<POI> {
                 e.printStackTrace();
             }
             return result;
-        }
     }
+
+    public static boolean reset() throws IOException {
+
+        Iterator<POI> iter1 = bookmarks.iterator();
+            while (iter1.hasNext()) {
+                iter1.next();
+                iter1.remove();
+            }
+
+        JSONObject obj1 = new JSONObject();
+        // Create a new json array of json objects that hold objects from the linked list of POIs
+        JSONArray jsonArray1 = new JSONArray();
+
+        obj1.put("Bookmarks", jsonArray1);
+
+        // Write the Json file
+        try (FileWriter fileWriter = new FileWriter("./data/bookmarks.json")) {
+            fileWriter.write(obj1.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Iterator<POI> iter2 = userCreatedPOIs.iterator();
+        while (iter2.hasNext()) {
+            iter2.next();
+            iter2.remove();
+        }
+
+        JSONObject obj2 = new JSONObject();
+        // Create a new json array of json objects that hold objects from the linked list of POIs
+        JSONArray jsonArray2 = new JSONArray();
+
+        obj2.put("UserPOIs", jsonArray2);
+
+        // Write the Json file
+        try (FileWriter fileWriter = new FileWriter("./data/user.json")) {
+            fileWriter.write(obj2.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bookmarks.size() + userCreatedPOIs.size() == 0;
+    }
+}

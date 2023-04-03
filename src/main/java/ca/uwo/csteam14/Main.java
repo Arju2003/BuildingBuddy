@@ -5,16 +5,15 @@
  */
 
 package ca.uwo.csteam14;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
+
 
 public class Main {
 
     protected static boolean devMode;
-
-    private static final char[] securityKey = {'C','S','2','2','1','2','B','B'};
+    private static char[] securityKey;
     protected static String currentBuildingCode;
     protected static String currentFloor;
     protected static String currentFloor_MC;
@@ -45,31 +44,6 @@ public class Main {
         return new Point(1700, 1100);
     }
 
-    /**
-     * @param currentBuildingCode
-     * @return
-     */
-    public static String getCurrentFloor(String currentBuildingCode) {
-        switch (currentBuildingCode) {
-            case ("MC") -> {
-                return currentFloor_MC;
-            }
-            case ("KB") -> {
-                return currentFloor_KB;
-            }
-            case ("PAB") -> {
-                return currentFloor_PAB;
-            }
-        }
-        return "";
-    }
-
-    /**
-     * @return
-     */
-    public static char[] getSecurityKey() {
-        return securityKey;
-    }
 
     /**
      * @param floorMapName
@@ -114,6 +88,34 @@ public class Main {
 
     }
 
+    public static char[] getSecurityKey() {
+
+            String fileName = "./data/security_key";
+
+            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    securityKey = line.toCharArray();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return securityKey;
+    }
+
+    public static void changeSecurityKey(char[] newKey) {
+
+        String fileName = "./data/security_key";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+            String sk = new String(newKey);
+            bw.write(sk);
+            securityKey = newKey;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         devMode = false;

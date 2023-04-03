@@ -49,9 +49,11 @@ public class AppMenu extends JFrame {
         JMenuItem nukeBookmarks = new JMenuItem("Nuke Bookmarks");
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
         JMenuItem nukeBuiltInPOIs = new JMenuItem("Nuke Built-In POIs");
+        JMenuItem reset = new JMenuItem("Reset BuildingBuddy");
         nukeBookmarks.setForeground(Color.RED);
         nukeMyLocations.setForeground(Color.RED);
         nukeBuiltInPOIs.setForeground(Color.RED);
+        reset.setForeground(Color.RED);
         developerTool.setForeground(Color.BLUE);
         // add ActionListener to menu buttons and menu items
         start.addActionListener(e -> {
@@ -295,7 +297,7 @@ public class AppMenu extends JFrame {
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
-            JLabel message = new JLabel("DANGER ZONE: DELETE ALL MY LOCATIONS, AND REBOOT?");
+            JLabel message = new JLabel("DANGER ZONE: DELETE ALL MY LOCATIONS PERMANENTLY, AND REBOOT?");
             message.setFont(new Font("Arial",BOLD,18));
             message.setForeground(new Color(220,50,32));
             deletionAlertPanel.add(message);
@@ -309,6 +311,61 @@ public class AppMenu extends JFrame {
                 boolean result ;
                 try {
                     result = Data.nuke(Data.userCreatedPOIs);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                if (result) {
+                    try {
+                        Main.restartApplication();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                else {
+                    POIEditor.resultDisplay("Oops... Try again...",Color.PINK);
+                    deletionAlert.dispose();
+                }
+
+            });
+            deletionAlertPanel.add(confirm);
+            deletionAlertPanel.add(cancel);
+            deletionAlertPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            deletionAlert.add(deletionAlertPanel);
+            deletionAlert.pack();
+            deletionAlert.setAlwaysOnTop(true);
+            deletionAlert.setFocusableWindowState(false);
+            deletionAlert.setFocusable(false);
+            deletionAlert.setVisible(true);
+        });
+
+        reset.addActionListener(e -> {
+            JWindow deletionAlert = new JWindow();
+            deletionAlert.setSize(480, 100);
+            deletionAlert.addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentShown(ComponentEvent e) {
+                    // Center the window on the screen
+                    deletionAlert.setLocationRelativeTo(null);
+                }
+            });
+            JPanel deletionAlertPanel = new JPanel();
+            deletionAlertPanel.setForeground(new Color(220,50,32));
+            deletionAlertPanel.setForeground(new Color(255,255,255));
+            JLabel message = new JLabel("DANGER ZONE: DELETE ALL YOUR PERSONALIZED DATA PERMANENTLY, AND REBOOT?");
+            message.setFont(new Font("Arial",BOLD,18));
+            message.setForeground(new Color(220,50,32));
+            deletionAlertPanel.add(message);
+            JButton cancel = new JButton("NO");
+            cancel.setEnabled(true);
+            deletionAlert.setLocationRelativeTo(GUI.frame);
+            cancel.addActionListener(e2-> deletionAlert.setVisible(false));
+            JButton confirm = new JButton("YES");
+            confirm.setBackground(Color.RED);
+            confirm.addActionListener(e3-> {
+                boolean result ;
+                try {
+                    result = Data.reset();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -477,10 +534,19 @@ public class AppMenu extends JFrame {
                     more.remove(developerTool);
                     more.remove(nukeBookmarks);
                     more.remove(nukeMyLocations);
+                    more.remove(reset);
                     changeKey.addActionListener(e4->{
                         clearWindows();
                         JDialog changeKeyDialog = new JDialog();
                         changeKeyDialog.setResizable(false);
+                        changeKeyDialog.setSize(480, 450);
+                        changeKeyDialog.addComponentListener(new ComponentAdapter() {
+                            @Override
+                            public void componentShown(ComponentEvent e) {
+                                // Center the window on the screen
+                                changeKeyDialog.setLocationRelativeTo(null);
+                            }
+                        });
                         changeKeyDialog.addComponentListener(new ComponentAdapter() {
                             @Override
                             public void componentShown(ComponentEvent e) {
@@ -513,23 +579,44 @@ public class AppMenu extends JFrame {
                         newKeyInput1.setEditable(true);
                         newKeyInput2.setEditable(true);
 
+
                         JButton yes = new JButton("Confirm");
                         yes.addActionListener(e5-> {
                             if (newKeyInput1.getPassword().length > 0 && Arrays.equals(newKeyInput1.getPassword(), newKeyInput2.getPassword())) {
-                                title2.setText("THIS FEATURE'S COMING SOON");
-                                newKey1.setText("BuildingBuddy Ver 2.0 will support changing your security key.");
-                                newKeyInput1.setEnabled(false);
-                                newKey2.setText("Please press Cancel for now. Thank you:-)");
-                                newKeyInput2.setEnabled(false);
+                                Main.changeSecurityKey(newKeyInput1.getPassword());
+                                POIEditor.resultDisplay("Successful! Remember your new Security Key!", Color.GREEN);
+                                changeKeyDialog.dispose();
                             }
                             else
-                                newKey1.setText("Two inputs must match and neither can be empty. Enter new security key:");
+                                newKey1.setText("<html><p><span style=\"color: red;\">Two inputs must match and neither can be empty.</span></p><br><p>Enter new security key:</p></html>");
                         });
                         JButton no = new JButton("Cancel");
                         no.addActionListener(e1 -> changeKeyDialog.dispose());
 
+                        newKeyInput2.addKeyListener(new KeyListener() {
+                            @Override
+                            public void keyTyped(KeyEvent e) {
+                                // Do nothing
+                            }
+
+                            @Override
+                            public void keyPressed(KeyEvent e) {
+                                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                                    // Simulate a button click when the Enter key is pressed in the text field
+                                    yes.doClick();
+                                }
+                            }
+
+                            @Override
+                            public void keyReleased(KeyEvent e) {
+                                // Do nothing
+                            }
+                        });
+
                         mainPanel2.add(yes);
                         mainPanel2.add(no);
+                        yes.setPreferredSize(new Dimension(60,40));
+                        no.setPreferredSize(new Dimension(60,40));
                         changeKeyDialog.add(mainPanel2);
                         changeKeyDialog.setVisible(true);
                         changeKeyDialog.setLocationRelativeTo(devLogin);
@@ -557,16 +644,13 @@ public class AppMenu extends JFrame {
         });
         developerTool.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
 
-
-
-
-
         // add menu items to menu
         view.add(bookmarks);
         view.add(myLocations);
         more.add(checkForUpdates);
         more.add(nukeBookmarks);
         more.add(nukeMyLocations);
+        more.add(reset);
         more.add(developerTool);
 
         // add menu to menu bar

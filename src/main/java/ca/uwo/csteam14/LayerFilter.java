@@ -244,6 +244,7 @@ public class LayerFilter extends JPanel {
             filepath += "washroom.png";
         else if (layer.contains("Accessibility"))
             filepath += "accessibility.png";
+        else filepath += "void.png";
         return filepath;
     }
 }
