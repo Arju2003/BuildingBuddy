@@ -1,7 +1,9 @@
 /**
- * @author Jason
  * POISelector Class
  * Select POIs in application in order to interact with them, grab attributes, etc.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
 
 package ca.uwo.csteam14;

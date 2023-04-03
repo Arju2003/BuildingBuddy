@@ -1,7 +1,8 @@
 /**
- * @author Jason
- * PopupView Class
- * Handles popups in application
+ *  This class displays a popup window with an image and some text.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
@@ -18,12 +19,18 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class PopupView extends JDialog {
-    // Create a new JDialog with the desired title
+
+    /**
+     * Creates a new JDialog instance.
+     */
     JDialog dialog = new JDialog();
 
     /**
-     * @param title
-     * @param content
+     * Constructs a new PopupView object with the specified title, content, and icon file name.
+     *
+     * @param title the title of the popup window
+     * @param content the text content to display in the popup window
+     * @param iconFileName the name of the file containing the image to display in the popup window
      */
     public PopupView(String title, String content, String iconFileName) {
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
@@ -100,3 +107,4 @@ public class PopupView extends JDialog {
         dialog.setVisible(true);
     }
 }
+

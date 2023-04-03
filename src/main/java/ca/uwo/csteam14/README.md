@@ -15,7 +15,7 @@ My Location – from pngkit.com
 Washroom – from flaticon.com
 Accessibility – from pngitem.com
 Help – from flaticon.com
-Sorry – from pngtree.com
+Sorry – from flaticon.com
 No Internet - from uxwing.com
 
 BuddyBuilding Icon – by Jason Shew

@@ -1,36 +1,38 @@
-/**
- * @author Jason
- * AppMenu Class
- * Display About and Help Screens
- */
-
-package ca.uwo.csteam14;// Java program  to add a menubar
-// and add menu items, submenu items and also add
-// ActionListener and KeyListener to menu items
+package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Arrays;
-
 import static java.awt.Font.BOLD;
 
+/**
+ * Generates an app menu bar.
+ * This class creates a main menu in the app, displayed horizontally at the top of the GUI.
+ *
+ * @author Jason B. Shew
+ * @version 1.0.0
+ * @since 2023-03-07
+ */
+
 public class AppMenu extends JFrame {
-    protected final JMenuBar mb = new JMenuBar(); // create a menubar
+
+    /** The menu bar to be added to the top of the GUI. */
+    protected final JMenuBar mb = new JMenuBar(); // Creates a menu bar.
 
 
     /**
-     *
+     * Constructs a new AppMenu object.
      */
-    public AppMenu() {        // create an object of the class
+    public AppMenu() {
 
-        // create menu buttons
+        // Creates menubar layout.
         mb.setLayout(new FlowLayout());
-
+        // Creates two menus that contain menu items.
         JMenu view = new JMenu("View");
         JMenu more = new JMenu("More");
 
-        // create menu items
+        // Creates menu items and stylizes each of them.
         JMenuItem start = new JMenuItem("Start");
         JMenuItem bookmarks = new JMenuItem("" +
                 "Bookmarks");
@@ -44,7 +46,7 @@ public class AppMenu extends JFrame {
         JMenuItem about = new JMenuItem("About");
         JMenuItem exit = new JMenuItem("Exit");
         JMenuItem weather = new JMenuItem("Weather");
-        JMenuItem reboot = new JMenuItem("Reboot");
+        JMenuItem logout = new JMenuItem("Logout");
         JMenuItem changeKey = new JMenuItem("Change Security Key");
         JMenuItem nukeBookmarks = new JMenuItem("Nuke Bookmarks");
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
@@ -55,31 +57,29 @@ public class AppMenu extends JFrame {
         nukeBuiltInPOIs.setForeground(Color.RED);
         reset.setForeground(Color.RED);
         developerTool.setForeground(Color.BLUE);
-        // add ActionListener to menu buttons and menu items
+        // Adds ActionListener to menu buttons and menu items.
         start.addActionListener(e -> {
-            // instantiate an object of the other class
-            Splash startAgain;
+            clearWindows();
+            // Reloads the splash screen.
             try {
-                startAgain = new Splash("./images/"+ Main.currentBuildingCode+"_hero.png");
+                new Splash("./images/"+ Main.currentBuildingCode+"_hero.png").build();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+
+        });
+        logout.addActionListener(e -> {
+            // Restarts the program.
+            clearWindows();
             try {
-                startAgain.build();
+                Main.restartApplication();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
-        reboot.addActionListener(e -> {
-                    try {
-                        Main.restartApplication();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
         help.addActionListener(e -> {
-            clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
-            // instantiate an object of the other class
+            clearWindows(); // Closes all floating windows.
+            // Creates a PopupView object to display the Help page.
             new PopupView("Help", """
                    <div style="font-family: Arial; font-size: 18">
                   <h2>What is a POI?</h2>
@@ -159,9 +159,9 @@ public class AppMenu extends JFrame {
                     <p>Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.</p>
                     <hr>
                     
-                    <h2>What are "Nuke Bookmarks" and "Nuke My Locations"?</h2>
-                    <p>These two features will delete all your bookmarks and My Locations, respectively. As such, your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
-                    <p>Again, if you choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
+                    <h2>What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy?</h2>
+                    <p>These three features will delete all your bookmarks, My Locations, and both. Your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
+                    <p>If you only choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
                     <p>After you confirm your choice, the program will reboot automatically.</p>
                     <hr>
                     
@@ -181,7 +181,7 @@ public class AppMenu extends JFrame {
                     <p>Yes, you can. Here's a few tips for developers:
                     <ol>
                     <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
-                    <li>You can exit Developer Tool by hitting <b>Reboot</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
+                    <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
                     <li>You can only add, edit, or remove built-in POIs. </li>
                     <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
                     <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
@@ -198,7 +198,7 @@ public class AppMenu extends JFrame {
 
         });
         about.addActionListener(e -> {
-            clearWindows();
+            clearWindows(); // Closes all floating windows and displays the About page.
             new PopupView("About", """
                     <div style="font-family: Arial; text-align: center;">
                     <br>
@@ -218,10 +218,14 @@ public class AppMenu extends JFrame {
 
         });
         exit.addActionListener(e -> {
-            System.exit(0); // exit the program with status code 0
+            clearWindows();
+            // Quits the program.
+            System.exit(0); // Exits the program with status code 0.
         });
 
         weather.addActionListener(e -> {
+            // Displays current weather.
+            clearWindows();
             try {
                 new WeatherInfo();
             } catch (IOException ex) {
@@ -230,19 +234,22 @@ public class AppMenu extends JFrame {
         });
 
         nukeBookmarks.addActionListener(e -> {
+            // Deletes all user bookmarks.
+            clearWindows();
             JWindow deletionAlert = new JWindow();
             deletionAlert.setSize(480, 100);
             deletionAlert.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentShown(ComponentEvent e) {
-                    // Center the window on the screen
+                    // Centers the window on the screen.
                     deletionAlert.setLocationRelativeTo(null);
                 }
             });
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
-            JLabel message = new JLabel("DANGER ZONE: DELETE ALL BOOKMARKS PERMANENTLY, AND REBOOT?");
+            // Creates an alert to confirm deletion.
+            JLabel message = new JLabel("DANGER ZONE: DELETE ALL BOOKMARKS PERMANENTLY?");
             message.setFont(new Font("Arial",BOLD,18));
             message.setForeground(new Color(220,50,32));
             deletionAlertPanel.add(message);
@@ -251,8 +258,9 @@ public class AppMenu extends JFrame {
             deletionAlert.setLocationRelativeTo(GUI.frame);
             cancel.addActionListener(e2-> deletionAlert.setVisible(false));
             JButton confirm = new JButton("YES");
-            confirm.setBackground(Color.RED);
+            confirm.setForeground(new Color(220,50,32));
             confirm.addActionListener(e3-> {
+                // If confirmed, then deletes all bookmarks and reboots the program.
                 boolean result ;
                 try {
                     result = Data.nuke(Data.bookmarks);
@@ -266,7 +274,7 @@ public class AppMenu extends JFrame {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                }
+                } // If deletion fails then gives a prompt and does nothing.
                 else {
                     POIEditor.resultDisplay("Oops... Try again...",Color.PINK);
                     deletionAlert.dispose();
@@ -285,19 +293,20 @@ public class AppMenu extends JFrame {
         });
 
         nukeMyLocations.addActionListener(e -> {
+            // Same as above but works on user-created POIs.
+            clearWindows();
             JWindow deletionAlert = new JWindow();
             deletionAlert.setSize(480, 100);
             deletionAlert.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentShown(ComponentEvent e) {
-                    // Center the window on the screen
                     deletionAlert.setLocationRelativeTo(null);
                 }
             });
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
-            JLabel message = new JLabel("DANGER ZONE: DELETE ALL MY LOCATIONS PERMANENTLY, AND REBOOT?");
+            JLabel message = new JLabel("DANGER ZONE: DELETE ALL \"MY LOCATIONS\" PERMANENTLY?");
             message.setFont(new Font("Arial",BOLD,18));
             message.setForeground(new Color(220,50,32));
             deletionAlertPanel.add(message);
@@ -306,7 +315,7 @@ public class AppMenu extends JFrame {
             deletionAlert.setLocationRelativeTo(GUI.frame);
             cancel.addActionListener(e2-> deletionAlert.setVisible(false));
             JButton confirm = new JButton("YES");
-            confirm.setBackground(Color.RED);
+            confirm.setForeground(new Color(220,50,32));
             confirm.addActionListener(e3-> {
                 boolean result ;
                 try {
@@ -340,6 +349,8 @@ public class AppMenu extends JFrame {
         });
 
         reset.addActionListener(e -> {
+            // Same as above, but works on both user bookmarks and user-created POIs.
+            clearWindows();
             JWindow deletionAlert = new JWindow();
             deletionAlert.setSize(480, 100);
             deletionAlert.addComponentListener(new ComponentAdapter() {
@@ -352,7 +363,7 @@ public class AppMenu extends JFrame {
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
-            JLabel message = new JLabel("DANGER ZONE: DELETE ALL YOUR PERSONALIZED DATA PERMANENTLY, AND REBOOT?");
+            JLabel message = new JLabel("DANGER ZONE: ERASE ALL YOUR DATA AND RESTORE FACTORY SETTINGS?");
             message.setFont(new Font("Arial",BOLD,18));
             message.setForeground(new Color(220,50,32));
             deletionAlertPanel.add(message);
@@ -361,7 +372,7 @@ public class AppMenu extends JFrame {
             deletionAlert.setLocationRelativeTo(GUI.frame);
             cancel.addActionListener(e2-> deletionAlert.setVisible(false));
             JButton confirm = new JButton("YES");
-            confirm.setBackground(Color.RED);
+            confirm.setForeground(new Color(220,50,32));
             confirm.addActionListener(e3-> {
                 boolean result ;
                 try {
@@ -395,6 +406,9 @@ public class AppMenu extends JFrame {
         });
 
         nukeBuiltInPOIs.addActionListener(e -> {
+            // Same as above, but works on built-in POIs.
+            // This is only intended for the developer.
+            clearWindows();
             JWindow deletionAlert = new JWindow();
             deletionAlert.setSize(480, 100);
             deletionAlert.addComponentListener(new ComponentAdapter() {
@@ -407,7 +421,7 @@ public class AppMenu extends JFrame {
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
-            JLabel message = new JLabel("DANGER ZONE: DELETE ALL BUILT-IN DATA PERMANENTLY, AND REBOOT?");
+            JLabel message = new JLabel("DANGER ZONE: DELETE ALL BUILT-IN DATA PERMANENTLY?");
             message.setFont(new Font("Arial",BOLD,18));
             message.setForeground(new Color(220,50,32));
             deletionAlertPanel.add(message);
@@ -416,7 +430,7 @@ public class AppMenu extends JFrame {
             deletionAlert.setLocationRelativeTo(GUI.frame);
             cancel.addActionListener(e2-> deletionAlert.setVisible(false));
             JButton confirm = new JButton("YES");
-            confirm.setBackground(Color.RED);
+            confirm.setForeground(new Color(220,50,32));
             confirm.addActionListener(e3-> {
                 boolean result ;
                 try {
@@ -449,36 +463,38 @@ public class AppMenu extends JFrame {
             deletionAlert.setVisible(true);
         });
 
-        bookmarks.addActionListener(e -> new GUIForPOIs("BMK"));
+        // Links the menu option with the bookmark editor.
+        bookmarks.addActionListener(e -> {clearWindows(); new GUIForPOIs("BMK");});
+        // Adds hotkey to this menu option.
         bookmarks.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
-        myLocations.addActionListener(e -> new GUIForPOIs("UDP"));
+        // Links the menu option with My Location editor.
+        myLocations.addActionListener(e -> {clearWindows(); new GUIForPOIs("UDP");});
+        // Adds hotkey to this menu option.
         myLocations.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
+
+        // Links the menu option with software version display.
         checkForUpdates.addActionListener(e -> {
             clearWindows();
             new PopupView("Software Update", """
-                   <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                    <br><br><br><br><br><br><br><br>
                    <div style="font-family: Arial; font-size: 16px; text-align: center; color: green">""" +
                    Main.version + """
                     </div>
                     ""","BB_icon.png");
         });
+        // Adds hotkey to this menu option.
         checkForUpdates.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
 
+        // Links the menu option with the Developer Tool.
         developerTool.addActionListener(e -> {
+            clearWindows();
             JDialog devLogin = new JDialog();
             devLogin.setResizable(false);
             devLogin.setSize(new Dimension(280,390));
             devLogin.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentShown(ComponentEvent e) {
-                    // Center the window on the screen
+                    // Centers the window on the screen.
                     devLogin.setLocationRelativeTo(null);
                 }
             });
@@ -507,6 +523,7 @@ public class AppMenu extends JFrame {
             mainPanel.add(enter);
             mainPanel.add(cancel);
 
+            // Makes pressing Enter act as clicking the Enter button.
             securityKey.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e) {
@@ -516,26 +533,34 @@ public class AppMenu extends JFrame {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        // Simulate a button click when the Enter key is pressed in the text field
+                        // Simulates a button click when the Enter key is pressed in the text field.
                         enter.doClick();
                     }
                 }
 
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    // Do nothing
+                    // Does nothing.
                 }
             });
-
+            enter.setBorderPainted(false);
+            enter.setOpaque(true);
+            enter.setBackground(new Color(0, 90, 181));
+            enter.setForeground(Color.WHITE);
+            enter.setFont(new Font("Arial",BOLD,12));
             enter.addActionListener( e3->{
                 if (Arrays.equals(securityKey.getPassword(), Main.getSecurityKey())) {
+                    // If security key is correct, then starts Developer Tool.
                     new GUIForPOIs("BIP");
+                    // Clears user search results for privacy concerns.
                     Search.userInput = null;
+                    // Removes certain items from the menu, so they are not accessible to the developer.
                     more.remove(developerTool);
                     more.remove(nukeBookmarks);
                     more.remove(nukeMyLocations);
                     more.remove(reset);
                     changeKey.addActionListener(e4->{
+                        // A dialog for changing security key.
                         clearWindows();
                         JDialog changeKeyDialog = new JDialog();
                         changeKeyDialog.setResizable(false);
@@ -543,14 +568,7 @@ public class AppMenu extends JFrame {
                         changeKeyDialog.addComponentListener(new ComponentAdapter() {
                             @Override
                             public void componentShown(ComponentEvent e) {
-                                // Center the window on the screen
-                                changeKeyDialog.setLocationRelativeTo(null);
-                            }
-                        });
-                        changeKeyDialog.addComponentListener(new ComponentAdapter() {
-                            @Override
-                            public void componentShown(ComponentEvent e) {
-                                // Center the window on the screen
+                                // Centers the window on the screen.
                                 changeKeyDialog.setLocationRelativeTo(null);
                             }
                         });
@@ -560,6 +578,7 @@ public class AppMenu extends JFrame {
                         JLabel title2 = new JLabel("Change Security Key");
                         title2.setFont(new Font("Arial",Font.BOLD,18));
                         mainPanel2.add(title2);
+                        // User has to enter a new security key twice to change it.
                         JLabel newKey1 = new JLabel("Please enter new security key:");
                         JPasswordField newKeyInput1 = new JPasswordField();
                         mainPanel2.add(newKey1);
@@ -568,7 +587,8 @@ public class AppMenu extends JFrame {
                         JPasswordField newKeyInput2 = new JPasswordField();
                         mainPanel2.add(newKey2);
                         mainPanel2.add(newKeyInput2);
-
+                        newKeyInput1.setPreferredSize(new Dimension(260,40));
+                        newKeyInput2.setPreferredSize(new Dimension(260,40));
 
                         newKey1.setPreferredSize(new Dimension(260,40));
                         newKeyInput1.setText("");
@@ -581,35 +601,40 @@ public class AppMenu extends JFrame {
 
 
                         JButton yes = new JButton("Confirm");
+                        yes.setBackground(new Color(0, 90, 181));
                         yes.addActionListener(e5-> {
                             if (newKeyInput1.getPassword().length > 0 && Arrays.equals(newKeyInput1.getPassword(), newKeyInput2.getPassword())) {
+                                // If the new security key is not empty and two inputs are identical then changes the key
                                 Main.changeSecurityKey(newKeyInput1.getPassword());
                                 POIEditor.resultDisplay("Successful! Remember your new Security Key!", Color.GREEN);
                                 changeKeyDialog.dispose();
                             }
                             else
+                                // Otherwise gives a prompt
                                 newKey1.setText("<html><p><span style=\"color: red;\">Two inputs must match and neither can be empty.</span></p><br><p>Enter new security key:</p></html>");
                         });
                         JButton no = new JButton("Cancel");
                         no.addActionListener(e1 -> changeKeyDialog.dispose());
 
+
+                        // Makes the second input of new security key respond to hitting Enter key.
                         newKeyInput2.addKeyListener(new KeyListener() {
                             @Override
                             public void keyTyped(KeyEvent e) {
-                                // Do nothing
+                                // Does nothing.
                             }
 
                             @Override
                             public void keyPressed(KeyEvent e) {
                                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                                    // Simulate a button click when the Enter key is pressed in the text field
+                                    // Simulates a button click when the Enter key is pressed in the text field.
                                     yes.doClick();
                                 }
                             }
 
                             @Override
                             public void keyReleased(KeyEvent e) {
-                                // Do nothing
+                                // Does nothing.
                             }
                         });
 
@@ -624,10 +649,11 @@ public class AppMenu extends JFrame {
                     });
                     changeKey.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
                     mb.remove(view);
-                    mb.add(reboot);
+                    mb.add(logout);
                     mb.remove(start);
                     more.add(changeKey);
                     more.add(nukeBuiltInPOIs);
+                    // Sets the app mode to Dev Mode.
                     Main.devMode = true;
                     GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
                     devLogin.dispose();
@@ -640,11 +666,17 @@ public class AppMenu extends JFrame {
             AppMenu.clearWindows();
             devLogin.setVisible(true);
             devLogin.setFocusableWindowState(true);
+            cancel.setBorderPainted(false);
+            cancel.setOpaque(true);
+            cancel.setBackground(new Color(180,200,255));
+            cancel.setForeground(Color.BLACK);
+            cancel.setFont(new Font("Arial",BOLD,12));
             cancel.addActionListener( e2-> clearWindows());
         });
+
         developerTool.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
 
-        // add menu items to menu
+        // Adds menu items to menu.
         view.add(bookmarks);
         view.add(myLocations);
         more.add(checkForUpdates);
@@ -653,7 +685,7 @@ public class AppMenu extends JFrame {
         more.add(reset);
         more.add(developerTool);
 
-        // add menu to menu bar
+        // Adds menu to menu bar.
         mb.add(start);
         mb.add(view);
         mb.add(weather);
@@ -662,6 +694,7 @@ public class AppMenu extends JFrame {
         mb.add(more);
         mb.add(exit);
 
+        // Sets the font, size, and color of each menu item.
         Font font = new Font("Arial", Font.PLAIN, 16);
         start.setFont(font);
         view.setFont(font);
@@ -669,7 +702,7 @@ public class AppMenu extends JFrame {
         help.setFont(font);
         about.setFont(font);
         more.setFont(font);
-        reboot.setFont(font);
+        logout.setFont(font);
         exit.setFont(font);
 
         start.setPreferredSize(new Dimension(100, 20));
@@ -678,7 +711,7 @@ public class AppMenu extends JFrame {
         help.setPreferredSize(new Dimension(80, 20));
         about.setPreferredSize(new Dimension(100, 20));
         more.setPreferredSize(new Dimension(80, 20));
-        reboot.setPreferredSize(new Dimension(100, 20));
+        logout.setPreferredSize(new Dimension(100, 20));
         exit.setPreferredSize(new Dimension(80, 20));
 
         start.setBackground(mb.getBackground());
@@ -687,7 +720,7 @@ public class AppMenu extends JFrame {
         help.setBackground(mb.getBackground());
         about.setBackground(mb.getBackground());
         more.setBackground(mb.getBackground());
-        reboot.setBackground(mb.getBackground());
+        logout.setBackground(mb.getBackground());
         exit.setBackground(mb.getBackground());
 
         start.setForeground(mb.getForeground());
@@ -696,36 +729,35 @@ public class AppMenu extends JFrame {
         help.setForeground(mb.getForeground());
         about.setForeground(mb.getForeground());
         more.setForeground(mb.getForeground());
-        reboot.setForeground(mb.getForeground());
+        logout.setForeground(mb.getForeground());
         exit.setForeground(mb.getForeground());
-
-
     }
 
 
     /**
-     * @return
+     * This method loads the app menu bar onto the GUI.
+     *
+     * @return mb the menubar
      */
     public JMenuBar load() {
         return mb;
     }
 
     /**
-     *
+     * This method closes all the floating windows on top of the GUI.
      */
     public static void clearWindows() {
         Window[] windows = Window.getWindows();
         for (Window window : windows) {
             if (window instanceof JWindow) {
-                // JWindow object found on screen
                 window.setVisible(false);
-                // Take appropriate action here, such as hiding or closing the window
+                // Makes all JWindow objects invisible.
             }
 
             if (window instanceof JDialog) {
                 window.dispose();
+                // Closes all JDialog objects.
             }
         }
     }
-
 }

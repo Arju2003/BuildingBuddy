@@ -1,29 +1,33 @@
 /**
- * @author Jason
- * GUIForPOIs Class
- * GUI componenets built specifically for POI use
+ * The GUIForPOIs class contains GUI components built specifically for POI use.
+ * It provides functionality to display different types of POIs and handle user interactions with them.
+ * The class contains methods to create and update the POI display on the main interface.
+ * It also contains a method to add padding to the JLabel object.
+ *
+ * @author Jason B. Shew
+ * @version 1.0.0
+ * @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
-
 import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
 
 public class GUIForPOIs {
+    // Define class variables
     protected static Canvas secondary;
     protected static JLabel title = new JLabel();
-
     protected static String POIsGroup;
-
     protected static String POIType;
-
     protected static MapView mapView;
 
     /**
-     * @param POIsGroup
+     * Constructor to create an instance of GUIForPOIs.
+     * It initializes the class variables and sets up the POI display.
+     *
+     * @param POIsGroup the group of POIs to be displayed
      */
-
     public GUIForPOIs(String POIsGroup)  {
         EventQueue.invokeLater(() -> {
             try {
@@ -34,6 +38,7 @@ public class GUIForPOIs {
             }
             POI poi = null;
 
+            // Determine which POI group to display
             switch (POIsGroup) {
                 case "BMK" -> {
                     GUIForPOIs.POIType = "Bookmarks";
@@ -64,6 +69,7 @@ public class GUIForPOIs {
                 }
             }
 
+            // Update the current POI and set up the POI display
             if (poi != null) {
                 Main.updateCurrent(poi);
             }
@@ -93,6 +99,7 @@ public class GUIForPOIs {
                 LayerFilter.showAllLayers();
                 GUI.frame.pack();
                 GUI.frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
+                GUI.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -101,7 +108,8 @@ public class GUIForPOIs {
 
 
     /**
-     * @param label
+     * Method to set padding for a JLabel
+     * @param label The JLabel to set padding for
      */
     public void padding(JLabel label) {
         label.setBorder(BorderFactory.createEmptyBorder(7, 50, 7, 50));

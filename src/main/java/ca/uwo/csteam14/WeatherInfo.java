@@ -1,7 +1,11 @@
 /**
- * @author Jason
- * WeatherInfo Class
- * Connect weather API to application
+ * The WeatherInfo class is responsible for retrieving and displaying
+ * weather information for a specific location. The class uses the
+ * WeatherAPI to get the current weather information for the location
+ * specified in the API URL.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
@@ -19,7 +23,10 @@ import org.json.JSONObject;
 public class WeatherInfo {
 
     /**
-     * @throws IOException
+     * Creates a new WeatherInfo object and displays the current weather
+     * information for the specified location.
+     *
+     * @throws IOException if there is an error connecting to the WeatherAPI
      */
     public WeatherInfo() throws IOException {
         JWindow window = new JWindow();
@@ -73,6 +80,7 @@ public class WeatherInfo {
             temperatureLabel.setText("Temperature: " + temp + "°C\n");
             humidityLabel.setText("Humidity: " + humidity + "%\n");
         } catch (IOException | RuntimeException e) {
+            // If internet is not available, then gives user a prompt rather than throws an exception.
             ImageIcon originalIcon = new ImageIcon("./images/no_internet.png");
             Image scaledImage = originalIcon.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
             ImageIcon scaledIcon = new ImageIcon(scaledImage);

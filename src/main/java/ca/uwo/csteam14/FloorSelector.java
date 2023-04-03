@@ -1,9 +1,9 @@
 /**
+ * The FloorSelector class provides methods for selecting a user's desired floor depending on their selected building.
+ * This class includes a JComboBox that allows the user to select a floor and navigate to the corresponding building.
+ *
  * @author Jason
- * FloorSelector Class
- * Methods for selecting a user's desired floor depending on their selected building
  */
-
 package ca.uwo.csteam14;
 
 import javax.swing.*;
@@ -14,10 +14,14 @@ import java.util.Objects;
 
 public class FloorSelector {
 
+    /**
+     * The current map view.
+     */
     protected static MapView currentMap;
 
     /**
-     *
+     * Constructs a new FloorSelector object.
+     * Creates a JComboBox for selecting floors based on the current building.
      */
     public FloorSelector() {
         /* make a floor selector and add a button */
@@ -34,9 +38,9 @@ public class FloorSelector {
         floorSelector.setFont(new Font("Arial", Font.PLAIN, 18));
         floorSelector.setRenderer(Main.centerRenderer);
         switch (Main.currentBuildingCode ) {
-            case "MC" -> floorSelector.setSelectedItem(getFloorName(Main.currentFloor_MC));
-            case "KB" -> floorSelector.setSelectedItem(getFloorName(Main.currentFloor_KB));
-            case "PAB" -> floorSelector.setSelectedItem(getFloorName(Main.currentFloor_PAB));
+            case "MC" -> floorSelector.setSelectedItem(Main.getFloorFullName(Main.currentFloor_MC));
+            case "KB" -> floorSelector.setSelectedItem(Main.getFloorFullName(Main.currentFloor_KB));
+            case "PAB" -> floorSelector.setSelectedItem(Main.getFloorFullName(Main.currentFloor_PAB));
         }
 
         GUI.canvas.load(floorSelector, 'L');
@@ -140,19 +144,5 @@ public class FloorSelector {
             }
             GUI.canvas.setVisible(true);
         });
-    }
-
-    /**
-     * Gets the floor name when given a floor code in the format "xF" where x is an integer from 0-4
-     * @param currentFloor a code for the floor number
-     * @return the floor number in words (e.g. "First Floor")
-     */
-    public static String getFloorName(String currentFloor) {
-        if (currentFloor.contains("0F")) return "Ground Floor";
-        else if (currentFloor.contains("1F")) return "First Floor";
-        else if (currentFloor.contains("2F")) return "Second Floor";
-        else if (currentFloor.contains("3F")) return "Third Floor";
-        else if (currentFloor.contains("4F")) return "Fourth Floor";
-        return "";
     }
 }

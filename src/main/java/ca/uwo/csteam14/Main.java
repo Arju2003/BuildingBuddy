@@ -1,17 +1,22 @@
 /**
- * @author Jason, Daniel, Arjuna, Bobby, Josh
- * Main Class
- * Run BuildingBuddy, ensure events occur when user interacts with application
+ * Main class for BuildingBuddy application.
+ * Contains methods for getting optimum points, full names of floors and buildings, updating current POI,
+ * and changing security keys. Also has a method to restart the application.
+ *
+ *  @author Jason B. Shew
+ *  @author Daniel Gomes
+ *  @author Robert Beemer
+ *  @author Arjuna Kadirgamar
+ *  @author Joshua Cini
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
-
 package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
-
 public class Main {
-
     protected static boolean devMode;
     private static char[] securityKey;
     protected static String currentBuildingCode;
@@ -22,12 +27,12 @@ public class Main {
     protected static String version = "You're running the latest version (Ver 1.0) of BuildingBuddy!";
     protected static POI fallbackPOI = new POI(-1);
 
-
     public static ListCellRenderer<? super String> centerRenderer;
 
     /**
-     * @param buildingCode
-     * @return
+     * Returns optimum point based on buildingCode provided.
+     * @param buildingCode Code of the building
+     * @return Point optimum point for buildingCode
      */
     public static Point getOptimumPoint(String buildingCode) {
         switch (buildingCode){
@@ -44,10 +49,10 @@ public class Main {
         return new Point(1700, 1100);
     }
 
-
     /**
-     * @param floorMapName
-     * @return
+     * Returns the full name of the floor for a given floorMapName.
+     * @param floorMapName Name of the floor map file
+     * @return Full name of the floor in English words
      */
     public static String getFloorFullName(String floorMapName) {
         if (floorMapName.contains("0F")) return "Ground Floor";
@@ -59,8 +64,9 @@ public class Main {
     }
 
     /**
-     * @param floorMapName
-     * @return
+     * Returns the full name of the building for a given floorMapName.
+     * @param floorMapName Name of the floor map file
+     * @return Full name of the building
      */
     public static String getBuildingFullName(String floorMapName) {
         if (floorMapName.contains("MC")) return "Middlesex College";
@@ -69,7 +75,10 @@ public class Main {
         return "Unknown";
     }
 
-
+    /**
+     * Restarts the BuildingBuddy application.
+     * @throws IOException if error occurs while restarting
+     */
     public static void restartApplication() throws IOException {
         String javaCommand = System.getProperty("java.home") + "/bin/java";
         String javaClassPath = System.getProperty("java.class.path");
@@ -80,6 +89,10 @@ public class Main {
         System.exit(0);
     }
 
+    /**
+     * Updates the current building code and current floor based on POI provided.
+     * @param poi Point of Interest to update current building code and floor for
+     */
     public static void updateCurrent(POI poi) {
         if (poi != null) {
             Main.currentBuildingCode = poi.map.replaceAll("\\dF.png","").toUpperCase();
@@ -88,22 +101,32 @@ public class Main {
 
     }
 
+    /**
+     * Reads the security key from the file system and returns it as a char array.
+     *
+     * @return The security key as a char array.
+     */
     public static char[] getSecurityKey() {
 
-            String fileName = "./data/security_key";
+        String fileName = "./data/security_key";
 
-            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    securityKey = line.toCharArray();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                securityKey = line.toCharArray();
             }
-            return securityKey;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return securityKey;
     }
 
+    /**
+     * Changes the security key in the file system to the provided new key.
+     *
+     * @param newKey The new security key as a char array.
+     */
     public static void changeSecurityKey(char[] newKey) {
 
         String fileName = "./data/security_key";
@@ -117,6 +140,12 @@ public class Main {
         }
     }
 
+    /**
+     * The main method that initializes the application and sets up the fallback POI and other data structures.
+     *
+     * @param args The command line arguments.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         devMode = false;
         new Data();
@@ -139,6 +168,7 @@ public class Main {
         fallbackPOI.positionY = 628;
         fallbackPOI.isBuiltIn = true;
 
+        // Centers certain elements
         centerRenderer = new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -150,5 +180,6 @@ public class Main {
 
         new Splash("./images/"+currentBuildingCode+"_hero.png").build();
     }
+
 
 }

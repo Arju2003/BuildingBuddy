@@ -3,30 +3,42 @@ package ca.uwo.csteam14;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains unit tests for the Data class.
+ */
 class DataTest {
 
+    /**
+     * This method is called before each test is run to set up any required test data.
+     */
     @BeforeEach
     void setUp() {
     }
 
+    /**
+     * This method is called after each test is run to clean up any test data that was created.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * This method tests the getLayerPOIs() method of the Data class.
+     */
     @Test
     void getLayerPOIs() {  // FILL IN
         System.out.println("getLayerPOIs");
-
-
     }
+
+    /**
+     * This method tests the addPOI() method of the Data class.
+     * It creates a new POI object to add to the user created POIs list and checks that it has been added.
+     */
     @Test
     void addPOI() {
         System.out.println("addPOI()");
@@ -52,6 +64,10 @@ class DataTest {
         assertTrue(Data.containsPOI(data.getUserCreatedPOIs(), newPOI));
     }
 
+    /**
+     * This method tests the removePOI() method of the Data class.
+     * It adds two POIs to a linked list, removes one of them, and checks that the correct POI was removed.
+     */
     @Test
     void removePOI() throws IOException {
         System.out.println("removePOI()");
@@ -72,6 +88,10 @@ class DataTest {
         assertTrue(lst.contains(poi2));
     }
 
+    /**
+     * This method tests the getBuiltInPOIs() method of the Data class.
+     * It checks that the built-in POI list is not null and contains at least one POI.
+     */
     @Test
     void getBuiltInPOIs() {
         System.out.println("getBuiltInPOIs()");
@@ -84,6 +104,10 @@ class DataTest {
         assertTrue(pois.size() > 0);
     }
 
+    /**
+     * Test method for {@link Data#getUserCreatedPOIs()}.
+     * Retrieves the user-created POIs from the Data class and checks that the list is not null and contains at least one POI.
+     */
     @Test
     void getUserCreatedPOIs() {
         System.out.println("getUserCreatedPOIs()");
@@ -99,6 +123,10 @@ class DataTest {
         assertTrue(pois.size() > 0);
     }
 
+    /**
+     * Test method for {@link Data#getBookmarks()}.
+     * Retrieves the bookmarked POIs from the Data class and checks that the list is not null and contains at least one POI.
+     */
     @Test
     void getBookmarks() {
         System.out.println("getBookmarks()");
@@ -114,6 +142,10 @@ class DataTest {
         assertTrue(pois.size() > 0);
     }
 
+    /**
+     * Test method for {@link Data#getPOI(java.lang.String, int, int)}.
+     * Retrieves a POI with the given code, x coordinate, and y coordinate from the Data class and checks that it is not null and equal to the expected POI.
+     */
     @Test
     void getPOI() {  // NOT WORKING
         System.out.println("getPOI()");
@@ -152,6 +184,10 @@ class DataTest {
         assertNull(retrievedPOI);
     }
 
+    /**
+     * Test method for {@link Data#containsPOI(java.util.LinkedList, POI)}.
+     * Checks whether a given POI is contained in a given list of POIs.
+     */
     @Test
     void containsPOI() {
         System.out.println("containsPOI()");
@@ -166,6 +202,10 @@ class DataTest {
         System.out.println(list.contains(poi3));
     }
 
+    /**
+     * Test method for {@link Data#generatePOIID(java.lang.String)}.
+     * Generates an ID for a new POI based on whether it is a user-created POI or a built-in POI.
+     */
     @Test
     void generatePOIID() {
         System.out.println("generatePOIID()");
