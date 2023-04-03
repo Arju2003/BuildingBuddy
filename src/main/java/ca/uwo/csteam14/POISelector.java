@@ -1,13 +1,11 @@
 /**
- * POISelector Class
- * Select POIs in application in order to interact with them, grab attributes, etc.
+ * This class represents a selector of POIs so user can interact with them, grab attributes, etc.
  *  @author Jason B. Shew
  *  @version 1.0.0
  *  @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,8 +21,11 @@ public class POISelector extends JPanel {
 
     protected static POI focus;
 
+
     /**
-     * @param POIsGroup
+     * Constructs a POISelector object with the specified POI group.
+     *
+     * @param POIsGroup a string indicating the group of POIs to display
      */
     public POISelector(String POIsGroup) {
         switch (POIsGroup) {
@@ -35,36 +36,44 @@ public class POISelector extends JPanel {
         }
 
         ArrayList<String> items = new ArrayList<>();
-        ArrayList<String> poiIDs = new ArrayList<>();
-        JList<String> itemList2 = new JList<>();
+        JList<String> itemListFinal = new JList<>();
         if (currentCollection != null) {
             for (POI poi : currentCollection) {
+                // This is what a POI looks like in a POIs list in the selector
                 items.add(poi.category + " – " + poi.name + " (" + poi.floor + ", " + poi.code + ")");
-                poiIDs.add(String.valueOf((Integer) poi.id));
             }
 
+            // Stylizes the POIs list
             JList<String> itemList = new JList<>(items.toArray(new String[items.size()]));
-
             DefaultListCellRenderer renderer = new CustomListCellRenderer();
             renderer.setHorizontalAlignment(DefaultListCellRenderer.LEFT);
             itemList.setCellRenderer(renderer);
+
+            // POI selector only allows single selections
             itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            // Defines the behaviour of the selector
             itemList.addListSelectionListener(e -> {
                 if (!e.getValueIsAdjusting()) {
-
                     try {
                         if (!MapView.mouseClickedOnPOI)
+                            // Sets the first POI on the list as focus if mouse has not clicked on any POI
                             focus = currentCollection.get(itemList.getSelectedIndex());
                         else {
-                        focus = MapView.currentHighlighted;
-                        MapView.mouseClickedOnPOI = false;
+                            // If the mouse has clicked on a POI then it becomes the focus
+                            focus = MapView.currentHighlighted;
+                            // Restores mouse click status
+                            MapView.mouseClickedOnPOI = false;
                         }
+                        // If in Dev Mode, shows all layers.
                         if (Main.devMode) LayerFilter.showAllLayers();
+                        // If there exists a focus POI, updates the current POI of the whole system, and creates a GUI to highlight that POI
                         if (focus != null) {
                             Main.updateCurrent(focus);
                             GUIForPOIs.secondary.setBackground(ImageIO.read(new File("./images/" + Main.currentBuildingCode + "_hero.png")));
                             GUIForPOIs.mapView = new MapView(focus.map, new Point(focus.positionX, focus.positionY));
                             GUIForPOIs.mapView.highlight(focus.positionX, focus.positionY, POIsGroup);
+                            // Launches the POI editor
                             new POIEditor(focus);
                         }
                     } catch (IOException ex) {
@@ -73,23 +82,31 @@ public class POISelector extends JPanel {
                 }
 
             });
-            itemList2 = itemList;
+            itemListFinal = itemList; // Updates the final item list loaded into the selector during iterations
         }
-        scrollPane = new JScrollPane(itemList2);
+        scrollPane = new JScrollPane(itemListFinal); // Loads it into the scrollable POI selector
         scrollPane.setLayout(new ScrollPaneLayout());
         scrollPane.setPreferredSize(new Dimension(450,450));
-        GUIForPOIs.secondary.load(scrollPane, 'L');
+        GUIForPOIs.secondary.load(scrollPane, 'L'); // Loads the selector to the left panel of GUI
     }
 
 
+
+    /**
+     * CustomListCellRenderer is a subclass of DefaultListCellRenderer that provides a customized
+     * appearance for the cells of a JList.
+     */
     public static class CustomListCellRenderer extends DefaultListCellRenderer {
+
         /**
-         * @param list         The JList we're painting.
-         * @param value        The value returned by list.getModel().getElementAt(index).
-         * @param index        The cells index.
-         * @param isSelected   True if the specified cell was selected.
-         * @param cellHasFocus True if the specified cell has the focus.
-         * @return
+         * Returns a customized renderer for a cell in a JList.
+         *
+         * @param list          the JList containing the cell to be rendered
+         * @param value         the value of the cell to be rendered
+         * @param index         the index of the cell to be rendered
+         * @param isSelected   a boolean indicating whether the cell is selected
+         * @param cellHasFocus  a boolean indicating whether the cell has focus
+         * @return              the customized renderer for the cell
          */
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value,
@@ -104,8 +121,8 @@ public class POISelector extends JPanel {
                 c.setForeground(Color.BLACK);
             }
             else {
-            c.setBackground(Color.WHITE);
-            c.setForeground(Color.BLACK);
+                c.setBackground(Color.WHITE);
+                c.setForeground(Color.BLACK);
             }
 
             c.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -115,5 +132,7 @@ public class POISelector extends JPanel {
             // Return the customized cell
             return c;
         }
+
     }
+
 }
