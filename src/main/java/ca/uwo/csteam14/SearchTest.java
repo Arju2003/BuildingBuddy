@@ -8,16 +8,32 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains unit tests for the Search class.
+ * @author Daniel Gomes
+ * @version 1.0.0
+ * @since 2023-03-20
+ */
 class SearchTest {
 
+    /**
+     * This method is called after each test to clean up resources.
+     */
     @BeforeEach
     void setUp() {
     }
 
+    /**
+     * This method is called after each test is run to clean up any test data that was created.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * This method tests the searchResults() method of the Search class.
+     * It is to ensure that the search bar is returning the right results.
+     */
     @Test
     void searchResults() {
         System.out.println("searchResults()");

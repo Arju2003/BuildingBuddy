@@ -28,6 +28,8 @@ import java.io.FileWriter;
  * @author Robert Beemer
  * @author Arjuna Kadirgamar
  * @author Jason Shew
+ * @author Daniel Gomes
+ * @author Joshua Cini
  */
 public class Data extends LinkedList<POI> {
     /**

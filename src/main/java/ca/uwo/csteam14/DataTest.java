@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class contains unit tests for the Data class.
+ * @author Daniel Gomes
+ * @version 1.0.0
+ * @since 2023-03-20
  */
 class DataTest {
 
@@ -231,6 +234,10 @@ class DataTest {
         assertEquals(expectedDevID, Data.generatePOIID("dev"));
     }
 
+    /**
+     * This method tests the nuke() method of the Data class.
+     * It wipes all builtIn POI data from builtin.json
+     */
     @Test
     void nuke() {
         System.out.println("nuke()");
@@ -261,6 +268,10 @@ class DataTest {
         assertTrue(result);
     }
 
+    /**
+     * This method tests the reset() method of the Data class.
+     * It wipes all user created POI data from user.json, and all bookmark data from bookmarks.json
+     */
     @Test
     void reset() {
         System.out.println("reset()");
