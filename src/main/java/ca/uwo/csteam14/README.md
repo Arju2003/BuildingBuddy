@@ -11,7 +11,7 @@ If you run from IntelliJ IDEA, create a **New Project from Version Control**. Ch
 
 ## Dependencies
 All dependencies are stored locally in the `./lib` directory. Choose File – Project Structure – Modules – Dependencies, click the **+** icon, and add the entire `./lib` directory as dependencies.
-If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) as a zip file. Unzip this file and add the entire folder as dependencies to the aforesaid location.
+If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) or [here](https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip) as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location.
 
 ## Development Mode
 To activate Development Mode in _BuildingBuddy_, choose **More** – **Developer Tool** in the app, or press `CTRL+X`.
