@@ -34,13 +34,15 @@ public class WeatherInfo {
         window.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
-                // Center the window on the screen
+                // Centers the window on the screen
                 window.setLocationRelativeTo(null);
             }
         });
 
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(78,37,130,80));
+        panel.setOpaque(true);
         JLabel weatherIcon = new JLabel();
         panel.add(weatherIcon);
         JLabel temperatureLabel = new JLabel();
@@ -51,10 +53,11 @@ public class WeatherInfo {
 
         JButton hideButton = new JButton("Hide");
 
+        // WeatherAPI ID
         String API_URL = "https://api.weatherapi.com/v1/current.json?key=4d6a2621f6f84a82a79121544231203&q=43.005753,-81.266085&aqi=yes";
 
         try {
-            URL url = new URL(API_URL + "London,Ontario");
+            URL url = new URL(API_URL + "London,Ontario"); // Gets weather info at Western University
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -72,9 +75,9 @@ public class WeatherInfo {
             String wURL = "https:"+current.getJSONObject("condition").getString("icon");
             URL conditionIconURL = new URL(wURL);
             ImageIcon icon = new ImageIcon(conditionIconURL);
-            Image image = icon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(80, 80,  Image.SCALE_SMOOTH); // scale it the smooth way
-            icon = new ImageIcon(newimg);  // transform it back
+            Image image = icon.getImage(); // transforms weather condition icon
+            Image newimg = image.getScaledInstance(80, 80,  Image.SCALE_SMOOTH); // scales it the smooth way
+            icon = new ImageIcon(newimg);  // transforms it back
             weatherIcon.setIcon(icon);
             weatherIcon.setVisible(true);
             temperatureLabel.setText("Temperature: " + temp + "°C\n");
@@ -90,9 +93,10 @@ public class WeatherInfo {
         }
 
         window.setVisible(true);
-        hideButton.addActionListener(e -> window.setVisible(false));
+        hideButton.addActionListener(e -> window.setVisible(false)); // A button to hide the weather info window
         panel.add(hideButton);
         window.add(panel);
+        // Stylizes the weather info panel
         Font font = new Font("Arial", Font.PLAIN, 18);
         temperatureLabel.setFont(font);
         humidityLabel.setFont(font);

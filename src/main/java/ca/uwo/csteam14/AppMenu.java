@@ -36,7 +36,7 @@ public class AppMenu {
         JMenu more = new JMenu("More");
 
 
-        // Creates menu items and stylizes each of them.
+        // Creates menus and menu items and stylizes each of them.
         JMenu start = new JMenu("Start");
         JMenuItem bookmarks = new JMenuItem("" +
                 "Bookmarks");
@@ -119,8 +119,8 @@ public class AppMenu {
                         <p>Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.</p>
                         <hr>
                         
-                        <h2>How can I get to a specific floor and see all the locations?</h2>
-                        <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Enter <i>building code + floor code</i> to explore any floor.</p>
+                        <h2>How can I get to a specific floor and see all the locations? (Building + Floor Code Shortcut)</h2>
+                        <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
                         <p>A building code is a building abbreviation:
                         <ul>
                         <li><b>MC</b> for Middlesex College</li>
@@ -148,6 +148,10 @@ public class AppMenu {
                         
                         <h2>Why can't I edit the room numbers for My Locations?</h2>
                         <p>Room numbers are currently not available for My Locations, but you can write room numbers and any useful information in the <b>Description</b> text box. What's cool, they are searchable!</p>
+                        <hr>
+                        
+                        <h2>Why do I see only washrooms and elevators in Exploration Mode?</h2>
+                        <p>The layer filer on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
                         <hr>
                         
                         <h2>How to view or edit bookmarks?</h2>
@@ -191,9 +195,10 @@ public class AppMenu {
                         <h2>I am a developer. Can I add / delete POIs or browse maps the same way?</h2>
                         <p>Yes, you can. Here's a few tips for developers:
                         <ol>
-                        <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
+                        <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode.</li>
                         <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
                         <li>You can only add, edit, or remove built-in POIs. </li>
+                        <li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>\s
                         <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
                         <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
                         <li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
@@ -729,17 +734,17 @@ public class AppMenu {
 
         // Sets the font, size, and color of each menu item.
         Font menuFont = new Font("Arial", Font.PLAIN, 18);
-        ArrayList<JMenu> buttonArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
-        for (JMenu button : buttonArray) {
-            button.setFont(menuFont);
-            button.setBorder(null);
-            button.setForeground(mb.getForeground());
-            button.setBackground(mb.getBackground());
-            button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-            button.setOpaque(true);
-            button.setBackground(new Color(250,250,250));
-            button.setForeground(Color.BLACK);
-            button.setUI(new BasicMenuUI() {
+        ArrayList<JMenu> itemArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
+        for (JMenu item : itemArray) {
+            item.setFont(menuFont);
+            item.setBorder(null);
+            item.setForeground(mb.getForeground());
+            item.setBackground(mb.getBackground());
+            item.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+            item.setOpaque(true);
+            item.setBackground(new Color(250,250,250));
+            item.setForeground(Color.BLACK);
+            item.setUI(new BasicMenuUI() {
                 @Override
                 public void paint(Graphics g, JComponent c) {
                     super.paint(g, c);
@@ -747,28 +752,28 @@ public class AppMenu {
                     FontMetrics fm = g.getFontMetrics();
                     Rectangle rect = c.getBounds();
 
-                    int textWidth = fm.stringWidth(button.getText());
+                    int textWidth = fm.stringWidth(item.getText());
                     int x = rect.x + (rect.width - textWidth) / 2;
                     int y = rect.y + ((rect.height - fm.getHeight()) / 2) + fm.getAscent();
 
-                    g.drawString(button.getText(), x, y);
+                    g.drawString(item.getText(), x, y);
                 }
             });
-            button.addMouseListener(new MouseAdapter() {
+            item.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    button.setBackground(new Color(78,37,130,80)); // change the button background color when hovered
-                    button.setForeground(Color.WHITE);
+                    item.setBackground(new Color(78,37,130,80)); // change the button background color when hovered
+                    item.setForeground(Color.WHITE);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    button.setBackground(new Color(250,250,250)); // restore the default button background color
-                    button.setForeground(Color.BLACK);
+                    item.setBackground(new Color(250,250,250)); // restore the default button background color
+                    item.setForeground(Color.BLACK);
                 }
             });
 
-            button.addMouseListener(new MouseAdapter() {
+            item.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     MapView.cancelHighlight();

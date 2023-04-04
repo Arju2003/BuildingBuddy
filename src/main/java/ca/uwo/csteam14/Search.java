@@ -1,11 +1,12 @@
 /**
- * @author Jason
- * Search Class
- * Search for POIs in application, display results
+ * Search Tool
+ * This class represents a search tool that takes user input and returns search results.
+ * @author Jason B. Shew
+ * @version 1.0
+ * @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -22,12 +23,13 @@ public class Search {
     /** The first result returned */
     protected static POI firstResult = null;
     /** The default text in the search box before user searches */
-    private static final String defaultText = "Search anything . . .";
+    private static final String defaultText = "Type to search, click to discover →";
 
+    /** A boolean value indicates whether the user succeeded in getting any search results. */
     private static boolean successful = false;
 
     /**
-     *
+     * Constructs a Search object.
      */
     public Search() {
         JPanel searchTool = new JPanel();
@@ -58,7 +60,7 @@ public class Search {
                 }
                 else {
                     AppMenu.clearWindows(); // close all floating windows (the WeatherInfo window, specifically)
-                    // instantiate an object of the other class
+                    // instantiate a PopupView object to return an apology for no results being returned
                     new PopupView("Sorry...", """
                    <div style="font-family: Arial">
                    <br />
@@ -89,7 +91,7 @@ public class Search {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    // Simulate a button click when the Enter key is pressed in the text field
+                    // If clicks Enter key on the input bar, it simulates a button click on Go button
                     goButton.doClick();
                 }
             }
@@ -119,12 +121,13 @@ public class Search {
 
         ArrayList<POI> results = new ArrayList<>();
 
+        // If user enters nothing or leaves the placeholder text in the search bar, returns all builtin POIs
         if (userInput == null || userInput.equals(defaultText)) {
             results.addAll(Data.builtInPOIs);
             if (!Main.devMode)
-                results.addAll(Data.userCreatedPOIs);
+                results.addAll(Data.userCreatedPOIs); // plus user-defined POIs if it is not in Dev Mode
         }
-        else  {
+        else  { // If user input is anything else then returns results regarding POI names, descriptions, categories, and building / floor information
             for (POI p : Data.builtInPOIs) {
                 if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
                     results.add(p);
@@ -141,7 +144,7 @@ public class Search {
                 if (!results.contains(p) && (p.map.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.map.toLowerCase())))
                     results.add(p);
             }
-            if (!Main.devMode) {
+            if (!Main.devMode) { // if it is not in Dev Mode, also include user-defined POIs, matching against POI names and categories.
                 for (POI p : Data.userCreatedPOIs) {
                     if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
                         results.add(p);
@@ -154,6 +157,7 @@ public class Search {
             }
         }
 
+        // Returns a linked list of POI objects if any result comes up.
         if (results.size() > 0) {
             firstResult = results.get(0);
             return new LinkedList<>(results);

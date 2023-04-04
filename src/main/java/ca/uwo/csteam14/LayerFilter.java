@@ -1,5 +1,6 @@
 /**
- * This class displays a layer selector with checkboxes for each layer of points of interest on the map.
+ * This class displays a layer filter with checkboxes for each layer of points of interest on the map.
+ * It also serves as a legend for layer icons.
  *
  *  @author Jason B. Shew
  *  @version 1.0.0

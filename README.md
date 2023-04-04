@@ -9,6 +9,8 @@ For better user experience, set the display resolution to 1496 * 967 or higher.
 
 If you run from IntelliJ IDEA, create a **New Project from Version Control**. Choose **Git** as your version control, and add **URL**: https://github.com/dan1el5/BuildingBuddy.git. 
 
+To minimize issues you may come across running the program, you are encouraged to read the ensuing content (including the FAQ section).
+
 ## Dependencies
 All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
 If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) or from [GitHub](https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip) as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location. Refer to the screenshot below.
@@ -24,7 +26,10 @@ Enter this mode by clicking **View** – **Bookmarks** or press `CTRL + B`. This
 Enter this mode by clicking **View** – **My Locations** or press `CTRL + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
 
 ## Discovery Mode
-Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. The search bar can also serve as a shortcut to any floor in any building when the search phrase is a building + floor code. Learn more in the FAQ section below.
+Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a building + floor code shortcut. Learn more in the FAQ section below.
+
+## Focus Mode
+When managing bookmarks, My Locations, or viewing search results, if the user clicks on any POI, that highlighted POI will be the only POI shown on the screen. Despite that, you can still click on any POI on this map. If you hope to view all the POIs on a floor map at once, use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
 
 ## Development Mode
 To activate Development Mode in _BuildingBuddy_, choose **More** – **Developer Tool** in the app, or press `CTRL+X`.
@@ -36,18 +41,21 @@ This security key is designed to only prevent regular users from modifying the d
 To quit Development Mode, either click [X] or **Exit** to quit the entire program, or click **Logout** to restart the program as a regular user.
 
 ## Special Features
-* The GUI is programmed to occupy a fixed portion of screen estate regardless of screen size.
-* Key features support hotkey commands for enhanced accessibility.
-* Regular users can choose to delete their entire bookmark collection in one click.
-* Regular users can choose to delete all locations they have defined in one click.
-* Regular users can choose to reset the program to factory settings in one click.
-* When a POI is added, edited, or deleted, the data lists get synced and refreshed in real time.
-* Users and developers can create unlimited numbers of POIs in addition to existing built-in POIs.
-* Developers can choose to erase all the built-in data in one click.
-* Developers can change their security key at any time.
-* The program will remember the user's last choice of building and floor before they quit or restart.
-* The program will remember the user's last successful search query before they quit or restart.
-* Users and developers can check if there's a new version available and update their software in one click.
+* **Display:** The GUI is programmed to occupy a fixed portion of screen estate regardless of screen size.
+* **Hotkey:** Key features support hotkey commands for enhanced accessibility.
+* **Automatic Reboot:** The app supports automatic rebooting (when user resets the app or developer chooses to log out).
+* **Advanced Search Tool:** The advanced search tool returns search results matching against various types of metadata, even including descriptions.
+* **Restore Default Settings:** Regular users can choose to reset the program to factory settings in one click.
+* **User Data Destruction:** Regular users can choose to delete their entire bookmark collection or all POIs they have defined in one click.
+* **Real-Time Refreshing:** When a POI is added, edited, or deleted, the data list and map viewer get synced and refreshed in real time.
+* **Responsive Design:** The user editor features responsive design; it's more than just buttons and text fields juxtaposed with each other.
+* **Accessible Design:** Albeit partially, the design of the program is accessibility-minded; 
+* **Unlimited Data Capacity:** Users and developers can create unlimited numbers of POIs in addition to existing built-in POIs.
+* **Easy Reset:** Developers can choose to erase all the built-in data in one click.
+* **Change Password:** Developers can change their security key at any time.
+* **Consistency:** The program will remember the user's last choice of building and floor and last successful search query before they quit or restart.
+* **User-Centered Design:** For example, the POI editor provides default placeholder text and deletes it automatically on user input while retaining user input without triggering auto deletion.
+* **Sustainability:** Users and developers can check if there's a new version available and update their software in one click.
 
 ## FAQ
 
@@ -75,8 +83,8 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <p>Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.</p>
 <hr>
 
-### How can I get to a specific floor and see all the locations?
-<p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Enter <i>building code + floor code</i> to explore any floor.</p>
+### How can I get to a specific floor and see all the locations? (Building + Floor Code Shortcut)
+<p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
 <p>A building code is a building abbreviation:</p>
 <ul>
 <li><b>MC</b> for Middlesex College</li>
@@ -103,6 +111,10 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 
 ### Why can't I edit the room numbers for My Locations?
 <p>Room numbers are currently not available for My Locations, but you can write room numbers and any useful information in the <b>Description</b> text box. What's cool, they are searchable!</p>
+<hr>
+
+### Why do I see only washrooms and elevators in Exploration Mode?
+<p>The layer filer on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
 <hr>
 
 ### How to view or edit bookmarks?
@@ -146,11 +158,12 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 ### I am a developer. Can I add / delete POIs or browse maps the same way?
 <p>Yes, you can. Here's a few tips for developers:</p>
 <ol>
-<li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
+<li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode.</li>
 <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
 <li>You can only add, edit, or remove built-in POIs. </li>
-<li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
-<li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
+<li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>
+<li>You can still take advantage of the search bar and building + floor code shortcut (refer to the <b>MC2F</b> example above).</li>
+<li>Developers cannot view the user's bookmarks, search queries, or any non-built-in POIs.</li>
 <li>If you forget your security key, check <code>./data/security_key</code> or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
 </ol>
 <hr>
