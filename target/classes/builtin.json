@@ -82,7 +82,7 @@
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 3120,
       "mapY": 1150,
@@ -96,12 +96,12 @@
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 2860,
       "mapY": 450,
       "built-in": true
-    },
+    },  
     {
       "POIId": 38005,
       "POIName": "Exit 3",
@@ -110,14 +110,14 @@
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 3040,
       "mapY": 540,
       "built-in": true
     },
 
-
+  
     {
       "POIId": 8103,
       "POIName": "KB 103",
@@ -433,10 +433,10 @@
       "floor": "Second Floor",
       "roomNumber": 219,
       "category": "Washroom",
-      "description": "Men. Accessible facitlity.",
+      "description": "For men only. Accessible facility.",
       "map": "PAB2F.png",
       "mapX": 1359,
-      "mapY": 772,
+      "mapY": 718,
       "built-in": true
     },
     {
@@ -447,10 +447,10 @@
       "floor": "Second Floor",
       "roomNumber": 221,
       "category": "Washroom",
-      "description": "Unisex. Accessible facility.",
+      "description": "For women only. Accessible facility.",
       "map": "PAB2F.png",
       "mapX": 1443,
-      "mapY": 772,
+      "mapY": 718,
       "built-in": true
     },
     {
@@ -906,10 +906,10 @@
       "POIName": "Exit 4",
       "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
-      "floor": "Ground Floor",
+      "floor": "First Floor",
       "roomNumber": 3911,
       "category": "Exit",
-      "description": "On the ground floor. Accessible facility.",
+      "description": "On the first floor. Accessible facility.",
       "map": "PAB1F.png",
       "mapX": 1556,
       "mapY": 306,
@@ -920,10 +920,10 @@
       "POIName": "Exit 1",
       "building": "Physics & Astronomy Building",
       "buildingCode": "PAB",
-      "floor": "Ground Floor",
+      "floor": "First Floor",
       "roomNumber": 3912,
       "category": "Exit",
-      "description": "On the ground floor. Accessible facility.",
+      "description": "On the first floor. Accessible facility.",
       "map": "PAB1F.png",
       "mapX": 1365,
       "mapY": 1881,
@@ -1234,7 +1234,7 @@
       "floor": "First Floor",
       "roomNumber": 110,
       "category": "Classroom",
-      "description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Moveable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
+      "description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Movable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
       "map": "MC1F.png",
       "mapX": 1600,
       "mapY": 700,
@@ -1960,5 +1960,6 @@
       "mapY": 1540,
       "built-in": true
     }
+
   ]
 }
