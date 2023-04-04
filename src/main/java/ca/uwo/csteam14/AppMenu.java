@@ -70,6 +70,7 @@ public class AppMenu {
                 // Reloads the splash screen.
                 try {
                     new Splash("./images/" + Main.currentBuildingCode + "_hero.png").build();
+                    GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " –");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -111,9 +112,7 @@ public class AppMenu {
                         <hr>
                         
                         <h2>How many My Locations are allowed to be created?</h2>
-                        <p>Currently, BuildingBuddy allows the user to create up to 999,999 POIs. If you create a new POI after reaching the limit, the oldest My Location will be overwritten.</p>
-                        <p>While it may look like a really large number, but, mind you, even if you delete a My Location, that lot of memory will not be freed up for a new POI.</p>
-                        <p>If you hope to make full use of the 999,999 quota, back up your data elsewhere, and try <b>More</b> – <b>Nuke My Locations</b>.</p>
+                        <p>Currently, BuildingBuddy allows a user to create an unlimited number of POIs.</p>
                         <hr>
                         
                         <h2>How can I explore another building?</h2>
@@ -137,12 +136,12 @@ public class AppMenu {
                         <li>...</li>
                         </ul>
                         </p>
-                        <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
-                        <p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
+                        <p>For example, if you want to visit the second floor at Middlesex College, just enter <b>MC2F</b> and click <b>Go</b> (or hit <code>Enter</code>).</p>
+                        <p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on that floor.</p>
                         <hr>
                         
                         <h2>How can I create a location?</h2>
-                        <p>As a user, you can only create a POI when you're in Exploration mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
+                        <p>As a user, you can only create a POI when you're in Exploration Mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
                         <p>If you are viewing Bookmarks, My Locations, or search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
                         <p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
                         <hr>
@@ -203,7 +202,7 @@ public class AppMenu {
                         <hr>
                         
                         <h2>I still need help!</h2>
-                        <p>Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
+                        <p>If you need further help or have spotted incorrect information, feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
                         <hr>
                         </div>
                         """, "help.png");
@@ -491,11 +490,11 @@ public class AppMenu {
         });
 
         // Links the menu option with the bookmark editor.
-        bookmarks.addActionListener(e -> {clearWindows(); new GUIForPOIs("BMK");});
+        bookmarks.addActionListener(e -> {clearWindows(); new GUIForPOIs("BMK"); GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Bookmark Manager");});
         // Adds hotkey to this menu option.
         bookmarks.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
         // Links the menu option with My Location editor.
-        myLocations.addActionListener(e -> {clearWindows(); new GUIForPOIs("UDP");});
+        myLocations.addActionListener(e -> {clearWindows(); new GUIForPOIs("UDP"); GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – My Locations");});
         // Adds hotkey to this menu option.
         myLocations.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
 

@@ -53,9 +53,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### How many My Locations are allowed to be created?
-<p>Currently, BuildingBuddy allows the user to create up to 999,999 POIs. If you create a new POI after reaching the limit, the oldest My Location will be overwritten.</p>
-<p>While it may look like a really large number, but, mind you, even if you delete a My Location, that lot of memory will not be freed up for a new POI.</p>
-<p>If you hope to make full use of the 999,999 quota, back up your data elsewhere, and try <b>More</b> – <b>Nuke My Locations</b>.</p>
+<p>Currently, BuildingBuddy allows a user to create an unlimited number of POIs.</p>
 <hr>
 
 ### How can I explore another building?
@@ -78,13 +76,13 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <li><b>2F</b> for second floor</li>
 <li>...</li>
 </ul>
-<p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
-<p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
+<p>For example, if you want to visit the second floor at Middlesex College, just enter <b>MC2F</b> and click <b>Go</b> (or hit <code>Enter</code>).</p>
+<p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on that floor.</p>
 <hr>
 
 ### How can I create a location?
-<p>As a user, you can only create a POI when you're in Exploration mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
-<p>If you are viewing Bookmarks, My Locations, or search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
+<p>As a user, you can only create a POI when you're in Exploration Mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
+<p>If you are managing Bookmarks, My Locations, or viewing search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
 <p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
 <hr>
 
@@ -143,7 +141,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### I still need help!
-<p>Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
+<p>If you need further help or have spotted incorrect information, feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
 <hr>
 
 ## Developers

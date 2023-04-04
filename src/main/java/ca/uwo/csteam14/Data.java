@@ -45,12 +45,12 @@ public class Data extends LinkedList<POI> {
      */
     protected static LinkedList<POI> bookmarks;
 
-    protected static final int userPOIStartID = 4000000;
+    protected static int userPOIStartID = 4000000;
 
-    protected static final int userPOICapacity = 999999;
-    protected static final int devPOIStartID = 5000000;
+    protected static int userPOICapacity = 999999;
+    protected static int devPOIStartID = 5000000;
 
-    protected static final int devPOICapacity = 999999;
+    protected static int devPOICapacity = 999999;
 
     /**
      * Data Constructor
@@ -449,22 +449,28 @@ public class Data extends LinkedList<POI> {
         int largestID = -1;
         switch (creator.toLowerCase()) {
             case "user" -> {
-                largestID = userPOIStartID - 1;
+                largestID = userPOIStartID;
                 for (POI p : userCreatedPOIs) {
                     if (p.id > largestID) {
                         largestID = p.id;
-                        if (largestID == userPOIStartID + userPOICapacity)
-                            largestID -= userPOICapacity;
+                        if (largestID == userPOIStartID + userPOICapacity) {
+                            userPOIStartID *= 10;
+                            userPOICapacity = userPOICapacity * 10 + 9;
+                            largestID = userPOIStartID;
+                        }
                     }
                 }
             }
             case "dev" -> {
-                largestID = devPOIStartID - 1;
+                largestID = devPOIStartID;
                 for (POI p : builtInPOIs) {
                     if (p.id > largestID) {
                         largestID = p.id;
-                        if (largestID == devPOIStartID + devPOICapacity)
-                            largestID -= devPOICapacity;
+                        if (largestID == devPOIStartID + devPOICapacity) {
+                            devPOIStartID *= 10;
+                            devPOICapacity = devPOICapacity * 10 + 9;
+                            largestID = devPOIStartID;
+                        }
                     }
                 }
             }

@@ -389,6 +389,7 @@ public class Splash extends JPanel {
                 default -> {
                 }
             }
+            GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Exploration Mode");
         });
         load(exploreButton);
         GUI.frame.setContentPane(this);

@@ -52,6 +52,7 @@ public class Search {
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
                     new GUIForPOIs("SRC");
+                    GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Discovery Mode");
                     successful = true;
                     input.setText(userInput);
                 }
@@ -101,11 +102,10 @@ public class Search {
         searchTool.setLayout(new GridBagLayout());
         searchTool.add(input);
         searchTool.add(goButton);
-        if (GUI.frame.getContentPane().equals(GUI.canvas))
+        if (GUI.frame.getContentPane() == (GUI.canvas))
             GUI.canvas.load(searchTool, 'L');
-        else if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary))
+        else if (GUI.frame.getContentPane() == (GUIForPOIs.secondary))
             GUIForPOIs.secondary.load(searchTool,'L');
-        else System.out.println(GUI.frame.getContentPane());
     }
 
     /**
