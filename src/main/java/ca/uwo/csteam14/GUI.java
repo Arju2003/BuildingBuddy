@@ -14,7 +14,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class GUI {
-    protected static JFrame frame = new JFrame("BuildingBuddy – Ver 1.0 –");
+    protected static JFrame frame = new JFrame("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " –");
     protected static Canvas canvas;
     protected static MapView mapView;
 

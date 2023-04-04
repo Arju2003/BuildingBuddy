@@ -10,7 +10,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
 
@@ -60,6 +59,7 @@ public class POIEditor extends JDialog {
         JLabel POIBuildingLabel = new JLabel("Building");
         JLabel POICategoryLabel = new JLabel("Category");
         JLabel POIDescriptionLabel = new JLabel("Description");
+        JLabel leftPanelPadding = new JLabel("");
         JLabel notABookmark = new JLabel("Not in Your Bookmarks");
         JCheckBox bookmarkAdd = new JCheckBox("Add Bookmark");
         JLabel isABookmark = new JLabel("Already in Your Bookmarks");
@@ -70,6 +70,7 @@ public class POIEditor extends JDialog {
         leftPanel.add(POIBuildingLabel,toTheRight);
         leftPanel.add(POICategoryLabel,toTheRight);
         leftPanel.add(POIDescriptionLabel,toTheRight);
+        leftPanel.add(leftPanelPadding, toTheRight);
         if (!Data.containsPOI(Data.bookmarks,poi)) {
             leftPanel.add(notABookmark, toTheRight);
             leftPanel.add(bookmarkAdd, toTheRight);
@@ -86,7 +87,10 @@ public class POIEditor extends JDialog {
         JTextField POIFloorField = new JTextField(poi.floor);
         JTextField POIBuildingField = new JTextField(poi.building);
         JTextField POICategoryField = new JTextField(poi.category);
-        JTextField POIDescriptionField = new JTextField(poi.description);
+        JTextArea POIDescriptionArea = new JTextArea(poi.description);
+        JScrollPane POIDescriptionScrollPane = new JScrollPane(POIDescriptionArea); // wrap the text area in a scroll pane
+        POIDescriptionScrollPane.setPreferredSize(new Dimension(198,160));
+        JLabel rightPanelPadding = new JLabel("");
         JButton saveButton = new JButton("Save Changes");
         JButton deleteButton = new JButton("Delete Location");
         rightPanel.add(POINameField, toTheLeft);
@@ -94,7 +98,8 @@ public class POIEditor extends JDialog {
         rightPanel.add(POIFloorField, toTheLeft);
         rightPanel.add(POIBuildingField, toTheLeft);
         rightPanel.add(POICategoryField, toTheLeft);
-        rightPanel.add(POIDescriptionField, toTheLeft);
+        rightPanel.add(POIDescriptionScrollPane, toTheLeft);
+        rightPanel.add(rightPanelPadding, toTheLeft);
         rightPanel.add(saveButton, toTheLeft);
         rightPanel.add(deleteButton, toTheLeft);
 
@@ -118,19 +123,30 @@ public class POIEditor extends JDialog {
             }
         }
 
-
+        leftPanelPadding.setPreferredSize(new Dimension(1,80));
+        rightPanelPadding.setPreferredSize(new Dimension(1,1));
 
         for (Component j: rightPanel.getComponents()) {
             if (j instanceof JTextField) {
                 j.setPreferredSize(new Dimension(200, 40));
-                ((JTextField) j).setMargin(new Insets(0, 30, 3, 0));
+                ((JTextField) j).setMargin(new Insets(3, 30, 3, 0));
                 ((JTextField) j).setHorizontalAlignment(LEFT);
             }
             else {
                 j.setPreferredSize(new Dimension(200, 40));
-                j.setFont(new Font("Arial", Font.PLAIN, 14));
             }
+            j.setFont(new Font("Arial", Font.PLAIN, 14));
         }
+
+        POIDescriptionArea.setLineWrap(true);
+        POIDescriptionArea.setWrapStyleWord(true);
+        POIDescriptionArea.setMargin(new Insets(6, 5, 6, 0));
+        POIDescriptionArea.setRows(4);
+        POIDescriptionScrollPane.setPreferredSize(new Dimension(198,80));
+        POIDescriptionScrollPane.setBorder(null);
+        POIDescriptionArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        POIDescriptionScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        POIDescriptionScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // always show the vertical scrollbar
 
         notABookmark.setForeground(new Color(0,90,181));
         notABookmark.setFont(new Font("Arial", BOLD,14));
@@ -165,7 +181,7 @@ public class POIEditor extends JDialog {
                 if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText()) && POI.isInteger(POIRoomNumberField.getText())) {
                     poi.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
                     poi.category = POICategoryField.getText();
-                    poi.description = POIDescriptionField.getText();
+                    poi.description = POIDescriptionArea.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.builtInPOIs);
                     if (Data.containsPOI(Data.bookmarks,poi))
@@ -192,20 +208,28 @@ public class POIEditor extends JDialog {
             }
             else {
                 if (!poi.isBuiltIn) {
-                    poi.description = POIDescriptionField.getText();
-                    poi.name = POINameField.getText();
-                    result = Data.addPOI(poi, Data.userCreatedPOIs);
-                    if (Data.containsPOI(Data.bookmarks,poi))
-                        Data.addPOI(poi, Data.bookmarks);
-                    if (bookmarkAdd.isSelected()) {
-                        Data.addPOI(poi, Data.bookmarks);
-                    }
-                    if (bookmarkRemove.isSelected()) {
-                        try {
-                            Data.removePOI(poi, Data.bookmarks);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
+                    if (POINameField.getText().length() != 0) {
+                        poi.description = POIDescriptionArea.getText();
+                        poi.name = POINameField.getText();
+                        result = Data.addPOI(poi, Data.userCreatedPOIs);
+
+                        if (Data.containsPOI(Data.bookmarks, poi))
+                            Data.addPOI(poi, Data.bookmarks);
+                        if (bookmarkAdd.isSelected()) {
+                            Data.addPOI(poi, Data.bookmarks);
                         }
+                        if (bookmarkRemove.isSelected()) {
+                            try {
+                                Data.removePOI(poi, Data.bookmarks);
+                            } catch (IOException ex) {
+                                resultDisplay("Uh-oh!", Color.PINK);
+                            }
+                        }
+                    }
+                    else {
+                        POINameLabel.setFont(new Font("Arial", BOLD, 14));
+                        POINameLabel.setPreferredSize(new Dimension(110, 40));
+                        POINameLabel.setForeground(Color.RED);
                     }
                 }
                 else {
@@ -329,7 +353,7 @@ public class POIEditor extends JDialog {
                 POIFloorField.setEditable(false);
                 POIBuildingField.setEditable(false);
                 POICategoryField.setEditable(false);
-                POIDescriptionField.setEditable(false);
+                POIDescriptionArea.setEditable(false);
                 if (!bookmarkAdd.isSelected() || !bookmarkRemove.isSelected()) {
                     saveButton.setEnabled(false);
                     saveButton.setBackground(new Color(200, 200, 200));
@@ -367,7 +391,8 @@ public class POIEditor extends JDialog {
                 POINameField.addFocusListener(new FocusListener() {
                     @Override
                     public void focusGained(FocusEvent e) {
-                        POINameField.setText("");
+                        if (POINameField.getText().contains("My Location #"))
+                            POINameField.setText("");
                     }
                     @Override
                     public void focusLost(FocusEvent e) {
@@ -379,11 +404,12 @@ public class POIEditor extends JDialog {
                 POIFloorField.setEditable(false);
                 POIBuildingField.setEditable(false);
                 POICategoryField.setEditable(false);
-                POIDescriptionField.setEditable(true);
-                POIDescriptionField.addFocusListener(new FocusListener() {
+                POIDescriptionArea.setEditable(true);
+                POIDescriptionArea.addFocusListener(new FocusListener() {
                     @Override
                     public void focusGained(FocusEvent e) {
-                        POIDescriptionField.setText("");
+                        if (POIDescriptionArea.getText().equals("Your description goes here."))
+                            POIDescriptionArea.setText("");
                     }
                     @Override
                     public void focusLost(FocusEvent e) {
@@ -425,12 +451,14 @@ public class POIEditor extends JDialog {
 
         main.add(leftPanel);
         main.add(rightPanel);
-        main.setPreferredSize(new Dimension(500, 350));
+        main.setPreferredSize(new Dimension(500, 450));
         main.setFont(new Font("Arial", Font.PLAIN, 16));
         pack();
 
         JScrollPane scrollPane = new JScrollPane(main);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
         JViewport viewport = scrollPane.getViewport();
         Point point = new Point(0, 0);
         viewport.setViewPosition(point);
@@ -466,12 +494,12 @@ public class POIEditor extends JDialog {
             public void componentShown(ComponentEvent e) {
                 // Places the editor at a proper location over the floor map.
                 editor.setLocationRelativeTo(GUI.frame);
-                editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.42));
+                editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.38));
             }
         });
 
         // Dev heads-up: Keep this repeated line to prevent the POI editor from flashing briefly in the top left corner!
-        editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.42));
+        editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.38));
 
         editor.addWindowListener(new WindowAdapter() {
             @Override

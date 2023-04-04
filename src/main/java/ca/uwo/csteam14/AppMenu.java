@@ -1,11 +1,3 @@
-package ca.uwo.csteam14;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.util.Arrays;
-import static java.awt.Font.BOLD;
-
 /**
  * Generates an app menu bar.
  * This class creates a main menu in the app, displayed horizontally at the top of the GUI.
@@ -15,7 +7,16 @@ import static java.awt.Font.BOLD;
  * @since 2023-03-07
  */
 
-public class AppMenu extends JFrame {
+package ca.uwo.csteam14;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import static java.awt.Font.BOLD;
+
+public class AppMenu {
 
     /** The menu bar to be added to the top of the GUI. */
     protected final JMenuBar mb = new JMenuBar(); // Creates a menu bar.
@@ -29,11 +30,15 @@ public class AppMenu extends JFrame {
         // Creates menubar layout.
         mb.setLayout(new FlowLayout());
         // Creates two menus that contain menu items.
-        JMenu view = new JMenu("View");
-        JMenu more = new JMenu("More");
+        JButton view = new JButton("View");
+        JPopupMenu viewSubMenu = new JPopupMenu();
+        view.addActionListener(e -> viewSubMenu.show(view, 0, view.getHeight()));
+        JButton more = new JButton("More");
+        JPopupMenu moreSubMenu = new JPopupMenu();
+        more.addActionListener(e -> moreSubMenu.show(more, 0, more.getHeight()));
 
         // Creates menu items and stylizes each of them.
-        JMenuItem start = new JMenuItem("Start");
+        JButton start = new JButton("Start");
         JMenuItem bookmarks = new JMenuItem("" +
                 "Bookmarks");
         JMenuItem myLocations = new JMenuItem("" +
@@ -42,11 +47,11 @@ public class AppMenu extends JFrame {
                 "Check for Updates");
         JMenuItem developerTool = new JMenuItem("" +
                 "Developer Tool");
-        JMenuItem help = new JMenuItem("Help");
-        JMenuItem about = new JMenuItem("About");
-        JMenuItem exit = new JMenuItem("Exit");
-        JMenuItem weather = new JMenuItem("Weather");
-        JMenuItem logout = new JMenuItem("Logout");
+        JButton help = new JButton("Help");
+        JButton about = new JButton("About");
+        JButton exit = new JButton("Exit");
+        JButton weather = new JButton("Weather");
+        JButton logout = new JButton("Logout");
         JMenuItem changeKey = new JMenuItem("Change Security Key");
         JMenuItem nukeBookmarks = new JMenuItem("Nuke Bookmarks");
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
@@ -200,21 +205,26 @@ public class AppMenu extends JFrame {
         about.addActionListener(e -> {
             clearWindows(); // Closes all floating windows and displays the About page.
             new PopupView("About", """
-                    <div style="font-family: Arial; text-align: center;">
+                    <div style="font-family: Arial; text-align: center; font-size: 18">
                     <br>
                     <br>
                     <br>
+                    <h1><i>BuildingBuddy</i></h1>
+
+                    <h3>Version\s
+                    """ + Main.currentAppVersion + """
+                    </h3>
+
+                    <h4>Developed by <span style="color:red;">""" + Main.developerName +
+                    """
+                    </span> at <span style="color:#6600cc;">UWO</span></h4>
+
+                    <h3>Developers:
+                    Arjuna Kadirgamar, Daniel Gomes, Robert Beemer, Jason Shew, Joshua Cini</h3>
                     <br>
-                    <h2><i>BuildingBuddy</i></h2>
-
-                    <h3>Version: 1.0</h3>
-
-                    <h4>Developed by <span style="color:red;">Team 14</span> at <span style="color:#6600cc;">UWO</span></h4>
-
-                    <h4>Developers: Daniel, Robert, Joshua, Arjuna, Jason</h4>
-
                     <a href="https://wiki.csd.uwo.ca/display/COMPSCI2212W2023GROUP14/COMPSCI+2212+-+Winter+2023+-+Group+14+Home">Project Website</a> | <a href="https://github.com/dan1el5/BuildingBuddy">GitHub</a><br>
-                    </div>""","BB_icon.png");
+                    </div>
+                    ""","BB_icon.png");
 
         });
         exit.addActionListener(e -> {
@@ -561,10 +571,10 @@ public class AppMenu extends JFrame {
                     // Clears user search results for privacy concerns.
                     Search.userInput = null;
                     // Removes certain items from the menu, so they are not accessible to the developer.
-                    more.remove(developerTool);
-                    more.remove(nukeBookmarks);
-                    more.remove(nukeMyLocations);
-                    more.remove(reset);
+                    developerTool.setVisible(false);
+                    nukeBookmarks.setVisible(false);
+                    nukeMyLocations.setVisible(false);
+                    reset.setVisible(false);
                     changeKey.addActionListener(e4->{
                         // A dialog for changing security key.
                         clearWindows();
@@ -657,11 +667,11 @@ public class AppMenu extends JFrame {
                     mb.remove(view);
                     mb.add(logout);
                     mb.remove(start);
-                    more.add(changeKey);
-                    more.add(nukeBuiltInPOIs);
+                    moreSubMenu.add(changeKey);
+                    moreSubMenu.add(nukeBuiltInPOIs);
                     // Sets the app mode to Dev Mode.
                     Main.devMode = true;
-                    GUI.frame.setTitle("BuddyBuilding (Ver 1.0) *** Developer Mode ***");
+                    GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – *** Development Mode ***");
                     devLogin.dispose();
                 }
                 else prompt.setText("Incorrect security key. Please try again:");
@@ -683,13 +693,15 @@ public class AppMenu extends JFrame {
         developerTool.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
 
         // Adds menu items to menu.
-        view.add(bookmarks);
-        view.add(myLocations);
-        more.add(checkForUpdates);
-        more.add(nukeBookmarks);
-        more.add(nukeMyLocations);
-        more.add(reset);
-        more.add(developerTool);
+        viewSubMenu.add(bookmarks);
+        viewSubMenu.add(myLocations);
+        moreSubMenu.add(checkForUpdates);
+        moreSubMenu.add(nukeBookmarks);
+        moreSubMenu.add(nukeMyLocations);
+        moreSubMenu.add(reset);
+        moreSubMenu.add(developerTool);
+
+
 
         // Adds menu to menu bar.
         mb.add(start);
@@ -700,43 +712,31 @@ public class AppMenu extends JFrame {
         mb.add(more);
         mb.add(exit);
 
+
         // Sets the font, size, and color of each menu item.
-        Font font = new Font("Arial", Font.PLAIN, 16);
-        start.setFont(font);
-        view.setFont(font);
-        weather.setFont(font);
-        help.setFont(font);
-        about.setFont(font);
-        more.setFont(font);
-        logout.setFont(font);
-        exit.setFont(font);
+        Font menuFont = new Font("Arial", Font.PLAIN, 18);
+        ArrayList<JButton> buttonArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
+        for (JButton button : buttonArray) {
+            button.setFont(menuFont);
+            button.setBorder(null);
+            button.setPreferredSize(new Dimension(100, 25));
+            button.setForeground(mb.getForeground());
+            button.setBackground(mb.getBackground());
+            button.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5), button.getBorder()));
+        }
 
-        start.setPreferredSize(new Dimension(100, 20));
-        view.setPreferredSize(new Dimension(80, 20));
-        weather.setPreferredSize(new Dimension(100, 20));
-        help.setPreferredSize(new Dimension(80, 20));
-        about.setPreferredSize(new Dimension(100, 20));
-        more.setPreferredSize(new Dimension(80, 20));
-        logout.setPreferredSize(new Dimension(100, 20));
-        exit.setPreferredSize(new Dimension(80, 20));
+        for (var mi: viewSubMenu.getSubElements()) {
+            if (mi instanceof JMenuItem)
+                ((JMenuItem)mi).setFont(menuFont);
+        }
+        for (var mi: moreSubMenu.getSubElements()) {
+            if (mi instanceof JMenuItem)
+                ((JMenuItem)mi).setFont(menuFont);
+        }
 
-        start.setBackground(mb.getBackground());
-        view.setBackground(mb.getBackground());
-        weather.setBackground(mb.getBackground());
-        help.setBackground(mb.getBackground());
-        about.setBackground(mb.getBackground());
-        more.setBackground(mb.getBackground());
-        logout.setBackground(mb.getBackground());
-        exit.setBackground(mb.getBackground());
+        mb.setVisible(true);
 
-        start.setForeground(mb.getForeground());
-        view.setForeground(mb.getForeground());
-        weather.setForeground(mb.getForeground());
-        help.setForeground(mb.getForeground());
-        about.setForeground(mb.getForeground());
-        more.setForeground(mb.getForeground());
-        logout.setForeground(mb.getForeground());
-        exit.setForeground(mb.getForeground());
     }
 
 
@@ -766,4 +766,6 @@ public class AppMenu extends JFrame {
             }
         }
     }
+
+
 }

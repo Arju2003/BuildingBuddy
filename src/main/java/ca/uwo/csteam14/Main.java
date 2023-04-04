@@ -26,6 +26,8 @@ public class Main {
     protected static String currentFloor_KB;
     protected static String currentFloor_PAB;
     protected static String currentAppVersion = "1.0";
+
+    protected static String developerName = "Team 14";
     protected static POI fallbackPOI = new POI(-1);
 
     public static ListCellRenderer<? super String> centerRenderer;
