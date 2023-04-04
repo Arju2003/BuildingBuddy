@@ -1,7 +1,9 @@
 /**
- * @author Jason
- * POIEditor Class
- * Edit POI appearance in application
+ * This class represents an editor for adding, modifying, bookmarking, and deleting POIs.
+ *
+ * @author Jason B. Shew
+ * @version 1.0
+ * @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
@@ -10,28 +12,35 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
 
 public class POIEditor extends JDialog {
+
+    /** The editor implemented as a JDialog object. */
     private  final JDialog editor = new JDialog();
+
+    /** A boolean value to detect if a POI is saved after editing. */
     protected static boolean isSaved = false;
+
+    /** An alert shown for uses to confirm deletion, implemented as a JWindow object. */
     protected static JWindow deletionAlert = new JWindow();
 
 
     /**
-     * @param poi 
+     * @param poi The POI object to be added, edited, bookmarked, or deleted.
      */
     public POIEditor(POI poi) {
         AppMenu.clearWindows(); // Closes all floating windows.
         UIManager.put("TextArea.font", new Font("Arial", Font.PLAIN, 16));
+        // Determines the title of the editor depending on the nature of a POI
         if (poi.name.length() > 0)
             editor.setTitle(poi.name);
         else editor.setTitle("New Location");
         editor.setResizable(false);
         editor.setModalityType(ModalityType.MODELESS);
 
+        // Creates the editor's main panel (halved into left and right panels) and adds components
         setLayout(null);
         JPanel main = new JPanel();
         JPanel leftPanel = new JPanel();
@@ -54,12 +63,14 @@ public class POIEditor extends JDialog {
         toTheRight.anchor = GridBagConstraints.EAST;
         toTheRight.insets = new Insets(0, 30, 3, 0);
 
+        // Sets the labels and alignment on the left hand side
         JLabel POINameLabel = new JLabel("Location Name");
         JLabel POIRoomNumberLabel = new JLabel("Room Number");
         JLabel POIFloorLabel = new JLabel("Floor");
         JLabel POIBuildingLabel = new JLabel("Building");
         JLabel POICategoryLabel = new JLabel("Category");
         JLabel POIDescriptionLabel = new JLabel("Description");
+        JLabel leftPanelPadding = new JLabel("");
         JLabel notABookmark = new JLabel("Not in Your Bookmarks");
         JCheckBox bookmarkAdd = new JCheckBox("Add Bookmark");
         JLabel isABookmark = new JLabel("Already in Your Bookmarks");
@@ -70,6 +81,8 @@ public class POIEditor extends JDialog {
         leftPanel.add(POIBuildingLabel,toTheRight);
         leftPanel.add(POICategoryLabel,toTheRight);
         leftPanel.add(POIDescriptionLabel,toTheRight);
+        leftPanel.add(leftPanelPadding, toTheRight);
+        // Depending on the status of bookmarks, shows either Add Bookmark or Remove Bookmark
         if (!Data.containsPOI(Data.bookmarks,poi)) {
             leftPanel.add(notABookmark, toTheRight);
             leftPanel.add(bookmarkAdd, toTheRight);
@@ -81,12 +94,16 @@ public class POIEditor extends JDialog {
 
         }
 
+        //  Sets the labels and alignment on the right hand side
         JTextField POINameField = new JTextField(poi.name);
         JTextField POIRoomNumberField = new JTextField(String.valueOf(poi.roomNumber));
         JTextField POIFloorField = new JTextField(poi.floor);
         JTextField POIBuildingField = new JTextField(poi.building);
         JTextField POICategoryField = new JTextField(poi.category);
-        JTextField POIDescriptionField = new JTextField(poi.description);
+        JTextArea POIDescriptionArea = new JTextArea(poi.description);
+        JScrollPane POIDescriptionScrollPane = new JScrollPane(POIDescriptionArea); // wrap the text area in a scroll pane
+        POIDescriptionScrollPane.setPreferredSize(new Dimension(198,160));
+        JLabel rightPanelPadding = new JLabel("");
         JButton saveButton = new JButton("Save Changes");
         JButton deleteButton = new JButton("Delete Location");
         rightPanel.add(POINameField, toTheLeft);
@@ -94,11 +111,13 @@ public class POIEditor extends JDialog {
         rightPanel.add(POIFloorField, toTheLeft);
         rightPanel.add(POIBuildingField, toTheLeft);
         rightPanel.add(POICategoryField, toTheLeft);
-        rightPanel.add(POIDescriptionField, toTheLeft);
+        rightPanel.add(POIDescriptionScrollPane, toTheLeft);
+        rightPanel.add(rightPanelPadding, toTheLeft);
         rightPanel.add(saveButton, toTheLeft);
         rightPanel.add(deleteButton, toTheLeft);
 
 
+        // Stylizes the left hand side components
         for (Component j: leftPanel.getComponents()) {
             j.setFont(new Font("Arial", Font.PLAIN, 14));
             if (j instanceof JLabel) {
@@ -118,20 +137,35 @@ public class POIEditor extends JDialog {
             }
         }
 
+        // Since right hand side has a multiline text area, we create two JLabels to level the two panels.
+        leftPanelPadding.setPreferredSize(new Dimension(1,80));
+        rightPanelPadding.setPreferredSize(new Dimension(1,1));
 
-
+        // Stylizes the right hand side components
         for (Component j: rightPanel.getComponents()) {
             if (j instanceof JTextField) {
                 j.setPreferredSize(new Dimension(200, 40));
-                ((JTextField) j).setMargin(new Insets(0, 30, 3, 0));
+                ((JTextField) j).setMargin(new Insets(3, 30, 3, 0));
                 ((JTextField) j).setHorizontalAlignment(LEFT);
             }
             else {
                 j.setPreferredSize(new Dimension(200, 40));
-                j.setFont(new Font("Arial", Font.PLAIN, 14));
             }
+            j.setFont(new Font("Arial", Font.PLAIN, 14));
         }
 
+        // Stylizes the text area for POI description
+        POIDescriptionArea.setLineWrap(true);
+        POIDescriptionArea.setWrapStyleWord(true);
+        POIDescriptionArea.setMargin(new Insets(6, 5, 6, 0));
+        POIDescriptionArea.setRows(4);
+        POIDescriptionScrollPane.setPreferredSize(new Dimension(198,80));
+        POIDescriptionScrollPane.setBorder(null);
+        POIDescriptionArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        POIDescriptionScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        POIDescriptionScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); // Shows scrollbars when needed
+
+        // Stylizes the checkboxes and buttons
         notABookmark.setForeground(new Color(0,90,181));
         notABookmark.setFont(new Font("Arial", BOLD,14));
         bookmarkAdd.setForeground(new Color(0,90,181));
@@ -149,8 +183,10 @@ public class POIEditor extends JDialog {
         saveButton.setFont(new Font("Arial", BOLD,14));
 
 
+        // Defines behaviour of the Save button
         saveButton.addActionListener(e -> {
-            boolean result = false;
+            boolean result = false; // a boolean value to check if saving is successful
+            // Restores the appearance of the editor, when information is properly entered
             POINameLabel.setFont(new Font("Arial",Font.PLAIN, 14));
             POINameLabel.setPreferredSize(new Dimension(100, 40));
             POINameLabel.setForeground(Color.BLACK);
@@ -161,17 +197,20 @@ public class POIEditor extends JDialog {
             POIRoomNumberLabel.setPreferredSize(new Dimension(100, 40));
             POIRoomNumberLabel.setForeground(Color.BLACK);
 
+            // In Dev Mode, Save button will result in saving more information into a POI
             if (Main.devMode) {
-                if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText()) && POI.isInteger(POIRoomNumberField.getText())) {
+                // POI name must not be empty, POI category must be legit, and POI room number must be a positive integer
+                if (POINameField.getText().length() > 0 && POI.hasLegalCategory(POICategoryField.getText()) && POI.isInteger(POIRoomNumberField.getText()) && Integer.parseInt(POIRoomNumberField.getText()) >= 0) {
                     poi.roomNumber = Integer.parseInt(POIRoomNumberField.getText());
                     poi.category = POICategoryField.getText();
-                    poi.description = POIDescriptionField.getText();
+                    poi.description = POIDescriptionArea.getText();
                     poi.name = POINameField.getText();
                     result = Data.addPOI(poi, Data.builtInPOIs);
+                    // If the POI is also bookmarked, then updates bookmark
                     if (Data.containsPOI(Data.bookmarks,poi))
                         Data.addPOI(poi, Data.bookmarks);
                 }
-                else {
+                else { // If any piece of POI information is not correct, make that label red as a hint
                     if (POINameField.getText().length() == 0) {
                         POINameLabel.setFont(new Font("Arial", BOLD, 14));
                         POINameLabel.setPreferredSize(new Dimension(110, 40));
@@ -183,33 +222,41 @@ public class POIEditor extends JDialog {
                         POICategoryLabel.setPreferredSize(new Dimension(110, 40));
                         POICategoryLabel.setForeground(Color.RED);
                     }
-                    if (!POI.isInteger(POIRoomNumberField.getText())) {
+                    if (!POI.isInteger(POIRoomNumberField.getText()) || Integer.parseInt(POIRoomNumberField.getText()) < 0 ) {
                         POIRoomNumberLabel.setFont(new Font("Arial", BOLD, 14));
                         POIRoomNumberLabel.setPreferredSize(new Dimension(110, 40));
                         POIRoomNumberLabel.setForeground(Color.RED);
                     }
                 }
             }
-            else {
-                if (!poi.isBuiltIn) {
-                    poi.description = POIDescriptionField.getText();
-                    poi.name = POINameField.getText();
-                    result = Data.addPOI(poi, Data.userCreatedPOIs);
-                    if (Data.containsPOI(Data.bookmarks,poi))
-                        Data.addPOI(poi, Data.bookmarks);
-                    if (bookmarkAdd.isSelected()) {
-                        Data.addPOI(poi, Data.bookmarks);
-                    }
-                    if (bookmarkRemove.isSelected()) {
-                        try {
-                            Data.removePOI(poi, Data.bookmarks);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
+            else { // For regular users
+                if (!poi.isBuiltIn) { // For user-created POIs (My Locations)
+                    if (POINameField.getText().length() != 0) { // POI name must not be empty, otherwise prompts the user
+                        poi.description = POIDescriptionArea.getText();
+                        poi.name = POINameField.getText();
+                        result = Data.addPOI(poi, Data.userCreatedPOIs);
+
+                        if (Data.containsPOI(Data.bookmarks, poi)) // If it's a bookmarked POI, update bookmarks
+                            Data.addPOI(poi, Data.bookmarks); // If user opts to add or remove bookmark, do it
+                        if (bookmarkAdd.isSelected()) {
+                            Data.addPOI(poi, Data.bookmarks);
+                        }
+                        if (bookmarkRemove.isSelected()) {
+                            try {
+                                Data.removePOI(poi, Data.bookmarks);
+                            } catch (IOException ex) {
+                                resultDisplay("Uh-oh!", Color.PINK);
+                            }
                         }
                     }
+                    else {
+                        POINameLabel.setFont(new Font("Arial", BOLD, 14));
+                        POINameLabel.setPreferredSize(new Dimension(110, 40));
+                        POINameLabel.setForeground(Color.RED);
+                    }
                 }
-                else {
-                    if (bookmarkAdd.isSelected()) {
+                else { // For built-in POIs
+                    if (bookmarkAdd.isSelected()) { // Only add / remove bookmarks
                         result = Data.addPOI(poi, Data.bookmarks);
                     } if (bookmarkRemove.isSelected()) {
                         try {
@@ -221,13 +268,13 @@ public class POIEditor extends JDialog {
                 }
             }
 
-            if (result) {
+            if (result) { // If saving is successful, then gives user a message, updates system's current POI cursors
                 isSaved = true;
                 resultDisplay("Saved successfully!", Color.GREEN);
                 editor.dispose();
                 POISelector.focus = poi;
                 Main.updateCurrent(poi);
-                if(GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
+                if(GUI.frame.getContentPane() == (GUIForPOIs.secondary)) { // refreshes the map viewer
                     new GUIForPOIs(GUIForPOIs.POIsGroup);
                 }
                 else {
@@ -245,8 +292,9 @@ public class POIEditor extends JDialog {
         deleteButton.setUI(new BasicButtonUI());
         deleteButton.setFont(new Font("Arial", BOLD,14));
 
+        // Defines behaviours of Delete button
         deleteButton.addActionListener(e -> {
-            editor.setVisible(false);
+            editor.setVisible(false); // hide the editor, displays the deletion confirmation window
             // This code will be executed when the button is pressed
             deletionAlert.setSize(480, 100);
             deletionAlert.addComponentListener(new ComponentAdapter() {
@@ -256,6 +304,7 @@ public class POIEditor extends JDialog {
                     deletionAlert.setLocationRelativeTo(null);
                 }
             });
+            // Stylizes the confirmation message
             JPanel deletionAlertPanel = new JPanel();
             deletionAlertPanel.setForeground(new Color(220,50,32));
             deletionAlertPanel.setForeground(new Color(255,255,255));
@@ -271,55 +320,57 @@ public class POIEditor extends JDialog {
                 editor.setVisible(true);
             });
             JButton confirm = new JButton("Confirm Deletion");
+            // Defines the behaviours of the delete button
             confirm.addActionListener(e3-> {
-                boolean result;
-                if (Main.devMode) {
+                boolean result; // a boolean value to check if deletion is successful
+                if (Main.devMode) {  // In Dev Mode, removes built-in POIs
                     try {
                         result = Data.removePOI(poi, Data.builtInPOIs);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                    try {
+                    try { // if a POI is bookmarks, deletes that bookmark too
                         Data.removePOI(poi, Data.bookmarks);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
-                else {
+                else { // For regular users
                     try {
-                        result = Data.removePOI(poi, Data.userCreatedPOIs);
+                        result = Data.removePOI(poi, Data.userCreatedPOIs); // Deletes My Location (user-created POI)
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                    try {
+                    try { // if a POI is bookmarks, deletes that bookmark too
                         Data.removePOI(poi, Data.bookmarks);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
-                if (result) {
+                if (result) { // If deletion is successful, then gives user a message, updates system's current POI cursor
                     resultDisplay("Successfully deleted!",Color.GREEN);
+                    MapView.cancelHighlight();
                 }
                 else {
                     resultDisplay("Oops... Be careful!",Color.PINK);
                 }
-                new GUIForPOIs(GUIForPOIs.POIsGroup);
+                new GUIForPOIs(GUIForPOIs.POIsGroup); // Refreshes the map viewer
                 deletionAlert.setVisible(false);
                 editor.dispose();
             });
 
             deletionAlertPanel.add(confirm);
             deletionAlertPanel.add(cancel);
+            deletionAlert.pack();
             deletionAlertPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             deletionAlert.add(deletionAlertPanel);
-            deletionAlert.pack();
             deletionAlert.setAlwaysOnTop(true);
             deletionAlert.setFocusableWindowState(false);
             deletionAlert.setFocusable(false);
             deletionAlert.setVisible(true);
         });
 
-        if (!Main.devMode) {
+        if (!Main.devMode) { // For regular users, for built-in POIs, all fields should be read-only and the Delete button is disabled
             if (Data.containsPOI(Data.builtInPOIs,poi)) {
                 deleteButton.setEnabled(false);
                 deleteButton.setBackground(new Color(200, 200, 200));
@@ -329,11 +380,13 @@ public class POIEditor extends JDialog {
                 POIFloorField.setEditable(false);
                 POIBuildingField.setEditable(false);
                 POICategoryField.setEditable(false);
-                POIDescriptionField.setEditable(false);
+                POIDescriptionArea.setEditable(false);
+                // If Add Bookmark / Remove Bookmark is not selected, then disables Save button as well
                 if (!bookmarkAdd.isSelected() || !bookmarkRemove.isSelected()) {
                     saveButton.setEnabled(false);
                     saveButton.setBackground(new Color(200, 200, 200));
                     saveButton.setForeground(new Color(20, 20, 20));
+                    // If Add Bookmark / Remove Bookmark is selected, activates Save button
                     bookmarkAdd.addItemListener(e -> {
                         if (e.getStateChange() == ItemEvent.SELECTED) {
                             saveButton.setEnabled(true);
@@ -361,13 +414,14 @@ public class POIEditor extends JDialog {
                     });
 
                 }
-            }
+            } // For user-created POIs, only POI name and description are editable.
             else {
                 POINameField.setEditable(true);
                 POINameField.addFocusListener(new FocusListener() {
                     @Override
                     public void focusGained(FocusEvent e) {
-                        POINameField.setText("");
+                        if (POINameField.getText().contains("My Location #"))
+                            POINameField.setText("");
                     }
                     @Override
                     public void focusLost(FocusEvent e) {
@@ -379,16 +433,18 @@ public class POIEditor extends JDialog {
                 POIFloorField.setEditable(false);
                 POIBuildingField.setEditable(false);
                 POICategoryField.setEditable(false);
-                POIDescriptionField.setEditable(true);
-                POIDescriptionField.addFocusListener(new FocusListener() {
+                POIDescriptionArea.setEditable(true);
+                POIDescriptionArea.addFocusListener(new FocusListener() { // Automatically clears placeholder text for user's convenience
                     @Override
                     public void focusGained(FocusEvent e) {
-                        POIDescriptionField.setText("");
+                        if (POIDescriptionArea.getText().equals("Your description goes here."))
+                            POIDescriptionArea.setText("");
                     }
                     @Override
                     public void focusLost(FocusEvent e) {
                     }
                 });
+                // If this POI was already created, then Delete button is enabled.
                 if (Data.containsPOI(Data.userCreatedPOIs, poi)) {
                     deleteButton.setForeground(new Color(255, 255, 255));
                     deleteButton.setBackground(new Color(220, 50, 32));
@@ -401,9 +457,10 @@ public class POIEditor extends JDialog {
             }
         }
 
-        else {
+        else { // For developers, floor and building information is associated with a certain map, so they are always uneditable.
             POIFloorField.setEditable(false);
             POIBuildingField.setEditable(false);
+            // Developers do not have access to user bookmarks, so change them into something else (copyright info display).
             notABookmark.setText("© 2023 BuildingBuddy");
             notABookmark.setForeground(Color.BLACK);
             bookmarkAdd.setText(" Team 14 at UWO");
@@ -423,19 +480,23 @@ public class POIEditor extends JDialog {
             }
         }
 
+        // Adds left and right panels to the main panel, sets size, and packs.
         main.add(leftPanel);
         main.add(rightPanel);
-        main.setPreferredSize(new Dimension(500, 350));
+        main.setPreferredSize(new Dimension(500, 450));
         main.setFont(new Font("Arial", Font.PLAIN, 16));
         pack();
 
+        // Wraps it in a scroll pane
         JScrollPane scrollPane = new JScrollPane(main);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
         JViewport viewport = scrollPane.getViewport();
         Point point = new Point(0, 0);
         viewport.setViewPosition(point);
 
-        // Adds the JScrollPane to the JDialog
+        // Adds the scroll pane to the editor
         editor.add(scrollPane);
 
 
@@ -444,11 +505,9 @@ public class POIEditor extends JDialog {
         closeButton.addActionListener(e -> {
             editor.dispose();
             POISelector.focus = poi;
-            Main.updateCurrent(poi);
-            if (GUI.frame.getContentPane() == (GUIForPOIs.secondary))
-                GUIForPOIs.mapView.highlight(poi.positionX, poi.positionY, "OFF");
-            else if (GUI.frame.getContentPane() == (GUI.canvas))
-                GUI.mapView.highlight(poi.positionX, poi.positionY, "OFF");
+            MapView.currentHighlighted = poi;
+            Main.updateCurrent(poi); // Updates system's POI cursors
+            MapView.cancelHighlight(); // Cancels highlighting
         });
         closeButton.setFocusTraversalKeysEnabled(true);
         editor.getRootPane().setDefaultButton(closeButton);
@@ -458,17 +517,20 @@ public class POIEditor extends JDialog {
         editor.pack();
 
         // Displays the editor.
-        editor.setVisible(true);
+
 
         // Sets the location of the editor.
         editor.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
                 // Places the editor at a proper location over the floor map.
-                editor.setLocationRelativeTo(GUI.canvas.rightPanel);
-                editor.setLocation((int) (GUI.canvas.getSize().width * 0.23), (int) (GUI.canvas.getSize().height * 0.42));
+                editor.setLocationRelativeTo(GUI.frame);
+                editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.38));
             }
         });
+
+        // Dev heads-up: Keep this repeated line to prevent the POI editor from flashing briefly in the top left corner!
+        editor.setLocation((int) (GUI.frame.getSize().width * 0.23), (int) (GUI.frame.getSize().height * 0.38));
 
         editor.addWindowListener(new WindowAdapter() {
             @Override
@@ -484,8 +546,15 @@ public class POIEditor extends JDialog {
                 }
             }
         });
+
+        editor.setVisible(true);
     }
 
+    /**
+     *
+     * @param text The text to display in the deletion confirmation window.
+     * @param color Sets the colour of the window background.
+     */
     public static void resultDisplay(String text, Color color) {
         deletionAlert.dispose();
         JWindow result = new JWindow();

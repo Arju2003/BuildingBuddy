@@ -25,12 +25,29 @@
       "category": "Washroom",
       "description": "For women only.",
       "map": "KB0F.png",
-      "mapX": 3059,
-      "mapY": 721,
+      "mapX": 3050,
+      "mapY": 700,
       "built-in": true
     },
+
     {
-      "POIId": 3801,
+      "POIId": 817,
+      "POIName": "Women's Washroom",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Ground Floor",
+      "roomNumber": 17,
+      "category": "Washroom",
+      "description": "For women only.",
+      "map": "KB0F.png",
+      "mapX": 3050,
+      "mapY": 700,
+      "built-in": true
+    },
+
+
+    {
+      "POIId": 38002,
       "POIName": "Stairwell 2",
       "building": "Kresge Building",
       "buildingCode": "KB",
@@ -44,7 +61,7 @@
       "built-in": true
     },
     {
-      "POIId": 3802,
+      "POIId": 38001,
       "POIName": "Stairwell 1",
       "building": "Kresge Building",
       "buildingCode": "KB",
@@ -58,46 +75,49 @@
       "built-in": true
     },
     {
-      "POIId": 3803,
+      "POIId": 38003,
       "POIName": "Exit 1",
       "building": "Kresge Building",
       "buildingCode": "KB",
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 3120,
       "mapY": 1150,
       "built-in": true
     },
     {
-      "POIId": 3804,
+      "POIId": 38004,
       "POIName": "Exit 2",
       "building": "Kresge Building",
       "buildingCode": "KB",
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 2860,
       "mapY": 450,
       "built-in": true
-    },  {
-      "POIId": 3805,
+    },  
+    {
+      "POIId": 38005,
       "POIName": "Exit 3",
       "building": "Kresge Building",
       "buildingCode": "KB",
       "floor": "Ground Floor",
       "roomNumber": 0,
       "category": "Exit",
-      "description": "Exit om the ground floor.",
+      "description": "Exit on the ground floor.",
       "map": "KB0F.png",
       "mapX": 3040,
       "mapY": 540,
       "built-in": true
     },
+
+  
     {
       "POIId": 8103,
       "POIName": "KB 103",
@@ -112,6 +132,7 @@
       "mapY": 900,
       "built-in": true
     },
+
     {
       "POIId": 8106,
       "POIName": "KB 106",
@@ -140,6 +161,37 @@
       "mapY": 560,
       "built-in": true
     },
+
+    {
+      "POIId": 38101,
+      "POIName": "Stairwell 1",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 0,
+      "category": "Stairwell",
+      "description": "Stairwell",
+      "map": "KB1F.png",
+      "mapX": 3150,
+      "mapY": 1050,
+      "built-in": true
+    },
+
+    {
+      "POIId": 38102,
+      "POIName": "Stairwell 2",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "First Floor",
+      "roomNumber": 0,
+      "category": "Stairwell",
+      "description": "Stairwell",
+      "map": "KB1F.png",
+      "mapX": 2970,
+      "mapY": 475,
+      "built-in": true
+    },
+
     {
       "POIId": 8203,
       "POIName": "KB 203",
@@ -154,6 +206,7 @@
       "mapY": 900,
       "built-in": true
     },
+
     {
       "POIId": 8208,
       "POIName": "KB 208",
@@ -182,6 +235,37 @@
       "mapY": 550,
       "built-in": true
     },
+
+    {
+      "POIId": 38201,
+      "POIName": "Stairwell 1",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Second Floor",
+      "roomNumber": 0,
+      "category": "Stairwell",
+      "description": "Stairwell",
+      "map": "KB2F.png",
+      "mapX": 3150,
+      "mapY": 1050,
+      "built-in": true
+    },
+
+    {
+      "POIId": 38202,
+      "POIName": "Stairwell 2",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Second Floor",
+      "roomNumber": 0,
+      "category": "Stairwell",
+      "description": "Stairwell",
+      "map": "KB2F.png",
+      "mapX": 2920,
+      "mapY": 490,
+      "built-in": true
+    },
+
     {
       "POIId": 8307,
       "POIName": "KB 307",
@@ -196,6 +280,7 @@
       "mapY": 660,
       "built-in": true
     },
+
     {
       "POIId": 830765,
       "POIName": "KB 307A",
@@ -210,6 +295,23 @@
       "mapY": 680,
       "built-in": true
     },
+
+    {
+      "POIId": 38302,
+      "POIName": "Stairwell 2",
+      "building": "Kresge Building",
+      "buildingCode": "KB",
+      "floor": "Third Floor",
+      "roomNumber": 0,
+      "category": "Stairwell",
+      "description": "Stairwell",
+      "map": "KB3F.png",
+      "mapX": 2920,
+      "mapY": 470,
+      "built-in": true
+    },
+
+
 
     {
       "POIId": 934,
@@ -331,10 +433,10 @@
       "floor": "Second Floor",
       "roomNumber": 219,
       "category": "Washroom",
-      "description": "Men. Accessible facitlity.",
+      "description": "For men only. Accessible facility.",
       "map": "PAB2F.png",
       "mapX": 1359,
-      "mapY": 772,
+      "mapY": 718,
       "built-in": true
     },
     {
@@ -345,10 +447,10 @@
       "floor": "Second Floor",
       "roomNumber": 221,
       "category": "Washroom",
-      "description": "Unisex. Accessible facility.",
+      "description": "For women only. Accessible facility.",
       "map": "PAB2F.png",
       "mapX": 1443,
-      "mapY": 772,
+      "mapY": 718,
       "built-in": true
     },
     {
@@ -807,7 +909,7 @@
       "floor": "First Floor",
       "roomNumber": 3911,
       "category": "Exit",
-      "description": "On the ground floor. Accessible facility.",
+      "description": "On the first floor. Accessible facility.",
       "map": "PAB1F.png",
       "mapX": 1556,
       "mapY": 306,
@@ -821,7 +923,7 @@
       "floor": "First Floor",
       "roomNumber": 3912,
       "category": "Exit",
-      "description": "On the ground floor. Accessible facility.",
+      "description": "On the first floor. Accessible facility.",
       "map": "PAB1F.png",
       "mapX": 1365,
       "mapY": 1881,
@@ -851,8 +953,8 @@
       "category": "Classroom",
       "description": "Listed in the Western Classroom Directory",
       "map": "PAB1F.png",
-      "mapX": 800,
-      "mapY": 1700,
+      "mapX": 1620,
+      "mapY": 1602,
       "built-in": true
     },
     {
@@ -1105,8 +1207,8 @@
       "category": "Classroom",
       "description": "Social Distancing Capacity: 7, Seating Capacity: 48, Room Type: Lecture, Seating Type: Tab Arm; Fixed, Lectern: Portable, Writing Surface: 16-ft Sliding Chalkboard, Projection Screen: 8-ft Motorized, Window Treatment: Manual Blinds",
       "map": "MC0F.png",
-      "mapX": 1332,
-      "mapY": 1082,
+      "mapX": 1350,
+      "mapY": 1130,
       "built-in": true
     },
     {
@@ -1132,7 +1234,7 @@
       "floor": "First Floor",
       "roomNumber": 110,
       "category": "Classroom",
-      "description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Moveable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
+      "description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Movable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
       "map": "MC1F.png",
       "mapX": 1600,
       "mapY": 700,
@@ -1149,8 +1251,8 @@
       "category": "Restaurant",
       "description": "The Grad Club is a non-profit graduate student pub & eatery.",
       "map": "MC0F.png",
-      "mapX": 1720,
-      "mapY": 650,
+      "mapX": 1717,
+      "mapY": 628,
       "built-in": true
     },
 
@@ -1252,8 +1354,8 @@
       "category": "Stairwell",
       "description": "On the ground floor.",
       "map": "MC0F.png",
-      "mapX": 254,
-      "mapY": 1534,
+      "mapX": 302,
+      "mapY": 1504,
       "built-in": true
     },
     {
@@ -1266,8 +1368,8 @@
       "category": "Stairwell",
       "description": "On the ground floor.",
       "map": "MC0F.png",
-      "mapX": 810,
-      "mapY": 1430,
+      "mapX": 771,
+      "mapY": 1367,
       "built-in": true
     },
     {

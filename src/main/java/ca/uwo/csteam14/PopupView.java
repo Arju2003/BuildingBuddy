@@ -95,14 +95,20 @@ public class PopupView extends JDialog {
         dialog.getRootPane().setDefaultButton(closeButton);
         dialog.add(closeButton, BorderLayout.SOUTH);
 
+        dialog.pack();
         dialog.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
                 // Center the window on the screen
                 dialog.setLocationRelativeTo(null);
+                dialog.setLocation((GUI.frame.getSize().width - dialog.getWidth()) / 2,  (GUI.frame.getSize().height - dialog.getHeight()) / 2);
+
             }
         });
-        dialog.pack();
+
+        // Dev heads-up: Keep this repeated line to prevent the POI editor from flashing briefly in the top left corner!
+        dialog.setLocation((GUI.frame.getSize().width - dialog.getWidth()) / 2,  (GUI.frame.getSize().height - dialog.getHeight()) / 2);
+
         // Display the JDialog
         dialog.setVisible(true);
     }

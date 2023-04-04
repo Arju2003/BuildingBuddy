@@ -1,7 +1,11 @@
 /**
- * @author Jason
- * MapView Class
- * Contruct maps, scrollable maps, scroll display, interact with maps
+ *  This class represents a map viewer shown on the right hand side of the interface.
+ *  It consists of a scrollable pane and loads a floor map at a time.
+ *  It also highlights a POI in question, and pops up a POI editor.
+ *
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
  */
 
 package ca.uwo.csteam14;
@@ -16,13 +20,20 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class MapView extends JPanel {
+    /** The original map image to display. */
     private static BufferedImage mapImage;
+    /** The dimension of the map image. */
     private static int imageWidth, imageHeight;
+    /** The focal point of view, typically where a highlighted POI is. */
     private final Point focalPoint;
+
+    /** The POI that is currently highlighted. */
     protected static POI currentHighlighted;
 
+    /** The base map (relative to layers and highlighter). */
     private static  BufferedImage basemap;
 
+    /** A boolean value to determine whether the mouse has clicked on a POI. */
     protected static boolean mouseClickedOnPOI = false;
 
 
@@ -288,8 +299,8 @@ public class MapView extends JPanel {
                         newPOI.isBuiltIn = true;
                         newPOI.next = null;
                         new POIEditor(newPOI);
+                        currentHighlighted = newPOI;
                         if (POIEditor.isSaved) {
-                            currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
                             POISelector.focus = newPOI;
                             Main.updateCurrent(newPOI);
@@ -299,7 +310,7 @@ public class MapView extends JPanel {
                         highlight(e.getX(), e.getY(), "NEW");
                         int id = Data.generatePOIID("user");
                         POI newPOI = new POI(id);
-                        newPOI.name = "My Location #" + (id - Data.userPOIStartID + 1);
+                        newPOI.name = "My Location #" + (id - Data.userPOIStartID);
                         newPOI.positionX = e.getX();
                         newPOI.positionY = e.getY();
                         newPOI.category = "My Location";
@@ -312,8 +323,8 @@ public class MapView extends JPanel {
                         newPOI.isBuiltIn = false;
                         newPOI.next = null;
                         new POIEditor(newPOI);
+                        currentHighlighted = newPOI;
                         if (POIEditor.isSaved) {
-                            currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
                             POISelector.focus = newPOI;
                             Main.updateCurrent(newPOI);
@@ -360,7 +371,7 @@ public class MapView extends JPanel {
             try {
                 newMap = GUIForPOIs.mapView.applyHighlighter(x, y,mode);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                return;
             }
             new MapView(newMap, new Point(x , y ));
         }
@@ -368,10 +379,23 @@ public class MapView extends JPanel {
             try {
                 newMap = LayerFilter.currentMapView.applyHighlighter(x, y, mode);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                return;
             }
             new MapView(newMap, new Point(x , y ));
         }
+    }
+
+    public static void cancelHighlight() {
+        if (MapView.currentHighlighted != null)
+            try {
+                if (GUI.frame.getContentPane() == GUI.canvas)
+                    GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                else if (GUI.frame.getContentPane() == GUIForPOIs.secondary)
+                    GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                MapView.currentHighlighted = null;
+                POISelector.focus = null;
+            } catch (Exception ignored) {
+            }
     }
 }
 
