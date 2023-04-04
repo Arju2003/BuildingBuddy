@@ -101,7 +101,7 @@
       "mapX": 2860,
       "mapY": 450,
       "built-in": true
-    },
+    },  
     {
       "POIId": 38005,
       "POIName": "Exit 3",
@@ -117,7 +117,7 @@
       "built-in": true
     },
 
-
+  
     {
       "POIId": 8103,
       "POIName": "KB 103",
@@ -1960,5 +1960,6 @@
       "mapY": 1540,
       "built-in": true
     }
+
   ]
 }
