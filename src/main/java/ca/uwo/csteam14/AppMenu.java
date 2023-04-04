@@ -9,6 +9,7 @@
 
 package ca.uwo.csteam14;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicMenuUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -30,15 +31,13 @@ public class AppMenu {
         // Creates menubar layout.
         mb.setLayout(new FlowLayout());
         // Creates two menus that contain menu items.
-        JButton view = new JButton("View");
-        JPopupMenu viewSubMenu = new JPopupMenu();
-        view.addActionListener(e -> viewSubMenu.show(view, 0, view.getHeight()));
-        JButton more = new JButton("More");
-        JPopupMenu moreSubMenu = new JPopupMenu();
-        more.addActionListener(e -> moreSubMenu.show(more, 0, more.getHeight()));
+        JMenu view = new JMenu("View");
+
+        JMenu more = new JMenu("More");
+
 
         // Creates menu items and stylizes each of them.
-        JButton start = new JButton("Start");
+        JMenu start = new JMenu("Start");
         JMenuItem bookmarks = new JMenuItem("" +
                 "Bookmarks");
         JMenuItem myLocations = new JMenuItem("" +
@@ -47,11 +46,11 @@ public class AppMenu {
                 "Check for Updates");
         JMenuItem developerTool = new JMenuItem("" +
                 "Developer Tool");
-        JButton help = new JButton("Help");
-        JButton about = new JButton("About");
-        JButton exit = new JButton("Exit");
-        JButton weather = new JButton("Weather");
-        JButton logout = new JButton("Logout");
+        JMenu help = new JMenu("Help");
+        JMenu about = new JMenu("About");
+        JMenu exit = new JMenu("Exit");
+        JMenu weather = new JMenu("Weather");
+        JMenu logout = new JMenu("Logout");
         JMenuItem changeKey = new JMenuItem("Change Security Key");
         JMenuItem nukeBookmarks = new JMenuItem("Nuke Bookmarks");
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
@@ -63,184 +62,202 @@ public class AppMenu {
         reset.setForeground(Color.RED);
         developerTool.setForeground(Color.BLUE);
         // Adds ActionListener to menu buttons and menu items.
-        start.addActionListener(e -> {
-            clearWindows();
-            // Reloads the splash screen.
-            try {
-                new Splash("./images/"+ Main.currentBuildingCode+"_hero.png").build();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
-        logout.addActionListener(e -> {
-            // Restarts the program.
-            clearWindows();
-            try {
-                Main.restartApplication();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+        start.setVisible(true);
+        start.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                clearWindows();
+                // Reloads the splash screen.
+                try {
+                    new Splash("./images/" + Main.currentBuildingCode + "_hero.png").build();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
-        help.addActionListener(e -> {
-            clearWindows(); // Closes all floating windows.
-            // Creates a PopupView object to display the Help page.
-            new PopupView("Help", """
-                   <div style="font-family: Arial; font-size: 18">
-                  <h2>What is a POI?</h2>
-                    <p>A POI is a point of interest, namely a location on the map.</p>
-                    <hr>
-
-                    <h2>What is a bookmark?</h2>
-                    <p>A bookmark is one of your favourite POIs across all the maps in BuildingBuddy.</p>
-                    <hr>
-                    
-                    <h2>What is My Location?</h2>
-                    <p>My Location is a POI defined by the user, not a built-in POI.</p>
-                    <hr>
-                    
-                    <h2>How can I bookmark / unbookmark a location?</h2>
-                    <p>Click on any icon that represents a POI on the map and choose <b>Add Bookmark</b> or <b>Remove Bookmark</b> before pressing <b>Save Changes</b>.</p>
-                    <hr>
-                    
-                    <h2>How many My Locations are allowed to be created?</h2>
-                    <p>Currently, BuildingBuddy allows the user to create up to 999,999 POIs. If you create a new POI after reaching the limit, the oldest My Location will be overwritten.</p>
-                    <p>While it may look like a really large number, but, mind you, even if you delete a My Location, that lot of memory will not be freed up for a new POI.</p>
-                    <p>If you hope to make full use of the 999,999 quota, back up your data elsewhere, and try <b>More</b> – <b>Nuke My Locations</b>.</p>
-                    <hr>
-                    
-                    <h2>How can I explore another building?</h2>
-                    <p>Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.</p>
-                    <hr>
-                    
-                    <h2>How can I get to a specific floor and see all the locations?</h2>
-                    <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Enter <i>building code + floor code</i> to explore any floor.</p>
-                    <p>A building code is a building abbreviation:
-                    <ul>
-                    <li><b>MC</b> for Middlesex College</li>
-                    <li><b>KB</b> for Kresge Building</li>
-                    <li><b>PAB</b> for Physics & Astronomy Building</li>
-                    </ul>
-                    </p>
-                    <p>A floor code is a single-digit number + F:
-                    <ul>
-                    <li><b>0F</b> for ground floor</li>
-                    <li><b>1F</b> for first floor</li>
-                    <li><b>2F</b> for second floor</li>
-                    <li>...</li>
-                    </ul>
-                    </p>
-                    <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
-                    <p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
-                    <hr>
-                    
-                    <h2>How can I create a location?</h2>
-                    <p>As a user, you can only create a POI when you're in Exploration mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
-                    <p>If you are viewing Bookmarks, My Locations, or search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
-                    <p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
-                    <hr>
-                    
-                    <h2>Why can't I edit the room numbers for My Locations?</h2>
-                    <p>Room numbers are currently not available for My Locations, but you can write room numbers and any useful information in the <b>Description</b> text box. What's cool, they are searchable!</p>
-                    <hr>
-                    
-                    <h2>How to view or edit bookmarks?</h2>
-                    <p>Enter <b>View</b> – <b>Bookmarks</b>, or press CTRL + B.</p>
-                    <hr>
-                    
-                    <h2>How to view or edit My Locations?</h2>
-                    <p>Enter <b>View</b> – <b>My Locations</b>, or press CTRL + L.</p>
-                    <hr>
-                    
-                    <h2>How many bookmarks can I have?</h2>
-                    <p>A user can have as many bookmarks as they want.</p>
-                    <hr>
-                    
-                    <h2>Can I bookmark a "My Location"?</h2>
-                    <p>Sure! You can bookmark anything on any floor map.</p>
-                    <hr>
-                    
-                    <h2>Can I delete My Location?</h2>
-                    <p>Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.</p>
-                    <hr>
-                    
-                    <h2>What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy"?</h2>
-                    <p>These three features will delete all your bookmarks, My Locations, and both. Your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
-                    <p>If you only choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
-                    <p>After you confirm your choice, the program will reboot automatically.</p>
-                    <hr>
-                    
-                    <h2>How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?</h2>
-                    <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase <i>Search Anything...</i> in the text bar or clear it before hitting <b>Go</b>.)</p>
-                    <hr>
-                    
-                    <h2>Some of my bookmarks are gone unknowingly. Why?</h2>
-                    <p>Sorry about that! Our developers are updating this app regularly, so some POIs may have been deleted. When they no longer exist, they disappear from your Bookmarks too.</p>
-                    <hr>
-                    
-                    <h2>How to quit the application safely?</h2>
-                    <p>Click <b>Exit</b> from the main menu, or just hit <b>[X]</b> on top of the window.</p>
-                    <hr>
-                    
-                    <h2>I am a developer. Can I add / delete POIs or browse maps the same way?</h2>
-                    <p>Yes, you can. Here's a few tips for developers:
-                    <ol>
-                    <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
-                    <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
-                    <li>You can only add, edit, or remove built-in POIs. </li>
-                    <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
-                    <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
-                    <li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
-                    </ol>
-                    </p>
-                    <hr>
-                    
-                    <h2>I still need help!</h2>
-                    <p>Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
-                    <hr>
-                    </div>
-                    ""","help.png");
-
-        });
-        about.addActionListener(e -> {
-            clearWindows(); // Closes all floating windows and displays the About page.
-            new PopupView("About", """
-                    <div style="font-family: Arial; text-align: center; font-size: 18">
-                    <br>
-                    <br>
-                    <br>
-                    <h1><i>BuildingBuddy</i></h1>
-
-                    <h3>Version\s
-                    """ + Main.currentAppVersion + """
-                    </h3>
-
-                    <h4>Developed by <span style="color:red;">""" + Main.developerName +
-                    """
-                    </span> at <span style="color:#6600cc;">UWO</span></h4>
-
-                    <h3>Developers:
-                    Arjuna Kadirgamar, Daniel Gomes, Robert Beemer, Jason Shew, Joshua Cini</h3>
-                    <br>
-                    <a href="https://wiki.csd.uwo.ca/display/COMPSCI2212W2023GROUP14/COMPSCI+2212+-+Winter+2023+-+Group+14+Home">Project Website</a> | <a href="https://github.com/dan1el5/BuildingBuddy">GitHub</a><br>
-                    </div>
-                    ""","BB_icon.png");
-
-        });
-        exit.addActionListener(e -> {
-            clearWindows();
-            // Quits the program.
-            System.exit(0); // Exits the program with status code 0.
-        });
-
-        weather.addActionListener(e -> {
-            // Displays current weather.
-            clearWindows();
-            try {
-                new WeatherInfo();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+        logout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Restarts the program.
+                clearWindows();
+                try {
+                    Main.restartApplication();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+        });
+        help.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+              clearWindows(); // Closes all floating windows.
+              // Creates a PopupView object to display the Help page.
+              new PopupView("Help", """
+                       <div style="font-family: Arial; font-size: 18">
+                      <h2>What is a POI?</h2>
+                        <p>A POI is a point of interest, namely a location on the map.</p>
+                        <hr>
+
+                        <h2>What is a bookmark?</h2>
+                        <p>A bookmark is one of your favourite POIs across all the maps in BuildingBuddy.</p>
+                        <hr>
+                        
+                        <h2>What is My Location?</h2>
+                        <p>My Location is a POI defined by the user, not a built-in POI.</p>
+                        <hr>
+                        
+                        <h2>How can I bookmark / unbookmark a location?</h2>
+                        <p>Click on any icon that represents a POI on the map and choose <b>Add Bookmark</b> or <b>Remove Bookmark</b> before pressing <b>Save Changes</b>.</p>
+                        <hr>
+                        
+                        <h2>How many My Locations are allowed to be created?</h2>
+                        <p>Currently, BuildingBuddy allows the user to create up to 999,999 POIs. If you create a new POI after reaching the limit, the oldest My Location will be overwritten.</p>
+                        <p>While it may look like a really large number, but, mind you, even if you delete a My Location, that lot of memory will not be freed up for a new POI.</p>
+                        <p>If you hope to make full use of the 999,999 quota, back up your data elsewhere, and try <b>More</b> – <b>Nuke My Locations</b>.</p>
+                        <hr>
+                        
+                        <h2>How can I explore another building?</h2>
+                        <p>Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.</p>
+                        <hr>
+                        
+                        <h2>How can I get to a specific floor and see all the locations?</h2>
+                        <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Enter <i>building code + floor code</i> to explore any floor.</p>
+                        <p>A building code is a building abbreviation:
+                        <ul>
+                        <li><b>MC</b> for Middlesex College</li>
+                        <li><b>KB</b> for Kresge Building</li>
+                        <li><b>PAB</b> for Physics & Astronomy Building</li>
+                        </ul>
+                        </p>
+                        <p>A floor code is a single-digit number + F:
+                        <ul>
+                        <li><b>0F</b> for ground floor</li>
+                        <li><b>1F</b> for first floor</li>
+                        <li><b>2F</b> for second floor</li>
+                        <li>...</li>
+                        </ul>
+                        </p>
+                        <p>For example, if you want to visit the second floor at Middlesex College, just enter <i>MC2F</i> and click <b>Go</b>.</p>
+                        <p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on this floor.</p>
+                        <hr>
+                        
+                        <h2>How can I create a location?</h2>
+                        <p>As a user, you can only create a POI when you're in Exploration mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
+                        <p>If you are viewing Bookmarks, My Locations, or search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
+                        <p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
+                        <hr>
+                        
+                        <h2>Why can't I edit the room numbers for My Locations?</h2>
+                        <p>Room numbers are currently not available for My Locations, but you can write room numbers and any useful information in the <b>Description</b> text box. What's cool, they are searchable!</p>
+                        <hr>
+                        
+                        <h2>How to view or edit bookmarks?</h2>
+                        <p>Enter <b>View</b> – <b>Bookmarks</b>, or press CTRL + B.</p>
+                        <hr>
+                        
+                        <h2>How to view or edit My Locations?</h2>
+                        <p>Enter <b>View</b> – <b>My Locations</b>, or press CTRL + L.</p>
+                        <hr>
+                        
+                        <h2>How many bookmarks can I have?</h2>
+                        <p>A user can have as many bookmarks as they want.</p>
+                        <hr>
+                        
+                        <h2>Can I bookmark a "My Location"?</h2>
+                        <p>Sure! You can bookmark anything on any floor map.</p>
+                        <hr>
+                        
+                        <h2>Can I delete My Location?</h2>
+                        <p>Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.</p>
+                        <hr>
+                        
+                        <h2>What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy"?</h2>
+                        <p>These three features will delete all your bookmarks, My Locations, and both. Your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
+                        <p>If you only choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
+                        <p>After you confirm your choice, the program will reboot automatically.</p>
+                        <hr>
+                        
+                        <h2>How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?</h2>
+                        <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase <i>Search Anything...</i> in the text bar or clear it before hitting <b>Go</b>.)</p>
+                        <hr>
+                        
+                        <h2>Some of my bookmarks are gone unknowingly. Why?</h2>
+                        <p>Sorry about that! Our developers are updating this app regularly, so some POIs may have been deleted. When they no longer exist, they disappear from your Bookmarks too.</p>
+                        <hr>
+                        
+                        <h2>How to quit the application safely?</h2>
+                        <p>Click <b>Exit</b> from the main menu, or just hit <b>[X]</b> on top of the window.</p>
+                        <hr>
+                        
+                        <h2>I am a developer. Can I add / delete POIs or browse maps the same way?</h2>
+                        <p>Yes, you can. Here's a few tips for developers:
+                        <ol>
+                        <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode</li>
+                        <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
+                        <li>You can only add, edit, or remove built-in POIs. </li>
+                        <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
+                        <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
+                        <li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
+                        </ol>
+                        </p>
+                        <hr>
+                        
+                        <h2>I still need help!</h2>
+                        <p>Feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
+                        <hr>
+                        </div>
+                        """, "help.png");
+
+            }
+        });
+        about.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mouseClicked(MouseEvent e) {
+               clearWindows(); // Closes all floating windows and displays the About page.
+               new PopupView("About", """
+                       <div style="font-family: Arial; text-align: center; font-size: 18">
+                       <br>
+                       <br>
+                       <br>
+                       <h1><i>BuildingBuddy</i></h1>
+
+                       <h3>Version\s
+                       """ + Main.currentAppVersion + """
+                       </h3>
+
+                       <h4>Developed by <span style="color:red;">""" + Main.developerName +
+                       """
+                       </span> at <span style="color:#6600cc;">UWO</span></h4>
+
+                       <h3>Developers:
+                       Arjuna Kadirgamar, Daniel Gomes, Robert Beemer, Jason Shew, Joshua Cini</h3>
+                       <br>
+                       <a href="https://wiki.csd.uwo.ca/display/COMPSCI2212W2023GROUP14/COMPSCI+2212+-+Winter+2023+-+Group+14+Home">Project Website</a> | <a href="https://github.com/dan1el5/BuildingBuddy">GitHub</a><br>
+                       </div>
+                       """, "BB_icon.png");
+
+           }
+        });
+        exit.addMouseListener(new MouseAdapter() {
+              @Override
+              public void mouseClicked(MouseEvent e) {
+                  clearWindows();
+                  // Quits the program.
+                  System.exit(0); // Exits the program with status code 0.
+              }
+        });
+
+        weather.addMouseListener(new MouseAdapter() {
+             @Override
+             public void mouseClicked(MouseEvent e) {
+                 // Displays current weather.
+                 clearWindows();
+                 try {
+                     new WeatherInfo();
+                 } catch (IOException ex) {
+                     throw new RuntimeException(ex);
+                 }
+             }
         });
 
         nukeBookmarks.addActionListener(e -> {
@@ -667,8 +684,8 @@ public class AppMenu {
                     mb.remove(view);
                     mb.add(logout);
                     mb.remove(start);
-                    moreSubMenu.add(changeKey);
-                    moreSubMenu.add(nukeBuiltInPOIs);
+                    more.add(changeKey);
+                    more.add(nukeBuiltInPOIs);
                     // Sets the app mode to Dev Mode.
                     Main.devMode = true;
                     GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – *** Development Mode ***");
@@ -693,15 +710,13 @@ public class AppMenu {
         developerTool.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
 
         // Adds menu items to menu.
-        viewSubMenu.add(bookmarks);
-        viewSubMenu.add(myLocations);
-        moreSubMenu.add(checkForUpdates);
-        moreSubMenu.add(nukeBookmarks);
-        moreSubMenu.add(nukeMyLocations);
-        moreSubMenu.add(reset);
-        moreSubMenu.add(developerTool);
-
-
+        view.add(bookmarks);
+        view.add(myLocations);
+        more.add(checkForUpdates);
+        more.add(nukeBookmarks);
+        more.add(nukeMyLocations);
+        more.add(reset);
+        more.add(developerTool);
 
         // Adds menu to menu bar.
         mb.add(start);
@@ -715,24 +730,57 @@ public class AppMenu {
 
         // Sets the font, size, and color of each menu item.
         Font menuFont = new Font("Arial", Font.PLAIN, 18);
-        ArrayList<JButton> buttonArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
-        for (JButton button : buttonArray) {
+        ArrayList<JMenu> buttonArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
+        for (JMenu button : buttonArray) {
             button.setFont(menuFont);
             button.setBorder(null);
-            button.setPreferredSize(new Dimension(100, 25));
             button.setForeground(mb.getForeground());
             button.setBackground(mb.getBackground());
-            button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createEmptyBorder(5, 5, 5, 5), button.getBorder()));
+            button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+            button.setOpaque(true);
+            button.setBackground(new Color(250,250,250));
+            button.setForeground(Color.BLACK);
+            button.setUI(new BasicMenuUI() {
+                @Override
+                public void paint(Graphics g, JComponent c) {
+                    super.paint(g, c);
+
+                    FontMetrics fm = g.getFontMetrics();
+                    Rectangle rect = c.getBounds();
+
+                    int textWidth = fm.stringWidth(button.getText());
+                    int x = rect.x + (rect.width - textWidth) / 2;
+                    int y = rect.y + ((rect.height - fm.getHeight()) / 2) + fm.getAscent();
+
+                    g.drawString(button.getText(), x, y);
+                }
+            });
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    button.setBackground(new Color(78,37,130,80)); // change the button background color when hovered
+                    button.setForeground(Color.WHITE);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setBackground(new Color(250,250,250)); // restore the default button background color
+                    button.setForeground(Color.BLACK);
+                }
+            });
+
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    MapView.cancelHighlight();
+                }
+            });
         }
 
-        for (var mi: viewSubMenu.getSubElements()) {
-            if (mi instanceof JMenuItem)
-                ((JMenuItem)mi).setFont(menuFont);
-        }
-        for (var mi: moreSubMenu.getSubElements()) {
-            if (mi instanceof JMenuItem)
-                ((JMenuItem)mi).setFont(menuFont);
+        ArrayList<JMenuItem> menuItemArray = new ArrayList<>(Arrays.asList(bookmarks, myLocations, checkForUpdates,nukeBookmarks,nukeMyLocations,nukeBuiltInPOIs,reset,changeKey,developerTool));
+
+        for (JMenuItem elem : menuItemArray) {
+            elem.setFont(menuFont);
         }
 
         mb.setVisible(true);

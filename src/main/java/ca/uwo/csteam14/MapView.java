@@ -288,8 +288,8 @@ public class MapView extends JPanel {
                         newPOI.isBuiltIn = true;
                         newPOI.next = null;
                         new POIEditor(newPOI);
+                        currentHighlighted = newPOI;
                         if (POIEditor.isSaved) {
-                            currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
                             POISelector.focus = newPOI;
                             Main.updateCurrent(newPOI);
@@ -312,8 +312,8 @@ public class MapView extends JPanel {
                         newPOI.isBuiltIn = false;
                         newPOI.next = null;
                         new POIEditor(newPOI);
+                        currentHighlighted = newPOI;
                         if (POIEditor.isSaved) {
-                            currentHighlighted = newPOI;
                             POIEditor.isSaved = false;
                             POISelector.focus = newPOI;
                             Main.updateCurrent(newPOI);
@@ -360,7 +360,7 @@ public class MapView extends JPanel {
             try {
                 newMap = GUIForPOIs.mapView.applyHighlighter(x, y,mode);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                return;
             }
             new MapView(newMap, new Point(x , y ));
         }
@@ -368,9 +368,19 @@ public class MapView extends JPanel {
             try {
                 newMap = LayerFilter.currentMapView.applyHighlighter(x, y, mode);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                return;
             }
             new MapView(newMap, new Point(x , y ));
+        }
+    }
+
+    public static void cancelHighlight() {
+        try {
+            if (GUI.frame.getContentPane() == GUI.canvas)
+                GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+            else if (GUI.frame.getContentPane() == GUIForPOIs.secondary)
+                GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+        } catch (Exception ignored) {
         }
     }
 }

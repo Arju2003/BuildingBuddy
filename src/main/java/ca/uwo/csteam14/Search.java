@@ -22,7 +22,7 @@ public class Search {
     /** The first result returned */
     protected static POI firstResult = null;
     /** The default text in the search box before user searches */
-    private static final String defaultText = "Search anything ...";
+    private static final String defaultText = "Search anything . . .";
 
     private static boolean successful = false;
 
