@@ -216,7 +216,7 @@ public class Splash extends JPanel {
         if (targetHeight > 0 || targetWidth > 0) {
             int w, h;
             if (higherQuality) {
-                // Use multi-step technique: start with original size, then
+                // Use multistep technique: start with original size, then
                 // scale down in multiple passes with drawImage()
                 // until the target size is reached
                 w = img.getWidth();
@@ -278,7 +278,7 @@ public class Splash extends JPanel {
      * @param targetWidth the desired width of the scaled up image
      * @param targetHeight the desired height of the scaled up image
      * @param hint the hint to be used for scaling interpolation
-     * @param higherQuality whether to use a multi-step technique for higher quality scaling
+     * @param higherQuality whether to use a multistep technique for higher quality scaling
      * @return a BufferedImage scaled up to the specified dimensions
      */
     protected static BufferedImage getScaledUpInstance(BufferedImage img,
@@ -292,7 +292,7 @@ public class Splash extends JPanel {
         BufferedImage ret = img;
         int w, h;
         if (higherQuality) {
-            // Use multi-step technique: start with original size, then
+            // Use multistep technique: start with original size, then
             // scale down in multiple passes with drawImage()
             // until the target size is reached
             w = img.getWidth();

@@ -120,7 +120,7 @@ public class Main {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Key file ");
         }
         return securityKey;
     }
@@ -149,12 +149,12 @@ public class Main {
      * @return A message that shows the user whether there is a new version of the app available.
      */
     public static String updateChecker() throws IOException {
-        String urlStr = "https://raw.githubusercontent.com/dan1el5/BuildingBuddy/master/README.md"; // replace with your URL
+        String urlStr = "https://raw.githubusercontent.com/dan1el5/BuildingBuddy/master/README.md"; // where the README file is stored
         URL url = new URL(urlStr);
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String firstLine = reader.readLine();
+            String firstLine = reader.readLine(); // Reads the first line of the README file that contains the version number
             reader.close();
-            if (firstLine.contains(currentAppVersion))
+            if (firstLine.contains(currentAppVersion)) // Compares version numbers and returns the result
                 return "You're running the latest version of BuildingBuddy!<br><br>Happy exploring!";
             else return "There's a new version of BuildingBuddy available.<br><br>You may download it now from our GitHub repo (click About in the menu).";
     }

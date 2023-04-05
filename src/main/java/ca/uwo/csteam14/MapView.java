@@ -38,24 +38,29 @@ public class MapView extends JPanel {
 
 
     /**
-     * @param mapFileName
-     * @param focalPoint
+     * Constructs a new MapView with the given map image file name and focal point.
+     *
+     * @param mapFileName the file name of the map image
+     * @param focalPoint the focal point of the map view
      */
     public MapView(String mapFileName, Point focalPoint) {
         try {
-            mapImage = ImageIO.read(new File("./maps/"+mapFileName));
+            mapImage = ImageIO.read(new File("./maps/" + mapFileName)); // load the map image from file
             imageWidth = mapImage.getWidth();
             imageHeight = mapImage.getHeight();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.focalPoint = focalPoint;
+        this.focalPoint = focalPoint; // Sets the focal point of the map view
 
+        // Sets the layout of the panel to overlay
         setLayout(new OverlayLayout(this));
-        if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+
+        // Adds clickable areas for each layer to the panel
+        if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
             JComponent[] clickables = new JComponent[LayerFilter.labelArray.size()];
             for (int i = 0; i < LayerFilter.labelArray.size(); ++i) {
-                clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.labelArray);
+                clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.labelArray); // Gets the clickable areas for the layer
                 clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
@@ -64,30 +69,37 @@ public class MapView extends JPanel {
         else {
             JComponent[] clickables = new JComponent[LayerFilter.selectedLayers.size()];
             for (int i = 0; i < LayerFilter.selectedLayers.size(); ++i) {
-                clickables[i] = getClickableAreas(Main.currentFloor,LayerFilter.selectedLayers);
+                clickables[i] = getClickableAreas(Main.currentFloor, LayerFilter.selectedLayers); // Gets the clickable areas for the selected layers
                 clickables[i].setPreferredSize(new Dimension(MapView.imageWidth, MapView.imageHeight));
                 add(clickables[i]);
                 setComponentZOrder(clickables[i], 0);
             }
         }
+
+        // Add the map view to a scroll pane
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
         viewport.setView(this);
-        // Get the size of the viewport
-        Dimension viewportSize = viewport.getViewSize();
-        // Calculate the position to display in the center of the viewport
-        int x = focalPoint.x - viewportSize.width / 8;
-        int y = focalPoint.y - viewportSize.height / 4;
+
+        // Set the position of the map view within the scroll pane
+        Dimension viewportSize = viewport.getViewSize(); // get the size of the viewport
+        int x = focalPoint.x - viewportSize.width / 8; // calculate the x position to display in the center of the viewport
+        int y = focalPoint.y - viewportSize.height / 4; // calculate the y position to display in the center of the viewport
         viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
+
+        // Replace the current content pane of the frame with the scroll pane
         if (GUI.frame.getContentPane() instanceof Canvas)
-            ((Canvas)GUI.frame.getContentPane()).replaceWith(scrollPane,'R');
-        }
+            ((Canvas)GUI.frame.getContentPane()).replaceWith(scrollPane,'R'); // replace the canvas with the scroll pane
+    }
+
 
 
     /**
-     * @param bufferedMap
-     * @param focalPoint
+     * Constructs a new MapView with a given buffered map image and a focal point.
+     *
+     * @param bufferedMap the buffered map image to display
+     * @param focalPoint the point to focus the map on
      */
     public MapView(BufferedImage bufferedMap, Point focalPoint) {
         mapImage = bufferedMap;
@@ -121,9 +133,9 @@ public class MapView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JViewport viewport = new JViewport();
         viewport.setView(this);
-        // Get the size of the viewport
+        // Gets the size of the viewport
         Dimension viewportSize = viewport.getViewSize();
-        // Calculate the position to display in the center of the viewport
+        // Calculates the position to display in the center of the viewport
         int x = focalPoint.x - viewportSize.width / 8;
         int y = focalPoint.y - viewportSize.height / 4;
         viewport.setViewPosition(new Point(x, y));
@@ -134,36 +146,54 @@ public class MapView extends JPanel {
 
 
     /**
-     * @param g the <code>Graphics</code> object to protect
+     * This method paints the component with a given Graphics object.
+     * It draws a map image in the component if it exists.
+     *
+     * @param g The Graphics object used to draw the component.
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        // Draw the map image if it exists
         if (mapImage != null) {
             g2d.drawImage(mapImage, 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
 
+
     /**
-     * @return
+     * Returns the preferred size of this MapView, based on the dimensions of its
+     * underlying map image. This is used by layout managers to determine the best
+     * size for the component.
+     *
+     * @return the preferred size of this MapView
      */
     public Dimension getPreferredSize() {
         return new Dimension(imageWidth, imageHeight);
     }
 
 
+
     /**
-     * @param x
-     * @param y
-     * @param mode
-     * @return
-     * @throws IOException
+     * Applies a highlight effect on the map image to indicate the position of a point of interest or search result.
+     * The image is modified in place by creating a new image, drawing the original map image on it, drawing a circle
+     * around the specified point, and then returning the modified image.
+     *
+     * @param x the x-coordinate of the point to highlight
+     * @param y the y-coordinate of the point to highlight
+     * @param mode the mode of the highlight effect to apply
+     * @return the modified image with the highlight effect applied
+     * @throws IOException if there is an error reading an image file
      */
     public BufferedImage applyHighlighter(int x, int y, String mode) throws IOException {
 
-        if (GUI.frame.getContentPane().equals(GUI.canvas)) basemap = LayerFilter.baseMapImage;
-        else if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) basemap = ImageIO.read(new File("./maps/"+ Main.currentFloor+".png"));
-
+        // determine which map image to use based on the current GUI
+        if (GUI.frame.getContentPane().equals(GUI.canvas)) {
+            basemap = LayerFilter.baseMapImage;
+        } else if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
+            basemap = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
+        }
 
         // create a new image with the same dimensions as the original basemap
         BufferedImage highlightedImage = new BufferedImage(basemap.getWidth(), basemap.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -178,15 +208,15 @@ public class MapView extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // create a circle with a transparent fill and a solid border
-
-
         if (GUI.frame.getContentPane() == (GUIForPOIs.secondary)) {
             POI p = POISelector.focus;
             if (p == null || mode.equals("NEW")) {
-                p = identifyPOI(Main.currentFloor,LayerFilter.labelArray,x,y);}
+                p = identifyPOI(Main.currentFloor, LayerFilter.labelArray, x, y);
+            }
             if (p != null) {
                 BufferedImage iconImage = ImageIO.read(new File(LayerFilter.getLayerIcon(p.category)));
                 BufferedImage resizedIcon = new BufferedImage(LayerFilter.iconWidth, LayerFilter.iconHeight, iconImage.getType());
+
                 // Scale the icon image to the new size
                 Graphics2D g = resizedIcon.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -197,18 +227,21 @@ public class MapView extends JPanel {
                 if (!mode.equals("NEW"))
                     g.drawImage(resizedIcon, x - LayerFilter.iconWidth / 2, y - LayerFilter.iconHeight / 2, LayerFilter.iconWidth, LayerFilter.iconHeight, null);
                 g.dispose();
-                }
             }
+        }
 
-        int highlightOvalWidth = (int) ( LayerFilter.iconWidth * 1.5);
-        int highlightOvalHeight = (int) ( LayerFilter.iconHeight * 1.5);
+        // determine the dimensions of the highlight circle based on the icon size
+        int highlightOvalWidth = (int) (LayerFilter.iconWidth * 1.5);
+        int highlightOvalHeight = (int) (LayerFilter.iconHeight * 1.5);
+
+        // apply the appropriate highlight effect based on the specified mode
 
         if (mode.strip().equalsIgnoreCase("BIP")) {
             g2d.setColor(new Color(255, 0, 0, 90));
             g2d.fillOval(x - highlightOvalWidth / 2 , y - highlightOvalHeight / 2 , highlightOvalWidth, highlightOvalHeight);
         }
         else if (mode.strip().equalsIgnoreCase("UDP")) {
-            g2d.setColor(new Color(255, 255,0 , 110));
+            g2d.setColor(new Color(155, 255,223 , 110));
             g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 
@@ -244,31 +277,46 @@ public class MapView extends JPanel {
     }
 
     /**
-     * @param currentFloor
-     * @param layerNames
-     * @return
+     * Returns a JComponent object that displays the image and provides clickable areas for POIs.
+     *
+     * @param currentFloor the current floor being displayed
+     * @param layerNames   an ArrayList of layer names for the current building
+     * @return             the custom component with clickable areas
      */
     public JComponent getClickableAreas(String currentFloor, ArrayList<String> layerNames) {
         // Create a custom component to display the image
         JComponent component = new JComponent() {
+            /**
+             * Paints the component with the map image.
+             *
+             * @param g the graphics context to paint with
+             */
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(mapImage, 0, 0, null);
             }
         };
+
         component.addMouseListener(new MouseAdapter() {
+            /**
+             * Handles a mouse click on the component.
+             *
+             * @param e the MouseEvent containing information about the click
+             */
             public void mouseClicked(MouseEvent e) {
+                // Detects if there is an existing POI where the mouse click event occurs
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
+                // If the POI exists, then highlights it and opens a reader / editor to read / modify the POI
                 if (p != null) {
                     POISelector.focus = p;
                     Main.updateCurrent(p);
                     mouseClickedOnPOI = true;
-                    if (currentHighlighted == null) {
+                    if (currentHighlighted == null) { // If clicks on it once, highlights it
                         currentHighlighted = p;
                         highlight(p.positionX,p.positionY,"BIP");
                         new POIEditor(p);
                     }
-                    else {
+                    else { // if clicks on it twice, reverses the highlight
                         AppMenu.clearWindows();
                         highlight(currentHighlighted.positionX, currentHighlighted.positionY, "OFF");
                         if (!p.isEqualTo(currentHighlighted)) {
@@ -280,10 +328,10 @@ public class MapView extends JPanel {
                             currentHighlighted = null;
                     }
                 }
-                else {
+                else {  // If the POI does not exist, then highlights it and opens an editor to create a new POI
                     POISelector.focus = null;
                     mouseClickedOnPOI = false;
-                    if (Main.devMode) {
+                    if (Main.devMode) { // In Dev Mode, creates a new POI as a built-in POI
                         highlight(e.getX(), e.getY(), "NEW");
                         POI newPOI = new POI(Data.generatePOIID("dev"));
                         newPOI.name = "";
@@ -306,6 +354,7 @@ public class MapView extends JPanel {
                             Main.updateCurrent(newPOI);
                         }
                     }
+                    // In Exploration Mode, creates a new POI as a user-defined POI
                     else if (GUI.frame.getContentPane().equals(GUI.canvas)) {
                         highlight(e.getX(), e.getY(), "NEW");
                         int id = Data.generatePOIID("user");
@@ -337,17 +386,18 @@ public class MapView extends JPanel {
     }
 
     /**
-     * @param floorName
-     * @param layerNames
-     * @param x
-     * @param y
-     * @return
+     * Identifies the point of interest (POI) given the floor name, layer names, and x,y coordinates.
+     * @param floorName The name of the floor.
+     * @param layerNames The list of layer names to check for POIs.
+     * @param x The x-coordinate of the point.
+     * @param y The y-coordinate of the point.
+     * @return The POI object if found, null otherwise.
      */
     public POI identifyPOI(String floorName, ArrayList<String> layerNames, int x, int y) {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
-            if (!s.contains("Bookmarks"))
-                if (Main.devMode && !s.contains("My Locations"))
+            if (!s.contains("Bookmarks")) // Bookmarks are never shown because they are duplicates of existing POIs
+                if (Main.devMode && !s.contains("My Locations")) // In dev mode, My Locations are not shown
                     list.addAll(Data.getLayerPOIs(floorName, s));
                 else if (!Main.devMode)
                     list.addAll(Data.getLayerPOIs(floorName, s));
@@ -360,10 +410,14 @@ public class MapView extends JPanel {
     }
 
 
+
     /**
-     * @param x
-     * @param y
-     * @param mode
+     * Highlights a point on the map based on the provided coordinates and mode.
+     *
+     * @param x The x-coordinate of the point to highlight.
+     * @param y The y-coordinate of the point to highlight.
+     * @param mode The mode of the highlight.
+     *             Valid values are "BIP", "UDP", "SRC", "BMK", "NEW", and "OFF".*
      */
     public void highlight(int x, int y, String mode) {
         BufferedImage newMap;
@@ -385,17 +439,27 @@ public class MapView extends JPanel {
         }
     }
 
+    /**
+     * Cancels the current highlight on the map view.
+     * If a POI is currently highlighted, the highlight will be removed and the currentHighlighted POI reference and POISelector focus will be set to null.
+     */
     public static void cancelHighlight() {
-        if (MapView.currentHighlighted != null)
+        if (MapView.currentHighlighted != null) { // If there is currently a highlighted POI
             try {
-                if (GUI.frame.getContentPane() == GUI.canvas)
+                if (GUI.frame.getContentPane() == GUI.canvas) { // If the current view is the main map
+                    // Call the highlight method on the main map view, passing the highlighted POI's position and the "OFF" mode
                     GUI.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
-                else if (GUI.frame.getContentPane() == GUIForPOIs.secondary)
+                } else if (GUI.frame.getContentPane() == GUIForPOIs.secondary) { // If the current view is the POI search results view
+                    // Call the highlight method on the POI search results view, passing the highlighted POI's position and the "OFF" mode
                     GUIForPOIs.mapView.highlight(MapView.currentHighlighted.positionX, MapView.currentHighlighted.positionY, "OFF");
+                }
+                // Reset the currentHighlighted POI to null and the focus to null
                 MapView.currentHighlighted = null;
                 POISelector.focus = null;
             } catch (Exception ignored) {
+                // Ignore any exceptions that occur
             }
+        }
     }
 }
 

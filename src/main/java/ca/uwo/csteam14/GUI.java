@@ -27,15 +27,15 @@ public class GUI {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                throw new RuntimeException(ex);
+                return;
             }
 
-            try {
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                AppMenu appMenu = new AppMenu();
-                frame.setJMenuBar(appMenu.load());
-                JLabel buildingName = new JLabel();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            AppMenu appMenu = new AppMenu();
+            frame.setJMenuBar(appMenu.load());
+            JLabel buildingName = new JLabel();
 
+            try {
                 switch (buildingCode) {
                     case "KB" -> {
                         canvas = new Canvas("./images/KB_hero.png");
@@ -52,37 +52,46 @@ public class GUI {
                         buildingName.setText("Physics & Astronomy Building (PAB)");
                         mapView = new MapView(Main.currentFloor_PAB + ".png", Main.getOptimumPoint(buildingCode));
                     }
+                    default -> {
+                        canvas = new Canvas("./images/MC_hero.png");
+                        buildingName.setText("Middlesex College (MC)");
+                        mapView = new MapView("MC0F.png", Main.getOptimumPoint(buildingCode));
+                    }
                 }
-
-                frame.setContentPane(canvas);
-                buildingName = new JLabel("<html><div style=\"text-align:center;\">" + Main.getBuildingFullName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
-
-                // Set the font size and style
-                Font title = new Font("Arial", Font.BOLD, 26);
-                buildingName.setFont(title);
-
-                // Set the foreground color
-                Color foregroundColour = new Color(75, 250 ,0);
-                Color background = new Color(0,0,0, 0.3f);
-                padding(buildingName);
-                buildingName.setForeground(foregroundColour);
-                buildingName.setOpaque(true);
-                buildingName.setBackground(background);
-                canvas.load(buildingName,'L');
-
-                new FloorSelector();
-                new LayerFilter(); // this invokes the MapView object
-                new Search();
-                frame.pack();
-                frame.setResizable(false);
-                frame.setLocationRelativeTo(null); // always loads the interface at the center of the monitor regardless resolution
-                frame.setVisible(true);
-                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
             } catch (IOException exp) {
-                exp.printStackTrace();
+                System.out.println("No background image found.");
             }
 
+            frame.setContentPane(canvas);
+            buildingName = new JLabel("<html><div style=\"text-align:center;\">" + Main.getBuildingFullName(buildingCode) + "<br />(" + buildingCode + ") ►</div></html>");
+
+            // Set the font size and style
+            Font title = new Font("Arial", Font.BOLD, 26);
+            buildingName.setFont(title);
+
+            // Set the foreground color
+            Color foregroundColour = new Color(75, 250 ,0);
+            Color background = new Color(0,0,0, 0.3f);
+            padding(buildingName);
+            buildingName.setForeground(foregroundColour);
+            buildingName.setOpaque(true);
+            buildingName.setBackground(background);
+            canvas.load(buildingName,'L');
+
+            new FloorSelector();
+
+            try {
+                new LayerFilter(); // this invokes the MapView object
+            } catch (IOException e) {
+                System.out.println("Map file can't be read.");
+            }
+            new Search();
+
+            frame.pack();
+            frame.setResizable(false);
+            frame.setLocationRelativeTo(null); // Always loads the interface at the center of the monitor regardless resolution
+            frame.setVisible(true);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         });
     }
 

@@ -762,7 +762,7 @@ public class AppMenu {
             item.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    item.setBackground(new Color(78,37,130,80)); // change the button background color when hovered
+                    item.setBackground(new Color(78,37,130)); // change the button background color when hovered
                     item.setForeground(Color.WHITE);
                 }
 

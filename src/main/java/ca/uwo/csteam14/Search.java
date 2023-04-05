@@ -23,7 +23,7 @@ public class Search {
     /** The first result returned */
     protected static POI firstResult = null;
     /** The default text in the search box before user searches */
-    private static final String defaultText = "Type to search, click to discover →";
+    private static final String defaultText = "Type to search, or click to discover →";
 
     /** A boolean value indicates whether the user succeeded in getting any search results. */
     private static boolean successful = false;
@@ -48,6 +48,7 @@ public class Search {
 
         JButton goButton = new JButton("Go");
         goButton.setPreferredSize(new Dimension(40,40));
+        goButton.setFont(new Font("Arial",Font.BOLD,14));
         goButton.addActionListener(e->{
             if (e.getSource() == goButton) {
                 userInput = input.getText();
@@ -128,29 +129,30 @@ public class Search {
                 results.addAll(Data.userCreatedPOIs); // plus user-defined POIs if it is not in Dev Mode
         }
         else  { // If user input is anything else then returns results regarding POI names, descriptions, categories, and building / floor information
+            String processedUserInput = userInput.toLowerCase().strip().replaceAll("s$",""); // Turns user search phrase into small letters and deletes the plural -s
             for (POI p : Data.builtInPOIs) {
-                if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
+                if (!results.contains(p) && (p.name.toLowerCase().contains(processedUserInput) || processedUserInput.contains(p.name.toLowerCase()))) {
                     results.add(p);
                     continue;
                 }
-                if (!results.contains(p) && (p.description.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.description.toLowerCase()))) {
+                if (!results.contains(p) && (p.description.toLowerCase().contains(processedUserInput) || processedUserInput.contains(p.description.toLowerCase()))) {
                     results.add(p);
                     continue;
                 }
 
-                if (!results.contains(p) && (p.category.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.category.toLowerCase())))
+                if (!results.contains(p) && (p.category.toLowerCase().contains(processedUserInput)) || processedUserInput.contains(p.category.toLowerCase()))
                     results.add(p);
 
-                if (!results.contains(p) && (p.map.toLowerCase().contains(userInput.toLowerCase().strip())) || (userInput.toLowerCase().strip().contains(p.map.toLowerCase())))
+                if (!results.contains(p) && (p.map.toLowerCase().contains(processedUserInput)) || processedUserInput.contains(p.map.toLowerCase()))
                     results.add(p);
             }
             if (!Main.devMode) { // if it is not in Dev Mode, also include user-defined POIs, matching against POI names and categories.
                 for (POI p : Data.userCreatedPOIs) {
-                    if (!results.contains(p) && (p.name.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.name.toLowerCase()))) {
+                    if (!results.contains(p) && (p.name.toLowerCase().contains(processedUserInput)) || processedUserInput.contains(p.name.toLowerCase())) {
                         results.add(p);
                         continue;
                     }
-                    if (!results.contains(p) && (p.description.toLowerCase().contains(userInput.toLowerCase().strip()) || userInput.toLowerCase().strip().contains(p.description.toLowerCase()))) {
+                    if (!results.contains(p) && (p.description.toLowerCase().contains(processedUserInput) || processedUserInput.contains(p.description.toLowerCase()))) {
                         results.add(p);
                     }
                 }
