@@ -73,7 +73,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### What is a bookmark?
-<p>A bookmark is one of your favourite POIs across all the maps in BuildingBuddy.</p>
+<p>A bookmark is one of your favourite POIs that you hope to view conveniently at any time.</p>
 <hr>
 
 ### What is My Location?
@@ -85,7 +85,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### How many My Locations are allowed to be created?
-<p>Currently, BuildingBuddy allows a user to create an unlimited number of POIs.</p>
+<p>Currently, <i>BuildingBuddy</i> allows the user to create an unlimited number of POIs.</p>
 <hr>
 
 ### How can I explore another building?
@@ -153,7 +153,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?
-<p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase <i>Search Anything...</i> in the text bar or clear it before hitting <b>Go</b>.)</p>
+<p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase in the text bar or clear it before hitting <b>Go</b>.</p>
 <hr>
 
 ### Some of my bookmarks are gone unknowingly. Why?
@@ -164,14 +164,14 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <p>Click <b>Exit</b> from the main menu, or just hit <b>[X]</b> on top of the window.</p>
 <hr>
 
-### I am a developer. Can I add / delete POIs or browse maps the same way?
+### I am a developer. Can I add / edit / delete POIs or browse floor maps the same way?
 <p>Yes, you can. Here's a few tips for developers:</p>
 <ol>
 <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode.</li>
 <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
 <li>You can only add, edit, or remove built-in POIs. </li>
 <li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>
-<li>You can still take advantage of the search bar and building + floor code shortcut (refer to the <b>MC2F</b> example above).</li>
+<li>You can still take advantage of the search bar and <i>building + floor code</i> shortcut (refer to the <b>MC2F</b> example above).</li>
 <li>Developers cannot view the user's bookmarks, search queries, or any non-built-in POIs.</li>
 <li>If you forget your security key, check <code>./data/security_key</code> or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
 </ol>

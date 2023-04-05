@@ -55,11 +55,6 @@ public class AppMenu {
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
         JMenuItem nukeBuiltInPOIs = new JMenuItem("Nuke Built-In POIs");
         JMenuItem reset = new JMenuItem("Reset BuildingBuddy");
-        nukeBookmarks.setForeground(Color.RED);
-        nukeMyLocations.setForeground(Color.RED);
-        nukeBuiltInPOIs.setForeground(Color.RED);
-        reset.setForeground(Color.RED);
-        developerTool.setForeground(Color.BLUE);
         // Adds ActionListener to menu buttons and menu items.
         start.setVisible(true);
         start.addMouseListener(new MouseAdapter() {
@@ -99,7 +94,7 @@ public class AppMenu {
                         <hr>
 
                         <h2>What is a bookmark?</h2>
-                        <p>A bookmark is one of your favourite POIs across all the maps in BuildingBuddy.</p>
+                        <p>A bookmark is one of your favourite POIs that you hope to view conveniently at any time.</p>
                         <hr>
                         
                         <h2>What is My Location?</h2>
@@ -111,7 +106,7 @@ public class AppMenu {
                         <hr>
                         
                         <h2>How many My Locations are allowed to be created?</h2>
-                        <p>Currently, BuildingBuddy allows a user to create an unlimited number of POIs.</p>
+                        <p>Currently, <i>BuildingBuddy</i> allows the user to create an unlimited number of POIs.</p>
                         <hr>
                         
                         <h2>How can I explore another building?</h2>
@@ -180,7 +175,7 @@ public class AppMenu {
                         <hr>
                         
                         <h2>How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?</h2>
-                        <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase <i>Search Anything...</i> in the text bar or clear it before hitting <b>Go</b>.)</p>
+                        <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase in the text bar or clear it before hitting <b>Go</b>.</p>
                         <hr>
                         
                         <h2>Some of my bookmarks are gone unknowingly. Why?</h2>
@@ -191,7 +186,7 @@ public class AppMenu {
                         <p>Click <b>Exit</b> from the main menu, or just hit <b>[X]</b> on top of the window.</p>
                         <hr>
                         
-                        <h2>I am a developer. Can I add / delete POIs or browse maps the same way?</h2>
+                        <h2>I am a developer. Can I add / edit / delete POIs or browse floor maps the same way?</h2>
                         <p>Yes, you can. Here's a few tips for developers:
                         <ol>
                         <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode.</li>
