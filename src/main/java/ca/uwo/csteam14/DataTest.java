@@ -36,8 +36,10 @@ class DataTest {
      * This method tests the getLayerPOIs() method of the Data class.
      */
     @Test
-    void getLayerPOIs() {  // FILL IN
+    void getLayerPOIs() {
         System.out.println("getLayerPOIs");
+
+        // FILL IN!!!
     }
 
     /**
