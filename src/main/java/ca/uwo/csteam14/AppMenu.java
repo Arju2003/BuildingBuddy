@@ -150,7 +150,7 @@ public class AppMenu {
                         <hr>
                         
                         <h2>Why do I see only washrooms and elevators in Exploration Mode?</h2>
-                        <p>The layer filer on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
+                        <p>The layer filter on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
                         <hr>
                         
                         <h2>How to view or edit bookmarks?</h2>

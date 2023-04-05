@@ -1,19 +1,28 @@
 # _BuildingBuddy_ (Ver 1.0)
 
+<img src="./images/BB_icon.png"  width="30%">
+
 ## Introduction
 _BuildingBuddy_ is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics & Astronomy Building. The entire development process started on January 25, 2023, and ended on April 6, 2023. Major coding work started on March 7, 2023.
+
 ## Configurations
 _BuildingBuddy_ is a Maven project written in Java. The integrated development environment in use is IntelliJ IDEA, with OpenJDK 19 (Java version 19.0.2).
 
 For better user experience, set the display resolution to 1496 * 967 or higher.
 
-If you run from IntelliJ IDEA, create a **New Project from Version Control**. Choose **Git** as your version control, and add **URL**: https://github.com/dan1el5/BuildingBuddy.git. 
+If you run from IntelliJ IDEA, the best way is to create a **New Project from Version Control**. Choose **Git** as your version control, and add **URL**: https://github.com/dan1el5/BuildingBuddy.git.
+
+If you try to run the `.jar` file, make sure the `.jar` file is located at the root directory together with the `data`, `maps`, and `images` folders.
+
+![Jar file](./images/jar.png)
+
 
 To minimize issues you may come across running the program, you are encouraged to read the ensuing content (including the FAQ section).
 
 ## Dependencies
-All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
+Thanks to Maven, the program should load dependencies automatically. In case it doesn't, add dependencies on your own. All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
 If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) or from [GitHub](https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip) as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location. Refer to the screenshot below.
+
 ![Add dependencies](./images/dependencies.png)
 
 ## Exploration Mode
@@ -26,10 +35,10 @@ Enter this mode by clicking **View** – **Bookmarks** or press `CTRL + B`. This
 Enter this mode by clicking **View** – **My Locations** or press `CTRL + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
 
 ## Discovery Mode
-Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a building + floor code shortcut. Learn more in the FAQ section below.
+Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
 
 ## Focus Mode
-When managing bookmarks, My Locations, or viewing search results, if the user clicks on any POI, that highlighted POI will be the only POI shown on the screen. Despite that, you can still click on any POI on this map. If you hope to view all the POIs on a floor map at once, use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
+When managing bookmarks, My Locations, or viewing search results, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up. To view all the POIs on a floor map at once, use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
 
 ## Development Mode
 To activate Development Mode in _BuildingBuddy_, choose **More** – **Developer Tool** in the app, or press `CTRL+X`.
@@ -114,7 +123,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### Why do I see only washrooms and elevators in Exploration Mode?
-<p>The layer filer on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
+<p>The layer filter on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
 <hr>
 
 ### How to view or edit bookmarks?
