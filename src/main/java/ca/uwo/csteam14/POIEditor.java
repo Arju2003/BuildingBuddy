@@ -1,11 +1,3 @@
-/**
- * This class represents an editor for adding, modifying, bookmarking, and deleting POIs.
- *
- * @author Jason B. Shew
- * @version 1.0
- * @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -15,6 +7,13 @@ import java.io.IOException;
 import static java.awt.Font.BOLD;
 import static javax.swing.SwingConstants.*;
 
+/**
+ * This class represents an editor for adding, modifying, bookmarking, and deleting POIs.
+ *
+ * @author Jason B. Shew
+ * @version 1.0
+ * @since 2023-03-07
+ */
 public class POIEditor extends JDialog {
 
     /** The editor implemented as a JDialog object. */
@@ -28,6 +27,7 @@ public class POIEditor extends JDialog {
 
 
     /**
+     * Constructs a POI editor object
      * @param poi The POI object to be added, edited, bookmarked, or deleted.
      */
     public POIEditor(POI poi) {
@@ -551,6 +551,7 @@ public class POIEditor extends JDialog {
     }
 
     /**
+     * Displays the final result of saving / editing / deleting a POI
      *
      * @param text The text to display in the deletion confirmation window.
      * @param color Sets the colour of the window background.

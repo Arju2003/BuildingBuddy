@@ -1,11 +1,3 @@
-/**
- * This class represents the opening screen of this application.
- * It consists of a background image, a building selector, a button, amd an app logo.
- * @author Jason B. Shew
- * @version 1.0
- * @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,8 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+
 /**
- * Constructs a splash screen.
+ * This class represents the opening screen of this application.
+ * It consists of a background image, a building selector, a button, amd an app logo.
+ * @author Jason B. Shew
+ * @version 1.0
+ * @since 2023-03-07
  */
 public class Splash extends JPanel {
 
@@ -27,7 +24,7 @@ public class Splash extends JPanel {
     /** A GridBagConstraints setting to align components */
     protected GridBagConstraints everythingCentered;
 
-    /**
+    /** Constructs a splash screen
      * @param backgroundImg The background image of the splash screen
      * @throws IOException  Throws an IO Exception when image file fails to load
      */
@@ -41,6 +38,7 @@ public class Splash extends JPanel {
     }
 
     /**
+     * Gets the preferred size of a component.
      * @return  A Dimension object that represents a preferred size.
      */
     @Override
@@ -49,6 +47,7 @@ public class Splash extends JPanel {
     }
 
     /**
+     * Sets the background image of this component.
      * @param value A buffer image to be used as the background image
      */
     public void setBackground(BufferedImage value) {
@@ -72,6 +71,7 @@ public class Splash extends JPanel {
     }
 
     /**
+     * Sets the background image of this component.
      * This method paints the scaled image on the <code>Graphics</code> object.
      * @param g the <code>Graphics</code> object to paint on
      */

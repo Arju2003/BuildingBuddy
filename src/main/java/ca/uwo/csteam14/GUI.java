@@ -1,3 +1,8 @@
+package ca.uwo.csteam14;
+import java.awt.*;
+import java.io.IOException;
+import javax.swing.*;
+
 /**
  * The GUI class is responsible for setting up the graphical user interface of the BuildingBuddy application.
  * It creates a JFrame and adds components such as a Canvas and JMenu. It also loads the appropriate floor map
@@ -7,16 +12,23 @@
  * @version 1.0.0
  * @since 2023-03-07
  */
-
-package ca.uwo.csteam14;
-import java.awt.*;
-import java.io.IOException;
-import javax.swing.*;
-
 public class GUI {
+    /**
+     * The main JFrame that contains the application
+     * title includes developer name and app version
+     */
     protected static JFrame frame = new JFrame("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " –");
+
+    /**
+     * The canvas for rendering the map
+     */
     protected static Canvas canvas;
+
+    /**
+     * The map view for displaying the map
+     */
     protected static MapView mapView;
+
 
     /**
      * Constructor for the GUI class

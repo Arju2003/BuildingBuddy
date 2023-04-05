@@ -1,3 +1,8 @@
+package ca.uwo.csteam14;
+import java.awt.*;
+import java.io.IOException;
+import javax.swing.*;
+
 /**
  * The GUIForPOIs class contains GUI components built specifically for POI use.
  * It provides functionality to display different types of POIs and handle user interactions with them.
@@ -9,18 +14,33 @@
  * @since 2023-03-07
  */
 
-package ca.uwo.csteam14;
-import java.awt.*;
-import java.io.IOException;
-import javax.swing.*;
-
 public class GUIForPOIs {
     // Define class variables
+    /**
+     * A secondary canvas used for displaying additional content.
+     */
     protected static Canvas secondary;
+
+    /**
+     * A label used for displaying titles.
+     */
     protected static JLabel title = new JLabel();
+
+    /**
+     * A string representing the group of POIs being displayed.
+     */
     protected static String POIsGroup;
+
+    /**
+     * A string representing the type of POI being displayed.
+     */
     protected static String POIType;
+
+    /**
+     * The MapView object used for displaying the map.
+     */
     protected static MapView mapView;
+
 
     /**
      * Constructor to create an instance of GUIForPOIs.

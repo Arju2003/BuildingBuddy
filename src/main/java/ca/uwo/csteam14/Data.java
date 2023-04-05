@@ -11,10 +11,10 @@ import java.io.FileWriter;
 
 /**
  * Data class used for reading and updating JSON files, managing POIs and bookmarks, and generating new POI IDs.
- * <br></br>
+ * <br /><br />
  * The JSON files are read and POIs are stored in LinkedList objects when {@link #Data() Data()} is called.
  * POIs and bookmarks are added with the {@link #addPOI(POI, LinkedList<POI>) addPOI} method and POIs are removed with the {@link #removePOI(POI, LinkedList) removePOI} method.
- * <br></br>
+ * <br /><br />
  * <b>Example Use:</b>
  * <pre>
  * {@code
@@ -45,11 +45,24 @@ public class Data extends LinkedList<POI> {
      */
     protected static LinkedList<POI> bookmarks;
 
+    /**
+     * Defines initial user-created POI ID starting from 4000000.
+     */
     protected static int userPOIStartID = 4000000;
 
+    /**
+     * Defines initial user POI capacity as 999999.
+     */
     protected static int userPOICapacity = 999999;
+
+    /**
+     * Defines initial developer-created POI ID starting from 5000000.
+     */
     protected static int devPOIStartID = 5000000;
 
+    /**
+     * Defines initial developer POI capacity as 999999.
+     */
     protected static int devPOICapacity = 999999;
 
     /**

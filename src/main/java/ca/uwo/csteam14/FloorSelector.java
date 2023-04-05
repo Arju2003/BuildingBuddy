@@ -1,17 +1,18 @@
-/**
- * The FloorSelector class provides methods for selecting a user's desired floor depending on their selected building.
- * This class includes a JComboBox that allows the user to select a floor and navigate to the corresponding building.
- *
- * @author Jason
- */
 package ca.uwo.csteam14;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The FloorSelector class provides methods for selecting a user's desired floor depending on their selected building.
+ * This class includes a JComboBox that allows the user to select a floor and navigate to the corresponding building.
+ *
+ * @author Jason B. Shew
+ * @version 1.0.0
+ * @since 2023-03-07
+ */
 public class FloorSelector {
 
     /**

@@ -1,10 +1,3 @@
-/**
- * This class represents a selector of POIs so user can interact with them, grab attributes, etc.
- *  @author Jason B. Shew
- *  @version 1.0.0
- *  @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,11 +8,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * This class represents a selector of POIs so user can interact with them, grab attributes, etc.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
+ */
 public class POISelector extends JPanel {
-    protected JScrollPane scrollPane;
-    protected LinkedList<POI> currentCollection;
 
+    /**
+     A scroll pane for displaying a list of POIs, with a current collection of POIs
+     and a focus on a single POI.
+     */
+    protected JScrollPane scrollPane;
+    /** The data list associated with the POI list. */
+    protected LinkedList<POI> currentCollection;
+    /**
+     The currently focused POI.
+     */
     protected static POI focus;
+
 
 
     /**
@@ -97,6 +105,13 @@ public class POISelector extends JPanel {
      * appearance for the cells of a JList.
      */
     public static class CustomListCellRenderer extends DefaultListCellRenderer {
+
+        /**
+         * Default constructor
+         */
+        public CustomListCellRenderer() {
+            // Does nothing.
+        }
 
         /**
          * Returns a customized renderer for a cell in a JList.

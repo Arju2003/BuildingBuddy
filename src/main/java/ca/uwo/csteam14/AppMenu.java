@@ -1,12 +1,3 @@
-/**
- * Generates an app menu bar.
- * This class creates a main menu in the app, displayed horizontally at the top of the GUI.
- *
- * @author Jason B. Shew
- * @version 1.0.0
- * @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicMenuUI;
@@ -17,6 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import static java.awt.Font.BOLD;
 
+/**
+ * Generates an app menu bar.
+ * This class creates a main menu in the app, displayed horizontally at the top of the GUI.
+ *
+ * @author Jason B. Shew
+ * @version 1.0.0
+ * @since 2023-03-07
+ */
 public class AppMenu {
 
     /** The menu bar to be added to the top of the GUI. */

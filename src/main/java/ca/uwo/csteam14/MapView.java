@@ -1,13 +1,3 @@
-/**
- *  This class represents a map viewer shown on the right hand side of the interface.
- *  It consists of a scrollable pane and loads a floor map at a time.
- *  It also highlights a POI in question, and pops up a POI editor.
- *
- *  @author Jason B. Shew
- *  @version 1.0.0
- *  @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
+/**
+ *  This class represents a map viewer shown on the right hand side of the interface.
+ *  It consists of a scrollable pane and loads a floor map at a time.
+ *  It also highlights a POI in question, and pops up a POI editor.
+ *
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
+ */
 public class MapView extends JPanel {
     /** The original map image to display. */
     private static BufferedImage mapImage;

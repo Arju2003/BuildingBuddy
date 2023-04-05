@@ -1,5 +1,11 @@
+package ca.uwo.csteam14;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.net.URL;
+
 /**
- * Main class for BuildingBuddy application.
+ * The Main class is the entry point of BuildingBuddy.
  * Contains methods for getting optimum points, full names of floors and buildings, updating current POI,
  * and changing security keys. Also has a method to restart the application.
  *
@@ -11,32 +17,76 @@
  *  @version 1.0.0
  *  @since 2023-03-07
  */
-package ca.uwo.csteam14;
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import java.net.URL;
 
 public class Main {
+    /**
+     * A boolean that indicates whether the application is running in developer mode.
+     */
     protected static boolean devMode;
+
+    /**
+     * A character array that holds the security key used for authentication purposes.
+     */
     private static char[] securityKey;
+
+    /**
+     * A string that holds the code for the current building being displayed.
+     */
     protected static String currentBuildingCode;
+
+    /**
+     * A string that holds the code for the current floor being displayed.
+     */
     protected static String currentFloor;
+
+    /**
+     * A string that holds the code for the current floor being displayed in the McIntyre Medical Building.
+     */
     protected static String currentFloor_MC;
+
+    /**
+     * A string that holds the code for the current floor being displayed in the Kirkbride Building.
+     */
     protected static String currentFloor_KB;
+
+    /**
+     * A string that holds the code for the current floor being displayed in the Purvis Hall and Armes Building.
+     */
     protected static String currentFloor_PAB;
+
+    /**
+     * A string that holds the current version of the application.
+     */
     protected static String currentAppVersion = "1.0";
 
+    /**
+     * A string that holds the name of the developer(s) who created the application.
+     */
     protected static String developerName = "Team 14";
+
+    /**
+     * A POI object that serves as a fallback in case of errors or missing data.
+     */
     protected static POI fallbackPOI = new POI(-1);
 
+    /**
+     * A ListCellRenderer that centers the text of a JList cell.
+     */
     public static ListCellRenderer<? super String> centerRenderer;
+
+    /**
+     * Default constructor
+     */
+    public Main() { 
+        // Does nothing.
+    }
 
     /**
      * Returns optimum point based on buildingCode provided.
      * @param buildingCode Code of the building
      * @return Point optimum point for buildingCode
      */
+
     public static Point getOptimumPoint(String buildingCode) {
         switch (buildingCode){
             case ("MC") -> {
@@ -147,6 +197,7 @@ public class Main {
      * Checks if a new version of the app is available.
      *
      * @return A message that shows the user whether there is a new version of the app available.
+     * @throws IOException when the source file cannot be read.
      */
     public static String updateChecker() throws IOException {
         String urlStr = "https://raw.githubusercontent.com/dan1el5/BuildingBuddy/master/README.md"; // where the README file is stored

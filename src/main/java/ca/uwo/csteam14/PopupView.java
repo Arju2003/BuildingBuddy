@@ -1,10 +1,3 @@
-/**
- *  This class displays a popup window with an image and some text.
- *  @author Jason B. Shew
- *  @version 1.0.0
- *  @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,6 +11,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
+/**
+ *  This class displays a popup window with an image and some text.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
+ */
 public class PopupView extends JDialog {
 
     /**

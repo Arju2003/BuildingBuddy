@@ -1,13 +1,3 @@
-/**
- * This class displays a layer filter with checkboxes for each layer of points of interest on the map.
- * It also serves as a legend for layer icons.
- *
- *  @author Jason B. Shew
- *  @version 1.0.0
- *  @since 2023-03-07
- */
-
-
 package ca.uwo.csteam14;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,26 +10,65 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-
+/**
+ * This class displays a layer filter with checkboxes for each layer of points of interest on the map.
+ * It also serves as a legend for layer icons.
+ *
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
+ */
 public class LayerFilter extends JPanel {
 
     // Fields
+    /**
+     A JPanel object used for selecting layers in the application.
+     */
     private static final JPanel layerSelector = new JPanel();
+    /**
+     A JPanel object for checkboxes to select layers in the application.
+     */
     protected static JPanel checkboxPanel;
+    /**
+     An ArrayList containing the names of the different layers available in the application.
+     */
     protected static final ArrayList<String> labelArray = new ArrayList<>(Arrays.asList("Bookmarks", "Classrooms","Labs","CompSci Spots",
             "Restaurants", "Stairwells / Elevators","Entrances / Exits", "My Locations","Accessibility","Washrooms"));
+    /**
+     An ArrayList containing the file paths for the icons associated with each layer in the application.
+     */
     protected static final ArrayList<String> iconArray = new ArrayList<>(Arrays.asList("./images/bookmark.png", "./images/classroom.png","./images/lab.png","./images/compsci.png","./images/restaurant.png","./images/stairwell.png","./images/entrance.png","./images/location.png","./images/accessibility.png","./images/washroom.png"));
+    /**
+     A BufferedImage object representing the base map image in the application.
+     */
     protected static BufferedImage baseMapImage;
+    /**
+     A String object representing the currently selected layer in the application.
+     */
     protected static String currentLayer = "Washrooms";
+    /**
+     An ArrayList containing the names of the selected layers in the application.
+     */
     protected static ArrayList<String> selectedLayers = new ArrayList<>();
+    /**
+     An ArrayList containing the POIs associated with the currently selected layer in the application.
+     */
     protected static ArrayList<POI> POIsOnSelectedLayer = new ArrayList<>();
+    /**
+     A MapView object representing the current view of the map in the application.
+     */
     protected static MapView currentMapView;
+    /**
+     An integer representing the width of the icons associated with the layers in the application.
+     */
     protected static int iconWidth = 60;
+    /**
+     An integer representing the height of the icons associated with the layers in the application.
+     */
     protected static int iconHeight = 60;
 
-    // Constructor
     /**
-     * Creates a new LayerFilter object.
+     * Constructs a new LayerFilter object.
      *
      * @throws IOException if there is an error reading an image file.
      */

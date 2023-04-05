@@ -2,10 +2,10 @@ package ca.uwo.csteam14;
 
 /**
  * POI entity used for storing information about a POI such as the name, coordinates, category, etc.
- * <br></br>
+ * <br /><br />
  * A POI is created with the {@link #POI(int) constructor}, and the other attributes are set using setters.
  * POIs can be compared for equality using the {@link #isEqualTo(POI) isEqualTo} method.
- * <br></br>
+ * <br /><br />
  * <b>Example Use:</b>
  * <pre>
  * {@code
@@ -147,16 +147,16 @@ public class POI {
     }
 
     /**
-     * Method to set the POI's boolean builtIn value, the value is true if the POI is a built in POI and the value is false if the POI is a user created POI
-     * @param builtIn a boolean parameter, true if the POI is a built in POI and the value is false if the POI is a user created POI
+     * Method to set the POI's boolean builtIn value, the value is true if the POI is a built-in POI and the value is false if the POI is a user created POI
+     * @param builtIn a boolean parameter, true if the POI is a built-in POI and the value is false if the POI is a user created POI
      */
     public void setBuiltIn(boolean builtIn) {
         this.isBuiltIn = builtIn;
     }
 
     /**
-     * Method to set the POI's path attribute to the value of the given parameter
-     * @param path
+     * Method to set the POI's map file path
+     * @param path the path of the map file
      */
     public void setPath(String path) {
         this.path = path;

@@ -1,13 +1,3 @@
-/**
- * The WeatherInfo class is responsible for retrieving and displaying
- * weather information for a specific location. The class uses the
- * WeatherAPI to get the current weather information for the location
- * specified in the API URL.
- *  @author Jason B. Shew
- *  @version 1.0.0
- *  @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -20,6 +10,15 @@ import java.net.URL;
 import javax.swing.*;
 import org.json.JSONObject;
 
+/**
+ * The WeatherInfo class is responsible for retrieving and displaying
+ * weather information for a specific location. The class uses the
+ * WeatherAPI to get the current weather information for the location
+ * specified in the API URL.
+ *  @author Jason B. Shew
+ *  @version 1.0.0
+ *  @since 2023-03-07
+ */
 public class WeatherInfo {
 
     /**

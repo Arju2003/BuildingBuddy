@@ -1,11 +1,3 @@
-/**
- * Search Tool
- * This class represents a search tool that takes user input and returns search results.
- * @author Jason B. Shew
- * @version 1.0
- * @since 2023-03-07
- */
-
 package ca.uwo.csteam14;
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +8,13 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Search Tool
+ * This class represents a search tool that takes user input and returns search results.
+ * @author Jason B. Shew
+ * @version 1.0
+ * @since 2023-03-07
+ */
 public class Search {
 
     /** The String the user searched for */
