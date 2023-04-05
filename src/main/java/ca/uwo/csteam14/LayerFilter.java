@@ -207,7 +207,7 @@ public class LayerFilter extends JPanel {
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
         for (String layerName: labelArray) {
             // Load the original images
-            if (Main.devMode && layerName.contains("My Locations"))
+            if (Main.devMode && (layerName.contains("My Locations") || layerName.contains("Bookmarks")))
                 continue;
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
             BufferedImage mapImageWithLayers = baseMapImage;
