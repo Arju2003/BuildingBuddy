@@ -206,7 +206,7 @@ public class LayerFilter extends JPanel {
         baseMapImage = ImageIO.read(new File("./maps/" + Main.currentFloor + ".png"));
         Point center = Main.getOptimumPoint(Main.currentBuildingCode);
         for (String layerName: labelArray) {
-            // Load the original images
+            // In Dev Mode, Bookmarks and My Locations are not supposed to be seen
             if (Main.devMode && (layerName.contains("My Locations") || layerName.contains("Bookmarks")))
                 continue;
             BufferedImage iconImage = ImageIO.read(new File(getLayerIcon(layerName)));
