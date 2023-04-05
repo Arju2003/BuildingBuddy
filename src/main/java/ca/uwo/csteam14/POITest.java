@@ -38,8 +38,11 @@ class POITest {
     void getId() {
         System.out.println("getId()");
         POI instance = new POI(8103);  // using this id for every test case.
-        int expResult = 8103;
-        int result = instance.getId();
+
+        int expResult = 8103;  // expected ID
+        int result = instance.getId();  // get the actual ID
+
+        // check if results are equal
         assertEquals(expResult, result);
     }
 
@@ -50,8 +53,11 @@ class POITest {
     void setId() {
         System.out.println("setId()");
         POI instance = new POI(8103);
-        instance.setId(123);
-        int expResult = 123;
+
+        instance.setId(123);  // set ID
+        int expResult = 123;  // expected ID
+
+        // check if results are equal
         assertEquals(expResult, instance.getId());
     }
 
@@ -62,8 +68,11 @@ class POITest {
     void setName() {
         System.out.println("setName()");
         POI instance = new POI(8103);
-        instance.setName("Test Name");
-        String expResult = "Test Name";
+
+        instance.setName("Test Name");  // set name
+        String expResult = "Test Name";  // expected name
+
+        // check if results are equal
         assertEquals(expResult, instance.name);
     }
 
@@ -74,8 +83,11 @@ class POITest {
     void setMap() {
         System.out.println("setMap()");
         POI instance = new POI(8103);
-        instance.setMap("PAB2F.png");
-        String expResult = "PAB2F.png";
+
+        instance.setMap("PAB2F.png");  // set map
+        String expResult = "PAB2F.png";  // expected map
+
+        // check if results are equal
         assertEquals(expResult, instance.map);
     }
 
@@ -86,8 +98,11 @@ class POITest {
     void setCode() {
         System.out.println("setCode()");
         POI instance = new POI(8103);
-        instance.setCode("PAB");
-        String expResult = "PAB";
+
+        instance.setCode("PAB");  // set code
+        String expResult = "PAB";  // expected code
+
+        // check if results are equal
         assertEquals(expResult, instance.code);
     }
 
@@ -98,8 +113,11 @@ class POITest {
     void setFloor() {
         System.out.println("setFloor()");
         POI instance = new POI(8103);
-        instance.setFloor("Ground Floor");
-        String expResult = "Ground Floor";
+
+        instance.setFloor("Ground Floor");  // set floor
+        String expResult = "Ground Floor";  // expected floor
+
+        // check if results are equal
         assertEquals(expResult, instance.floor);
     }
 
@@ -110,8 +128,11 @@ class POITest {
     void setCategory() {
         System.out.println("setCategory()");
         POI instance = new POI(8103);
-        instance.setCategory("Classroom");
-        String expResult = "Classroom";
+
+        instance.setCategory("Classroom");  // set category
+        String expResult = "Classroom";  // expected category
+
+        // check if results are equal
         assertEquals(expResult, instance.category);
     }
 
@@ -122,8 +143,11 @@ class POITest {
     void setRoomNumber() {
         System.out.println("setRoomNumber()");
         POI instance = new POI(8103);
-        instance.setRoomNumber(10);
-        int expResult = 10;
+
+        instance.setRoomNumber(10);  // set room num
+        int expResult = 10;  // expected room num
+
+        // check if results are equal
         assertEquals(expResult, instance.roomNumber);
     }
 
@@ -134,8 +158,11 @@ class POITest {
     void setX() {
         System.out.println("setX()");
         POI instance = new POI(8103);
-        instance.setX(200);
-        int expResult = 200;
+
+        instance.setX(200);  // set x coordinate
+        int expResult = 200;  // expected x
+
+        // check if results are equal
         assertEquals(expResult, instance.positionX);
     }
 
@@ -146,8 +173,11 @@ class POITest {
     void setY() {
         System.out.println("setY()");
         POI instance = new POI(8103);
-        instance.setY(300);
-        int expResult = 300;
+
+        instance.setY(300);  // set y coordinate
+        int expResult = 300;  // expected y
+
+        // check if results are equal
         assertEquals(expResult, instance.positionY);
     }
 
@@ -158,8 +188,11 @@ class POITest {
     void setDescription() {
         System.out.println("setDescription()");
         POI instance = new POI(8103);
-        instance.setDescription("desc");
-        String expResult = "desc";
+
+        instance.setDescription("desc");  // set description
+        String expResult = "desc";  // expected description
+
+        // check if results are equal
         assertEquals(expResult, instance.description);
     }
 
@@ -170,8 +203,11 @@ class POITest {
     void setBuiltIn() {
         System.out.println("setBuiltIn()");
         POI instance = new POI(8103);
-        instance.setBuiltIn(true);
-        boolean expResult = true;
+
+        instance.setBuiltIn(true);  // set creator of POI
+        boolean expResult = true;  // expected builtIn or not
+
+        // check if results are equal
         assertEquals(expResult, instance.isBuiltIn);
     }
 
@@ -182,8 +218,11 @@ class POITest {
     void setPath() {
         System.out.println("setPath()");
         POI instance = new POI(8103);
-        instance.setPath("./maps/PAB0F");
-        String expResult = "./maps/PAB0F";
+
+        instance.setPath("./maps/PAB0F");  // set a path
+        String expResult = "./maps/PAB0F";  // expected path
+
+        // check if results are equal
         assertEquals(expResult, instance.path);
     }
 }

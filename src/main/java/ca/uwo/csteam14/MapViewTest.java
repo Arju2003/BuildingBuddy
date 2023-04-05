@@ -40,17 +40,21 @@ class MapViewTest {
     void identifyPOI() {
         System.out.println("identifyPOI()");
 
+        // initialize builtInPOI list
         Data data = new Data();
         LinkedList<POI> builtin = data.getBuiltInPOIs();
 
-        String floorName = "Ground Floor";
+        // crate values for a POI tha actually exists in builtInPOIs
+        String floorName = "MC0F";
         ArrayList<String> layerNames = new ArrayList<String>();
         layerNames.add("Restaurant");
         int x = 1717;
         int y = 628;
 
+        // create an insatnce of the MapView class on MC0F (where POI is located), and a dummy focal point
         MapView instance = new MapView("MC0F.png", new Point(1,2));
-        // Call the method and check the result
+
+        // Call the method and check if result is null
         POI result = instance.identifyPOI(floorName, layerNames, x, y);
         assertNotNull(result);
     }
