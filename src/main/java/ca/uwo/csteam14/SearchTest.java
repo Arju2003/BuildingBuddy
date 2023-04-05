@@ -38,11 +38,12 @@ class SearchTest {
     void searchResults() {
         System.out.println("searchResults()");
 
+        // initialize data class
         Data instance = new Data();
 
-        // create some POI objects with specific attributes
+        // create some test POIs
         POI poi1 = new POI(1);
-        poi1.setName("Bathroom");
+        poi1.setName("Grad Club");
         poi1.setCategory("Restrooms");
         poi1.setDescription("This is a bathroom");
         poi1.setMap("First Floor");
@@ -50,25 +51,25 @@ class SearchTest {
 
         POI poi2 = new POI(2);
         poi2.setName("Math Department");
-        poi2.setCategory("Academic Departments");
+        poi2.setCategory("Classroom");
         poi2.setDescription("The math department is located on the second floor");
         poi2.setMap("Second Floor");
         instance.builtInPOIs.add(poi2);
 
         POI poi3 = new POI(4000001);
-        poi3.setName("My House");
+        poi3.setName("My Location");
         poi3.setCategory("My Locations");
         poi3.setDescription("This is where I live");
         poi3.setMap("Home");
         instance.userCreatedPOIs.add(poi3);
 
         // test searching for a POI by name
-        LinkedList<POI> searchResults = Search.searchResults("Bathroom");
+        LinkedList<POI> searchResults = Search.searchResults("Grad Club");
         assertNotNull(searchResults);
         assertTrue(searchResults.contains(poi1));
 
         // test searching for a POI by category
-        searchResults = Search.searchResults("Academic Departments");
+        searchResults = Search.searchResults("Classroom");
         assertNotNull(searchResults);
         assertTrue(searchResults.contains(poi2));;
 
@@ -77,13 +78,13 @@ class SearchTest {
         assertNotNull(searchResults);
         assertTrue(searchResults.contains(poi2));
 
-        // test searching for a POI by map
+        // test searching for a POI by floor
         searchResults = Search.searchResults("First Floor");
         assertNotNull(searchResults);
         assertTrue(searchResults.contains(poi1));
 
         // test searching for a user-created POI
-        searchResults = Search.searchResults("My House");
+        searchResults = Search.searchResults("My Location");
         assertNotNull(searchResults);
         assertTrue(searchResults.contains(poi3));
     }

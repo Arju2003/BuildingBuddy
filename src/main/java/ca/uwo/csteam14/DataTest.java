@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +40,22 @@ class DataTest {
     void getLayerPOIs() {
         System.out.println("getLayerPOIs");
 
-        // FILL IN!!!
+        // Initialize test data
+        Data data = new Data();
+        LinkedList<POI> builtInPOIs = data.getBuiltInPOIs();
+        ArrayList<POI> expected = new ArrayList<>();
+        // fill in arraylist with POIs from thr Classroom Layer
+        for (POI poi : builtInPOIs) {
+            if (poi.category.equals("Classroom")) {
+                expected.add(poi);
+            }
+        }
+
+        System.out.println(expected.size());  // show how many POIs are in the classroom layer
+
+        // Call the method and check the result
+        ArrayList<POI> actual = data.getLayerPOIs("Ground Floor", "Classroom");
+        assertNotNull(actual);  // ensure POIs have been found with getLayerPOIs
     }
 
     /**
@@ -49,16 +65,17 @@ class DataTest {
     @Test
     void addPOI() {
         System.out.println("addPOI()");
+
         // Create a new POI object to add
         POI newPOI = new POI(4);
         newPOI.setName("test poi");
-        newPOI.setBuilding("Building A");
-        newPOI.setCode("B");
+        newPOI.setBuilding("Middlesex College");
+        newPOI.setCode("MC");
         newPOI.setFloor("Second Floor");
         newPOI.setRoomNumber(200);
-        newPOI.setCategory("Office");
-        newPOI.setDescription("New POI description");
-        newPOI.setMap("Map A");
+        newPOI.setCategory("Classroom");
+        newPOI.setDescription("desc");
+        newPOI.setMap("MC2F");
         newPOI.setX(300);
         newPOI.setY(500);
         newPOI.setBuiltIn(false);
@@ -79,9 +96,10 @@ class DataTest {
     void removePOI() throws IOException {
         System.out.println("removePOI()");
 
+        // initialize builtIn POI list
         Data.builtInPOIs = new LinkedList<>();
 
-        // Create a new POI object to add
+        // Create a new POI to add
         POI newPOI = new POI(4);
         newPOI.setName("test poi");
         newPOI.setBuilding("Building A");
@@ -168,6 +186,7 @@ class DataTest {
     void getPOI() {
         System.out.println("getPOI()");
 
+        // initialize POI lists
         Data instance = new Data();
         LinkedList<POI> builtInPOIs = new LinkedList<>();
         LinkedList<POI> userCreatedPOIs = new LinkedList<>();
@@ -197,12 +216,17 @@ class DataTest {
     @Test
     void containsPOI() {
         System.out.println("containsPOI()");
+
+        // create a dummy linked list
         LinkedList<POI> list = new LinkedList<>();
+        // add some test POIs
         POI poi1 = new POI(1);
         POI poi2 = new POI(2);
         POI poi3 = new POI(3);
         list.add(poi1);
         list.add(poi2);
+
+        // check if the POIs are contained in the list
         assertTrue(Data.containsPOI(list, poi1));
         assertTrue(Data.containsPOI(list, poi2));
         System.out.println(list.contains(poi3));
@@ -216,18 +240,21 @@ class DataTest {
     public void generatePOIID() {
         System.out.println("generatePOIID()");
 
+        // initialize POI lists
         Data.builtInPOIs = new LinkedList<>();
         Data.userCreatedPOIs = new LinkedList<>();
 
+        // add the POIs to builtIn
         Data.builtInPOIs.add(new POI(5000000));
         Data.builtInPOIs.add(new POI(5000001));
         Data.builtInPOIs.add(new POI(5000002));
 
+        // add the POIs to user created
         Data.userCreatedPOIs.add(new POI(4000000));
         Data.userCreatedPOIs.add(new POI(4000001));
         Data.userCreatedPOIs.add(new POI(4000002));
 
-        // Test for user creator
+        // Test for user created
         int expectedUserID = 4000003; // largest user POI ID is 4001000
         assertEquals(expectedUserID, Data.generatePOIID("user"));
 

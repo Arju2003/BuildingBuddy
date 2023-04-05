@@ -23,9 +23,12 @@ class LayerFilterTest {
     void isExistingLayerName() {
         System.out.println("isExisting(String layerName)");
 
+        // test if some layer exists
         LayerFilter.selectedLayers.clear();
         assertFalse(LayerFilter.isExisting("Labs"));
         LayerFilter.selectedLayers.add("Labs");
+
+        // check results
         assertTrue(LayerFilter.isExisting("Labs"));
     }
 
@@ -35,6 +38,8 @@ class LayerFilterTest {
     @org.junit.jupiter.api.Test
     void isExistingPOI() {
         System.out.println("isExisting(POI poi)");
+
+        // test if some POI exists in a selected layer
         LayerFilter.POIsOnSelectedLayer.clear();
         POI poi1 = new POI(123456);
         poi1.setX(100);
@@ -44,6 +49,8 @@ class LayerFilterTest {
         poi2.setY(200);
         assertFalse(LayerFilter.isExisting(poi1));
         LayerFilter.POIsOnSelectedLayer.add(poi1);
+
+        // check results
         assertTrue(LayerFilter.isExisting(poi1));
         assertFalse(LayerFilter.isExisting(poi2));
     }
@@ -54,6 +61,8 @@ class LayerFilterTest {
     @org.junit.jupiter.api.Test
     void getLayerIcon() {
         System.out.println("getLayerIcon()");
+
+        // create a layer and confirm its path
         String layer = "Classroom";
         String expResult = "./images/classroom.png";
         assertEquals(expResult, LayerFilter.getLayerIcon(layer));

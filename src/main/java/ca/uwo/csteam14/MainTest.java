@@ -43,9 +43,13 @@ class MainTest {
     void getOptimumPoint() {
         System.out.println("getOptimumPoint()");
 
+        // create instance of main
         Main instance = new Main();
-        Point result = instance.getOptimumPoint("MC");
-        Point expResult = new Point(1700, 700);
+
+        Point result = instance.getOptimumPoint("MC");  // call method
+        Point expResult = new Point(1700, 700);  // expected optimum point
+
+        // check if results are equal
         assertEquals(expResult, result);
     }
 
@@ -57,8 +61,11 @@ class MainTest {
         System.out.println("getFloorFullName()");
 
         Main instance = new Main();
-        String result = instance.getFloorFullName("MC0F");
-        String expResult = "Ground Floor";
+
+        String result = instance.getFloorFullName("MC0F");  // call method
+        String expResult = "Ground Floor";  // expected floor full name
+
+        // check if results are equal
         assertEquals(expResult, result);
     }
 
@@ -70,8 +77,11 @@ class MainTest {
         System.out.println("getBuildingFloorName()");
 
         Main instance = new Main();
-        String result = instance.getBuildingFullName("MC0F");
-        String expResult = "Middlesex College";
+
+        String result = instance.getBuildingFullName("MC0F");  // call method
+        String expResult = "Middlesex College";  // expected building full name
+
+        // check if results are equal
         assertEquals(expResult, result);
     }
 
@@ -82,14 +92,14 @@ class MainTest {
     void updateCurrent() {
         System.out.println("updateCurrent()");
 
-        // Create a POI object with a map attribute
+        // Create a POI with a map attribute
         POI poi = new POI(1);
         poi.setMap("MC1F.png");
 
-        // Call the method with the POI object
+        // Call the method with the POI
         Main.updateCurrent(poi);
 
-        // Check that the current building code and floor have been updated
+        // Check that the building code and floor have been updated
         assertEquals("MC", Main.currentBuildingCode);
         assertEquals("MC1F", Main.currentFloor);
     }
@@ -101,12 +111,15 @@ class MainTest {
     void getSecurityKey() {
         System.out.println("getSecurityKey()");
 
+        // create instance of main
         Main instance = new Main();
-        char[] result = instance.getSecurityKey();
-        char[] expResult = "CS2212BB".toCharArray();
 
+        char[] result = instance.getSecurityKey();  // call method to get the key
+        char[] expResult = "CS2212BB".toCharArray();  // expected key based on current security key in JSON file
+
+        // check results
         assertNotNull(result);
-        assertArrayEquals(expResult, result);
+        assertArrayEquals(expResult, result);  // char arrays should be equal
     }
 
     /**
@@ -118,7 +131,7 @@ class MainTest {
 
         Main instance = new Main();
 
-        // careful, this changes the security key
+        // careful, this changes the security key, cannot be run at the same time as getSecurityKey Test!!
         char[] newKey = "newkey".toCharArray();
         instance.changeSecurityKey(newKey);
 
