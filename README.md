@@ -35,7 +35,7 @@ Enter this mode by clicking **View** – **Bookmarks** or press `CTRL + B`. This
 Enter this mode by clicking **View** – **My Locations** or press `CTRL + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
 
 ## Discovery Mode
-Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a building + floor code shortcut (e.g. MC2F). Learn more in the FAQ section below.
+Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
 
 ## Focus Mode
 When managing bookmarks, My Locations, or viewing search results, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up. To view all the POIs on a floor map at once, use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
