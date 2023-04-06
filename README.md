@@ -73,7 +73,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 * Make sure you have the permission to write / execute related files when running the program.
 * In Exploration mode, you may see weird-looking icons. That's because when a location falling into several categories at the same time, its layer icons are stacked up. Try toggling off some layers if that's bothering you.
 * According to the project specifications, **not all labs and classrooms need to be shown in the app**. If you see a location missing from the map, it's not an issue with the program. The database simply does not include that location, but feel free to add it to the database using Developer Tool.
-* If you see a misidentified location (misplaced icons, wrong room numbers, wrong names, etc.), it's most likely to be typos in the database because our developers edited the json files manually. Feel free to correct them using Developer Tool (you can remove it and add it at the correct location with the correct information).
+* If you see a misidentified location (misplaced icons, wrong room numbers, wrong names, etc.), it's most likely to be typos in the database because our developers edited the JSON files manually. Feel free to correct them using Developer Tool (you can remove it and add it at the correct location with the correct information).
 * Since all functionalities were passed at the Acceptance Testing phase, we are confident in the quality of this app. **Please reach out to us immediately should you come across any critical issues.**
 
 ## FAQ
