@@ -29,23 +29,6 @@
       "mapY": 700,
       "built-in": true
     },
-
-    {
-      "POIId": 817,
-      "POIName": "Women's Washroom",
-      "building": "Kresge Building",
-      "buildingCode": "KB",
-      "floor": "Ground Floor",
-      "roomNumber": 17,
-      "category": "Washroom",
-      "description": "For women only.",
-      "map": "KB0F.png",
-      "mapX": 3050,
-      "mapY": 700,
-      "built-in": true
-    },
-
-
     {
       "POIId": 38002,
       "POIName": "Stairwell 2",
@@ -1000,22 +983,6 @@
       "built-in": true
     },
     {
-      "POIId": 9150,
-      "POIName": "PAB 150",
-      "building": "Physics & Astronomy Building",
-      "buildingCode": "PAB",
-      "floor": "First Floor",
-      "roomNumber": 150,
-      "category": "Classroom",
-      "description": "Listed in the Western Classroom Directory",
-      "map": "PAB1F.png",
-      "mapX": 1603,
-      "mapY": 1675,
-      "built-in": true
-    },
-
-
-    {
       "POIId": 7220,
       "POIName": "MC 220",
       "building": "Middlesex College",
@@ -1236,8 +1203,8 @@
       "category": "Classroom",
       "description": "Social Distancing Capacity: 50, Seating Capacity: 380, Room Type: Lecture, Seating Type: Theatre Tab Arm, Lectern: Portable, Writing Surfaces: 24-ft Horizontal Sliding Chalkboard; 8-ft Movable Chalkboard, Projection Screen(s): 10-ft Motorized (2), Window Treatment: Manual Curtains; Manual Blinds",
       "map": "MC1F.png",
-      "mapX": 1600,
-      "mapY": 700,
+      "mapX": 1815,
+      "mapY": 835,
       "built-in": true
     },
 

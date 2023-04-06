@@ -186,7 +186,7 @@ public class AppMenu {
                         
                         <h2>How can I create a location?</h2>
                         <p>As a user, you can only create a POI when you're in Exploration Mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
-                        <p>If you are viewing Bookmarks, My Locations, or search results, you cannot add a new POI. Those interfaces are designed to manage existing POIs.</p>
+                        <p>When the user is in Bookmark Manager, My Locations Manager, Search mode or Discovery mode, they cannot add new POIs. Those interfaces are designed to manage existing POIs.</p>
                         <p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
                         <hr>
                         
@@ -224,7 +224,7 @@ public class AppMenu {
                         <p>After you confirm your choice, the program will reboot automatically.</p>
                         <hr>
                         
-                        <h2>How can I activate "Discovery Mode" to see all the POIs on all the floors in all the buildings?</h2>
+                        <h2>Can I see all the POIs on all the floors in all the buildings?</h2>
                         <p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase in the text bar or clear it before hitting <b>Go</b>.</p>
                         <hr>
                         
@@ -238,15 +238,15 @@ public class AppMenu {
                         
                         <h2>I am a developer. Can I add / edit / delete POIs or browse floor maps the same way?</h2>
                         <p>Yes, you can. Here's a few tips for developers:
-                        <ol>
-                        <li>Select <b>More</b> – <b>Developer Tool</b> and enter the correct security key to activate Development Mode.</li>
-                        <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
-                        <li>You can only add, edit, or remove built-in POIs. </li>
-                        <li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>\s
-                        <li>You can still take advantage of the search bar to search for a specific POI and view a specific floor map (refer to the <i>MC2F</i> example above). </li>
-                        <li>For privacy concerns, developers cannot view the user's bookmarks or any non-built-in POIs.</li>
-                        <li>If you forget your security key, refer to the README file or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
-                        </ol>
+                       <ol>
+                       <li>Select <b>More</b> – <b>Developer Tool</b> (or hit <code>Ctrl + X</code>) and enter the correct security key to activate Development Mode.</li>
+                       <li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
+                       <li>You can only add, edit, or remove built-in POIs. </li>
+                       <li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>
+                       <li>You can still enter Discovery Mode or take advantage of the search bar and <i>building + floor code</i> shortcut (refer to the <b>MC2F</b> example above) to remain on a certain floor.</li>
+                       <li>Developers cannot view the user's bookmarks, search queries, or any non-built-in POIs.</li>
+                       <li>If you forget your security key, check <code>./data/security_key</code> or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
+                       </ol>
                         </p>
                         <hr>
                         
