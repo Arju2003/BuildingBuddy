@@ -19,7 +19,7 @@ If you try to run the `BuildingBuddy.jar` file, make sure it is located at the s
 ![Jar file](./images/jar.png)
 
 
-If you come across issues with dependencies, read the next section. To minimize issues you may encounter running the program, you are encouraged to read the ensuing content (including the FAQ section).
+If you come across issues with dependencies, read the next section. To minimize issues you may encounter running the program, you are encouraged to read the ensuing content (including the Caveats and FAQ sections).
 
 ## Dependencies
 Thanks to Maven, the program should load dependencies automatically. In case it doesn't, add dependencies on your own. All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
@@ -37,7 +37,7 @@ Enter this mode by clicking **View** – **Bookmarks** or press `Ctrl + B`. This
 Enter this mode by clicking **View** – **My Locations** or press `Ctrl + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
 
 ## Discovery Mode
-Enter this mode by clicking **Discovery** (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>) using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
+Enter this mode by clicking **Discover** (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>) using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
 
 ## Focus Mode
 In Bookmark Manager, My Locations Manager, Search Mode, and Discovery Mode, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up until you click. To unhighlight a POI, you may close the POI reader/editor by clicking **Cancel** or **[x]**, or simply clicking on the highlighted POI again. To view all the POIs on a floor map at once, click **Discover** in the menu or use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
@@ -67,6 +67,14 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 * **Consistency:** The program will remember the user's last choice of building and floor and last successful search query before they quit or restart.
 * **User-Centered Design:** For example, the POI editor provides default placeholder text and deletes it automatically on user input. When the user has input content, auto deletion will not be triggered.
 * **Sustainability:** Users and developers can check if there's a new version available and update their software in one click (or by pressing <code>Ctrl + U</code>).
+
+## Caveats
+* Depending on the operating system, parts of the interface may have a laggy response to mouse click events, especially when trying to delete an item (confirmation dialog doesn't pop up quickly or at all) or clicking on a POI from a list. The user is expected to try again in that case since **the software per se is well-designed**.
+* Make sure you have the permission to write / execute related files when running the program.
+* In Exploration mode, you may see weird-looking icons. That's because when a location falling into several categories at the same time, its layer icons are stacked up. Try toggling off some layers if that's bothering you.
+* According to the project specifications, **not all labs and classrooms need to be shown in the app**. If you see a location missing from the map, it's not an issue with the program. The database simply does not include that location, but feel free to add it to the database using Developer Tool.
+* If you see a misidentified location (misplaced icons, wrong room numbers, wrong names, etc.), it's most likely to be typos in the database because our developers edited the json files manually. Feel free to correct them using Developer Tool (you can remove it and add it at the correct location with the correct information).
+* Since all functionalities were passed at the Acceptance Testing phase, we are confident in the quality of this app. **Please reach out to us immediately should you come across any critical issues.**
 
 ## FAQ
 

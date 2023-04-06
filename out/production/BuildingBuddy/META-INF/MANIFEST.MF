@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ca.uwo.csteam14.Main
+Class-Path: ./
+

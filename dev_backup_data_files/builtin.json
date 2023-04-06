@@ -294,7 +294,35 @@
       "built-in": true
     },
 
+    {
+      "POIId": 914,
+      "POIName": "PAB 14",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 14,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB0F.png",
+      "mapX": 1206,
+      "mapY": 481,
+      "built-in": true
+    },
 
+    {
+      "POIId": 921,
+      "POIName": "PAB 21",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Ground Floor",
+      "roomNumber": 21,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB0F.png",
+      "mapX": 1631,
+      "mapY": 437,
+      "built-in": true
+    },
 
     {
       "POIId": 934,
@@ -434,6 +462,34 @@
       "map": "PAB2F.png",
       "mapX": 1443,
       "mapY": 718,
+      "built-in": true
+    },
+    {
+      "POIId": 9301,
+      "POIName": "PAB 301",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Third Floor",
+      "roomNumber": 301,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB3F.png",
+      "mapX": 750,
+      "mapY": 1625,
+      "built-in": true
+    },
+    {
+      "POIId": 9303,
+      "POIName": "PAB 303",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "Third Floor",
+      "roomNumber": 303,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB3F.png",
+      "mapX": 750,
+      "mapY": 1760,
       "built-in": true
     },
     {
@@ -936,8 +992,8 @@
       "category": "Classroom",
       "description": "Listed in the Western Classroom Directory",
       "map": "PAB1F.png",
-      "mapX": 1620,
-      "mapY": 1602,
+      "mapX": 799,
+      "mapY": 1694,
       "built-in": true
     },
     {
@@ -952,6 +1008,104 @@
       "map": "PAB1F.png",
       "mapX": 1032,
       "mapY": 891,
+      "built-in": true
+    },
+    {
+      "POIId": 9126,
+      "POIName": "PAB 126",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 126,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 807,
+      "mapY": 496,
+      "built-in": true
+    },
+    {
+      "POIId": 9127,
+      "POIName": "PAB 127",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 127,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 927,
+      "mapY": 496,
+      "built-in": true
+    },
+    {
+      "POIId": 9128,
+      "POIName": "PAB 128",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 128,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 1054,
+      "mapY": 496,
+      "built-in": true
+    },
+    {
+      "POIId": 913065,
+      "POIName": "PAB 130A",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 130,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 1189,
+      "mapY": 496,
+      "built-in": true
+    },
+    {
+      "POIId": 9130,
+      "POIName": "PAB 130",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 130,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 1326,
+      "mapY": 496,
+      "built-in": true
+    },
+    {
+      "POIId": 9134,
+      "POIName": "PAB 134",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 134,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 1683,
+      "mapY": 444,
+      "built-in": true
+    },
+    {
+      "POIId": 913465,
+      "POIName": "PAB 134A",
+      "building": "Physics & Astronomy Building",
+      "buildingCode": "PAB",
+      "floor": "First Floor",
+      "roomNumber": 134,
+      "category": "Lab",
+      "description": "Science Lab",
+      "map": "PAB1F.png",
+      "mapX": 1812,
+      "mapY": 400,
       "built-in": true
     },
     {
