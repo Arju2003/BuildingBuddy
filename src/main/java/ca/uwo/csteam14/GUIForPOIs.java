@@ -83,9 +83,27 @@ public class GUIForPOIs {
                         poi = Data.userCreatedPOIs.getFirst();
                 }
                 case "SRC" -> {
-                    GUIForPOIs.POIType = "Search & Discovery";
+                    GUIForPOIs.POIType = "Search Results";
                     GUIForPOIs.POIsGroup = POIsGroup;
                     poi = Search.firstResult;
+                }
+
+                case "DIS" -> {
+                    GUIForPOIs.POIType = "Discovery";
+                    GUIForPOIs.POIsGroup = POIsGroup;
+                    for (POI p2 : Data.builtInPOIs) {
+                        if ((p2.map.replaceAll(".png", "").equals(Main.currentFloor))) {
+                            poi = p2;
+                            break;
+                        }
+                    }
+                    if (poi == null)
+                        for (POI p2 : Data.userCreatedPOIs) {
+                            if ((p2.map.replaceAll(".png", "").equals(Main.currentFloor))) {
+                                poi = p2;
+                                break;
+                            }
+                        }
                 }
             }
 

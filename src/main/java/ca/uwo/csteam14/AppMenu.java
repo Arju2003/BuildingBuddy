@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+
 import static java.awt.Font.BOLD;
 
 /**
@@ -29,34 +31,81 @@ public class AppMenu {
 
         // Creates menubar layout.
         mb.setLayout(new FlowLayout());
-        // Creates two menus that contain menu items.
-        JMenu view = new JMenu("View");
-
-        JMenu more = new JMenu("More");
-
 
         // Creates menus and menu items and stylizes each of them.
         JMenu start = new JMenu("Start");
-        JMenuItem bookmarks = new JMenuItem("" +
-                "Bookmarks");
-        JMenuItem myLocations = new JMenuItem("" +
-                "My Locations");
-        JMenuItem checkForUpdates = new JMenuItem("" +
-                "Check for Updates");
-        JMenuItem developerTool = new JMenuItem("" +
-                "Developer Tool");
+        JMenu view = new JMenu("View");
+        JMenu discover = new JMenu("Discover");
+        JMenu more = new JMenu("More");
         JMenu help = new JMenu("Help");
         JMenu about = new JMenu("About");
         JMenu exit = new JMenu("Exit");
         JMenu weather = new JMenu("Weather");
         JMenu logout = new JMenu("Logout");
+
+        JMenuItem bookmarks = new JMenuItem("" +
+                "Bookmarks");
+        JMenuItem myLocations = new JMenuItem("" +
+                "My Locations");
+
+        // Menu items in Discovery Mode begin
+        JMenu mc = new JMenu("Middlesex College (MC)");
+        JMenu kb = new JMenu("Kresge Building (KB)");
+        JMenu pab = new JMenu("Physics & Astronomy Building (PAB)");
+        JMenuItem mc0f = new JMenuItem("" +
+                "Ground Floor (0F)");
+        mc0f.addActionListener(e -> discovery ("MC0F"));
+
+        JMenuItem mc1f = new JMenuItem("" +
+                "First Floor (1F)");
+        mc1f.addActionListener(e -> discovery("MC1F"));
+        JMenuItem mc2f = new JMenuItem("" +
+                "Second Floor (2F)");
+        mc2f.addActionListener(e -> discovery("MC2F"));
+        JMenuItem mc3f = new JMenuItem("" +
+                "Third Floor (3F)");
+        mc3f.addActionListener(e -> discovery("MC3F"));
+        JMenuItem mc4f = new JMenuItem("" +
+                "Fourth Floor (4F)");
+        mc4f.addActionListener(e -> discovery("MC4F"));
+        JMenuItem kb0f = new JMenuItem("" +
+                "Ground Floor (0F)");
+        kb0f.addActionListener(e -> discovery("KB0F"));
+        JMenuItem kb1f = new JMenuItem("" +
+                "First Floor (1F)");
+        kb1f.addActionListener(e -> discovery("KB1F"));
+        JMenuItem kb2f = new JMenuItem("" +
+                "Second Floor (2F)");
+        kb2f.addActionListener(e -> discovery("KB2F"));
+        JMenuItem kb3f = new JMenuItem("" +
+                "Third Floor (3F)");
+        kb3f.addActionListener(e -> discovery("KB3F"));
+        JMenuItem pab0f = new JMenuItem("" +
+                "Ground Floor (0F)");
+        pab0f.addActionListener(e -> discovery("PAB0F"));
+        JMenuItem pab1f = new JMenuItem("" +
+                "First Floor (1F)");
+        pab1f.addActionListener(e -> discovery("PAB1F"));
+        JMenuItem pab2f = new JMenuItem("" +
+                "Second Floor (2F)");
+        pab2f.addActionListener(e -> discovery("PAB2F"));
+        JMenuItem pab3f = new JMenuItem("" +
+                "Third Floor (3F)");
+        pab3f.addActionListener(e -> discovery("PAB3F"));
+        // Menu items in Discovery Mode end
+
+        JMenuItem checkForUpdates = new JMenuItem("" +
+                "Check for Updates");
+        JMenuItem developerTool = new JMenuItem("" +
+                "Developer Tool");
+
         JMenuItem changeKey = new JMenuItem("Change Security Key");
         JMenuItem nukeBookmarks = new JMenuItem("Nuke Bookmarks");
         JMenuItem nukeMyLocations = new JMenuItem("Nuke My Locations");
         JMenuItem nukeBuiltInPOIs = new JMenuItem("Nuke Built-In POIs");
         JMenuItem reset = new JMenuItem("Reset BuildingBuddy");
+
         // Adds ActionListener to menu buttons and menu items.
-        start.setVisible(true);
         start.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -114,7 +163,8 @@ public class AppMenu {
                         <hr>
                         
                         <h2>How can I get to a specific floor and see all the locations? (Building + Floor Code Shortcut)</h2>
-                        <p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
+                        <p>A straightforward way to view a specific floor will be using the </b>Discover</b> button in the app menu (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>). There you will be able to choose any floor you wish to visit.</p>
+                        <p>Alternatively, when you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
                         <p>A building code is a building abbreviation:
                         <ul>
                         <li><b>MC</b> for Middlesex College</li>
@@ -493,9 +543,13 @@ public class AppMenu {
         // Adds hotkey to this menu option.
         bookmarks.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
         // Links the menu option with My Location editor.
-        myLocations.addActionListener(e -> {clearWindows(); new GUIForPOIs("UDP"); GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – My Locations");});
+        myLocations.addActionListener(e -> {clearWindows(); new GUIForPOIs("UDP"); GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – My Locations Manager");});
         // Adds hotkey to this menu option.
         myLocations.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
+
+        view.setMnemonic('V');
+        discover.setMnemonic('D');
+        more.setMnemonic('M');
 
         // Links the menu option with software version display.
         checkForUpdates.addActionListener(e -> {
@@ -710,6 +764,22 @@ public class AppMenu {
         // Adds menu items to menu.
         view.add(bookmarks);
         view.add(myLocations);
+        discover.add(mc);
+        mc.add(mc0f);
+        mc.add(mc1f);
+        mc.add(mc2f);
+        mc.add(mc3f);
+        mc.add(mc4f);
+        discover.add(kb);
+        kb.add(kb0f);
+        kb.add(kb1f);
+        kb.add(kb2f);
+        kb.add(kb3f);
+        discover.add(pab);
+        pab.add(pab0f);
+        pab.add(pab1f);
+        pab.add(pab2f);
+        pab.add(pab3f);
         more.add(checkForUpdates);
         more.add(nukeBookmarks);
         more.add(nukeMyLocations);
@@ -719,6 +789,7 @@ public class AppMenu {
         // Adds menu to menu bar.
         mb.add(start);
         mb.add(view);
+        mb.add(discover);
         mb.add(weather);
         mb.add(help);
         mb.add(about);
@@ -728,7 +799,7 @@ public class AppMenu {
 
         // Sets the font, size, and color of each menu item.
         Font menuFont = new Font("Arial", Font.PLAIN, 18);
-        ArrayList<JMenu> itemArray = new ArrayList<>(Arrays.asList(start, view, weather, help, about, more, exit, logout));
+        ArrayList<JMenu> itemArray = new ArrayList<>(Arrays.asList(start, view, discover, weather, help, about, more, exit, logout));
         for (JMenu item : itemArray) {
             item.setFont(menuFont);
             item.setBorder(null);
@@ -775,7 +846,7 @@ public class AppMenu {
             });
         }
 
-        ArrayList<JMenuItem> menuItemArray = new ArrayList<>(Arrays.asList(bookmarks, myLocations, checkForUpdates,nukeBookmarks,nukeMyLocations,nukeBuiltInPOIs,reset,changeKey,developerTool));
+        ArrayList<JMenuItem> menuItemArray = new ArrayList<>(Arrays.asList(bookmarks, myLocations, mc, mc0f, mc1f, mc2f, mc3f, mc4f, kb,kb0f, kb1f, kb2f, kb3f, pab, pab0f, pab1f, pab2f,pab3f, checkForUpdates,nukeBookmarks,nukeMyLocations,nukeBuiltInPOIs,reset,changeKey,developerTool));
 
         for (JMenuItem elem : menuItemArray) {
             elem.setFont(menuFont);
@@ -813,5 +884,48 @@ public class AppMenu {
         }
     }
 
+    /**
+     *  This method is to update the POI list shown in the POI selector in Discovery Mode.
+     *
+     * @param buildingFloorCode a building and floor code in the format such as "MC0F"
+     */
+    public void discovery(String buildingFloorCode) {
+        buildingFloorCode = buildingFloorCode.toUpperCase();
+        // Updates the POI list to be shown
+        POISelector.currentCollection = new LinkedList<>();
+        for (POI targetPoi: Data.builtInPOIs) {
+            if (targetPoi.map.equalsIgnoreCase(buildingFloorCode + ".png"))
+                POISelector.currentCollection.add(targetPoi);
+        }
+        for (POI targetPoi: Data.userCreatedPOIs) {
+            if (targetPoi.map.equalsIgnoreCase(buildingFloorCode + ".png"))
+                POISelector.currentCollection.add(targetPoi);
+        }
+        if (POISelector.currentCollection != null) {
+            // Updates current cursors
+            Main.currentFloor = buildingFloorCode;
+            if (buildingFloorCode.contains("MC")) {
+                Main.currentFloor_MC = buildingFloorCode;
+                Main.currentBuildingCode = "MC";
+            }
+            else if (buildingFloorCode.contains("KB")) {
+                Main.currentFloor_KB = buildingFloorCode;
+                Main.currentBuildingCode = "KB";
+            }
+            else if (buildingFloorCode.contains("PAB")) {
+                Main.currentFloor_PAB = buildingFloorCode;
+                Main.currentBuildingCode = "PAB";
+            }
 
+            // Builds a GUI for discoveries
+            new GUIForPOIs("DIS");
+            // Updates the frame title
+            GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Discovery Mode");
+            // Updates search bar for user's convenience
+            Search.userInput = buildingFloorCode;
+            Search.successful = true;
+        }
+        // If no POIs can be shown, a hint pops up.
+        else POIEditor.resultDisplay("No POIs are found on this map!", Color.PINK);
+    }
 }

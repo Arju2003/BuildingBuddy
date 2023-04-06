@@ -250,7 +250,12 @@ public class MapView extends JPanel {
         }
 
         else if (mode.strip().equalsIgnoreCase("SRC")) {
-            g2d.setColor(new Color(255, 255,0 , 110));
+            g2d.setColor(new Color(8, 120,255 , 110));
+            g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
+        }
+
+        else if (mode.strip().equalsIgnoreCase("DIS")) {
+            g2d.setColor(new Color(255, 139,0 , 110));
             g2d.fillOval(x - highlightOvalWidth / 2, y - highlightOvalHeight / 2, highlightOvalWidth, highlightOvalHeight);
         }
 

@@ -1,23 +1,25 @@
 # _BuildingBuddy_ (Ver 1.0)
 
-<img src="./images/BB_icon.png"  width="30%">
+<img src="./images/BB_icon.png"  width="40%" alt="BuildingBuddy App Logo">
 
 ## Introduction
-_BuildingBuddy_ is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics & Astronomy Building. The entire development process started on January 25, 2023, and ended on April 6, 2023. Major coding work started on March 7, 2023.
+_BuildingBuddy_ is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics & Astronomy Building. The entire development process started on January 25, 2023, and ended on April 6, 2023. Major coding work started on March 7, 2023. _BuildingBuddy_ is developed by Team 14 enrolled in CompSci 2212B at Western University.
 
 ## Configurations
 _BuildingBuddy_ is a Maven project written in Java. The integrated development environment in use is IntelliJ IDEA, with OpenJDK 19 (Java version 19.0.2).
 
 For better user experience, set the display resolution to 1496 * 967 or higher.
 
-If you run from IntelliJ IDEA, the best way is to create a **New Project from Version Control**. Choose **Git** as your version control, and add **URL**: https://github.com/dan1el5/BuildingBuddy.git.
+If you run from IntelliJ IDEA, the easiest way to configure this app is to create a **New Project from Version Control**. Choose **Git** as your version control, and add **URL**: https://github.com/dan1el5/BuildingBuddy.git.
 
-If you try to run the `.jar` file, make sure the `.jar` file is located at the root directory together with the `data`, `maps`, and `images` folders.
+Alternatively, you may create a new project using all the source files and build the app yourself. Be sure to select `Java 19 SDK of 'BuildingBuddy' Module` and `ca.uwo.csteam14.Main` as the Main class.
+
+If you try to run the `BuildingBuddy.jar` file, make sure it is located at the same directory as the `data`, `maps`, and `images` folders (see screenshot below).
 
 ![Jar file](./images/jar.png)
 
 
-To minimize issues you may come across running the program, you are encouraged to read the ensuing content (including the FAQ section).
+If you come across issues with dependencies, read the next section. To minimize issues you may encounter running the program, you are encouraged to read the ensuing content (including the FAQ section).
 
 ## Dependencies
 Thanks to Maven, the program should load dependencies automatically. In case it doesn't, add dependencies on your own. All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
@@ -29,19 +31,19 @@ If you cannot locate them, you may also download the entire `lib` directory [her
 Enter this mode by clicking the **Explore** button from the splash screen (opening screen). This interface allows the user to both view existing POIs and create new POIs, which are called My Locations in this app.
 
 ## Bookmark Manager
-Enter this mode by clicking **View** – **Bookmarks** or press `CTRL + B`. This interface is designed to manage the user's favourite POIs (both built-in and user-created). Please note that the user cannot create new POIs in this mode.
+Enter this mode by clicking **View** – **Bookmarks** or press `Ctrl + B`. This interface is designed to manage the user's favourite POIs (both built-in and user-created). Please note that the user cannot create new POIs in this mode.
 
-## My Locations
-Enter this mode by clicking **View** – **My Locations** or press `CTRL + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
+## My Locations Manager
+Enter this mode by clicking **View** – **My Locations** or press `Ctrl + L`. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.
 
 ## Discovery Mode
-Enter this mode by using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
+Enter this mode by clicking **Discovery** (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>) using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.
 
 ## Focus Mode
-When managing bookmarks, My Locations, or viewing search results, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up. To view all the POIs on a floor map at once, use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
+In Bookmark Manager, My Locations Manager, Search Mode, and Discovery Mode, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up until you click. To unhighlight a POI, you may close the POI reader/editor by clicking **Cancel** or **[x]**, or simply clicking on the highlighted POI again. To view all the POIs on a floor map at once, click **Discover** in the menu or use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).
 
 ## Development Mode
-To activate Development Mode in _BuildingBuddy_, choose **More** – **Developer Tool** in the app, or press `CTRL+X`.
+To activate Development Mode in _BuildingBuddy_, choose **More** – **Developer Tool** in the app, or press `Ctrl + X`.
 
 Development Mode is accessible only with a security key. The initial security key is `CS2212BB` (case-sensitive). Since developers are allowed to change the security key, you are encouraged to check the newest security key stored in plain text in `./data/security_key`.
 
@@ -63,8 +65,8 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 * **Easy Reset:** Developers can choose to erase all the built-in data in one click.
 * **Change Password:** Developers can change their security key at any time.
 * **Consistency:** The program will remember the user's last choice of building and floor and last successful search query before they quit or restart.
-* **User-Centered Design:** For example, the POI editor provides default placeholder text and deletes it automatically on user input while retaining user input without triggering auto deletion.
-* **Sustainability:** Users and developers can check if there's a new version available and update their software in one click.
+* **User-Centered Design:** For example, the POI editor provides default placeholder text and deletes it automatically on user input. When the user has input content, auto deletion will not be triggered.
+* **Sustainability:** Users and developers can check if there's a new version available and update their software in one click (or by pressing <code>Ctrl + U</code>).
 
 ## FAQ
 
@@ -93,7 +95,8 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### How can I get to a specific floor and see all the locations? (Building + Floor Code Shortcut)
-<p>When you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
+<p>A straightforward way to view a specific floor will be using the **Discover** button in the app menu (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>). There you will be able to choose any floor you wish to visit.</p>
+<p>Alternatively, when you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
 <p>A building code is a building abbreviation:</p>
 <ul>
 <li><b>MC</b> for Middlesex College</li>
@@ -143,7 +146,7 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 <hr>
 
 ### Can I delete My Location?
-<p>Sure! You can do that! Just bear in mind that if you delete a My Location that has been bookmarked, you lose that bookmark too.</p>
+<p>Sure! You can do that! Just bear in mind that if you delete one of My Locations that has been bookmarked, you lose that bookmark too.</p>
 <hr>
 
 ### What are "Nuke Bookmarks", "Nuke My Locations", and "Reset BuildingBuddy"?

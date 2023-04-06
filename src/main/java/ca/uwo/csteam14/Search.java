@@ -22,10 +22,10 @@ public class Search {
     /** The first result returned */
     protected static POI firstResult = null;
     /** The default text in the search box before user searches */
-    private static final String defaultText = "Type to search, or click to discover →";
+    protected static String defaultText = "Type to search, or click to discover →";
 
     /** A boolean value indicates whether the user succeeded in getting any search results. */
-    private static boolean successful = false;
+    protected static boolean successful = false;
 
     /**
      * Constructs a Search object.
@@ -54,7 +54,7 @@ public class Search {
                 LinkedList<POI> pl = searchResults(userInput);
                 if (pl != null) {
                     new GUIForPOIs("SRC");
-                    GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Discovery Mode");
+                    GUI.frame.setTitle("BuildingBuddy by " + Main.developerName + " – Version " + Main.currentAppVersion + " – Search Results");
                     successful = true;
                     input.setText(userInput);
                 }

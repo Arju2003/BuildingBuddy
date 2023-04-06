@@ -22,7 +22,7 @@ public class POISelector extends JPanel {
      */
     protected JScrollPane scrollPane;
     /** The data list associated with the POI list. */
-    protected LinkedList<POI> currentCollection;
+    protected static LinkedList<POI> currentCollection;
     /**
      The currently focused POI.
      */
