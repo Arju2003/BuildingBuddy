@@ -22,8 +22,8 @@ If you try to run the `BuildingBuddy.jar` file, make sure it is located at the s
 If you come across issues with dependencies, read the next section. To minimize issues you may encounter running the program, you are encouraged to read the ensuing content (including the Caveats and FAQ sections).
 
 ## Dependencies
-Thanks to Maven, the program should load dependencies automatically. In case it doesn't, add dependencies on your own. All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
-If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) or from [GitHub](https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip) as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location. Refer to the screenshot below.
+Thanks to Maven, the program should load dependencies automatically in IntelliJ IDEA for macOS. In case it doesn't on your operating system, add dependencies on your own. All dependencies are stored locally in the `./lib` directory. Choose **File** – **Project Structure** – **Modules** – **Dependencies**, click the **+** icon, choose **JARs or Directories**, and add the entire `./lib` directory as dependencies.
+If you cannot locate them, you may also download the entire `lib` directory [here](https://jasonshew.ca/_silo/lib.zip) or from [GitHub](https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip) as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location. Refer to the screenshot below. If you have not installed an SDK / JDK, you should add one equivalent to `openjdk-19` or `amazon-corretto-19`.
 
 ![Add dependencies](./images/dependencies.png)
 
