@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>BuildingBuddy (Ver 1.0)</title>
+	</head>
+<body>
+<h1><em>BuildingBuddy</em> (Ver 1.0)</h1>
+
+<p><img src="./images/BB_icon.png"  width="40%" alt="BuildingBuddy App Logo"></p>
+
+<h2>Introduction</h2>
+
+<p><em>BuildingBuddy</em> is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics &amp; Astronomy Building. The entire development process started on January 25, 2023, and ended on April 6, 2023. Major coding work started on March 7, 2023. <em>BuildingBuddy</em> is developed by Team 14 enrolled in CompSci 2212B at Western University.</p>
+
+<h2>Configurations</h2>
+
+<p><em>BuildingBuddy</em> is a Maven project written in Java. The integrated development environment in use is IntelliJ IDEA, with OpenJDK 19 (Java version 19.0.2).</p>
+
+<p>For better user experience, set the display resolution to 1496 * 967 or higher.</p>
+
+<p>If you run from IntelliJ IDEA, the easiest way to configure this app is to create a <strong>New Project from Version Control</strong>. Choose <strong>Git</strong> as your version control, and add <strong>URL</strong>: https://github.com/dan1el5/BuildingBuddy.git.</p>
+
+<p>Alternatively, you may create a new project using all the source files and build the app yourself. Be sure to select <code>Java 19 SDK of &#39;BuildingBuddy&#39; Module</code> and <code>ca.uwo.csteam14.Main</code> as the Main class.</p>
+
+<p>If you try to run the <code>BuildingBuddy.jar</code> file, make sure it is located at the same directory as the <code>data</code>, <code>maps</code>, and <code>images</code> folders (see screenshot below).</p>
+
+<figure><img src="./images/jar.png" alt="Jar file"/><figcaption>Jar file</figcaption></figure>
+
+<p>If you come across issues with dependencies, read the next section. To minimize issues you may encounter running the program, you are encouraged to read the ensuing content (including the Caveats and FAQ sections).</p>
+
+<h2>Dependencies</h2>
+
+<p>Thanks to Maven, the program should load dependencies automatically in IntelliJ IDEA for macOS. In case it doesn&#39;t on your operating system, add dependencies on your own. All dependencies are stored locally in the <code>./lib</code> directory. Choose <strong>File</strong> – <strong>Project Structure</strong> – <strong>Modules</strong> – <strong>Dependencies</strong>, click the <strong>+</strong> icon, choose <strong>JARs or Directories</strong>, and add the entire <code>./lib</code> directory as dependencies.</p>
+
+<p>If you cannot locate them, you may also download the entire <code>lib</code> directory <a href="https://jasonshew.ca/_silo/lib.zip">here</a> or from <a href="https://github.com/dan1el5/BuildingBuddy/raw/master/dev_backup_data_files/lib.zip">GitHub</a> as a zip file. Unzip this downloaded file and add the entire folder as dependencies to the aforesaid location. Refer to the screenshot below. If you have not installed an SDK / JDK, you should add one equivalent to <code>openjdk-19</code> or <code>amazon-corretto-19</code>.</p>
+
+<figure><img src="./images/dependencies.png" alt="Add dependencies"/><figcaption>Add dependencies</figcaption></figure>
+
+<h2>Exploration Mode</h2>
+
+<p>Enter this mode by clicking the <strong>Explore</strong> button from the splash screen (opening screen). This interface allows the user to both view existing POIs and create new POIs, which are called My Locations in this app.</p>
+
+<h2>Bookmark Manager</h2>
+
+<p>Enter this mode by clicking <strong>View</strong> – <strong>Bookmarks</strong> or press <code>Ctrl + B</code>. This interface is designed to manage the user&#39;s favourite POIs (both built-in and user-created). Please note that the user cannot create new POIs in this mode.</p>
+
+<h2>My Locations Manager</h2>
+
+<p>Enter this mode by clicking <strong>View</strong> – <strong>My Locations</strong> or press <code>Ctrl + L</code>. This interface is designed to manage user-created POIs. Please note that the user cannot create new POIs in this mode.</p>
+
+<h2>Discovery Mode</h2>
+
+<p>Enter this mode by clicking <strong>Discover</strong> (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>) using the search bar located at the bottom left on all screens except the splash screen. The user can browse all the POIs across all the buildings or search for a specific POI. To view all POIs across the buildings, simply hit <b>Go</b>. The search bar will also take you to any floor when the search phrase is a <i>building + floor code</i> shortcut (e.g. MC2F). Learn more in the FAQ section below.</p>
+
+<h2>Focus Mode</h2>
+
+<p>In Bookmark Manager, My Locations Manager, Search Mode, and Discovery Mode, if the user clicks on any POI on the list, that highlighted POI will be the only POI shown on the screen. Despite that, the user can still click on other POIs on this map, even if their icons do not show up until you click. To unhighlight a POI, you may close the POI reader/editor by clicking <strong>Cancel</strong> or <strong>[x]</strong>, or simply clicking on the highlighted POI again. To view all the POIs on a floor map at once, click <strong>Discover</strong> in the menu or use the search bar with the <i>building + floor code</i> shortcut (see the FAQ section below).</p>
+
+<h2>Development Mode</h2>
+
+<p>To activate Development Mode in <em>BuildingBuddy</em>, choose <strong>More</strong> – <strong>Developer Tool</strong> in the app, or press <code>Ctrl + X</code>.</p>
+
+<p>Development Mode is accessible only with a security key. The initial security key is <code>CS2212BB</code> (case-sensitive). Since developers are allowed to change the security key, you are encouraged to check the newest security key stored in plain text in <code>./data/security_key</code>.</p>
+
+<p>This security key is designed to only prevent regular users from modifying the database accidentally.<br/></p>
+
+<p>To quit Development Mode, either click [X] or <strong>Exit</strong> to quit the entire program, or click <strong>Logout</strong> to restart the program as a regular user.</p>
+
+<h2>Special Features</h2>
+
+<ul>
+	<li><strong>Display:</strong> The GUI is programmed to occupy a fixed portion of screen estate regardless of screen size.</li>
+	<li><strong>Hotkey:</strong> Key features support hotkey commands for enhanced accessibility.</li>
+	<li><strong>Automatic Reboot:</strong> The app supports automatic rebooting (when user resets the app or developer chooses to log out).</li>
+	<li><strong>Advanced Search Tool:</strong> The advanced search tool returns search results matching against various types of metadata, even including descriptions.</li>
+	<li><strong>Restore Default Settings:</strong> Regular users can choose to reset the program to factory settings in one click.</li>
+	<li><strong>User Data Destruction:</strong> Regular users can choose to delete their entire bookmark collection or all POIs they have defined in one click.</li>
+	<li><strong>Real-Time Refreshing:</strong> When a POI is added, edited, or deleted, the data list and map viewer get synced and refreshed in real time.</li>
+	<li><strong>Responsive Design:</strong> The user editor features responsive design; it&#39;s more than just buttons and text fields juxtaposed with each other.</li>
+	<li><strong>Accessible Design:</strong> Albeit partially, the design of the program is accessibility-minded; </li>
+	<li><strong>Unlimited Data Capacity:</strong> Users and developers can create unlimited numbers of POIs in addition to existing built-in POIs.</li>
+	<li><strong>Easy Reset:</strong> Developers can choose to erase all the built-in data in one click.</li>
+	<li><strong>Change Password:</strong> Developers can change their security key at any time.</li>
+	<li><strong>Consistency:</strong> The program will remember the user&#39;s last choice of building and floor and last successful search query before they quit or restart.</li>
+	<li><strong>User-Centered Design:</strong> For example, the POI editor provides default placeholder text and deletes it automatically on user input. When the user has input content, auto deletion will not be triggered.</li>
+	<li><strong>Sustainability:</strong> Users and developers can check if there&#39;s a new version available and update their software in one click (or by pressing <code>Ctrl + U</code>).</li>
+</ul>
+
+<h2>Caveats</h2>
+
+<ul>
+	<li>Depending on the operating system, parts of the interface may have a laggy response to mouse click events, especially when trying to delete an item (confirmation dialog doesn&#39;t pop up quickly or at all) or clicking on a POI from a list. The user is expected to try again in that case since <strong>the software per se is well-designed</strong>.</li>
+	<li>Make sure you have the permission to write / execute related files when running the program.</li>
+	<li>In Exploration mode, you may see weird-looking icons. That&#39;s because when a location falling into several categories at the same time, its layer icons are stacked up. Try toggling off some layers if that&#39;s bothering you.</li>
+	<li>According to the project specifications, <strong>not all labs and classrooms need to be shown in the app</strong>. If you see a location missing from the map, it&#39;s not an issue with the program. The database simply does not include that location, but feel free to add it to the database using Developer Tool.</li>
+	<li>If you see a misidentified location (misplaced icons, wrong room numbers, wrong names, etc.), it&#39;s most likely to be typos in the database because our developers edited the JSON files manually. Feel free to correct them using Developer Tool (you can remove it and add it at the correct location with the correct information).</li>
+	<li>Since all functionalities were passed at the Acceptance Testing phase, we are confident in the quality of this app. <strong>Please reach out to us immediately should you come across any critical issues.</strong></li>
+</ul>
+
+<h2>FAQ</h2>
+
+<h3>What is a POI?</h3>
+
+<p>A POI is a point of interest, namely a location on the map.</p>
+<p><hr></p>
+
+<h3>What is a bookmark?</h3>
+
+<p>A bookmark is one of your favourite POIs that you hope to view conveniently at any time.</p>
+<p><hr></p>
+
+<h3>What is My Location?</h3>
+
+<p>My Location is a POI defined by the user, not a built-in POI.</p>
+<p><hr></p>
+
+<h3>How can I bookmark / unbookmark a location?</h3>
+
+<p>Click on any icon that represents a POI on the map and choose <b>Add Bookmark</b> or <b>Remove Bookmark</b> before pressing <b>Save Changes</b>.</p>
+<p><hr></p>
+
+<h3>How many My Locations are allowed to be created?</h3>
+
+<p>Currently, <i>BuildingBuddy</i> allows the user to create an unlimited number of POIs.</p>
+<p><hr></p>
+
+<h3>How can I explore another building?</h3>
+
+<p>Click <b>Start</b> in the menu on top and use the building selector underneath the app logo.</p>
+<p><hr></p>
+
+<h3>How can I get to a specific floor and see all the locations? (Building + Floor Code Shortcut)</h3>
+
+<p>A straightforward way to view a specific floor will be using the **Discover** button in the app menu (Windows user: <code>Alt + D</code>, Mac user: <code>control + option + D</code>). There you will be able to choose any floor you wish to visit.</p>
+<p>Alternatively, when you are not on the splash screen (the opening screen), you will see a search bar at the bottom left. Use the <i>building code + floor code</i> shortcut to explore any floor.</p>
+<p>A building code is a building abbreviation:</p>
+<ul>
+<li><b>MC</b> for Middlesex College</li>
+<li><b>KB</b> for Kresge Building</li>
+<li><b>PAB</b> for Physics & Astronomy Building</li>
+</ul>
+<p>A floor code is a single-digit number + F:</p>
+<ul>
+<li><b>0F</b> for ground floor</li>
+<li><b>1F</b> for first floor</li>
+<li><b>2F</b> for second floor</li>
+<li>...</li>
+</ul>
+<p>For example, if you want to visit the second floor at Middlesex College, just enter <b>MC2F</b> and click <b>Go</b> (or hit <code>Enter</code>).</p>
+<p>The search bar remembers your last successful search phrase, so you can simply click <b>Go</b> to stay on that floor.</p>
+<p><hr></p>
+
+<h3>How can I create a location?</h3>
+
+<p>As a user, you can only create a POI when you're in Exploration Mode (where you see a layer filter on the left). Click on any empty spot on the map. Edit the name and description for this location. Click <b>Save Changes</b> when you're done.</p>
+<p>When the user is in Bookmark Manager, My Locations Manager, Search mode or Discovery mode, they cannot add new POIs. Those interfaces are designed to manage existing POIs.</p>
+<p>You can add a POI by clicking <b>Start</b> in the menu and <b>Explore</b> the building where you hope to add a POI.</p>
+<p><hr></p>
+
+<h3>Why can&#39;t I edit the room numbers for My Locations?</h3>
+
+<p>Room numbers are currently not available for My Locations, but you can write room numbers and any useful information in the <b>Description</b> text box. What's cool, they are searchable!</p>
+<p><hr></p>
+
+<h3>Why do I see only washrooms and elevators in Exploration Mode?</h3>
+
+<p>The layer filter on the left panel shows only washrooms and accessible facilities by default. Click on other layers to see more categories of POIs. And yes, you can click on any layer again to toggle it off.</p>
+<p><hr></p>
+
+<h3>How to view or edit bookmarks?</h3>
+
+<p>Enter <b>View</b> – <b>Bookmarks</b>, or press <code>CTRL + B</code>.</p>
+<p><hr></p>
+
+<h3>How to view or edit My Locations?</h3>
+
+<p>Enter <b>View</b> – <b>My Locations</b>, or press <code>CTRL + L</code>.</p>
+<p><hr></p>
+
+<h3>How many bookmarks can I have?</h3>
+
+<p>A user can have as many bookmarks as they want.</p>
+<p><hr></p>
+
+<h3>Can I bookmark a &quot;My Location&quot;?</h3>
+
+<p>Sure! You can bookmark anything on any floor map.</p>
+<p><hr></p>
+
+<h3>Can I delete My Location?</h3>
+
+<p>Sure! You can do that! Just bear in mind that if you delete one of My Locations that has been bookmarked, you lose that bookmark too.</p>
+<p><hr></p>
+
+<h3>What are &quot;Nuke Bookmarks&quot;, &quot;Nuke My Locations&quot;, and &quot;Reset BuildingBuddy&quot;?</h3>
+
+<p>These three features will delete all your bookmarks, My Locations, and both. Your personalized data will be permanently erased, and the program will be restored to its default settings.</p>
+<p>If you only choose to nuke all My Locations, they will also disappear from your Bookmarks if you have bookmarked them.</p>
+<p>After you confirm your choice, the program will reboot automatically.</p>
+<p><hr></p>
+
+<h3>How can I activate &quot;Discovery Mode&quot; to see all the POIs on all the floors in all the buildings?</h3>
+
+<p>Use the search bar and click <b>Go</b> right away. You can either keep the placeholder phrase in the text bar or clear it before hitting <b>Go</b>.</p>
+<p><hr></p>
+
+<h3>Some of my bookmarks are gone unknowingly. Why?</h3>
+
+<p>Sorry about that! Our developers are updating this app regularly, so some POIs may have been deleted. When they no longer exist, they disappear from your Bookmarks too.</p>
+<p><hr></p>
+
+<h3>How to quit the application safely?</h3>
+
+<p>Click <b>Exit</b> from the main menu, or just hit <b>[X]</b> on top of the window.</p>
+<p><hr></p>
+
+<h3>I am a developer. Can I add / edit / delete POIs or browse floor maps the same way?</h3>
+
+<p>Yes, you can. Here's a few tips for developers:</p>
+<ol>
+<li>Select <b>More</b> – <b>Developer Tool</b> (or hit <code>Ctrl + X</code>) and enter the correct security key to activate Development Mode.</li>
+<li>You can exit Developer Tool by hitting <b>Logout</b>; you can also click <b>Exit</b> (or <b>[X]</b>) to quit the program.</li>
+<li>You can only add, edit, or remove built-in POIs. </li>
+<li>POI Name must not be empty; Room Number must be a positive integer; Category must be one of the following (case- and whitespace-sensitive): "Classroom","CompSci Spot", "Restaurant", "Lab", "Stairwell", "Elevator", "Entrance", "Exit", and "Washroom". If a facility is accessible, write in POI Description: "Accessible facility." Other notes also go to Description. (POI descriptions are searchable.)</li>
+<li>You can still enter Discovery Mode or take advantage of the search bar and <i>building + floor code</i> shortcut (refer to the <b>MC2F</b> example above) to remain on a certain floor.</li>
+<li>Developers cannot view the user's bookmarks, search queries, or any non-built-in POIs.</li>
+<li>If you forget your security key, check <code>./data/security_key</code> or shoot us an email at <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</li>
+</ol>
+<p><hr></p>
+
+<h3>I still need help!</h3>
+
+<p>If you need further help or have spotted incorrect information, feel free to write us: <a href="mailto:jason@shew.cc">jason@shew.cc</a>.</p>
+<p><hr></p>
+
+<h2>Developers</h2>
+
+<p>(in alphabetic order)</p>
+
+<ul>
+	<li>Arjuna Kadirgamar</li>
+	<li>Daniel Gomes</li>
+	<li>Jason Shew</li>
+	<li>Joshua Cini</li>
+	<li>Robert Beemer</li>
+</ul>
+
+<h2>Sources of Visuals</h2>
+
+<h3>Icons</h3>
+
+<ul>
+	<li>Bookmark – from icons8.com</li>
+	<li>Classroom – by Google Classroom</li>
+	<li>Lab – from freesvg.org</li>
+	<li>CompSci Spot – by 3Majors</li>
+	<li>Restaurant – from flaticon.com</li>
+	<li>Stairwell / Elevator – from emojipedia.org</li>
+	<li>Entrance / Exit – by freepik.com</li>
+	<li>My Location – from pngkit.com</li>
+	<li>Washroom – from flaticon.com</li>
+	<li>Accessibility – from pngitem.com</li>
+	<li>Help – from flaticon.com</li>
+	<li>Sorry – from flaticon.com</li>
+	<li>No Internet - from uxwing.com </li>
+	<li>BuddyBuilding Icon – by Jason Shew</li>
+</ul>
+
+<h3>Background Images</h3>
+
+<ul>
+	<li>Middlesex College – from Media Relations at UWO </li>
+	<li>Kresge Building – by Flickr user tpirie</li>
+	<li>Physics &amp; Astronomy Building – from Wikipedia</li>
+</ul>
+
+</body>
+</html>
+
