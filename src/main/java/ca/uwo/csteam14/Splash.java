@@ -436,17 +436,17 @@ public class Splash extends JPanel {
             // Navigate to the corresponding building
             switch (Objects.requireNonNull(selectedItem)) {
                 case "Middlesex College" -> {
-                    new GUI("MC");
+                    new GUI("MC", Main.getOptimumPoint("MC"));
                     Main.currentBuildingCode = "MC";
                     Main.currentFloor = Main.currentFloor_MC;
                 }
                 case "Kresge Building" -> {
-                    new GUI("KB");
+                    new GUI("KB", Main.getOptimumPoint("KB"));
                     Main.currentBuildingCode = "KB";
                     Main.currentFloor = Main.currentFloor_KB;
                 }
                 case "Physics & Astronomy Building" -> {
-                    new GUI("PAB");
+                    new GUI("PAB", Main.getOptimumPoint("PAB"));
                     Main.currentBuildingCode = "PAB";
                     Main.currentFloor = Main.currentFloor_PAB;
                 }

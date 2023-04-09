@@ -279,42 +279,44 @@ public class Data extends LinkedList<POI> {
         lst.removeIf(poi -> poi.isEqualTo(p));
         boolean result = lst.add(temp);
 
-        // write to user.json
-        JSONObject obj = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        for (POI data : lst) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("POIId", data.id);
-            jsonObject.put("POIName", data.name);
-            jsonObject.put("building", data.building);
-            jsonObject.put("buildingCode", data.code);
-            jsonObject.put("floor", data.floor);
-            jsonObject.put("roomNumber", data.roomNumber);
-            jsonObject.put("category", data.category);
-            jsonObject.put("description", data.description);
-            jsonObject.put("map", data.map);
-            jsonObject.put("mapX", data.positionX);
-            jsonObject.put("mapY", data.positionY);
-            jsonObject.put("built-in", data.isBuiltIn);
-            jsonArray.add(jsonObject);
-        }
+        if (result) {
+            // write to user.json
+            JSONObject obj = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            for (POI data : lst) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("POIId", data.id);
+                jsonObject.put("POIName", data.name);
+                jsonObject.put("building", data.building);
+                jsonObject.put("buildingCode", data.code);
+                jsonObject.put("floor", data.floor);
+                jsonObject.put("roomNumber", data.roomNumber);
+                jsonObject.put("category", data.category);
+                jsonObject.put("description", data.description);
+                jsonObject.put("map", data.map);
+                jsonObject.put("mapX", data.positionX);
+                jsonObject.put("mapY", data.positionY);
+                jsonObject.put("built-in", data.isBuiltIn);
+                jsonArray.add(jsonObject);
+            }
 
-        String filePath = "./data/";
-        if (lst == Data.userCreatedPOIs) {
-            obj.put("UserPOIs", jsonArray);
-            filePath += "user.json";
-        } else if (lst == Data.builtInPOIs) {
-            obj.put("BuiltInPOIs", jsonArray);
-            filePath += "builtin.json";
-        } else if (lst == Data.bookmarks) {
-            obj.put("Bookmarks", jsonArray);
-            filePath += "bookmarks.json";
-        }
+            String filePath = "./data/";
+            if (lst == Data.userCreatedPOIs) {
+                obj.put("UserPOIs", jsonArray);
+                filePath += "user.json";
+            } else if (lst == Data.builtInPOIs) {
+                obj.put("BuiltInPOIs", jsonArray);
+                filePath += "builtin.json";
+            } else if (lst == Data.bookmarks) {
+                obj.put("Bookmarks", jsonArray);
+                filePath += "bookmarks.json";
+            }
 
-        try (FileWriter file = new FileWriter(filePath)) {
-            file.write(obj.toJSONString());
-        } catch (IOException e) {
-            e.printStackTrace();
+            try (FileWriter file = new FileWriter(filePath)) {
+                file.write(obj.toJSONString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -332,56 +334,54 @@ public class Data extends LinkedList<POI> {
         Iterator<POI> iter = lst.iterator();
         while (iter.hasNext()) {
             POI poi = iter.next();
-            if (poi.isEqualTo(p)) {
+            if (p.isEqualTo(poi)) {
                 iter.remove();
                 count++;
             }
         }
+        boolean result = count > 0; // returns a value indicating the result of removal
 
-        boolean result = count > 0;
-
-
-        // In built linked list removal
-
-        JSONObject obj = new JSONObject();
-        // Create a new json array of json objects that hold objects from the linked list of POIs
-        JSONArray jsonArray = new JSONArray();
-        if (lst.size() > 0) {
-            for (POI data : lst) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("mapX", data.positionX);
-                jsonObject.put("mapY", data.positionY);
-                jsonObject.put("POIName", data.name);
-                jsonObject.put("POIId", data.id);
-                jsonObject.put("map", data.map);
-                jsonObject.put("description", data.description);
-                jsonObject.put("category", data.category);
-                jsonObject.put("buildingCode", data.code);
-                jsonObject.put("floor", data.floor);
-                jsonObject.put("building", data.building);
-                jsonObject.put("built-in", data.isBuiltIn);
-                jsonObject.put("roomNumber", data.roomNumber);
-                jsonArray.add(jsonObject);
+        if (result) {
+            JSONObject obj = new JSONObject();
+            // Create a new json array of json objects that hold objects from the linked list of POIs
+            JSONArray jsonArray = new JSONArray();
+            if (lst.size() > 0) {
+                for (POI data : lst) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("mapX", data.positionX);
+                    jsonObject.put("mapY", data.positionY);
+                    jsonObject.put("POIName", data.name);
+                    jsonObject.put("POIId", data.id);
+                    jsonObject.put("map", data.map);
+                    jsonObject.put("description", data.description);
+                    jsonObject.put("category", data.category);
+                    jsonObject.put("buildingCode", data.code);
+                    jsonObject.put("floor", data.floor);
+                    jsonObject.put("building", data.building);
+                    jsonObject.put("built-in", data.isBuiltIn);
+                    jsonObject.put("roomNumber", data.roomNumber);
+                    jsonArray.add(jsonObject);
+                }
             }
-        }
 
-        String filePath = "./data/";
-        if (lst == Data.userCreatedPOIs) {
-            obj.put("UserPOIs", jsonArray);
-            filePath += "user.json";
-        } else if (lst == Data.builtInPOIs) {
-            obj.put("BuiltInPOIs", jsonArray);
-            filePath += "builtin.json";
-        } else if (lst == Data.bookmarks) {
-            obj.put("Bookmarks", jsonArray);
-            filePath += "bookmarks.json";
-        }
-        // Write the Json file
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-            fileWriter.write(obj.toJSONString());
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+            String filePath = "./data/";
+            if (lst == Data.userCreatedPOIs) {
+                obj.put("UserPOIs", jsonArray);
+                filePath += "user.json";
+            } else if (lst == Data.builtInPOIs) {
+                obj.put("BuiltInPOIs", jsonArray);
+                filePath += "builtin.json";
+            } else if (lst == Data.bookmarks) {
+                obj.put("Bookmarks", jsonArray);
+                filePath += "bookmarks.json";
+            }
+            // Write the Json file
+            try (FileWriter fileWriter = new FileWriter(filePath)) {
+                fileWriter.write(obj.toJSONString());
+                fileWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -506,7 +506,7 @@ public class Data extends LinkedList<POI> {
                 POI poi = new POI(iter.next());
                 iter.remove();
                 if (Data.containsPOI(bookmarks, poi))
-                    Data.removePOI(poi, bookmarks);
+                    Data.removePOI(poi, bookmarks); // deletes bookmarked POIs
             }
         } else {
             while (iter.hasNext()) {
@@ -514,8 +514,8 @@ public class Data extends LinkedList<POI> {
                 iter.remove();
             }
         }
-            boolean result = lst.size() == 0;
-
+        boolean result = lst.size() == 0;
+        if (result) {
             JSONObject obj = new JSONObject();
             // Creates a new json array of json objects that hold objects from the linked list of POIs
             JSONArray jsonArray = new JSONArray();
@@ -538,7 +538,8 @@ public class Data extends LinkedList<POI> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return result;
+        }
+        return result;
     }
 
     /**

@@ -17,7 +17,7 @@ import static javax.swing.SwingConstants.*;
 public class POIEditor extends JDialog {
 
     /** The editor implemented as a JDialog object. */
-    private  final JDialog editor = new JDialog();
+    private final JDialog editor = new JDialog();
 
     /** A boolean value to detect if a POI is saved after editing. */
     protected static boolean isSaved = false;
@@ -272,13 +272,21 @@ public class POIEditor extends JDialog {
                 isSaved = true;
                 resultDisplay("Saved successfully!", Color.GREEN);
                 editor.dispose();
-                POISelector.focus = poi;
-                Main.updateCurrent(poi);
                 if(GUI.frame.getContentPane() == (GUIForPOIs.secondary)) { // refreshes the map viewer
                     new GUIForPOIs(GUIForPOIs.POIsGroup);
+                    try {
+                        LayerFilter.showAllLayers();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
-                else {
-                    new GUI(Main.currentBuildingCode);
+                else if (GUI.frame.getContentPane() == (GUI.canvas)){
+                    new GUI(poi.code, new Point(poi.positionX, poi.positionY));
+                    try {
+                        LayerFilter.refreshLayers();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
             else {
@@ -314,35 +322,35 @@ public class POIEditor extends JDialog {
             deletionAlertPanel.add(message);
             JButton cancel = new JButton("Continue Editing");
             cancel.setEnabled(true);
-            deletionAlert.setLocationRelativeTo(editor);
             cancel.addActionListener(e2-> {
                 deletionAlert.setVisible(false);
                 editor.setVisible(true);
             });
             JButton confirm = new JButton("Confirm Deletion");
             // Defines the behaviours of the delete button
+
             confirm.addActionListener(e3-> {
                 boolean result; // a boolean value to check if deletion is successful
                 if (Main.devMode) {  // In Dev Mode, removes built-in POIs
                     try {
-                        result = Data.removePOI(poi, Data.builtInPOIs);
+                        result = Data.removePOI(POISelector.focus, Data.builtInPOIs);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                     try { // if a POI is bookmarks, deletes that bookmark too
-                        Data.removePOI(poi, Data.bookmarks);
+                        Data.removePOI(POISelector.focus, Data.bookmarks);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
                 else { // For regular users
                     try {
-                        result = Data.removePOI(poi, Data.userCreatedPOIs); // Deletes My Location (user-created POI)
+                        result = Data.removePOI(POISelector.focus, Data.userCreatedPOIs); // Deletes My Location (user-created POI)
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                     try { // if a POI is bookmarks, deletes that bookmark too
-                        Data.removePOI(poi, Data.bookmarks);
+                        Data.removePOI(POISelector.focus, Data.bookmarks);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -350,11 +358,28 @@ public class POIEditor extends JDialog {
                 if (result) { // If deletion is successful, then gives user a message, updates system's current POI cursor
                     resultDisplay("Successfully deleted!",Color.GREEN);
                     MapView.cancelHighlight();
+                    if(GUI.frame.getContentPane() == (GUIForPOIs.secondary)) { // refreshes the map viewer
+                        new GUIForPOIs(GUIForPOIs.POIsGroup);
+                        try {
+                            LayerFilter.showAllLayers();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    else if (GUI.frame.getContentPane() == (GUI.canvas)){
+                        new GUI(poi.code, new Point(poi.positionX, poi.positionY));
+                        try {
+                            LayerFilter.refreshLayers();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
                 }
                 else {
-                    resultDisplay("Oops... Be careful!",Color.PINK);
+                    resultDisplay("Oops... You can't do that!",Color.PINK);
                 }
-                new GUIForPOIs(GUIForPOIs.POIsGroup); // Refreshes the map viewer
+                if (GUI.frame.getContentPane() == GUIForPOIs.secondary) new GUIForPOIs(GUIForPOIs.POIsGroup); // Refreshes the map viewer
+                else if (GUI.frame.getContentPane() == GUI.canvas) new GUI(poi.code, new Point(poi.positionX,poi.positionY));
                 deletionAlert.setVisible(false);
                 editor.dispose();
             });
@@ -509,8 +534,8 @@ public class POIEditor extends JDialog {
             Main.updateCurrent(poi); // Updates system's POI cursors
             MapView.cancelHighlight(); // Cancels highlighting
         });
-        closeButton.setFocusTraversalKeysEnabled(true);
-        editor.getRootPane().setDefaultButton(closeButton);
+        //closeButton.setFocusTraversalKeysEnabled(true);
+        //editor.getRootPane().setDefaultButton(closeButton);
         editor.add(closeButton, BorderLayout.SOUTH);
 
         // Packs the editor.

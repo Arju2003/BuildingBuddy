@@ -209,7 +209,7 @@ public class POI {
      * @return a boolean value indicating whether the POIs are determined to be equal
      */
     public boolean isEqualTo(POI p) {
-        return (this.id == p.id || (this.map.equals(p.map) && (this.positionX <= p.positionX + 48 && this.positionX >= p.positionX && this.positionY <= p.positionY + 48 && this.positionY >= p.positionY) && (this.isBuiltIn == p.isBuiltIn)));
+        return (this.id == p.id || (this.map.equals(p.map) && (this.positionX <= p.positionX + LayerFilter.iconWidth && this.positionX >= p.positionX && this.positionY <= p.positionY + LayerFilter.iconHeight && this.positionY >= p.positionY) && (this.isBuiltIn == p.isBuiltIn)));
     }
 
 

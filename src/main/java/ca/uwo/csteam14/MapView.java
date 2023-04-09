@@ -24,7 +24,7 @@ public class MapView extends JPanel {
     /** The dimension of the map image. */
     private static int imageWidth, imageHeight;
     /** The focal point of view, typically where a highlighted POI is. */
-    private final Point focalPoint;
+    protected static Point focalPoint = null;
 
     /** The POI that is currently highlighted. */
     protected static POI currentHighlighted;
@@ -40,9 +40,9 @@ public class MapView extends JPanel {
      * Constructs a new MapView with the given map image file name and focal point.
      *
      * @param mapFileName the file name of the map image
-     * @param focalPoint the focal point of the map view
+     * @param focus the focal point of the map view
      */
-    public MapView(String mapFileName, Point focalPoint) {
+    public MapView(String mapFileName, Point focus) {
         try {
             mapImage = ImageIO.read(new File("./maps/" + mapFileName)); // load the map image from file
             imageWidth = mapImage.getWidth();
@@ -50,7 +50,7 @@ public class MapView extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.focalPoint = focalPoint; // Sets the focal point of the map view
+        focalPoint = focus; // Sets the focal point of the map view
 
         // Sets the layout of the panel to overlay
         setLayout(new OverlayLayout(this));
@@ -82,8 +82,8 @@ public class MapView extends JPanel {
 
         // Set the position of the map view within the scroll pane
         Dimension viewportSize = viewport.getViewSize(); // get the size of the viewport
-        int x = focalPoint.x - viewportSize.width / 8; // calculate the x position to display in the center of the viewport
-        int y = focalPoint.y - viewportSize.height / 4; // calculate the y position to display in the center of the viewport
+        int x = focus.x - viewportSize.width / 8; // calculate the x position to display in the center of the viewport
+        int y = focus.y - viewportSize.height / 4; // calculate the y position to display in the center of the viewport
         viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
 
@@ -98,9 +98,9 @@ public class MapView extends JPanel {
      * Constructs a new MapView with a given buffered map image and a focal point.
      *
      * @param bufferedMap the buffered map image to display
-     * @param focalPoint the point to focus the map on
+     * @param focus the point to focus the map on
      */
-    public MapView(BufferedImage bufferedMap, Point focalPoint) {
+    public MapView(BufferedImage bufferedMap, Point focus) {
         mapImage = bufferedMap;
         try {
             imageWidth = mapImage.getWidth();
@@ -108,7 +108,7 @@ public class MapView extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.focalPoint = focalPoint;
+        focalPoint = focus;
         setLayout(new OverlayLayout(this));
         if (GUI.frame.getContentPane().equals(GUIForPOIs.secondary)) {
             ArrayList<String> allLayers = LayerFilter.labelArray;
@@ -135,8 +135,8 @@ public class MapView extends JPanel {
         // Gets the size of the viewport
         Dimension viewportSize = viewport.getViewSize();
         // Calculates the position to display in the center of the viewport
-        int x = focalPoint.x - viewportSize.width / 8;
-        int y = focalPoint.y - viewportSize.height / 4;
+        int x = focus.x - viewportSize.width / 8;
+        int y = focus.y - viewportSize.height / 4;
         viewport.setViewPosition(new Point(x, y));
         scrollPane.setViewport(viewport);
         if (GUI.frame.getContentPane() instanceof Canvas)
@@ -308,6 +308,8 @@ public class MapView extends JPanel {
              * @param e the MouseEvent containing information about the click
              */
             public void mouseClicked(MouseEvent e) {
+                focalPoint.x = e.getX();
+                focalPoint.y =e.getY();
                 // Detects if there is an existing POI where the mouse click event occurs
                 POI p = identifyPOI(currentFloor, layerNames,e.getX(), e.getY());
                 // If the POI exists, then highlights it and opens a reader / editor to read / modify the POI
@@ -400,11 +402,10 @@ public class MapView extends JPanel {
     public POI identifyPOI(String floorName, ArrayList<String> layerNames, int x, int y) {
         ArrayList<POI> list = new ArrayList<>();
         for (String s: layerNames) {
-            if (!s.contains("Bookmarks")) // Bookmarks are never shown because they are duplicates of existing POIs
-                if (Main.devMode && !s.contains("My Locations")) // In dev mode, My Locations are not shown
-                    list.addAll(Data.getLayerPOIs(floorName, s));
-                else if (!Main.devMode)
-                    list.addAll(Data.getLayerPOIs(floorName, s));
+            if (Main.devMode && (!s.contains("My Locations") || !s.contains("Bookmarks"))) // In dev mode, My Locations and bookmarks are not shown
+                list.addAll(Data.getLayerPOIs(floorName, s));
+            else if (!Main.devMode)
+                list.addAll(Data.getLayerPOIs(floorName, s));
         }
         for (POI p : list) {
             if (x <= p.positionX + LayerFilter.iconWidth && x >= p.positionX - LayerFilter.iconWidth && y <= p.positionY + LayerFilter.iconHeight && y >= p.positionY - LayerFilter.iconHeight)

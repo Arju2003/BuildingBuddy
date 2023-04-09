@@ -897,9 +897,11 @@ public class AppMenu {
             if (targetPoi.map.equalsIgnoreCase(buildingFloorCode + ".png"))
                 POISelector.currentCollection.add(targetPoi);
         }
-        for (POI targetPoi: Data.userCreatedPOIs) {
-            if (targetPoi.map.equalsIgnoreCase(buildingFloorCode + ".png"))
-                POISelector.currentCollection.add(targetPoi);
+        if (!Main.devMode) {
+            for (POI targetPoi : Data.userCreatedPOIs) {
+                if (targetPoi.map.equalsIgnoreCase(buildingFloorCode + ".png"))
+                    POISelector.currentCollection.add(targetPoi);
+            }
         }
         if (POISelector.currentCollection != null) {
             // Updates current cursors

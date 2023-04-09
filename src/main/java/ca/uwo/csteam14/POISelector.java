@@ -36,11 +36,13 @@ public class POISelector extends JPanel {
      * @param POIsGroup a string indicating the group of POIs to display
      */
     public POISelector(String POIsGroup) {
+        new Data();
         switch (POIsGroup) {
             case "UDP" -> currentCollection = Data.userCreatedPOIs;
             case "BMK" -> currentCollection = Data.bookmarks;
             case "BIP" -> currentCollection = Data.builtInPOIs;
             case "SRC" -> currentCollection = Search.searchResults(Search.userInput);
+            case "DIS" -> currentCollection = Search.searchResults(Main.currentFloor);
         }
 
         ArrayList<String> items = new ArrayList<>();
@@ -62,19 +64,15 @@ public class POISelector extends JPanel {
 
             // Defines the behaviour of the selector
             itemList.addListSelectionListener(e -> {
+                // Sets the first POI on the list as focus if mouse has not clicked on any POI
+                focus = currentCollection.get(itemList.getSelectedIndex());
+                // If the mouse has clicked on a POI then it becomes the focus
+                MapView.currentHighlighted = focus;
+                // Restores mouse click status
+                MapView.mouseClickedOnPOI = true;
                 if (!e.getValueIsAdjusting()) {
                     try {
-                        if (!MapView.mouseClickedOnPOI)
-                            // Sets the first POI on the list as focus if mouse has not clicked on any POI
-                            focus = currentCollection.get(itemList.getSelectedIndex());
-                        else {
-                            // If the mouse has clicked on a POI then it becomes the focus
-                            focus = MapView.currentHighlighted;
-                            // Restores mouse click status
-                            MapView.mouseClickedOnPOI = false;
-                        }
-                        // If in Dev Mode, shows all layers.
-                        if (Main.devMode) LayerFilter.showAllLayers();
+                        LayerFilter.showAllLayers();
                         // If there exists a focus POI, updates the current POI of the whole system, and creates a GUI to highlight that POI
                         if (focus != null) {
                             Main.updateCurrent(focus);

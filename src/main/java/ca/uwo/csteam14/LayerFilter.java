@@ -144,6 +144,8 @@ public class LayerFilter extends JPanel {
 
         for (JCheckBox checkbox : checkboxes) {
             checkbox.setFont(regularFont);
+            if (selectedLayers.contains(checkbox.getText()))
+                checkbox.setSelected(true);
             if (Main.currentBuildingCode.contains("MC"))
                 checkboxPanel.add(checkbox);
             else if (!checkbox.getText().contains("CompSci Spots"))

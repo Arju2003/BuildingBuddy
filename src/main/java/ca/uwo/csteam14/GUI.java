@@ -34,7 +34,7 @@ public class GUI {
      * Constructor for the GUI class
      * @param buildingCode The code of the building
      */
-    public GUI(String buildingCode) {
+    public GUI(String buildingCode, Point point) {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -52,22 +52,22 @@ public class GUI {
                     case "KB" -> {
                         canvas = new Canvas("./images/KB_hero.png");
                         buildingName.setText("Kresge Building (KB)");
-                        mapView = new MapView(Main.currentFloor_KB + ".png", Main.getOptimumPoint(buildingCode));
+                        mapView = new MapView(Main.currentFloor_KB + ".png", point);
                     }
                     case "MC" -> {
                         canvas = new Canvas("./images/MC_hero.png");
                         buildingName.setText("Middlesex College (MC)");
-                        mapView = new MapView(Main.currentFloor_MC + ".png", Main.getOptimumPoint(buildingCode));
+                        mapView = new MapView(Main.currentFloor_MC + ".png", point);
                     }
                     case "PAB" -> {
                         canvas = new Canvas("./images/PAB_hero.png");
                         buildingName.setText("Physics & Astronomy Building (PAB)");
-                        mapView = new MapView(Main.currentFloor_PAB + ".png", Main.getOptimumPoint(buildingCode));
+                        mapView = new MapView(Main.currentFloor_PAB + ".png", point);
                     }
                     default -> {
                         canvas = new Canvas("./images/MC_hero.png");
                         buildingName.setText("Middlesex College (MC)");
-                        mapView = new MapView("MC0F.png", Main.getOptimumPoint(buildingCode));
+                        mapView = new MapView("MC0F.png", Main.getOptimumPoint("MC"));
                     }
                 }
             } catch (IOException exp) {
