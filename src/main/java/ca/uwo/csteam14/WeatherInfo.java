@@ -40,7 +40,7 @@ public class WeatherInfo {
 
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(78,37,130,80));
+        panel.setBackground(new Color(209, 204, 255,200));
         panel.setOpaque(true);
         JLabel weatherIcon = new JLabel();
         panel.add(weatherIcon);

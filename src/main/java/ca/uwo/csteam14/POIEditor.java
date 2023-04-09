@@ -367,7 +367,7 @@ public class POIEditor extends JDialog {
                         }
                     }
                     else if (GUI.frame.getContentPane() == (GUI.canvas)){
-                        new GUI(poi.code, new Point(poi.positionX, poi.positionY));
+                        new GUI(POISelector.focus.code, new Point(POISelector.focus.positionX, POISelector.focus.positionY));
                         try {
                             LayerFilter.refreshLayers();
                         } catch (IOException ex) {
@@ -378,8 +378,6 @@ public class POIEditor extends JDialog {
                 else {
                     resultDisplay("Oops... You can't do that!",Color.PINK);
                 }
-                if (GUI.frame.getContentPane() == GUIForPOIs.secondary) new GUIForPOIs(GUIForPOIs.POIsGroup); // Refreshes the map viewer
-                else if (GUI.frame.getContentPane() == GUI.canvas) new GUI(poi.code, new Point(poi.positionX,poi.positionY));
                 deletionAlert.setVisible(false);
                 editor.dispose();
             });
@@ -534,8 +532,8 @@ public class POIEditor extends JDialog {
             Main.updateCurrent(poi); // Updates system's POI cursors
             MapView.cancelHighlight(); // Cancels highlighting
         });
-        //closeButton.setFocusTraversalKeysEnabled(true);
-        //editor.getRootPane().setDefaultButton(closeButton);
+        closeButton.setFocusTraversalKeysEnabled(true);
+        editor.getRootPane().setDefaultButton(closeButton);
         editor.add(closeButton, BorderLayout.SOUTH);
 
         // Packs the editor.

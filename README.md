@@ -5,7 +5,63 @@
 ## Introduction
 _BuildingBuddy_ is a desktop indoor navigation app designed to help students at Western University navigate through different floors in three buildings: Middlesex College, Kresge Building, and Physics & Astronomy Building. The entire development process started on January 25, 2023, and ended on April 6, 2023. Major coding work started on March 7, 2023. _BuildingBuddy_ is developed by Team 14 enrolled in CompSci 2212B at Western University.
 
+## File Structure
+
+The file structure (after unzipping) is as follows:
+
+    ./BuildingBuddy (root directory)
+
+        |--BuildingBuddy.jar (executable)
+
+        |--lib (dependencies)
+
+        |--data (essential data files)
+
+        |--dev_backup_data_files (do not modify)
+
+        |--maps (floor map images)
+
+        |--images (other images)
+
+        |--Javadoc
+
+        |--css (for Javadoc)
+
+        |--README.md
+
+        |--README.html
+
+        |--pom.xml (Maven)
+
+        |--src
+
+            |--main
+
+                |--java
+
+                    |--ca
+
+                        |--uwo
+
+                            |--csteam14 (source code)
+
+                |--resources
+
+                    |--META-INF
+
+                        |--MANIFEST.MF
+
+        |--out
+
+        |--target
+
+        |--BuildingBuddy.iml
+
+
+
+
 ## Configurations
+
 _BuildingBuddy_ is a Maven project written in Java. The integrated development environment in use is IntelliJ IDEA, with OpenJDK 19 (Java version 19.0.2).
 
 For better user experience, set the display resolution to 1496 * 967 or higher.
