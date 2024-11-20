@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # _BuildingBuddy_ (Ver 1.0)
 
 <img src="./images/BB_icon.png"  width="40%" alt="BuildingBuddy App Logo">
@@ -283,3 +284,6 @@ To quit Development Mode, either click [X] or **Exit** to quit the entire progra
 * Physics & Astronomy Building – from Wikipedia
 
 
+=======
+# BuildingBuddy
+>>>>>>> 9a644a3a47c92a2adad7aceeebb89a45ae0a523d
